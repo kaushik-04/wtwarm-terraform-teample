@@ -1,0 +1,52 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "scope": {
+        "value": "/providers/Microsoft.Management/managementGroups/pxs-cloudnative-mg"
+      },
+    "properties": {
+      "value": {
+        "name": "pxs-cn-sa-encryption-pd",
+        "displayName": "Enable or Disable Audit on InfraStructure Encryption of storageAccounts",
+        "policyType": "Custom",
+        "mode": "All",
+        "description": "This policy audits/disables the infrastructureEncryption for storageAccounts",
+        "metadata": {
+          "category": "CCoE"
+        },
+        "parameters": {
+            "auditInfrastructureEncryptionEffect": {
+              "type": "String",
+              "metadata": {
+                "displayName": "Audit Infrastructure Encryption",
+                "description": "Enable or disable the audit of Infrastructure Encryption usage for storageAccount"
+              },
+              "allowedValues": [
+                "Audit",
+                "Deny"
+              ],
+              "defaultValue": "Audit"
+            }
+        },
+        "policyRule": {
+          "if": {
+              "allOf": [
+                {
+                  "field": "type",
+                  "equals": "Microsoft.Storage/storageAccounts"
+                },
+                {
+                  "field": "Microsoft.Storage/storageAccounts/encryption.requireInfrastructureEncryption",
+                  "notEquals": "true"
+                }
+              ]
+          },
+          "then": {
+              "effect": "[parameters('auditInfrastructureEncryptionEffect')]"
+          }
+        }
+      }
+    }
+  }
+}

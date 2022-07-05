@@ -1,0 +1,11 @@
+{
+    "name": "pxs-buildingblocks-testspn3-sp",
+    "appid": "2286b753-e150-4e1d-a509-7269005b8a32",
+    "id": "09d06b45-1521-483b-adb7-aaed42ff9503",
+    "owners": [
+        "frederik.de.ryck@contoso.com",
+        "marius.storhaug@contoso.com",
+        "pxs-buildingblocks-buildingblocks-p-aad-automation-sp",
+        "pxs-ccoe-admin"
+    ]
+}

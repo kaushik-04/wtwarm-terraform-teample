@@ -1,0 +1,24 @@
+{
+    "root": {
+        "scope": "/providers/Microsoft.Management/managementGroups/pxs-cn-s-mg",
+        "scopeDisplayName": "pxs-cn-s-mg",
+        "policyAssignments": [],
+        "policySetAssignments": [
+            {
+                "managedIdentity": {
+                    "location": "",
+                    "assignIdentity": false
+                },
+                "displayName": "pxs-cn-s-validation-pa",
+                "definitionDisplayName": "pxs-cn-s-validationInitiative-pi",
+                "description": "Validation initiative",
+                "name": "pxs-cn-s-validation-pa",
+                "notScopes": [],
+                "parameters": {},
+                "enforcementMode": "Default",
+                "definitionId": "/providers/Microsoft.Management/managementGroups/pxs-cn-s-mg/providers/Microsoft.Authorization/policySetDefinitions/pxs-cn-s-validationInitiative-pi"
+            }
+        ],
+        "children": []
+    }
+}

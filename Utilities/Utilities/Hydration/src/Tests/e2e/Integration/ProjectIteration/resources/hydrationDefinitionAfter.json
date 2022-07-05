@@ -1,0 +1,73 @@
+{
+    "$schema": "../../../../../Hydra/Hydra.Schema.json",
+    "organizationName": "ADO-Hydration",
+    "projects": [
+        {
+            "projectName": "Hydrate Iteration Integration Test",
+            "description": "Hydration",
+            "process": "Agile",
+            "sourceControl": "git",
+            "visibility": "private",
+            "iterationPaths": [
+                {
+                    "name": "Area 1",
+                    "attributes": {
+                        "startDate": "2021-01-01",
+                        "finishDate": "2021-01-20"
+                    }
+                },
+                {
+                    "name": "Area 2",
+                    "attributes": {
+                        "startDate": "2022-02-02",
+                        "finishDate": "2022-02-21"
+                    }
+                },
+                {
+                    "name": "Area 3",
+                    "attributes": {
+                        "startDate": "2021-03-02",
+                        "finishDate": "2021-03-21"
+                    }
+                },
+                {
+                    "name": "Area 4",
+                    "attributes": {
+                        "startDate": "2021-04-01",
+                        "finishDate": "2021-04-20"
+                    },
+                    "children": [
+                        {
+                            "name": "Area 4.1",
+                            "attributes": {
+                                "startDate": "2021-04-02",
+                                "finishDate": "2021-04-21"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "Area 5",
+                    "children": [
+                        {
+                            "name": "Area 5.2",
+                            "attributes": {
+                                "startDate": "2021-05-01",
+                                "finishDate": "2021-05-20"
+                            },
+                            "children": [
+                                {
+                                    "name": "Area 5.2.1",
+                                    "attributes": {
+                                        "startDate": "2021-05-02",
+                                        "finishDate": "2021-05-21"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

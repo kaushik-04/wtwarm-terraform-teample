@@ -1,0 +1,44 @@
+{  
+    "name": "testInitiativeDefinition",
+    "displayName": "testInitiativeDefinition",
+    "description": "This is test initiative as at least one needs to be in place",
+    "metadata": {
+        "category": "General"
+    },
+    "parameters": {
+        "allowedLocationParam": {
+            "type": "array",
+            "metadata": {
+                "displayName": "Allowed Location"
+            },            
+            "allowedValues": [
+                "westeurope",
+                "northeurope"
+            ]
+        },
+        "testParam1": {
+            "type": "boolean",
+            "metadata": {
+                "displayName": "test"
+            }
+        }
+    },
+    "policyDefinitions": [
+          {
+            "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/123456789-1234-1234-1234-123456789012/providers/Microsoft.Authorization/policyDefinitions/AuditKeyVaultLocation",
+            "parameters": {
+                "allowedLocation": {
+                    "value": "[parameters('allowedLocationParam')]"
+                }
+            }
+          },
+          {
+            "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/123456789-1234-1234-1234-123456789012/providers/Microsoft.Authorization/policyDefinitions/ParamTest",
+            "parameters": {
+                "myBoolean": {
+                    "value": "[parameters('testParam1')]"
+                }
+            }
+          }
+    ]
+}

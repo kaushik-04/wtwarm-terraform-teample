@@ -1,0 +1,125 @@
+{
+    "$schema": "../../../../../Hydra/Hydra.Schema.json",
+    "organizationName": "ADO-Hydration",
+    "projects": [
+        {
+            "projectName": "Hydrate Teams Integration Test",
+            "description": "Hydration",
+            "process": "Agile",
+            "sourceControl": "git",
+            "visibility": "private",
+            "teams": [
+                {
+                    "name": "CCoE Cloud Solutions Team",
+                    "description": "The default project team. (generated)",
+                    "boardSettings": {
+                        "workingDays": [
+                            "thursday",
+                            "friday",
+                            "saturday"
+                        ],
+                        "backlogVisibilities": {
+                            "Microsoft.EpicCategory": true,
+                            "Microsoft.FeatureCategory": true
+                        },
+                        "bugsBehavior": "off",
+                        "areaConfig": {
+                            "defaultValue": "Area 2",
+                            "values": [
+                                {
+                                    "value": "Area 2",
+                                    "includeChildren": false
+                                },
+                                {
+                                    "value": "Area 3",
+                                    "includeChildren": false
+                                }
+                            ]
+                        },
+                        "iterationConfig": {
+                            "defaultValue": "Custom Iteration 2",
+                            "backlog": "Custom Iteration 1",
+                            "values": []
+                        },
+                        "design": [
+                            {
+                                "backlogLevel": "Stories",
+                                "cardConfig": {
+                                    "cardStyles": [
+                                        {
+                                            "name": "Blocked",
+                                            "isEnabled": true,
+                                            "filter": "[Tags] contains 'Blocked'",
+                                            "backgroundColor": "#de5e5e",
+                                            "foregroundColor": "#000000"
+                                        },
+                                        {
+                                            "name": "Custom",
+                                            "isEnabled": true,
+                                            "filter": "[Tags] contains 'Blocked' and [Story Points] = '8'",
+                                            "backgroundColor": "#de5e5e",
+                                            "foregroundColor": "#000000",
+                                            "isItalic": true,
+                                            "isBold": true,
+                                            "isUnderlined": false
+                                        }
+                                    ],
+                                    "tagStyles": [
+                                        {
+                                            "name": "Blocked",
+                                            "color": "#111111"
+                                        },
+                                        {
+                                            "name": "CustomAddedColor",
+                                            "isEnabled": false,
+                                            "color": "#00564b"
+                                        }
+                                    ]
+                                },
+                                "boardConfig": {
+                                    "columns": [
+                                        {
+                                            "name": "Initial",
+                                            "itemsInProgressLimit": 6,
+                                            "stateMappings": {
+                                                "User Story": "New"
+                                            },
+                                            "columnType": "incoming"
+                                        },
+                                        {
+                                            "name": "CustomColumn1",
+                                            "itemsInProgressLimit": 6,
+                                            "isSplit": true,
+                                            "stateMappings": {
+                                                "User Story": "Active"
+                                            },
+                                            "definitionOfDone": "I'm super done New"
+                                        },
+                                        {
+                                            "name": "CustomColumn3",
+                                            "itemsInProgressLimit": 3,
+                                            "isSplit": true,
+                                            "stateMappings": {
+                                                "User Story": "Active"
+                                            },
+                                            "definitionOfDone": "I'm super done 3"
+                                        }
+                                    ],
+                                    "rows": [
+                                        "customrow1",
+                                        "customrow2"
+                                    ]
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "CCoE Cloud Platform Team New",
+                    "description": "CCoE Cloud Platform Team description",
+                    "isProjectDefault": true
+                }
+            ]
+        }
+    ]
+}

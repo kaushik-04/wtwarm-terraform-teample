@@ -1,0 +1,129 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "scope": {
+            "value": "/providers/Microsoft.Management/managementGroups/pxs-cloudnative-mg"
+        },
+        "properties": {
+            "value": {
+                "name": "pxs-cn-sql-pi",
+                "displayName": "pxs-cn-sql-pi",
+                "description": "This initiative restrics or audits the configuration of any deployed SQL server that differs from the compliant.",
+                "metadata": {
+                    "category": "CCoE"
+                },
+                "policyDefinitions": [
+                    {
+                        "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/pxs-cloudnative-mg/providers/Microsoft.Authorization/policyDefinitions/pxs-cn-sql-tls-pd",
+                        "parameters": {
+                            "effect": {
+                                "value": "[parameters('minimumTLSPolicyEffect')]"
+                            }
+                        }
+                    },
+                    {
+                        "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/pxs-cloudnative-mg/providers/Microsoft.Authorization/policyDefinitions/pxs-cn-sql-aadonlyauth-pd",
+                        "parameters": {
+                            "effect": {
+                                "value": "[parameters('aadOnlyAuthPolicyEffect')]"
+                            }
+                        }
+                    },
+                    {
+                        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/1f314764-cb73-4fc9-b863-8eca98ac36e9",
+                        "parameters": {
+                            "effect": {
+                                "value": "[parameters('adAdminPolicyEffect')]"
+                            }
+                        }
+                    },
+                    {
+                        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/36d49e87-48c4-4f2e-beed-ba4ed02b71f5",
+                        //"policyDefinitionReferenceId": "enforceThreatDetection",
+                        "parameters": {}
+                    },
+                    {
+                        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/a6fb4358-5bf4-4ad7-ba82-2cd2f41ce5e9",
+                        "parameters": {
+                            "effect": {
+                                "value": "[parameters('serverAuditingPolicyEffect')]"
+                            }
+                        }
+                    },
+                    {
+                        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/057d6cfe-9c4f-4a6d-bc60-14420ea1f1a9",
+                        "parameters": {
+                            "effect": {
+                                "value": "[parameters('emailForVulnerabilityAssessmentPolicyEffect')]"
+                            }
+                        }
+                    }
+                ],
+                "parameters": {
+                    "minimumTLSPolicyEffect": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "minimumTLSPolicyEffect",
+                            "description": "Enable or disable the execution of the policy"
+                        },
+                        "allowedValues": [
+                            "Audit",
+                            "Deny",
+                            "Disabled"
+                        ],
+                        "defaultValue": "Deny"
+                    },
+                    "aadOnlyAuthPolicyEffect": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "aadOnlyAuthPolicyEffect",
+                            "description": "Enable or disable the execution of the policy"
+                        },
+                        "allowedValues": [
+                            "Audit",
+                            "Disabled"
+                        ],
+                        "defaultValue": "Audit"
+                    },
+                    "adAdminPolicyEffect": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "adAdminPolicyEffect",
+                            "description": "Enable or disable the execution of the policy"
+                        },
+                        "allowedValues": [
+                            "AuditIfNotExists",
+                            "Disabled"
+                        ],
+                        "defaultValue": "AuditIfNotExists"
+                    },
+                    "serverAuditingPolicyEffect": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "serverAuditingPolicyEffect",
+                            "description": "Enable or disable the execution of the policy"
+                        },
+                        "allowedValues": [
+                            "AuditIfNotExists",
+                            "Disabled"
+                        ],
+                        "defaultValue": "AuditIfNotExists"
+                    },
+                    "emailForVulnerabilityAssessmentPolicyEffect": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "emailForVulnerabilityAssessmentPolicyEffect",
+                            "description": "Enable or disable the execution of the policy"
+                        },
+                        "allowedValues": [
+                            "AuditIfNotExists",
+                            "Disabled"
+                        ],
+                        "defaultValue": "AuditIfNotExists"
+                    }
+                }
+            }
+        }
+    }
+}

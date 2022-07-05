@@ -1,0 +1,72 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "value": "westeurope"
+        },
+        "networkInterfaceName": {
+            "value": "pxs-vm-s-ccoe-vmdemo-ni"
+        },
+        "subnetName": {
+            "value": "default"
+        },
+        "virtualNetworkId": {
+            "value": "/subscriptions/b9bc4b81-2c1d-46bb-a1d6-6e0970f05f3c/resourceGroups/pxs-cn-s-ccoe-vmdemo-rg/providers/Microsoft.Network/virtualNetworks/pxs-cn-s-ccoe-vmdemo-vnet"
+        },
+        "virtualMachineName": {
+            "value": "PxsCcoeVmDemo"
+        },
+        "virtualMachineComputerName": {
+            "value": "PxsCcoeVmDemopc"
+        },
+        "virtualMachineRG": {
+            "value": "pxs-cn-s-ccoe-vmdemo-rg"
+        },
+        "osDiskType": {
+            "value": "StandardSSD_LRS"
+        },
+        "virtualMachineSize": {
+            "value": "Standard_D2s_v3"
+        },
+        "adminUsername": {
+            "value": "VMdemoAdmin"
+        },
+        "adminPassword": {
+            "reference": {
+                "keyVault": {
+                    "id": "/subscriptions/b9bc4b81-2c1d-46bb-a1d6-6e0970f05f3c/resourceGroups/pxs-cn-s-ccoe-vmdemo-rg/providers/Microsoft.KeyVault/vaults/pxs-cn-s-ccoe-vmdemo-kvt"
+                },
+                "secretName": "DefaultAdminPasswordSecret"
+            }
+        },
+        "patchMode": {
+            "value": "AutomaticByOS"
+        },
+        "imageReference": {
+            "value": {
+                "publisher": "MicrosoftWindowsServer",
+                "offer": "WindowsServer",
+                "sku": "2019-datacenter-gensecond",
+                "version": "latest"
+            }
+        },
+        "tags": {
+            "value": {
+                "environment": "s",
+                "cost-center": "azure",
+                "application-id": "azure",
+                "deployment-id": "test"
+            }
+        },
+        "storageAccountName": {
+            "value": "pxscnsccoevmdemostg"
+        },
+        "storageAccountId": {
+            "value": "/subscriptions/b9bc4b81-2c1d-46bb-a1d6-6e0970f05f3c/resourceGroups/pxs-cn-s-ccoe-vmdemo-rg/providers/Microsoft.Storage/storageAccounts/pxscnsccoevmdemostg"
+        },
+        "workspaceid": {
+            "value": "/subscriptions/b9bc4b81-2c1d-46bb-a1d6-6e0970f05f3c/resourcegroups/gerbaudtemprg/providers/microsoft.operationalinsights/workspaces/pxs-cn-gerbaud-s-la"
+        }
+    }
+}

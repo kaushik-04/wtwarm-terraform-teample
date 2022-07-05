@@ -1,0 +1,50 @@
+{
+    "properties": {
+        "name": "pxs-cn-kvt-purge-pd",
+        "displayName": "Only deploy Keyvaults with purge enabled",
+        "policyType": "Custom",
+        "description": "This policy restricts the KeyVaults to only be deployed if the have the purge feature enabled.",
+        "metadata": {
+            "category": "Key Vault"
+        },
+        "mode": "All",
+        "parameters": {
+            "purgePolicyEffect": {
+                "type": "String",
+                "metadata": {
+                    "displayName": "purgePolicyEffect",
+                    "description": "Enable or disable the execution of the policy"
+                },
+                "allowedValues": [
+                    "Audit",
+                    "Deny"
+                ]
+            }
+        },
+        "policyRule": {
+            "if": {
+                "allOf": [
+                    {
+                        "field": "type",
+                        "equals": "Microsoft.KeyVault/vaults"
+                    },
+                    {
+                        "anyOf": [
+                            {
+                                "field": "Microsoft.KeyVault/vaults/enablePurgeProtection",
+                                "exists": "false"
+                            },
+                            {
+                                "field": "Microsoft.KeyVault/vaults/enablePurgeProtection",
+                                "equals": "false"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "then": {
+                "effect": "[parameters('purgePolicyEffect')]"
+            }
+        }
+    }
+}

@@ -1,0 +1,38 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "subscriptionAliasName": {
+            "value": "pxs-cn-ccoe-validation-subscription"
+        },
+        "displayName": {
+            "value": "pxs-cn-ccoe-validation-subscription"
+        },
+        "targetManagementGroupId": {
+            "value": "pxs-cn-s-mg"
+        },
+        "billingScope": {
+            "value": "/providers/Microsoft.Billing/billingAccounts/60287334/enrollmentAccounts/271887"
+        },
+        "tags": {
+            "value": {
+                "Environment": "Sandbox",
+                "Contact": "test.user@contoso.com",
+                "PurchaseOrder": "000001",
+                "CostCenter": "999999",
+                "ServiceName": "DeploymentValidation",
+                "Role": "DeploymentValidation"
+            }
+        },
+        "roleAssignments": {
+            "value": [
+                {
+                    "roleDefinitionIdOrName": "Reader",
+                    "principalIds": [
+                        "09d06b45-1521-483b-adb7-aaed42ff9503"
+                    ]
+                }
+            ]
+        }
+    }
+}

@@ -1,0 +1,63 @@
+{
+    "$schema": "../../../../../Hydra/Hydra.Schema.json",
+    "organizationName": "ADO-Hydration",
+    "projects": [
+        {
+            "projectName": "Hydrate Area Integration Test",
+            "description": "Hydration",
+            "process": "Agile",
+            "sourceControl": "git",
+            "visibility": "private",
+            "areaPaths": [
+                {
+                    "name": "Area 1"
+                },
+                {
+                    "name": "Area 2"
+                },
+                {
+                    "name": "Area 3"
+                },
+                {
+                    "name": "Area 4"
+                },
+                {
+                    "name": "Area 5"
+                },
+                {
+                    "name": "Area 6",
+                    "children": [
+                        {
+                            "name": "Area 61",
+                            "children": []
+                        },
+                        {
+                            "name": "Area 62",
+                            "children": []
+                        }
+                    ]
+                },
+                {
+                    "name": "Area 7",
+                    "children": [
+                        {
+                            "name": "Area 71",
+                            "children": [
+                                {
+                                    "name": "Area 711",
+                                    "children": []
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "iterationPaths": [],
+            "teams": [
+                {
+                    "name": "Hydrate Area Integration Test Team"
+                }
+            ]
+        }
+    ]
+}

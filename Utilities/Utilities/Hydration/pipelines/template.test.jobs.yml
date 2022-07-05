@@ -1,0 +1,26 @@
+parameters:
+  PAR_Job_Config:
+  defaultJobTimeoutInMinutes: 60
+  poolName: '$(poolName)'
+  vmImage: '$(vmImage)'
+
+jobs:
+- ${{ each Job_Config in parameters.PAR_Job_Config }}:
+  - job: ${{ Job_Config.IncludeTag }}
+    displayName: Execute [${{ Job_Config.DisplayName}}]
+    timeoutInMinutes: ${{ parameters.defaultJobTimeoutInMinutes }}
+    ${{ if ne( Job_Config.dependsOn, '') }}:
+      dependsOn: ${{ Job_Config.dependsOn }}
+    pool:
+      ${{ if ne(parameters.vmImage, '') }}:
+        vmImage: ${{ parameters.vmImage }}
+      ${{ if ne(parameters.poolName, '') }}:
+        name: ${{ parameters.poolName }}
+    steps:
+    - template: template.test.steps.yml
+      parameters:
+        IncludeTag: ${{ Job_Config.IncludeTag }}
+        Testcase: ${{ Job_Config.testcase }}
+        Testfile: ${{ Job_Config.testfile }}
+        ${{ if eq( Job_Config.cleanupE2Eproject, true) }}:
+          cleanupE2Eproject: true

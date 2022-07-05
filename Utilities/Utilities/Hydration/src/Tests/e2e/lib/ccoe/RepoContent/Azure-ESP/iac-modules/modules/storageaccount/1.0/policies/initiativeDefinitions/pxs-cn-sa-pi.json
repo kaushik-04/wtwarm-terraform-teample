@@ -1,0 +1,128 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "scope": {
+            "value": "/providers/Microsoft.Management/managementGroups/pxs-cloudnative-mg"
+        },
+        "properties": {
+            "value": {
+                "name": "pxs-cn-sa-pi",
+                "displayName": "pxs-cn-sa-pi",
+                "description": "This initiative restrics the configuration of any deployed storageAccount that differs from the compliant.",
+                "metadata": {
+                    "category": "CCoE"
+                },
+                "policyDefinitions": [
+                    {
+                        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/7433c107-6db4-4ad1-b57a-a76dce0154a1",
+                        "parameters": {
+                            "listOfAllowedSKUs": {
+                                "value": "[parameters('allowedSKUs')]"
+                            }
+                        }
+                    },
+                    {
+                        "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/pxs-cloudnative-mg/providers/Microsoft.Authorization/policyDefinitions/pxs-cn-sa-encryption-pd",
+                        "parameters": {
+                            "auditInfrastructureEncryptionEffect": {
+                                "value": "[parameters('auditInfrastructureEncryptionEffect')]"
+                            }
+                        }
+                    },
+                    {
+                        "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/pxs-cloudnative-mg/providers/Microsoft.Authorization/policyDefinitions/pxs-cn-sa-allowpublicaccess-pd",
+                        "parameters": {
+                            "auditAllowPublicAccessEffect": {
+                                "value": "[parameters('auditAllowPublicAccessEffect')]"
+                            }
+                        }
+                    },
+                    {
+                        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/404c3081-a854-4457-ae30-26a93ef643f9",
+                        "parameters": {
+                            "effect": {  
+                            "value": "[parameters('HttpsTrafficOnlyEffect')]"
+                            }
+                        }
+                    },
+                    {
+                        "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/pxs-cloudnative-mg/providers/Microsoft.Authorization/policyDefinitions/pxs-cn-sa-tls-pd",
+                        "parameters": {
+                            "auditMinimumTlsVersion": {  
+                            "value": "[parameters('MinimumTlsVersion')]"
+                            }
+                        }
+                    },
+                    {
+                        "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/pxs-cloudnative-mg/providers/Microsoft.Authorization/policyDefinitions/pxs-cn-sa-softdelete-pd",
+                        "parameters": {
+                            "auditSoftDeleteEffect": {  
+                            "value": "[parameters('auditSoftDelete')]"
+                            }
+                        }
+                    },
+                    {
+                        "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/pxs-cloudnative-mg/providers/Microsoft.Authorization/policyDefinitions/pxs-cn-sa-sharedkeyaccess-pd",
+                        "parameters": {
+                            "auditSharedKeyAccessEffect": {  
+                            "value": "[parameters('auditSharedKeyAccess')]"
+                            }
+                        }
+                    }
+                ],
+                "parameters": {
+                    "allowedSKUs": {
+                        "type": "array",
+                        "metadata": {
+                            "displayName": "allowedSKUs",
+                            "description": "List of allowed SKUs for the storageAccount resource type."
+                        }
+                    },
+                    "auditInfrastructureEncryptionEffect": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "auditInfrastructureEncryptionEffect",
+                            "description": "Enable or disable audit of the Infrastructue Encryption usage for storageAccounts"
+                        }
+                    },
+                    "auditAllowPublicAccessEffect": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "auditAllowPublicAccessEffect",
+                            "description": "Enable or disable audit for allowing Public Access on Blob storageAccounts"
+                        }
+                    },
+                    "HttpsTrafficOnlyEffect": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "HttpsTrafficOnlyEffect",
+                            "description": "Enable or disable the execution of the policy"
+                        }
+                    },
+                    "MinimumTlsVersion": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "MinimumTlsVersion",
+                            "description": "Disable, Audit or Deny the Minimum TLS Version on storageAccount"
+                        }
+                    },
+                    "auditSoftDelete": {
+                        "type": "string",
+                        "metadata": {
+                            "displayName": "auditSoftDelete",
+                            "description": "Audit the SoftDelete property for Blob kind of storageAccount resource type."
+                        }
+                    },
+                    "auditSharedKeyAccess": {
+                        "type": "string",
+                        "metadata": {
+                            "displayName": "auditSharedKeyAccess",
+                            "description": "Audit the allowSharedKeyAccess property for storageAccount resource type."
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

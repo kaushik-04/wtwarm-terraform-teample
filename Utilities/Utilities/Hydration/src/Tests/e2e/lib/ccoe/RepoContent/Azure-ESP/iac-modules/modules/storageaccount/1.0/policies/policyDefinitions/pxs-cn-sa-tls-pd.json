@@ -1,0 +1,54 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "scope": {
+            "value": "/providers/Microsoft.Management/managementGroups/pxs-cloudnative-mg"
+        },
+        "properties": {
+            "value": {
+                "name": "pxs-cn-sa-tls-pd",
+                "displayName": "Restrict minimumTls version to 1_2 for any StorageAccount",
+                "policyType": "Custom",
+                "description": "This policy restrict the minimum TLS version to 1.2 for any storageAccount",
+                "metadata": {
+                    "category": "CCoE"
+                },
+                "mode": "All",
+                "parameters": {
+			        "auditMinimumTlsVersion": {
+		                "type": "String",
+        		        "metadata": {
+          			    "displayName": "Audit minimumTls Version",
+          			    "description": "Enable or disable audit on the minimum TLS Version for storageAccounts"
+        		        },
+		                "allowedValues": [
+				            "Audit",
+				            "Deny"
+                        ],
+        		        "defaultValue": "Deny"
+                    }
+                },
+                "policyRule": {
+			            "if": {
+			                "allOf": [
+			                    {
+			                        "field": "type",
+			                        "equals": "Microsoft.Storage/storageAccounts"
+			                    },
+			                    {
+			                        "not": {
+			                            "field":"Microsoft.Storage/storageAccounts/minimumTlsVersion",
+			                            "equals": "TLS1_2"
+			                        }
+			                    }
+			                ]
+			            },
+			            "then": {
+			            "effect": "[parameters('auditMinimumTlsVersion')]"
+			            }
+                }
+            }
+        }
+    }
+}

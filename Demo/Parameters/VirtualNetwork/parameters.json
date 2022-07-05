@@ -1,0 +1,48 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "vnetName": {
+      "value": "CRB-MG05175P-VNET"
+    },
+    "vnetAddressPrefixes": {
+      "value": ["10.0.0.0/25"]
+    },
+    "subnets": {
+      "value": [
+        {
+          "name": "CRB-MG05175P-SUBN1",
+          "addressPrefix": "10.0.0.0/27",
+          "networkSecurityGroupName": "",
+          "routeTableName": "",
+          "serviceEndpoints": [
+            {
+              "service": "Microsoft.EventHub"
+            },
+            {
+              "service": "Microsoft.Sql"
+            },
+            {
+              "service": "Microsoft.Storage"
+            },
+            {
+              "service": "Microsoft.KeyVault"
+            }
+          ],
+          "delegations": []
+        },
+        {
+          "name": "AzureBastionSubnet",
+          "addressPrefix": "10.0.0.64/26",
+          "networkSecurityGroupName": "",
+          "routeTableName": "",
+          "serviceEndpoints": [],
+          "delegations": []
+        }
+      ]
+    }, "tags": {
+      "value": {
+      }
+    }
+  }
+}

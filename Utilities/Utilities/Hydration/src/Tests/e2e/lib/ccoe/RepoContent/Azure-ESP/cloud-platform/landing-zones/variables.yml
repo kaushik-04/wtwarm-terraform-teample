@@ -1,0 +1,10 @@
+variables:
+- template: ../tenant.variables.yml
+- name: LogsResourceGroupName
+  value: 'mgmt-p-log-logging-rg'
+- name: LogsSubscriptionID
+  value: '94a25935-980f-4ffd-b710-7fb3bf986ae0'
+- name: LogsSubscriptionName
+  value: 'mgmt-p-log-sub'
+- name: LogsServiceConnection
+  value : 'mgmt-p-log-sub'

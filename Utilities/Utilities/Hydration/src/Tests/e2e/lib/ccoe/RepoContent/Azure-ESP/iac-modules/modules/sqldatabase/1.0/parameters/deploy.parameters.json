@@ -1,0 +1,105 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "serverName": {
+            "value": "pxs-bdp-demo-s-sql-2"
+        },
+        "databaseName": {
+            "value": "sqldb-demo-s"
+        },
+        "location": {
+            "value": "West Europe"
+        },
+        "tags": {
+            "value": {
+                "application-id": "azure",
+                "cost-center": "azure",
+                "deployment-id": "test",
+                "environment": "s",
+                "platform-id": "ccoe"
+            }
+        },
+        "skuName": {
+            "value": "GP_Gen5"
+        },
+        "skuCapacity": {
+            "value": 2
+        },
+        "databaseMaxSize": {
+            "value": 1073741824
+        },
+        "backupShortTermRetentionDays": {
+            "value": 30
+        },
+        "backupLongTermRetentionProperties": {
+            "value": {
+                "weeklyRetention": "PT0S",
+                "monthlyRetention": "P6W",
+                "yearlyRetention": "P55W",
+                "weekOfYear": 1
+            }
+        },
+        "diagnosticSettingsName": {
+            "value": "DiagnosticSettingsEventHub-Workspace-Demo"
+        },
+        "diagnosticSettingsProperties": {
+            "value": {
+                "eventHubAuthorizationRuleId": "/subscriptions/b9bc4b81-2c1d-46bb-a1d6-6e0970f05f3c/resourceGroups/pxs-bdp-demo-rg-s-sql/providers/Microsoft.EventHub/namespaces/pxs-ccoe-demo-s-evhns-1/authorizationrules/RootManageSharedAccessKey",
+                "eventHubName": "sqldb-diagnosticlogs-demo",
+                "logs": [
+                    {
+                      "category": "SQLInsights",
+                      "enabled": true
+                    },
+                    {
+                      "category": "AutomaticTuning",
+                      "enabled": true
+                    },
+                    {
+                      "category": "QueryStoreRuntimeStatistics",
+                      "enabled": true
+                    },
+                    {
+                      "category": "QueryStoreWaitStatistics",
+                      "enabled": true
+                    },
+                    {
+                      "category": "Errors",
+                      "enabled": true
+                    },
+                    {
+                      "category": "DatabaseWaitStatistics",
+                      "enabled": true
+                    },
+                    {
+                      "category": "Timeouts",
+                      "enabled": true
+                    },
+                    {
+                      "category": "Blocks",
+                      "enabled": true
+                    },
+                    {
+                      "category": "Deadlocks",
+                      "enabled": true
+                    }
+                  ],
+                  "metrics": [
+                    {
+                      "category": "Basic",
+                      "enabled": true
+                    },
+                    {
+                      "category": "InstanceAndAppAdvanced",
+                      "enabled": true
+                    },
+                    {
+                      "category": "WorkloadManagement",
+                      "enabled": true
+                    }
+                  ]
+            }
+        }
+    }
+}

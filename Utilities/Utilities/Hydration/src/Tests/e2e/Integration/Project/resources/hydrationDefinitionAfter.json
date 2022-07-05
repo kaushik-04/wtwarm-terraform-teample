@@ -1,0 +1,31 @@
+{
+    "$schema": "../../../../../Hydra/Hydra.Schema.json",
+    "organizationName": "ADO-Hydration",
+    "processes": [
+        {
+            "name": "custom test process",
+            "parentProcess": "Agile",
+            "description": "Custom project integration test Process"
+        }
+    ],
+    "projects": [
+        {
+            "projectName": "Hydrate Project Integration Test",
+            "description": "Integration Test Project",
+            "process": "custom test process",
+            "sourceControl": "git",
+            "visibility": "public",
+            "templateTypeId": "adcc42ab-9882-485e-a3ed-7678f01f66bc",
+            "relativeIconFilePath": "Product Council.png"
+        },
+        {
+            "projectName": "Hydrate Project Integration Test New",
+            "description": "Integration Test Project New",
+            "process": "Agile",
+            "sourceControl": "git",
+            "visibility": "public",
+            "templateTypeId": "adcc42ab-9882-485e-a3ed-7678f01f66bc",
+            "relativeIconFilePath": "Product Council.png"
+        }
+    ]
+}

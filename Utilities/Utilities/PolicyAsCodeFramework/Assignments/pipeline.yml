@@ -1,0 +1,38 @@
+name: Policy Assignments
+
+variables:
+- name: vmImage
+  value: ubuntu-latest
+- name: serviceConnection
+  value: <your-spn-with-owner-access-on-tenant-root-group>
+- name: PolicyAssignmentsPath
+  value: Utilities/PolicyAsCodeFramework/Assignments
+
+trigger:
+  batch: true
+  branches:
+    include:
+      - master
+  paths:
+    include:
+    - Utilities/PolicyAsCodeFramework/Assignments/*
+
+stages:
+- stage: SetPolicyAssignments
+  jobs:
+  - job: SetPolicyAssignments
+    displayName: Set Policy Assignments
+    pool:
+      vmImage: $(vmImage)
+    steps:
+      - task: AzurePowerShell@4
+        displayName: Set Policy Assignments
+        inputs:
+          azureSubscription: $(serviceConnection)
+          ScriptType: FilePath
+          scriptPath: $(Build.Repository.LocalPath)/$(PolicyAssignmentsPath)/Set-PolicyAssignments.ps1
+          azurePowerShellVersion: LatestVersion
+          scriptArguments:
+            -AssignmentFilePath $(Build.Repository.LocalPath)/$(PolicyAssignmentsPath)/assignments.json
+            -AssignmentSchemaPath $(Build.Repository.LocalPath)/$(PolicyAssignmentsPath)/assignmentSchema.json
+            -DeleteIfMarkedForDeletion

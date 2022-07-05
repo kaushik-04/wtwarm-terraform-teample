@@ -1,0 +1,13 @@
+{
+    "name": "grp-testgroup3",
+    "owners": [
+        "dante.vanoplynus@contoso.com",
+        "marius.storhaug@contoso.com"
+    ],
+    "members": [
+        "dante.vanoplynus@contoso.com",
+        "marius.storhaug@contoso.com",
+        "pxs-buildingblocks-buildingblocks-p-aad-automation-sp",
+        "grp-ccoe-admin"
+    ]
+}

@@ -1,0 +1,59 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "scope": {
+            "value": "/providers/Microsoft.Management/managementGroups/pxs-cloudnative-mg"
+        },
+        "properties": {
+            "value": {
+                "name": "pxs-cn-sqldb-sku-pd",
+                "displayName": "Restrict allowed SKUs for SQL Database",
+                "policyType": "Custom",
+                "description": "This policy restricts the SKUs you can specify when deploying Azure SQL Databases.",
+                "metadata": {
+                    "category": "CCoE"
+                },
+                "mode": "All",
+                "parameters": {
+                    "allowedSKUs": {
+                        "type": "Array",
+                        "metadata": {
+                            "displayName": "Allowed SKUs",
+                            "description": "The list of allowed SKUs for any SQL Database deployment."
+                        }
+                    },
+                    "effect": {
+                        "type": "String",
+                        "metadata": {
+                          "displayName": "Effect",
+                          "description": "Action taken when executing the policy"
+                        },
+                        "defaultValue": "Audit"
+                    }
+                },
+                "policyRule": {
+                    "if": {
+                        "allOf": [
+                            {
+                                "field": "Microsoft.Sql/servers/databases/sku.name",
+                                "notIn": "[parameters('allowedSKUs')]"
+                            },
+                            {
+                                "field": "type",
+                                "equals": "Microsoft.Sql/servers/databases"
+                            },
+                            {
+                                "field": "Microsoft.Sql/servers/databases/sku.tier",
+                                "notIn": ["DataWarehouse"]
+                            }
+                        ]
+                    },
+                    "then": {
+                        "effect": "[parameters('effect')]"
+                    }
+                }
+            }
+        }
+    }
+}

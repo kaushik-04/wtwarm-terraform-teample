@@ -1,0 +1,35 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "scope": {
+            "value": "/providers/Microsoft.Management/managementGroups/management-mg"
+        },
+        "properties": {
+            "value": {
+                "policyAssignment": {
+                    "displayName": "mgmt-security-pa",
+                    "description": "Security baseline for Management MG",
+                    "definitionId": "/providers/Microsoft.Management/managementGroups/management-mg/providers/Microsoft.Authorization/policySetDefinitions/mgmt-security-pi",
+                    "definitionDisplayName": "mgmt-security-pi",
+                    "notScopes": [],
+                    "enforcementMode": "Default",
+                    "parameters": {
+                        "pricingTierVMs": "Standard",
+                        "pricingTierSqlServers": "Standard",
+                        "pricingTierAppServices": "Standard",
+                        "pricingTierStorageAccounts": "Standard",
+                        "pricingTierContainerRegistry": "Standard",
+                        "pricingTierKeyVaults": "Standard",
+                        "pricingTierKubernetesService": "Standard",
+                        "effect": "DeployIfNotExists"
+                    },
+                    "managedIdentity": {
+                        "assignIdentity": true,
+                        "location": "westeurope"
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,28 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "scope": {
+            "value": "/providers/Microsoft.Management/managementGroups/pxs-cn-s-mg"
+        },
+        "properties": {
+            "value": {
+                "policyAssignment": {
+                    "displayName": "pxs-cn-validationInitiative-pa",
+                    "description": "validationPolicy",
+                    "definitionId": "/providers/Microsoft.Management/managementGroups/pxs-cloudnative-mg/providers/Microsoft.Authorization/policySetDefinitions/pxs-cn-validationInitiative-pi",
+                    "definitionDisplayName": "pxs-cn-validationInitiative-pi",
+                    "notScopes": [],
+                    "enforcementMode": "Default",
+                    "parameters": {
+                        "effect": "Audit"
+                    },
+                    "managedIdentity": {
+                        "assignIdentity": false,
+                        "location": ""
+                    }
+                }
+            }
+        }
+    }
+}

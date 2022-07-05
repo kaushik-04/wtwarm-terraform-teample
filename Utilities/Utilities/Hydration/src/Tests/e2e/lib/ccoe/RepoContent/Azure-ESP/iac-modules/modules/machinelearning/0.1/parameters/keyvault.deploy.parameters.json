@@ -1,0 +1,21 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "keyVaultName": {
+            "value": "pxs-mls-kv-demo-05"
+        },
+        "location": {
+            "value": "West Europe"
+        },
+        "tags": {
+            "value": {
+                "application-id": "plt",
+                "cost-center": "cost-center-tag",
+                "deployment-id": "deployment-id-tag",
+                "environment": "s",
+                "platform-id": "bdp"
+            }
+        }
+    }
+}

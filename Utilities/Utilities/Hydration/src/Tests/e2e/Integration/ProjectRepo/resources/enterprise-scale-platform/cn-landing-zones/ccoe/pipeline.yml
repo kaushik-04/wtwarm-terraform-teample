@@ -1,0 +1,186 @@
+name: $(Build.DefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:r)
+
+variables:
+  - template: ccoe.variables.yml
+  - name: System.Debug
+    value: false
+
+trigger:
+  batch: true
+  branches:
+    include:
+      - master
+  paths:
+    include:
+      - cn-landing-zones/ccoe/*
+
+resources:
+  repositories:
+  - repository: IaC
+    type: git
+    ref: 'refs/heads/master'
+    name: IaC
+
+stages:
+- stage: 'Azure_Active_Directory'
+  displayName: 'Azure Active Directory'
+  jobs:
+  - job: aadgroup_grp_ccoe_devops_reader
+    displayName: 'aadgroup 1.0: grp-ccoe-devops-reader.json'
+    steps:
+    - checkout: self
+    - checkout: IaC
+    - task: AzurePowerShell@5
+      inputs:
+        azureSubscription: 'aad-automation'
+        ScriptType: 'FilePath'
+        ScriptPath: 'IaC/modules/aadgroup/1.0/Set-AADGroup.ps1'
+        ScriptArguments: '-Directory Platform/$(parametersPath)/aadgroup/grp-ccoe-devops-reader.json'
+        azurePowerShellVersion: 'LatestVersion'
+  - job: aadgroup_grp_ccoe_devops_contributor
+    displayName: 'aadgroup 1.0: grp-ccoe-devops-contributor'
+    steps:
+    - checkout: self
+    - checkout: IaC
+    - task: AzurePowerShell@5
+      inputs:
+        azureSubscription: 'aad-automation'
+        ScriptType: 'FilePath'
+        ScriptPath: 'IaC/modules/aadgroup/1.0/Set-AADGroup.ps1'
+        ScriptArguments: '-Directory Platform/$(parametersPath)/aadgroup/grp-ccoe-devops-contributor.json'
+        azurePowerShellVersion: 'LatestVersion'
+  - job: aadgroup_grp_ccoe_devops_admin
+    displayName: 'aadgroup 1.0: grp-ccoe-devops-admin.json'
+    steps:
+    - checkout: self
+    - checkout: IaC
+    - task: AzurePowerShell@5
+      inputs:
+        azureSubscription: 'aad-automation'
+        ScriptType: 'FilePath'
+        ScriptPath: 'IaC/modules/aadgroup/1.0/Set-AADGroup.ps1'
+        ScriptArguments: '-Directory Platform/$(parametersPath)/aadgroup/grp-ccoe-devops-admin.json'
+        azurePowerShellVersion: 'LatestVersion'
+  - template: /cicd/templates/pipeline.jobs.deploy.yml@IaC
+    parameters:
+      checkoutRepositories:
+      - IaC
+      serviceConnection: aad-automation
+      moduleName: aadserviceprincipal
+      moduleVersion: '1.2'
+      deploymentBlocks:
+      - path: $(parametersPath)/aadserviceprincipal/pxs-cn-s-ccoe-sub-sp.json
+        jobName: aadserviceprincipal_pxs_cn_s_ccoe_sub_sp
+        displayName: 'aadserviceprincipal 1.2: pxs-cn-s-ccoe-sub-sp.json'
+        taskName: deploy_module
+      - path: $(parametersPath)/aadserviceprincipal/pxs-cn-n-ccoe-sub-sp.json
+        jobName: aadserviceprincipal_pxs_cn_n_ccoe_sub_sp
+        displayName: 'aadserviceprincipal 1.2: pxs-cn-n-ccoe-sub-sp.json'
+        taskName: deploy_module
+      - path: $(parametersPath)/aadserviceprincipal/pxs-cn-u-ccoe-sub-sp.json
+        jobName: aadserviceprincipal_pxs_cn_u_ccoe_sub_sp
+        displayName: 'aadserviceprincipal 1.2: pxs-cn-u-ccoe-sub-sp.json'
+        taskName: deploy_module
+      - path: $(parametersPath)/aadserviceprincipal/pxs-cn-p-ccoe-sub-sp.json
+        jobName: aadserviceprincipal_pxs_cn_p_ccoe_sub_sp
+        displayName: 'aadserviceprincipal 1.2: pxs-cn-p-ccoe-sub-sp.json'
+        taskName: deploy_module
+
+- stage: 'Azure_Subscriptions'
+  displayName: 'Cloud-native Subscriptions'
+  dependsOn: 'Azure_Active_Directory'
+  jobs:
+  - template: /cicd/templates/pipeline.jobs.deploy.yml@IaC
+    parameters:
+      serviceConnection: $(serviceConnection)
+      moduleName: subscription
+      moduleVersion: '1.0'
+      deploymentBlocks:
+      - path: $(parametersPath)/subscription/pxs-cn-s-ccoe-sub.json
+        jobName: subscription_pxs_cn_s_ccoe_sub
+        displayName: 'subscription 1.0: pxs-cn-s-ccoe-sub.json'
+      - path: $(parametersPath)/subscription/pxs-cn-n-ccoe-sub.json
+        jobName: subscription_pxs_cn_n_ccoe_sub
+        displayName: 'subscription 1.0: pxs-cn-n-ccoe-sub.json'
+      - path: $(parametersPath)/subscription/pxs-cn-u-ccoe-sub.json
+        jobName: subscription_pxs_cn_u_ccoe_sub
+        displayName: 'subscription 1.0: pxs-cn-u-ccoe-sub.json'
+      - path: $(parametersPath)/subscription/pxs-cn-p-ccoe-sub.json
+        jobName: subscription_pxs_cn_p_ccoe_sub
+        displayName: 'subscription 1.0: pxs-cn-p-ccoe-sub.json'
+      checkoutRepositories:
+      - IaC
+
+- stage: 'LogAnalytics'
+  displayName: 'Log Analytics workspace'
+  dependsOn: Azure_Active_Directory
+  jobs:
+  - template: /cicd/templates/pipeline.jobs.deploy.yml@IaC
+    parameters:
+      moduleName: loganalytics
+      moduleVersion: '1.0'
+      resourceGroupName: $(LogsResourceGroupName)
+      subscriptionName: $(LogsSubscriptionName)
+      serviceConnection: $(LogsServiceConnection)
+      deploymentBlocks:
+      - path: $(parametersPath)/loganalytics/pxs-mgmt-p-log-ccoe-law.json
+        jobName: loganalytics_pxs_mgmt_p_log_ccoe_law
+        displayName: 'loganalytics 1.0: pxs-mgmt-p-log-ccoe-law.json'
+      additionalVariables:
+      checkoutRepositories:
+      - IaC
+
+- stage: 'Policy_Assignments'
+  displayName: 'Policy Assignments'
+  dependsOn:
+  - 'Azure_Subscriptions'
+  - 'LogAnalytics'
+  jobs:
+  - template: /cicd/templates/pipeline.jobs.deploy.yml@IaC
+    parameters:
+      moduleName: policyAssignment
+      moduleVersion: "2.1"
+      serviceConnection: $(serviceConnection)
+      deploymentBlocks:
+      - path: $(parametersPath)/policyAssignments/pxs-cn-sub-s-security-pa.json
+        jobName: policyAssigment_pxs_cn_sub_s_security_pa
+        displayName: 'policyAssignment 2.1: pxs-cn-sub-s-security-pa.json'
+      - path: $(parametersPath)/policyAssignments/pxs-cn-sub-n-security-pa.json
+        jobName: policyAssigment_pxs_cn_sub_n_security_pa
+        displayName: 'policyAssignment 2.1: pxs-cn-sub-n-security-pa.json'
+      - path: $(parametersPath)/policyAssignments/pxs-cn-sub-u-security-pa.json
+        jobName: policyAssigment_pxs_cn_sub_u_security_pa
+        displayName: 'policyAssignment 2.1: pxs-cn-sub-u-security-pa.json'
+      - path: $(parametersPath)/policyAssignments/pxs-cn-sub-p-security-pa.json
+        jobName: policyAssigment_pxs_cn_sub_p_security_pa
+        displayName: 'policyAssignment 2.1: pxs-cn-sub-p-security-pa.json'
+      checkoutRepositories:
+      - IaC
+
+- stage: 'Azure_DevOps_Project'
+  displayName: 'Azure DevOps Project'
+  dependsOn:
+  - 'Azure_Active_Directory'
+  - 'Azure_Subscriptions'
+  jobs:
+  - template: /cicd/templates/pipeline.jobs.deploy.yml@IaC
+    parameters:
+      moduleName: adoproject
+      moduleVersion: '1.0'
+      minimumAzureCLIVersion: '2.18.0'
+      minimumAzureCLIADOVerison: '0.18.0'
+      deploymentBlocks:
+      - path: $(parametersPath)/adoproject/building-blocks.json
+        jobName: adoproject_pxs_cn_s_ccoe_sub_sp
+        displayName: 'adoproject 1.0: building-blocks.json'
+        additionalVariables:
+          pxs-cn-s-ccoe-sub-sp_ApplicationId: $[ stageDependencies.Azure_Active_Directory.aadserviceprincipal_pxs_cn_s_ccoe_sub_sp.outputs['deploy_module.pxs-cn-s-ccoe-sub-sp_ApplicationId'] ]
+          pxs-cn-s-ccoe-sub-sp_ServicePrincipalPassword: $[ stageDependencies.Azure_Active_Directory.aadserviceprincipal_pxs_cn_s_ccoe_sub_sp.outputs['deploy_module.pxs-cn-s-ccoe-sub-sp_ServicePrincipalPassword'] ]
+          pxs-cn-n-ccoe-sub-sp_ApplicationId: $[ stageDependencies.Azure_Active_Directory.aadserviceprincipal_pxs_cn_n_ccoe_sub_sp.outputs['deploy_module.pxs-cn-n-ccoe-sub-sp_ApplicationId'] ]
+          pxs-cn-n-ccoe-sub-sp_ServicePrincipalPassword: $[ stageDependencies.Azure_Active_Directory.aadserviceprincipal_pxs_cn_n_ccoe_sub_sp.outputs['deploy_module.pxs-cn-n-ccoe-sub-sp_ServicePrincipalPassword'] ]
+          pxs-cn-u-ccoe-sub-sp_ApplicationId: $[ stageDependencies.Azure_Active_Directory.aadserviceprincipal_pxs_cn_u_ccoe_sub_sp.outputs['deploy_module.pxs-cn-u-ccoe-sub-sp_ApplicationId'] ]
+          pxs-cn-u-ccoe-sub-sp_ServicePrincipalPassword: $[ stageDependencies.Azure_Active_Directory.aadserviceprincipal_pxs_cn_u_ccoe_sub_sp.outputs['deploy_module.pxs-cn-u-ccoe-sub-sp_ServicePrincipalPassword'] ]
+          pxs-cn-p-ccoe-sub-sp_ApplicationId: $[ stageDependencies.Azure_Active_Directory.aadserviceprincipal_pxs_cn_p_ccoe_sub_sp.outputs['deploy_module.pxs-cn-p-ccoe-sub-sp_ApplicationId'] ]
+          pxs-cn-p-ccoe-sub-sp_ServicePrincipalPassword: $[ stageDependencies.Azure_Active_Directory.aadserviceprincipal_pxs_cn_p_ccoe_sub_sp.outputs['deploy_module.pxs-cn-p-ccoe-sub-sp_ServicePrincipalPassword'] ]
+      checkoutRepositories:
+      - IaC

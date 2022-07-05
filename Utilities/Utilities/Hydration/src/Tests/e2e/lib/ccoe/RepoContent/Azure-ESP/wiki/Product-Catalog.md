@@ -1,0 +1,1 @@
+This section will contain the product descriptions of the CCoE certified components (customer facing). 

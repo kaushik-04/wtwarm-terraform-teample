@@ -1,0 +1,60 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "scope": {
+      "value": "/providers/Microsoft.Management/managementGroups/pxs-cloudnative-mg"
+  },
+  "properties": {
+    "value": {
+      "name": "pxs-cn-sql-aadonlyauth-pd",
+      "displayName": "Azure SQL Server should only allow Azure Active Directory authentication",
+      "policyType": "Custom",
+      "description": "This policy can be used to audit SQL Server's authentication mechanism.",
+      "metadata": {
+        "category": "CCoE"
+      },
+      "mode": "All",
+      "parameters": {
+        "effect": {
+          "type": "String",
+          "metadata": {
+            "displayName": "Effect",
+            "description": "Enable or disable the execution of the policy"
+          },
+          "allowedValues": [
+            "Audit",
+            "Disabled"
+          ],
+          "defaultValue": "Audit"
+        }
+      },
+      "policyRule": {
+        "if": {
+          "allOf": [
+            {
+              "field": "type",
+              "equals": "Microsoft.Sql/servers"
+            },
+            {
+              "anyOf": [
+                {
+                  "field": "Microsoft.Sql/servers/azureADOnlyAuthentications.Default.azureADOnlyAuthentication",
+                  "exists": false
+                },
+                {
+                  "field": "Microsoft.Sql/servers/azureADOnlyAuthentications.Default.azureADOnlyAuthentication",
+                  "notEquals": true
+                }
+              ]
+            }
+          ]
+        },
+        "then": {
+          "effect": "[parameters('effect')]"
+        }
+      }
+    }
+  }
+  }
+}

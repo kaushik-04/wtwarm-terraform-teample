@@ -1,0 +1,129 @@
+name: $(managementGroupID) - $(tenantName)
+
+variables:
+- template: mg.variables.yml
+
+trigger:
+  batch: true
+  branches:
+    include:
+    - master
+  paths:
+    include:
+    - .global/*
+    - tenant.variables.yml
+    - cloudnative-mg/mg.variables.yml
+    - cloudnative-mg/pipeline.yml
+    - cloudnative-mg/parameters/*
+
+resources:
+  repositories:
+  - repository: IaC
+    type: git
+    ref: 'refs/heads/master'
+    name: IaC
+
+stages:
+- stage: Deploy_RoleDefinitions
+  jobs:
+    - template: /cicd/templates/pipeline.jobs.deploy.yml@IaC
+      parameters:
+        moduleName: roleDefinitions
+        moduleVersion: '1.0'
+        deploymentBlocks:
+        - path: $(parametersPath)/roleDefinitions/Cloud-Native-Governance-Administrator.json
+        - path: $(parametersPath)/roleDefinitions/LZ-Owner.json
+        checkoutRepositories:
+        - IaC
+
+- stage: Deploy_ManagementGroup
+  jobs:
+  - template: /cicd/templates/pipeline.jobs.deploy.yml@IaC
+    parameters:
+      moduleName: managementgroup
+      moduleVersion: '1.0'
+      deploymentBlocks:
+      - path: $(parametersPath)/managementgroup/cloudnative-mg.json
+      checkoutRepositories:
+      - IaC
+
+- stage: Deploy_PolicyDefinition
+  dependsOn: Deploy_ManagementGroup
+  jobs:
+  - template: /cicd/templates/pipeline.jobs.deploy.yml@IaC
+    parameters:
+      moduleName: policyDefinition
+      moduleVersion: "2.0"
+      serviceConnection: $(serviceConnection)
+      deploymentBlocks:
+      - path: $(parametersPath)/policyDefinitions/security/cn-asc-exportEventHub-pd.json
+      - path: $(parametersPath)/policyDefinitions/security/cn-ci-diagEventhub-pd.json
+      - path: $(parametersPath)/policyDefinitions/security/cn-ci-diagLogAnalytics-pd.json
+      - path: $(parametersPath)/policyDefinitions/security/cn-cr-diagEventhub-pd.json
+      - path: $(parametersPath)/policyDefinitions/security/cn-cr-diagLogAnalytics-pd.json
+      - path: $(parametersPath)/policyDefinitions/security/cn-databricks-diagEventHub-pd.json   
+      - path: $(parametersPath)/policyDefinitions/security/cn-databricks-diagLogAnalytics-pd.json
+      - path: $(parametersPath)/policyDefinitions/security/cn-deployasc-pd.json
+      - path: $(parametersPath)/policyDefinitions/security/cn-df-diagEventhub-pd.json
+      - path: $(parametersPath)/policyDefinitions/security/cn-df-diagLogAnalytics-pd.json
+      - path: $(parametersPath)/policyDefinitions/security/cn-eh-diagEventhub-pd.json
+      - path: $(parametersPath)/policyDefinitions/security/cn-eh-diagLogAnalytics-pd.json
+      - path: $(parametersPath)/policyDefinitions/security/cn-kvt-diagEventhub-pd.json
+      - path: $(parametersPath)/policyDefinitions/security/cn-kvt-diagLogAnalytics-pd.json
+      - path: $(parametersPath)/policyDefinitions/security/cn-la-diagEventhub-pd.json
+      - path: $(parametersPath)/policyDefinitions/security/cn-la-diagLogAnalytics-pd.json
+      - path: $(parametersPath)/policyDefinitions/security/cn-ml-diagEventhub-pd.json
+      - path: $(parametersPath)/policyDefinitions/security/cn-ml-diagLogAnalytics-pd.json
+      - path: $(parametersPath)/policyDefinitions/security/cn-roleassignment-pd.json
+      - path: $(parametersPath)/policyDefinitions/security/cn-rv-diagEventhub-pd.json
+      - path: $(parametersPath)/policyDefinitions/security/cn-rv-diagLogAnalytics-pd.json
+      - path: $(parametersPath)/policyDefinitions/security/cn-sa-diagEventHub-pd.json
+      - path: $(parametersPath)/policyDefinitions/security/cn-sa-diagLogAnalytics-pd.json
+      - path: $(parametersPath)/policyDefinitions/security/cn-sqldb-diagEventhub-pd.json
+      - path: $(parametersPath)/policyDefinitions/security/cn-sqldb-diagLogAnalytics-pd.json
+      - path: $(parametersPath)/policyDefinitions/security/cn-sqlserver-diagEventHub-pd.json
+      - path: $(parametersPath)/policyDefinitions/security/cn-sqlserver-diagLogAnalytics-pd.json
+      - path: $(parametersPath)/policyDefinitions/security/cn-sub-diagEventhub-pd.json
+      - path: $(parametersPath)/policyDefinitions/security/cn-sub-diaglogAnalytics-pd.json
+      - path: $(parametersPath)/policyDefinitions/security/cn-synapse-diagEventHub-pd.json
+      - path: $(parametersPath)/policyDefinitions/security/cn-synapse-diagLogAnalytics-pd.json
+      - path: $(parametersPath)/policyDefinitions/security/cn-vm-agentDependencyWin-pd.json
+      - path: $(parametersPath)/policyDefinitions/security/cn-vm-agentLogAnalyticsWin-pd.json
+      - path: $(parametersPath)/policyDefinitions/security/cn-vm-diagEventhub-pd.json
+      - path: $(parametersPath)/policyDefinitions/security/cn-vm-diagLogAnalytics-pd.json
+      - path: $(parametersPath)/policyDefinitions/security/cn-vmss-agentDependencyWin-pd.json
+      - path: $(parametersPath)/policyDefinitions/security/cn-vmss-agentLogAnalyticsWin-pd.json
+      - path: $(parametersPath)/policyDefinitions/security/cn-vmss-diagEventhub-pd.json
+      - path: $(parametersPath)/policyDefinitions/security/cn-vmss-diagLogAnalytics-pd.json
+      checkoutRepositories:
+      - IaC
+
+- stage: Deploy_InitiativeDefinition
+  dependsOn: Deploy_PolicyDefinition
+  jobs:
+  - template: /cicd/templates/pipeline.jobs.deploy.yml@IaC
+    parameters:
+      moduleName: initiativeDefinition
+      moduleVersion: "2.0"
+      serviceConnection: $(serviceConnection)
+      deploymentBlocks:
+      - path: $(parametersPath)/initiativeDefinitions/security/cn-mg-security-pi.json
+      - path: $(parametersPath)/initiativeDefinitions/security/cn-sub-security-pi.json
+      - path: $(parametersPath)/initiativeDefinitions/security/cn-security-pi.json
+      - path: $(parametersPath)/initiativeDefinitions/security/cn-rbac-pi.json
+      checkoutRepositories:
+      - IaC
+
+- stage: Deploy_PolicyAssignment
+  dependsOn: Deploy_InitiativeDefinition
+  jobs:
+  - template: /cicd/templates/pipeline.jobs.deploy.yml@IaC
+    parameters:
+      moduleName: policyAssignment
+      moduleVersion: "2.1"
+      serviceConnection: $(serviceConnection)
+      deploymentBlocks:
+      - path: $(parametersPath)/policyAssignments/cn-security-pa.json
+      - path: $(parametersPath)/policyAssignments/cn-rbac-pa.json
+      checkoutRepositories:
+      - IaC

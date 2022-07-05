@@ -1,0 +1,22 @@
+[
+    {
+        "name": "Area 1"
+    },
+    {
+        "name": "Area 2"
+    },
+    {
+        "name": "Area 3",
+        "children": [
+            {
+                "name": "Area 31",
+                "children": [
+                    {
+                        "name": "Area 311",
+                        "children": []
+                    }
+                ]
+            }
+        ]
+    }
+]

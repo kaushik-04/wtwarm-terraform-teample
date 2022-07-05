@@ -1,0 +1,50 @@
+{
+    "properties": {
+        "name": "AuditStorageNetworkPolicies",
+        "displayName": "Audit Storage Accounts Network Endpoint Policies",
+        "policyType": "Custom",
+        "metadata": {
+            "category": "Storage"
+        },
+        "mode": "All",
+        "description": "This policy audits if a virtual network has network policies enabled on the endpoint.",
+        "parameters": {},
+        "policyRule": {
+            "if": {
+                "allOf": [
+                    {
+                        "field": "type",
+                        "equals": "Microsoft.Network/virtualNetworks"
+                    },
+                    {
+                        "count": {
+                            "field": "Microsoft.Network/virtualNetworks/subnets[*]",
+                            "where": {
+                                "allOf": [
+                                    {
+                                        "count": {
+                                            "field": "Microsoft.Network/virtualNetworks/subnets[*].serviceEndpoints[*]",
+                                            "where": {
+                                                "field": "Microsoft.Network/virtualNetworks/subnets[*].serviceEndpoints[*].service",
+                                                "equals": "Microsoft.Storage"
+                                            }
+                                        },
+                                        "equals": 1
+                                    },
+                                    {
+                                        "field": "Microsoft.Network/virtualNetworks/subnets[*].serviceEndpointPolicies[*].id",
+                                        "exists": false
+                                    }
+                                ]
+                            }
+                        },
+                        "greater": 0
+                    }
+                ]
+            },
+            "then": {
+                "effect": "audit"
+            }
+        }
+    }
+}

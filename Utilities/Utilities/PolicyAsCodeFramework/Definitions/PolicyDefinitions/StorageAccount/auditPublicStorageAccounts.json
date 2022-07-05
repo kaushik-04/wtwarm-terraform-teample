@@ -1,0 +1,30 @@
+{
+    "properties": {
+        "name": "AuditPublicStorageAccounts",
+        "displayName": "Audit Public Storage Accounts",
+        "policyType": "Custom",
+        "metadata": {
+            "category": "Storage"
+        },
+        "mode": "All",
+        "description": "This policy audits if a storage account is publicly accessible",
+        "parameters": {},
+        "policyRule": {
+            "if": {
+                "allOf": [
+                    {
+                        "field": "type",
+                        "equals": "Microsoft.Storage/storageAccounts"
+                    },
+                    {
+                        "field": "Microsoft.Storage/storageAccounts/networkAcls.defaultAction",
+                        "equals": "Allow"
+                    }
+                ]
+            },
+            "then": {
+                "effect": "audit"
+            }
+        }
+    }
+}

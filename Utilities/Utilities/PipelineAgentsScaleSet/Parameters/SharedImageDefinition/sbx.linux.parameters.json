@@ -1,0 +1,24 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "imageDefinitionName": {
+            "value": "linux-sid"
+        },
+        "galleryName": {
+            "value": "iacsgallery"
+        },
+        "osType": {
+            "value": "Linux"
+        },
+        "publisher": {
+            "value": "iacs"
+        },
+        "offer": {
+            "value": "iacs_linux"
+        },
+        "sku": {
+            "value": "iacs_linux_az"
+        }
+    }
+}

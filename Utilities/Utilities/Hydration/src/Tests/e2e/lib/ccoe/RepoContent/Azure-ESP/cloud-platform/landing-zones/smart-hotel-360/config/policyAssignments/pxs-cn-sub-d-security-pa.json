@@ -1,0 +1,70 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "scope": {
+            "value": "/subscriptions/29763ddb-5ed5-475a-9eac-4a5ae13c7152"
+        },
+        "properties": {
+            "value": {
+                "policyAssignment": {
+                    "displayName": "cn-sub-security-pa",
+                    "description": "Deploys security baseline on subscription scope.",
+                    "definitionDisplayName": "cn-sub-security-pi",
+                    "definitionId": "/providers/Microsoft.Management/managementGroups/cloudnative-mg/providers/Microsoft.Authorization/policySetDefinitions/cn-sub-security-pi",
+                    "notScopes": [],
+                    "enforcementMode": "Default",
+                    "parameters": {
+                        "profileName": "LZ-Logging",
+                        "logAnalytics": "/subscriptions/94a25935-980f-4ffd-b710-7fb3bf986ae0/resourcegroups/mgmt-p-log-logging-rg/providers/microsoft.operationalinsights/workspaces/mgmt-p-log-bdp-law",
+                        "activityLog_effect": "DeployIfNotExists",
+                        "activityLog_logsEnabled": "True",
+                        "keyVault_effect": "DeployIfNotExists",
+                        "keyVault_metricsEnabled": "True",
+                        "keyVault_logsEnabled": "True",
+                        "storageAccount_effect": "DeployIfNotExists",
+                        "storageAccount_metricsEnabled": "True",
+                        "storageAccount_logsEnabled": "True",
+                        "sqlDb_effect": "DeployIfNotExists",
+                        "sqlDb_metricsEnabled": "True",
+                        "sqlDb_logsEnabled": "True",
+                        "sqlServer_effect": "DeployIfNotExists",
+                        "sqlServer_logsEnabled": "True",
+                        "containerInstance_effect": "DeployIfNotExists",
+                        "containerInstance_metricsEnabled": "True",
+                        "containerRegistry_effect": "DeployIfNotExists",
+                        "containerRegistry_metricsEnabled": "True",
+                        "containerRegistry_logsEnabled": "True",
+                        "databricks_effect": "DeployIfNotExists",
+                        "databricks_logsEnabled": "True",
+                        "datafactory_effect": "DeployIfNotExists",
+                        "datafactory_metricsEnabled": "True",
+                        "datafactory_logsEnabled": "True",
+                        "machinelearning_effect": "DeployIfNotExists",
+                        "machinelearning_metricsEnabled": "True",
+                        "machinelearning_logsEnabled": "True",
+                        "synapse_effect": "DeployIfNotExists",
+                        "synapse_logsEnabled": "True",
+                        "vm_effect": "DeployIfNotExists",
+                        "vm_metricsEnabled": "True",
+                        "vmss_effect": "DeployIfNotExists",
+                        "vmss_metricsEnabled": "True",
+                        "eh_effect": "DeployIfNotExists",
+                        "eh_metricsEnabled": "True",
+                        "eh_logsEnabled": "True",
+                        "la_effect": "DeployIfNotExists",
+                        "la_metricsEnabled": "True",
+                        "la_logsEnabled": "True",
+                        "rv_effect": "DeployIfNotExists",
+                        "rv_logsEnabled": "True"
+                    },
+                    "managedIdentity": {
+                        "location": "westeurope",
+                        "assignIdentity": true,
+                        "outofscope": true
+                    }
+                }
+            }
+        }
+    }
+}

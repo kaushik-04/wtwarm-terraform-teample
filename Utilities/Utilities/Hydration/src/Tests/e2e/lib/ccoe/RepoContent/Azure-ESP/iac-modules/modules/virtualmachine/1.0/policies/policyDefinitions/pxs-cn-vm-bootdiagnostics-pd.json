@@ -1,0 +1,45 @@
+{
+    "properties": {
+        "name": "pxs-cn-vm-bootdiagnostics-pd",
+        "displayName": "Boot diagnostics for Virtual Machines should be enabled",
+        "policyType": "Custom",
+        "mode": "Indexed",
+        "description": "This policy enforce to enable boot diagnostics for Virtual Machines.",
+        "metadata": {
+            "version": "1.0.0",
+            "category": "Compute"
+        },
+        "parameters": {
+            "effect": {
+                "type": "String",
+                "metadata": {
+                    "displayName": "Effect",
+                    "description": "The effect determines what happens when the policy rule is evaluated to match"
+                },
+                "allowedValues": [
+                    "Audit",
+                    "Deny",
+                    "Disabled"
+                ],
+                "defaultValue": "Audit"
+            }
+        },
+        "policyRule": {
+            "if": {
+                "allOf": [
+                    {
+                        "field": "type",
+                        "equals": "Microsoft.Compute/virtualMachines"
+                    },
+                    {
+                        "field": "Microsoft.Compute/VirtualMachines/diagnosticsProfile.bootDiagnostics.enabled",
+                        "notEquals": "True"
+                    }
+                ]
+            },
+            "then": {
+                "effect": "[parameters('effect')]"
+            }
+        }
+    }
+}

@@ -1,0 +1,49 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+
+		"platform_id"			: {"type": "string"},
+		"app_id"				: {"type": "string"},
+		"environment"			: {"type": "string"},
+		"suffix"				: {"type": "string" , "defaultValue": ""},
+
+		"location"				: {"type": "string" , "defaultValue": "[resourceGroup().location]"},
+		"cost_center"           : { "type": "string", "defaultValue": "unknown" },
+
+		"sku"			     	: {"type": "string" , "defaultValue": "Basic"},
+		"adminUserEnabled"	    : {"type": "bool"   , "defaultValue": false}
+	},
+	"variables": {
+		"acrName": "[toLower(concat('pxs', parameters('platform_id'), parameters('app_id'), parameters('environment'), 'acr', if(empty(parameters('suffix')), '', parameters('suffix')) ))]"
+	},
+	"resources": [{
+			"name": "[variables('acrName')]",
+			"type": "Microsoft.ContainerRegistry/registries",
+			"apiVersion": "2019-05-01",
+			"location": "[parameters('location')]",
+            "tags": {  
+				"function": "IS",
+				"environment": "[parameters('environment')]",
+				"platform-id": "[parameters('platform_id')]",
+				"application-id": "[parameters('app_id')]",
+				"deployment-id": "[deployment().name]",
+				"cost-center": "[parameters('cost_center')]"
+            },
+			"sku": {
+				"name": "[parameters('sku')]",
+				"tier": "[parameters('sku')]"
+			},
+			"properties": {
+				"adminUserEnabled": "[parameters('adminUserEnabled')]"
+			}
+		}
+		
+	],
+	"outputs": {
+		"acrLoginServer": {
+			"value": "[reference(resourceId('Microsoft.ContainerRegistry/registries',variables('acrName')),'2019-05-01').loginServer]",
+			"type": "string"
+		}
+	}
+}

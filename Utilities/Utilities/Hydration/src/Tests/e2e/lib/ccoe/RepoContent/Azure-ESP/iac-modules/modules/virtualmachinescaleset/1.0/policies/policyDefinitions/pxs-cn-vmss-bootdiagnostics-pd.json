@@ -1,0 +1,45 @@
+{
+    "properties": {
+        "name": "pxs-cn-vmss-bootdiagnostics-pd",
+        "displayName": "Boot diagnostics for Virtual Machine Scale Sets should be enabled",
+        "policyType": "custom",
+        "mode": "Indexed",
+        "description": "This policy enforce to enable boot diagnostics for Virtual Machine Scale Sets.",
+        "metadata": {
+        "version": "1.0.0",
+        "category": "Compute"
+        },
+            "parameters": {
+            "effect": {
+                "type": "String",
+                "metadata": {
+                "displayName": "Effect",
+                "description": "The effect determines what happens when the policy rule is evaluated to match"
+                },
+                "allowedValues": [
+                    "Audit",
+                    "Deny",
+                    "Disabled"
+                ],
+                "defaultValue": "Audit"
+            }
+        },
+        "policyRule": {
+            "if": {
+                "allOf": [
+                    {
+                        "field": "type",
+                        "equals": "Microsoft.Compute/virtualMachineScaleSets"
+                    },
+                    {
+                        "field": "Microsoft.Compute/VirtualMachineScaleSets/virtualmachineprofile.diagnosticsProfile.bootDiagnostics.enabled",
+                        "notEquals": "True"
+                    }
+                ]
+            },
+            "then": {
+                "effect": "[parameters('effect')]"
+            }
+        }
+    }
+}

@@ -1,0 +1,52 @@
+{
+  "properties": {
+    "name": "pxs-cn-kvt-private-endpoint-pd",
+    "displayName": "Audit private endpoint usage",
+    "policyType": "Custom",
+    "mode": "All",
+    "description": "This policy audits/disables the usage of private endpoint for KeyVaults",
+    "metadata": {
+      "category": "Key Vault"
+    },
+    "parameters": {
+      "auditPrivateEndpointEffect": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Audit Private Endpoint",
+          "description": "Enable or disable audit of the Private Endpoint usage for KeyVaults"
+        },
+        "allowedValues": [
+          "Audit"
+        ],
+        "defaultValue": "Audit"
+      }
+    },
+    "policyRule": {
+      "if": {
+        "allOf": [
+          {
+            "field": "type",
+            "equals": "Microsoft.KeyVault/vaults"
+          },
+          {
+            "anyOf": [
+              {
+                "field": "Microsoft.KeyVault/vaults/privateEndpointConnections",
+                "exists": "true"
+              },
+              {
+                "count": {
+                  "field": "Microsoft.KeyVault/vaults/privateEndpointConnections[*]"
+                },
+                "greater": 0
+              }
+            ]
+          }
+        ]
+      },
+      "then": {
+        "effect": "[parameters('auditPrivateEndpointEffect')]"
+      }
+    }
+  }
+}

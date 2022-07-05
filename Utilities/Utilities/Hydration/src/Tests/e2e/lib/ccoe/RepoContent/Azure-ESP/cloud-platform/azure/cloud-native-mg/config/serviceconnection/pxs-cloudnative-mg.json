@@ -1,0 +1,42 @@
+{
+  "administratorsGroup": [],
+  "readersGroup": [],
+  "usersGroup": [],
+  "authorization": {
+    "parameters": {
+      "authenticationType": "spnKey",
+      "serviceprincipalid": "e8f3fab3-2fb0-471f-8d9a-9454eaf284d4",
+      "serviceprincipalkey": null,
+      "tenantid": "e7ab81b2-1e84-4bf7-9dcb-b6fec01ed138"
+    },
+    "scheme": "ServicePrincipal"
+  },
+  "authorized": true,
+  "data": {
+    "creationMode": "Manual",
+    "environment": "AzureCloud",
+    "managementGroupId": "cloudnative-mg",
+    "managementGroupName": "cloudnative-mg",
+    "scopeLevel": "ManagementGroup"
+  },
+  "description": "'Cloud Native Governance Administrator' on cloudnative-mg, 'Management Governance Administrator' on management-mg, Automation Job Operator on '/', Subscription Creator on S,N and P accounts, reader on AAD",
+  "groupScopeId": null,
+  "id": null,
+  "isReady": true,
+  "isShared": false,
+  "name": "cloudnative-mg",
+  "operationStatus": null,
+  "owner": "Library",
+  "serviceEndpointProjectReferences": [
+    {
+      "description": "'Cloud Native Governance Administrator' on cloudnative-mg, 'Management Governance Administrator' on management-mg, Automation Job Operator on '/', Subscription Creator on S,N and P accounts, reader on AAD",
+      "name": "cloudnative-mg",
+      "projectReference": {
+        "id": null,
+        "name": "building-blocks"
+      }
+    }
+  ],
+  "type": "azurerm",
+  "url": "https://management.azure.com/"
+}

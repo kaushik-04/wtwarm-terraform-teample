@@ -1,0 +1,15 @@
+variables:
+- name: modulesRepository
+  value: IaC
+- name: modulesPath
+  value: modules
+- name: modulePath
+  value: $(modulesPath)/$(moduleName)/$(moduleVersion)
+- name: location
+  value: 'West Europe'
+- name: vmImage
+  value: 'windows-latest'
+- name: poolName
+  value: ''
+- name: azurePowerShellVersion
+  value: "latestVersion"

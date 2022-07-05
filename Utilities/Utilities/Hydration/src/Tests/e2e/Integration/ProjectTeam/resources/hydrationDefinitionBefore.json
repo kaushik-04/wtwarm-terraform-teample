@@ -1,0 +1,158 @@
+{
+    "$schema": "../../../../../Hydra/Hydra.Schema.json",
+    "organizationName": "ADO-Hydration",
+    "projects": [
+        {
+            "projectName": "Hydrate Teams Integration Test",
+            "description": "Hydration",
+            "process": "Agile",
+            "sourceControl": "git",
+            "visibility": "private",
+            "areaPaths": [
+                {
+                    "name": "Area 1"
+                },
+                {
+                    "name": "Area 2"
+                },
+                {
+                    "name": "Area 3"
+                }
+            ],
+            "iterationPaths": [
+                {
+                    "name": "Custom Iteration 1"
+                },
+                {
+                    "name": "Custom Iteration 2",
+                    "children": [
+                        {
+                            "name": "Custom Iteration 21"
+                        },
+                        {
+                            "name": "Custom Iteration 22"
+                        }
+                    ]
+                }
+            ],
+            "teams": [
+                {
+                    "name": "CCoE Cloud Solutions Team",
+                    "description": "The default project team.",
+                    "isProjectDefault": true,
+                    "boardSettings": {
+                        "workingDays": [
+                            "monday",
+                            "tuesday",
+                            "wednesday",
+                            "thursday"
+                        ],
+                        "backlogVisibilities": {
+                            "Microsoft.EpicCategory": false,
+                            "Microsoft.FeatureCategory": true
+                        },
+                        "bugsBehavior": "asTasks",
+                        "areaConfig": {
+                            "defaultValue": "Area 1",
+                            "values": [
+                                {
+                                    "value": "Area 1",
+                                    "includeChildren": true
+                                },
+                                {
+                                    "value": "Area 2",
+                                    "includeChildren": false
+                                }
+                            ]
+                        },
+                        "iterationConfig": {
+                            "defaultValue": "Custom Iteration 1",
+                            "backlog": "Custom Iteration 2",
+                            "values": [
+                                "Custom Iteration 21",
+                                "Custom Iteration 22"
+                            ]
+                        },
+                        "design": [
+                            {
+                                "backlogLevel": "Stories",
+                                "cardConfig": {
+                                    "cardStyles": [
+                                        {
+                                            "name": "Blocked",
+                                            "isEnabled": true,
+                                            "filter": "[Tags] contains 'Blocked'",
+                                            "backgroundColor": "#de5e5e",
+                                            "foregroundColor": "#000000"
+                                        },
+                                        {
+                                            "name": "Custom",
+                                            "isEnabled": true,
+                                            "filter": "[Tags] contains 'Blocked' and [StoryPoints] = '8'",
+                                            "backgroundColor": "#de5e5e",
+                                            "foregroundColor": "#000000",
+                                            "isItalic": true,
+                                            "isBold": true,
+                                            "isUnderlined": true
+                                        }
+                                    ],
+                                    "tagStyles": [
+                                        {
+                                            "name": "Blocked",
+                                            "isEnabled": true,
+                                            "color": "#111111"
+                                        },
+                                        {
+                                            "name": "CustomAddedColor",
+                                            "color": "#00564b"
+                                        }
+                                    ]
+                                },
+                                "boardConfig": {
+                                    "columns": [
+                                        {
+                                            "name": "Initial",
+                                            "itemsInProgressLimit": 6,
+                                            "stateMappings": {
+                                                "User Story": "New"
+                                            },
+                                            "columnType": "incoming"
+                                        },
+                                        {
+                                            "name": "CustomColumn1",
+                                            "itemsInProgressLimit": 5,
+                                            "isSplit": false,
+                                            "stateMappings": {
+                                                "User Story": "Active"
+                                            },
+                                            "definitionOfDone": "I'm super done"
+                                        },
+                                        {
+                                            "name": "CustomColumn2",
+                                            "itemsInProgressLimit": 3,
+                                            "isSplit": true,
+                                            "stateMappings": {
+                                                "User Story": "Active"
+                                            },
+                                            "definitionOfDone": "I'm super done 2"
+                                        }
+                                    ],
+                                    "rows": [
+                                        "customrow1",
+                                        "customrow2"
+                                    ]
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "CCoE Cloud Platform Team"
+                },
+                {
+                    "name": "Remove me during update Team"
+                }
+            ]
+        }
+    ]
+}

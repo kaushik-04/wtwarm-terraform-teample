@@ -1,0 +1,166 @@
+{
+    "$schema": "../Hydra/Hydra.Schema.json",
+    "organizationName": "ADO-Hydration",
+    "processes": [
+        {
+            "name": "Process 1",
+            "parentProcess": "Agile",
+            "description": "Custom process",
+            "backlogLevels": [
+                {
+                    "name": "MyCustomBehavior",
+                    "color": "f6546a"
+                },
+                {
+                    "name": "MyCustomBehavior2",
+                    "color": "0366fc"
+                }
+            ],
+            "workitemtypes": [
+                {
+                    "name": "Work Item Type 11",
+                    "Color": "f6546a",
+                    "icon": "icon_airplane",
+                    "description": "Some Description 11",
+                    "behavior": {
+                        "assignedBacklogLevel": "MyCustomBehavior", // fetch custom or use standard: System.TaskBacklogBehavior (...)
+                        "isDefault": false
+                    },
+                    "states": [
+                        {
+                            "name": "Stage 111",
+                            "Color": "b2b2b2",
+                            "StateCategory": "Proposed"
+                        },
+                        {
+                            "name": "Stage 112",
+                            "Color": "0366fc",
+                            "StateCategory": "InProgress"
+                        },
+                        {
+                            "name": "Stage 113",
+                            "Color": "d613bf",
+                            "StateCategory": "Completed"
+                        }
+                    ]
+                },
+                {
+                    "name": "Work Item Type 12",
+                    "Color": "13d620",
+                    "icon": "icon_airplane",
+                    "description": "Some Description 12",
+                    "behavior": {
+                        "assignedBacklogLevel": "Epics"
+                    },
+                    "states": [
+                        {
+                            "name": "Stage 121",
+                            "Color": "b2b2b2",
+                            "StateCategory": "Proposed"
+                        },
+                        {
+                            "name": "Stage 122",
+                            "Color": "0366fc",
+                            "StateCategory": "InProgress"
+                        },
+                        {
+                            "name": "Stage 123",
+                            "Color": "d613bf",
+                            "StateCategory": "Completed"
+                        }
+                    ]
+                },
+                {
+                    "name": "Work Item Type 13",
+                    "Color": "13d620",
+                    "icon": "icon_gear",
+                    "description": "Some Description 13",
+                    "behavior": {
+                        "assignedBacklogLevel": "Epics",
+                        "isDefault": true
+                    },
+                    "states": [
+                        {
+                            "name": "Stage 121",
+                            "Color": "b2b2b2",
+                            "StateCategory": "Proposed"
+                        },
+                        {
+                            "name": "Stage 122",
+                            "Color": "0366fc",
+                            "StateCategory": "InProgress"
+                        },
+                        {
+                            "name": "Stage 123",
+                            "Color": "d613bf",
+                            "StateCategory": "Completed"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Process 2",
+            "parentProcess": "Agile",
+            "description": "Custom process",
+            "backlogLevels": [
+                {
+                    "name": "MyCustomBehavior2",
+                    "color": "f6546a"
+                }
+            ],
+            "workitemtypes": [
+                {
+                    "name": "Work Item Type 21",
+                    "Color": "f6546a",
+                    "icon": "icon_airplane",
+                    "description": "Some Description 21",
+                    "behavior": {
+                        "assignedBacklogLevel": "MyCustomBehavior2",
+                        "isDefault": true
+                    },
+                    "states": [
+                        {
+                            "name": "Stage 211",
+                            "Color": "b2b2b2",
+                            "StateCategory": "Proposed"
+                        },
+                        {
+                            "name": "Stage 212",
+                            "Color": "0366fc",
+                            "StateCategory": "InProgress"
+                        },
+                        {
+                            "name": "Stage 213",
+                            "Color": "d613bf",
+                            "StateCategory": "Completed"
+                        }
+                    ]
+                },
+                {
+                    "name": "Work Item Type 22",
+                    "Color": "13d620",
+                    "icon": "icon_airplane",
+                    "description": "Some Description 22",
+                    "states": [
+                        {
+                            "name": "Stage 221",
+                            "Color": "b2b2b2",
+                            "StateCategory": "Proposed"
+                        },
+                        {
+                            "name": "Stage 222",
+                            "Color": "0366fc",
+                            "StateCategory": "InProgress"
+                        },
+                        {
+                            "name": "Stage 223",
+                            "Color": "d613bf",
+                            "StateCategory": "Completed"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

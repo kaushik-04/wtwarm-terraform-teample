@@ -1,0 +1,45 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "roleName": {
+            "value": "LZ Owner"
+        },
+        "roleDescription": {
+            "value": "Landing Zone Owner"
+        },
+        "actions": {
+            "value": [
+                "*"
+            ]
+        },
+        "notActions": {
+            "value": [
+                "Microsoft.Subscription/*",
+                "Microsoft.Authorization/policyAssignments/write",
+                "Microsoft.Authorization/policyAssignments/*/write",
+                "Microsoft.Authorization/policyAssignments/delete",
+                "Microsoft.Authorization/policyAssignments/*/delete",
+                "Microsoft.Authorization/policyDefinitions/write",
+                "Microsoft.Authorization/policyDefinitions/delete",
+                "Microsoft.Authorization/policySetDefinitions/write",
+                "Microsoft.Authorization/policySetDefinitions/delete",
+                "Microsoft.Authorization/policyExemptions/write",
+                "Microsoft.Authorization/policyExemptions/delete",
+                "Microsoft.Authorization/roleDefinitions/write",
+                "Microsoft.Authorization/roleDefinitions/delete"
+            ]
+        },
+        "dataActions": {
+            "value": []
+        },
+        "notDataActions": {
+            "value": []
+        },
+        "assignableScopes": {
+            "value": [
+                "/providers/Microsoft.Management/managementGroups/cloudnative-mg"
+            ]
+        }
+    }
+}

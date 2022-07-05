@@ -1,0 +1,14 @@
+{
+    "_links": {
+        "self": {
+            "href": "https://dev.azure.com/contoso/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/classificationNodes/Iterations"
+        }
+    },
+    "hasChildren": true,
+    "id": 0,
+    "identifier": "028d7b85-0fc5-4d27-a0c9-4d3e102b1c44",
+    "name": "Module Playground",
+    "path": "\\Module Playground\\Iteration",
+    "structureType": "iteration",
+    "url": "https://dev.azure.com/contoso/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/classificationNodes/Iterations"
+}

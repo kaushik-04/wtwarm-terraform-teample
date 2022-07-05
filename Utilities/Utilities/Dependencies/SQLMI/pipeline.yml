@@ -1,0 +1,59 @@
+name: Dependencies
+
+variables:
+- template: /Modules/ARM/.global/global.variables.yml
+- name: parametersPath
+  value: /Utilities/Dependencies/SQLMI
+- name: resourceGroupName
+  value: dependencies-sqlmi-rg
+
+trigger:
+  batch: true
+  branches:
+    include:
+    - notrigger
+  paths:
+    include:
+    - Utilities/Dependencies/SQLMI/*
+
+stages:
+- stage: ResourceGroups
+  displayName: Resource Groups
+  jobs:
+  - template: /Modules/ARM/.global/PipelineTemplates/pipeline.jobs.deploy.yml
+    parameters:
+      displayName: ResourceGroup
+      moduleName: ResourceGroup
+      modulePath: $(modulesPath)/ResourceGroup
+      deploymentBlocks:
+      - path: $(parametersPath)/ResourceGroup/Parameters/dependencies.parameters.json
+
+# Modules
+
+- stage: RequiredModules
+  displayName: Required Modules
+  jobs:
+
+  - template: /Modules/ARM/.global/PipelineTemplates/pipeline.jobs.deploy.yml
+    parameters:
+      displayName: RouteTable
+      moduleName: RouteTables
+      modulePath: $(modulesPath)/RouteTables
+      deploymentBlocks:
+      - path: $(parametersPath)/RouteTables/Parameters/parameters.json
+
+  - template: /Modules/ARM/.global/PipelineTemplates/pipeline.jobs.deploy.yml
+    parameters:
+      displayName: Network Security Group
+      moduleName: NetworkSecurityGroups
+      modulePath: $(modulesPath)/NetworkSecurityGroups
+      deploymentBlocks:
+      - path: $(parametersPath)/NetworkSecurityGroups/Parameters/parameters.json
+
+  - template: /Modules/ARM/.global/PipelineTemplates/pipeline.jobs.deploy.yml
+    parameters:
+      displayName: Virtual Network 4
+      moduleName: VirtualNetwork
+      modulePath: $(modulesPath)/VirtualNetwork
+      deploymentBlocks:
+      - path: $(parametersPath)/VirtualNetwork/Parameters/parameters.json

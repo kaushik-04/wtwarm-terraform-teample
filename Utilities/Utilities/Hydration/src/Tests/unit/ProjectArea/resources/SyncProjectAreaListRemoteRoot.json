@@ -1,0 +1,14 @@
+{
+    "id": 0,
+    "identifier": "d3761d90-4c40-4699-a11c-a0a16a0ae1bd",
+    "name": "Module Playground",
+    "structureType": "area",
+    "hasChildren": true,
+    "path": "\\Module Playground\\Area",
+    "_links": {
+        "self": {
+            "href": "https://dev.azure.com/contoso/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/classificationNodes/Areas"
+        }
+    },
+    "url": "https://dev.azure.com/contoso/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/classificationNodes/Areas"
+}

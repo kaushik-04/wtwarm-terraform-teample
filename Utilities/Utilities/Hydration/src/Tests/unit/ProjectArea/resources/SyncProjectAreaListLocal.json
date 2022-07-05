@@ -1,0 +1,39 @@
+{
+    "projectName": "Module Playground",
+    "organizationName": "contoso",
+    "areaPaths": [
+        {
+            "name": "Area 1"
+        },
+        {
+            "name": "Area 2"
+        },
+        {
+            "name": "Area 3"
+        },
+        {
+            "name": "Area 7",
+            "children": []
+        },
+        {
+            "name": "New Team 1"
+        },
+        {
+            "name": "New Team 2"
+        },
+        {
+            "name": "New Team 3",
+            "children": [
+                {
+                    "name": "New Team 31",
+                    "children": [
+                        {
+                            "name": "New Team 311",
+                            "children": []
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

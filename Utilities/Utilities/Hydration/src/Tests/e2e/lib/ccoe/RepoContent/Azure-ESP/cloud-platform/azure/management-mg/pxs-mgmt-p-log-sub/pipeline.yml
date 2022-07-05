@@ -1,0 +1,62 @@
+name: $(subscriptionName) - $(managementGroupID) - $(tenantName)
+
+variables:
+- template: sub.variables.yml
+- name: serviceConnection
+  value: 'cloudnative-mg'
+
+trigger:
+  batch: true
+  branches:
+    include:
+    - master
+  paths:
+    include:
+    - .global/*
+    - tenant.variables.yml
+    - management-mg/mg.variables.yml
+    - management-mg/mg.variables.yml
+    - management-mg/mgmt-p-log-sub/sub.variables.yml
+    - management-mg/mgmt-p-log-sub/pipeline.yml
+    - management-mg/mgmt-p-log-sub/parameters/*
+
+resources:
+  repositories:
+  - repository: IaC
+    type: git
+    ref: 'refs/heads/master'
+    name: IaC
+
+stages:
+- stage: Deploy_Principals
+  jobs:
+  - template: /cicd/templates/pipeline.jobs.deploy.yml@IaC
+    parameters:
+      serviceConnection: 'aad-automation'
+      moduleName: aadserviceprincipal
+      moduleVersion: '1.1'
+      deploymentBlocks:
+      - path: "$(parametersPath)/aadserviceprincipal/mgmt-p-log-sub-sp.json"
+      checkoutRepositories:
+      - IaC
+
+- stage: Deploy_Subscription
+  jobs:
+    - template: /cicd/templates/pipeline.jobs.deploy.yml@IaC
+      parameters:
+        serviceConnection: $(serviceConnection)
+        moduleName: subscription
+        moduleVersion: '1.0'
+        deploymentBlocks:
+        - path: $(parametersPath)/subscription/mgmt-p-log-sub.json
+        checkoutRepositories:
+        - IaC
+
+- stage: Deploy_ServiceConnection
+  jobs:
+  - template: /modules/serviceconnection/1.0/Pipeline/pipeline.jobs.deploy.yml@IaC
+    parameters:
+      deploymentBlocks:
+      - path: "$(parametersPath)/serviceconnection/parameters.json"
+      checkoutRepositories:
+        - IaC

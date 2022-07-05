@@ -1,0 +1,160 @@
+#########################################################
+## PUBLISH PIPELINE                                    ##
+#########################################################
+##
+## This pipeline template contains the logic to publish module data as 
+## - A build artifact and/or
+## - As a new version to a given storage account and/or
+## - As a new version as an UniversalPackage to a given artifact-feed 
+##
+#########################################################
+
+##---------------------------------------------##
+## TEMPLATE PARAMETERS                         ##
+##---------------------------------------------##
+##
+## By default it uses the variables specified in the below [parameters] section. However, you can overwrite these variables in the 
+##    referencing pipeline by providing the paramater explicitly.
+##
+## NOTE: If you don't need to overwrite a shared value, you can IGNORE this section 
+##
+##   |====================================================================================================================================================================================================================================|
+##   | Parameter                             | Default Value                               | Description                                                                                         | Example                                |
+##   |---------------------------------------|---------------------------------------------|-----------------------------------------------------------------------------------------------------|----------------------------------------|
+##   | displayName                           | 'Publish module'                            | Name for the pipeline job                                                                           | 'Publish KeyVault'                     |
+##   | serviceConnection                     | '$(serviceConnection)'                      | The service connection that connects to Azure                                                       | 'demo-internal'                        |
+##   | poolName                              | '$(poolName)'                               | You can provide either a [poolname] or [vmImage] to run the job on                                  | 'Custom Deployment Pool'               |
+##   | vmImage                               | '$(vmImage)'                                | You can provide either a [poolname] or [vmImage] to run the job on                                  | 'ubuntu20.04'                          |
+##   | defaultJobTimeoutInMinutes            | 120                                         | The timeout for the job in this pipeline                                                            | 120                                    |
+##   | modulesPath                           | '$(modulesPath)'                            | The path to the modules root folder. E.g. 'Modules/ARM'                                             | 'Modules/ARM'                          |
+##   | moduleName                            | '$(moduleName)'                             | The name of the module to publish. If publishing to an artifacts feed, must be lower case.          | 'keyvault'                             |
+##   | versionOption                         | '$(versionOption)'                          | The mode to handle the version increments [major|minor|patch|custom].                               | 'patch'                                |
+##   | moduleVersion                         | '$(moduleVersion)'                          | The version to enforce if [versionOption] is set to [custom]                                        | '1.0'                                  |
+##   | componentStorageContainerName         | '$(componentStorageContainerName)'          | Required to publish to a storage account. Name of the blob container to publish to                  | 'components'                           |
+##   | componentStorageAccountRGName         | '$(componentStorageAccountRGName)'          | Required to publish to a storage account. ResourceGroup of the storage account to publish to        | 'mgmt-rg'                              |
+##   | componentStorageAccountRGLocation     | '$(componentStorageAccountRGLocation)'      | Required to publish to a storage account. Location of the storage account resource group            | 'West Europe'                          |
+##   | componentStorageAccountSubscriptionId | '$(componentStorageAccountSubscriptionId)'  | Required to publish to a storage account. SubscriptionId of the storage account to publish to       | '477c9620-cb01-454f-9ebc-fc6b1df48c14' |
+##   | componentStorageAccountName           | '$(componentStorageAccountName)'            | Required to publish to a storage account. Name of the storage account to publish to                 | 'componentssa'                         |
+##   | componentTemplateSpecRGName           | '$(componentTemplateSpecRGName)'            | Required to publish to template spec. ResourceGroup of the template spec to publish to              | 'mgmt-rg'                              |
+##   | componentTemplateSpecRGLocation       | '$(componentTemplateSpecRGLocation)'        | Required to publish to template spec. Location of the template spec resource group                  | 'West Europe'                          |
+##   | componentTemplateSpecName             | '$(componentTemplateSpecName)'              | Required to publish to template spec. Name of the template spec to publish to                       | 'ts-test'                              |
+##   | componentTemplateSpecDescription      | '$(componentTemplateSpecDescription)'       | Required to publish to template spec. Description of the template spec to publish to                | 'IaCs module'                          |
+##   | vstsFeedName                          | '$(vstsFeedName)'                           | Required to publish to a DevOps feed. Name to the feed to publish to.                               | 'modules'                              |
+##   | vstsFeedProject                       | '$(System.TeamProject)'                     | Required to publish to a DevOps feed. Name of the project hosting the artifacts feed. May be empty. | 'iacs'                                 |
+##   | vstsFeedOrganization                  | '$(vstsFeedOrganization)'                   | Required to publish to a DevOps feed. Name of the organization hosting the artifacts feed.          | 'servicescode'                         |
+##   | azurePowerShellVersion                | '$(azurePowerShellVersion)'                 | Used for configuring the Azure PowerShell Version, one of the example values.                       | 'latestVersion' or 'OtherVersion'      |
+##   | preferredAzurePowerShellVersion       | '$(preferredAzurePowerShellVersion)'        | Used for configuring the Azure PowerShell Version, either an empty string or specific version.      | '4.4.0'                                |
+##   |====================================================================================================================================================================================================================================|
+##
+##---------------------------------------------##
+
+parameters:
+  # Pipeline-related parameters
+  displayName: 'Publish module'
+  serviceConnection: '$(serviceConnection)'
+  poolName: '$(poolName)'
+  vmImage: '$(vmImage)'
+  defaultJobTimeoutInMinutes: 120
+
+  # Logic-related parameters
+  ## Module-related
+  modulesPath: '$(modulesPath)'
+  moduleName: '$(moduleName)'
+  moduleVersion: '$(moduleVersion)'
+
+  ## Artifact-Feed-related
+  vstsFeedName: '$(vstsFeedName)'
+  vstsFeedProject: ''
+  vstsFeedOrganization: '$(vstsFeedOrganization)'
+
+##---------------------------------------------##
+## TEMPLATE LOGIC                              ##
+##---------------------------------------------##
+jobs:
+- job:
+  displayName: ${{ parameters.displayName }}
+  timeoutInMinutes: ${{ parameters.defaultJobTimeoutInMinutes }}
+  pool:
+    ${{ if ne(parameters.vmImage, '') }}:
+      vmImage: ${{ parameters.vmImage }}
+    ${{ if ne(parameters.poolName, '') }}:
+      name: ${{ parameters.poolName }}
+  steps:
+    - task: CopyFiles@2
+      displayName: Filter folders
+      inputs:
+        sourceFolder: '${{ parameters.modulesPath }}/${{ parameters.moduleName }}/${{ parameters.moduleVersion }}'
+        Contents: |
+          scripts/**
+          deploy.json
+          pre-deploy.ps1
+          post-deploy.ps1
+          deploy.ps1
+          README.md
+        targetFolder: '$(Build.ArtifactStagingDirectory)/${{ parameters.modulesPath }}/${{ parameters.moduleName }}/${{ parameters.moduleVersion }}'
+
+    # [Build-Artefact publish] task(s)
+    #---------------------------------
+    - task: PublishBuildArtifacts@1
+      condition: and(
+          eq(variables['publishToBuildArtifacts'], true),
+          not(canceled())
+        )
+      displayName: Publish Build Artifact
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)/${{ parameters.modulesPath }}/${{ parameters.moduleName }}/${{ parameters.moduleVersion }}'
+        ArtifactName: ${{ parameters.moduleName }}
+    
+    # [Artifact-feed publish] task(s)
+    #--------------------------------
+    - pwsh: |
+        # ---------------------------- #
+        # IMPORT MODULES               #
+        # ---------------------------- #
+        Import-Module "$(System.DefaultWorkingDirectory)/common/1.0/scripts/Import-Common.psm1" -Force -DisableNameChecking
+
+        $functionInput = @{
+          moduleName            = '${{ parameters.moduleName }}'
+          moduleVersion         = '${{ parameters.moduleVersion }}'
+        }
+
+        Write-Output "Invoke task with"
+        $functionInput
+
+        $output = Initialize-UniversalArtifactPublish @functionInput -Verbose
+
+        # Write output value(s) into pipeline environment
+        $output.Keys | ForEach-Object { 
+          Write-Host ("Publishing variable [{0}] with value [{1}] to pipeline environment" -f $_, $output[$_])
+          Write-Host ("##vso[task.setVariable variable={0}]{1}" -f $_, $output[$_])
+        }
+      displayName: 'Prepare publish to artifacts feed'
+      condition: and(
+          eq(variables['publishToArtifactsFeed'], true),
+          not(canceled())
+        )
+      enabled: true
+      env:
+        BUILD_NUMBER: $(Build.BuildNumber)
+        BUILD_SOURCEBRANCHNAME: $(Build.SourceBranchName)
+
+    - task: UniversalPackages@0
+      condition: and(
+          eq(variables['publishToArtifactsFeed'], true),
+          not(canceled()),
+          succeeded()
+        )
+      displayName: Publish Universal Package ${{ parameters.moduleName }}
+      inputs:
+        command: publish
+        publishDirectory: '$(Build.ArtifactStagingDirectory)/${{ parameters.modulesPath }}/${{ parameters.moduleName }}/${{ parameters.moduleVersion }}'
+        ${{ if eq(parameters.vstsFeedProject, '') }}:
+          vstsFeedPublish: "${{ parameters.vstsFeedName }}"
+        ${{ if ne(parameters.vstsFeedProject, '') }}:
+          vstsFeedPublish: "${{ parameters.vstsFeedProject }}/${{ parameters.vstsFeedName }}"
+        vstsFeedPackagePublish: '$(lowerModuleName)'
+        versionOption: '$(publishingMode)'
+        versionPublish: '$(newVersionObject)'
+        packagePublishDescription: '${{ parameters.moduleName }} Module'
+        verbosity: 'error'
+      enabled: true

@@ -1,0 +1,6 @@
+Work Item Type,Title,Title 1,Title 2,Tags,State,Area Path,Iteration Path,Description,Priority,Effort,Board Column
+Epic,,Epic 100,,"Blocked; Hybrid; Product; Other",Closed,Hydrate Backlog Integration Test,Hydrate Backlog Integration Test\Iteration 1,I am an Epic,1,8,
+Feature,,,Feature 110,,Resolved,Hydrate Backlog Integration Test,Hydrate Backlog Integration Test\Iteration 1,I am a Feature,1,5,"Scale-out"
+Feature,,,Feature 120,"Platform",Resolved,Hydrate Backlog Integration Test,Hydrate Backlog Integration Test\Iteration 1,I am a Feature,2,3,
+Feature,,,Feature 130,"Cloud-Native; Product",Resolved,Hydrate Backlog Integration Test,Hydrate Backlog Integration Test\Iteration 1,I am a Feature,2,3,
+Epic, Epic 200

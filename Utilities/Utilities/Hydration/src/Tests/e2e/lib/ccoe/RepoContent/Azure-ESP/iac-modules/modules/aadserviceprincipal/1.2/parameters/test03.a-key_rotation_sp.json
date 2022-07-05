@@ -1,0 +1,6 @@
+{
+    "name": "pxs-buildingblocks-deploytest03-sp",
+    "rotatePassword": true,
+    "outputVarName_ApplicationId": "pxs-buildingblocks-deploytest03-sp_ApplicationId",
+    "outputVarNameEncrypted_ServicePrincipalPassword": "pxs-buildingblocks-deploytest03-sp_ServicePrincipalPassword"
+}

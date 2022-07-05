@@ -1,0 +1,65 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "scope": {
+            "value": "/providers/Microsoft.Management/managementGroups/cloudnative-mg"
+        },
+        "properties": {
+            "value": {
+                "name": "cn-rbac-pi",
+                "displayName": "cn-rbac-pi",
+                "description": "Policy Initiative to validate RBAC",
+                "metadata": {
+                    "version": "1.0.0",
+                    "category": "RBAC"
+                },
+                "parameters": {
+                    "allowedRoleDefinitionIds": {
+                        "type": "array",
+                        "metadata": {
+                            "displayName": "Allowed Role Definition IDs",
+                            "description": "List of Role Definition IDs allowed for assignment"
+                        }
+                    },
+                    "excludedPrincipalIds": {
+                        "type": "array",
+                        "metadata": {
+                            "displayName": "Excluded Active Directory Principal IDs",
+                            "description": "List of Active Directory Principal IDs that will not be checked"
+                        }
+                    },
+                    "effect": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Effect",
+                            "description": "Determine the effect for the execution of the policy"
+                        },
+                        "allowedValues": [
+                            "Audit",
+                            "Deny",
+                            "Disabled"
+                        ],
+                        "defaultValue": "Audit"
+                    }
+                },
+                "policyDefinitions": [
+                    {
+                        "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/cloudnative-mg/providers/Microsoft.Authorization/policyDefinitions/cn-roleassignment-pd",
+                        "parameters": {
+                            "allowedRoleDefinitionIds": {
+                                "value": "[parameters('allowedRoleDefinitionIds')]"
+                            },
+                            "excludedPrincipalIds": {
+                                "value": "[parameters('excludedPrincipalIds')]"
+                            },
+                            "effect": {
+                                "value": "[parameters('effect')]"
+                            }
+                        }
+                    }
+                ]
+            }
+        }
+    }
+}

@@ -1,0 +1,56 @@
+name: Policy and Initiative Definitions
+
+variables:
+- name: vmImage
+  value: ubuntu-latest
+- name: serviceConnection
+  value: <your-spn-with-owner-access-on-tenant-root-group>
+- name: ManagementGroupName
+  value: 123456789-1234-1234-1234-123456789012
+- name: PolicyDefinitionsPath
+  value: Utilities/PolicyAsCodeFramework/Definitions
+
+trigger:
+  batch: true
+  branches:
+    include:
+      - master
+  paths:
+    include:
+    - Utilities/PolicyAsCodeFramework/Definitions/*
+
+stages:
+- stage: SetDefinitions
+  # condition: and(succeeded(), eq(variables['Build.Reason'], 'Manual'), eq(variables['Build.SourceBranch'], 'refs/heads/master')) 
+  jobs:
+  - job: SetDefinitions
+    displayName: Set Policy and Initiative Definitions
+    pool:
+      vmImage: $(vmImage)
+    steps:
+      - task: AzurePowerShell@4
+        displayName: Set Policy Definitions on Tenant Root Group
+        inputs:
+          azureSubscription: $(serviceConnection)
+          ScriptType: FilePath
+          scriptPath: $(Build.Repository.LocalPath)/$(PolicyDefinitionsPath)/Set-PolicyDefinitions.ps1
+          azurePowerShellVersion: LatestVersion
+          scriptArguments:
+            -ManagementGroupName $(ManagementGroupName)
+            -PolicyDefinitionRootFolder $(Build.Repository.LocalPath)/$(PolicyDefinitionsPath)/PolicyDefinitions
+            -PolicyDefinitionSchemaFilePath $(Build.Repository.LocalPath)/$(PolicyDefinitionsPath)/policyDefinitionSchema.json
+            -DeleteIfMarkedForDeletion
+          
+      - task: AzurePowerShell@4
+        displayName: Set Initiative Definitions on Tenant Root Group
+        inputs:
+          azureSubscription: $(serviceConnection)
+          ScriptType: FilePath
+          scriptPath: $(Build.Repository.LocalPath)/$(PolicyDefinitionsPath)/Set-InitiativeDefinitions.ps1
+          azurePowerShellVersion: LatestVersion
+          scriptArguments:
+            -ManagementGroupName $(ManagementGroupName)
+            -InitiativeDefinitionRootFolder $(Build.Repository.LocalPath)/$(PolicyDefinitionsPath)/InitiativeDefinitions
+            -InitiativeDefinitionSchemaFilePath $(Build.Repository.LocalPath)/$(PolicyDefinitionsPath)/initiativeDefinitionSchema.json
+            -DeleteIfMarkedForDeletion
+          

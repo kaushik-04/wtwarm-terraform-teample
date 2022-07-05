@@ -1,0 +1,100 @@
+name: $(moduleName)
+
+parameters:
+  - name: removeDeployment
+    displayName: Remove resources post-deployment
+    type: boolean
+    default: true
+  - name: versioningOption
+    displayName: Default publish version
+    type: string
+    default: patch
+    values:
+    - patch
+    - minor
+    - major
+  - name: uiCustomVersion
+    displayName: -OR- Custom publish version
+    type: string
+    default: '-'
+
+variables:
+  - template: /cicd/global.variables.yml
+  - name: moduleName
+    value: virtualNetwork
+  - name: moduleVersion
+    value: "1.0"
+  - name: initiativesFolderPath
+    value: /modules/virtualNetwork/1.0/policies/initiatives
+  - name: pipelineCustomVersion
+    value: 1.0.0
+  - name: serviceConnection
+    value: pxs-cn-s-ccoe-sub
+  # - name: managementGroupId
+  #   value: tobeupdated
+#to be changed to the created service connection for the cloud native management group
+
+trigger:
+  batch: true
+  branches:
+    include:
+      - master
+  paths:
+    include:
+      - cicd/*
+      - common/1.0/scripts/*
+      - modules/virtualNetwork/1.0/*
+    exclude:
+      - modules/virtualNetwork/1.0/readme.md
+
+stages:
+  - stage: Validation
+    jobs:
+      - template: /cicd/templates/pipeline.jobs.validate.yml
+        parameters:
+          deploymentBlocks:
+            - path: $(parametersPath)/deploy.parameters.json
+
+  # - stage: Policy_Definition_Deployment
+  #   condition: and(succeeded(), in(variables['Build.SourceBranch'], 'refs/heads/main','refs/heads/master'))
+  #   jobs:
+  #     - template: /cicd/templates/pipeline.jobs.deploy.yml
+  #       parameters:
+  #         serviceConnection: $(managementGroupId)
+  #         isPolicyDefinition: true
+  #         deploymentBlocks:
+  #           - path: $(modulePath)/policies/definitions/parameters/definitions.parameters.json
+
+  # - stage: Policy_Assignment_Deployment
+  #   condition: and(succeeded(), in(variables['Build.SourceBranch'], 'refs/heads/main','refs/heads/master'))
+  #   dependsOn: Policy_Definition_Deployment
+  #   jobs:
+  #     - template: /cicd/templates/pipeline.jobs.deploy.yml
+  #       parameters:
+  #         serviceConnection: $(managementGroupId)
+  #         isPolicyAssignment: true
+  #         deploymentBlocks:
+  #           - path: $(modulePath)/policies/assignments/parameters/assignments.parameters.json
+
+  - stage: Module_Deployment
+    # dependsOn: Policy_Assignment_Deployment
+    jobs:
+      - template: /cicd/templates/pipeline.jobs.deploy.yml
+        parameters:
+          removeDeployment: "${{ parameters.removeDeployment }}"
+          deploymentBlocks:
+            - path: $(parametersPath)/deploy.parameters.json
+
+  # - stage: Publishing
+  #   condition: and(succeeded(), in(variables['Build.SourceBranch'], 'refs/heads/main','refs/heads/master'))
+  #   jobs:
+  #   - template: /cicd/templates/pipeline.jobs.publish.yml
+  #     parameters:
+  #       versioningOption: '${{ parameters.versioningOption }}'
+  #       uiCustomVersion: '${{ parameters.uiCustomVersion }}'
+
+  # - stage: Removal
+  #   dependsOn: Module_Deployment
+  #   condition: and(succeededOrFailed(), eq( '${{ parameters.removeDeployment }}', 'true'))
+  #   jobs:
+  #   - template: /cicd/templates/pipeline.jobs.remove.yml

@@ -1,0 +1,69 @@
+{
+    "projectName": "Module Playground",
+    "organizationName": "contoso",
+    "iterationPaths": [
+        {
+            "name": "Iteration 1",
+            "attributes": {
+                "startDate": "2021-01-01",
+                "finishDate": "2021-06-01"
+            }
+        },
+        {
+            "id": 2,
+            "name": "Iteration 2 New",
+            "attributes": {
+                "startDate": "2021-01-01",
+                "finishDate": "2021-06-01"
+            }
+        },
+        {
+            "name": "Iteration 4",
+            "children": [
+                {
+                    "name": "Iteration 4.1",
+                    "attributes": {
+                        "startDate": "2021-01-04",
+                        "finishDate": "2021-01-11"
+                    }
+                },
+                {
+                    "name": "Iteration 4.2",
+                    "attributes": {
+                        "startDate": "2021-01-12",
+                        "finishDate": "2021-01-18"
+                    },
+                    "children": [
+                        {
+                            "name": "Iteration 4.2.1",
+                            "attributes": {
+                                "startDate": "2021-01-04",
+                                "finishDate": "2021-01-11"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Iteration 6"
+        },
+        {
+            "name": "Iteration 7",
+            "children": [
+                {
+                    "name": "Iteration 7.1",
+                    "attributes": {
+                        "startDate": "2021-01-12",
+                        "finishDate": "2021-01-18"
+                    },
+                    "children": [
+                        {
+                            "name": "Iteration 7.1.2"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

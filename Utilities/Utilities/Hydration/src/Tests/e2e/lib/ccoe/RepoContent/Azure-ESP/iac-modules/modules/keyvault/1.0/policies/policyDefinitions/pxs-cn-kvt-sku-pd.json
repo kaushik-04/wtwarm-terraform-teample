@@ -1,0 +1,38 @@
+{
+    "properties": {
+        "name": "pxs-cn-kvt-sku-pd",
+        "displayName": "Restrict allowed SKUs for KeyVault",
+        "policyType": "Custom",
+        "description": "This policy restrict the SKUs you can specify when deploying KeyVaults.",
+        "metadata": {
+            "category": "Key Vault"
+        },
+        "mode": "All",
+        "parameters": {
+            "allowedSKUs": {
+                "type": "Array",
+                "metadata": {
+                    "displayName": "Allowed SKUs",
+                    "description": "The list of allowed SKUs for any KeyVault deployment."
+                }
+            }
+        },
+        "policyRule": {
+            "if": {
+                "allOf": [
+                    {
+                        "field": "Microsoft.KeyVault/vaults/sku.name",
+                        "notIn": "[parameters('allowedSKUs')]"
+                    },
+                    {
+                        "field": "type",
+                        "equals": "Microsoft.KeyVault/vaults"
+                    }
+                ]
+            },
+            "then": {
+                "effect": "Audit"
+            }
+        }
+    }
+}

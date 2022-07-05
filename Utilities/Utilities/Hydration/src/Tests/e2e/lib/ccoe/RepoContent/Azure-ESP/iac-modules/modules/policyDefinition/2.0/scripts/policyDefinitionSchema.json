@@ -1,0 +1,219 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "http://example.com/example.json",
+    "type": "object",
+    "title": "The Root Schema",
+    "description": "The root schema comprises the entire JSON document.",
+    "required": [
+        "scope",
+        "properties"
+    ],
+    "properties": {
+        "scope": {
+            "$id": "#/properties/scope",
+            "type": "object",
+            "title": "The Scope Schema",
+            "description": "Scope of policy definition deployment.",
+            "default": {},
+            "examples": [
+                {
+                    "value": "/providers/Microsoft.Management/managementGroups/pxs-cloudnative-mg"
+                }
+            ],
+            "required": [
+                "value"
+            ],
+            "properties": {
+                "value": {
+                    "$id": "#/properties/scope/properties/value",
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 512,
+                    "title": "The value schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": "",
+                    "oneOf": [
+                        {
+                            "pattern": "^/providers/Microsoft.Management/managementGroups/[^/]+[^/]$"
+                        },
+                        {
+                            "pattern": "^/subscriptions/([a-f]|[0-9]){8}-([a-f]|[0-9]){4}-([a-f]|[0-9]){4}-([a-f]|[0-9]){4}-([a-f]|[0-9]){12}($|/resourceGroups/[^/]+[^/]$)"
+                        }
+                    ],
+                    "examples": [
+                        "/providers/Microsoft.Management/managementGroups/pxs-cloudnative-mg",
+                        "/subscriptions/760fa5ee-fee6-42a9-bf2a-4a914eae883a"
+                    ]
+                }
+            }
+        },
+        "properties": {
+            "$id": "#/properties/properties",
+            "type": "object",
+            "title": "The Properties Schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": {},
+            "examples": [],
+            "required": [
+                "value"
+            ],
+            "properties": {
+                "value": {
+                    "$id": "#/properties/properties/properties/value",
+                    "type": "object",
+                    "title": "The value schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": {},
+                    "required": [
+                        "name",
+                        "displayName",
+                        "policyType",
+                        "metadata",
+                        "mode",
+                        "description",
+                        "parameters",
+                        "policyRule"
+                    ],
+                    "properties": {
+                        "name": {
+                            "$id": "#/properties/properties/properties/value/properties/name",
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 128,
+                            "title": "The Name Schema",
+                            "description": "An explanation about the purpose of this instance.",
+                            "default": "",
+                            "examples": [
+                                "AuditKeyVaultLocation"
+                            ]
+                        },
+                        "displayName": {
+                            "$id": "#/properties/properties/properties/value/properties/displayName",
+                            "type": "string",
+                            "title": "The Displayname Schema",
+                            "description": "An explanation about the purpose of this instance.",
+                            "default": "",
+                            "examples": [
+                                "Audit Key Vault Location"
+                            ]
+                        },
+                        "policyType": {
+                            "$id": "#/properties/properties/properties/value/properties/policyType",
+                            "type": "string",
+                            "title": "The Policytype Schema",
+                            "description": "An explanation about the purpose of this instance.",
+                            "default": "",
+                            "examples": [
+                                "Custom"
+                            ]
+                        },
+                        "metadata": {
+                            "$id": "#/properties/properties/properties/value/properties/metadata",
+                            "type": "object",
+                            "title": "The Metadata Schema",
+                            "description": "An explanation about the purpose of this instance.",
+                            "default": {},
+                            "examples": [
+                                {
+                                    "category": "Key Vault"
+                                }
+                            ],
+                            "required": [
+                                "category"
+                            ],
+                            "properties": {
+                                "category": {
+                                    "$id": "#/properties/properties/properties/value/properties/metadata/properties/category",
+                                    "type": "string",
+                                    "title": "The Category Schema",
+                                    "description": "An explanation about the purpose of this instance.",
+                                    "default": "",
+                                    "examples": [
+                                        "Key Vault"
+                                    ]
+                                }
+                            }
+                        },
+                        "mode": {
+                            "$id": "#/properties/properties/properties/value/properties/mode",
+                            "type": "string",
+                            "title": "The Mode Schema",
+                            "description": "An explanation about the purpose of this instance.",
+                            "default": "",
+                            "enum": [
+                                "all",
+                                "indexed",
+                                "All",
+                                "Indexed",
+                                "Microsoft.ContainerService.Data",
+                                "Microsoft.Kubernetes.Data",
+                                "Microsoft.KeyVault.Data"
+                            ],
+                            "examples": [
+                                "All"
+                            ]
+                        },
+                        "description": {
+                            "$id": "#/properties/properties/properties/value/properties/description",
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 512,
+                            "title": "The Description Schema",
+                            "description": "An explanation about the purpose of this instance.",
+                            "default": "",
+                            "examples": [
+                                "This policy audits if a Key Vault is provisioned in a not allowed location."
+                            ]
+                        },
+                        "parameters": {
+                            "$id": "#/properties/properties/properties/value/properties/parameters",
+                            "type": "object",
+                            "minProperties": 0,
+                            "maxProperties": 20,
+                            "title": "The Parameters Schema",
+                            "description": "An explanation about the purpose of this instance.",
+                            "default": {},
+                            "examples": [
+                                {}
+                            ]
+                        },
+                        "policyRule": {
+                            "$id": "#/properties/properties/properties/value/properties/policyRule",
+                            "type": "object",
+                            "title": "The Policyrule Schema",
+                            "description": "An explanation about the purpose of this instance.",
+                            "default": {},
+                            "examples": [],
+                            "required": [
+                                "if",
+                                "then"
+                            ],
+                            "properties": {
+                                "if": {
+                                    "$id": "#/properties/properties/properties/value/properties/policyRule/properties/if",
+                                    "type": "object",
+                                    "title": "The If Schema",
+                                    "description": "An explanation about the purpose of this instance.",
+                                    "default": {},
+                                    "examples": [
+                                        {}
+                                    ]
+                                },
+                                "then": {
+                                    "$id": "#/properties/properties/properties/value/properties/policyRule/properties/then",
+                                    "type": "object",
+                                    "title": "The Then Schema",
+                                    "description": "An explanation about the purpose of this instance.",
+                                    "default": {},
+                                    "examples": [
+                                        {}
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

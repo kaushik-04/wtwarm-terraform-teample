@@ -1,0 +1,626 @@
+﻿Work Item Type,State,Assigned To,Title 1,Title 2,Title 3,Title 4
+"Epic","New","","Azure Enterprise Portal",,,
+"Feature","New",,,"Enterprise Portal configuration",,
+"User Story","New","",,,"Enterprise Portal is configured as in the design document",
+"Task","New","",,,,"Create tasks required to complete this User Story with Jonas"
+"Task","New","",,,,"Create 2 break glass accounts"
+"Task","New","",,,,"Clean up unnecessary accounts from EA -portal"
+"Task","New","",,,,"Configure departments and accounts to EA-portal"
+"Task","New","",,,,"Update wiki on the configured EA-structure"
+"Task","New","",,,,"Review current EA Admin accounts"
+"Task","New","",,,,"PLAYGROUND: create EA Account"
+"Task","New","",,,,"PLAYGROUND: create Department"
+"Task","New","",,,,"Explain Department & Account structure to FGS"
+"Task","New","",,,,"Preparation of the move of subscriptions to the good accounts"
+"Task","New","",,,,"Document Break glass account"
+"Epic","New","","Azure Active Directory",,,
+"Feature","New","",,"[AAD] Access Management",,
+"Feature","New",,,"[AAD] Privileged Access Management",,
+"User Story","New",,,,"Access for personal dev/admin accounts",
+"Task","New",,,,,"Create cloud only accounts for project teams privileged users"
+"Task","New",,,,,"Delegate access to the projects dev teams personal users"
+"User Story","New",,,,"PIM for Foundations Team",
+"User Story","New",,,,"PIM for Platform (Malta) team",
+"Feature","New",,,"[AAD] Entitlement Management",,
+"User Story","New",,,,"[EM] Catalog for Foundations Team",
+"User Story","New",,,,"[EM] Access Package - Foundations Team - Product Owner",
+"User Story","New",,,,"[EM] Access Package - Foundations Team - Team Member",
+"User Story","New",,,,"[EM] Catalog for Platform Team",
+"User Story","New",,,,"[EM] Access Package - Platform Team - Product Owner",
+"User Story","New",,,,"[EM] Access Package - Platform Team - Team member",
+"Feature","New",,,"[AAD] Password Management",,
+"User Story","New",,,,"Password Writeback",
+"User Story","New",,,,"Self-Service Password Reset",
+"User Story","New",,,,"Password Protection",
+"User Story","New",,,,"Integrate Password Protection to AD",
+"User Story","New",,,,"Converged registration MFA/SSPR",
+"User Story","New",,,,"Password rotation strategy for Service Principals",
+"Feature","New",,,"[AAD] Authentication Method",,
+"User Story","New",,,,"ADFS and AAD Connect",
+"Feature","New",,,"[AAD] Collaboration and guest accounts",,
+"User Story","New",,,,"Block users and guests from inviting guests",
+"Epic","New","","Azure Governance",,,
+"Feature","New",,,"[MG] Cloud Native",,
+"User Story","New","",,,"Cloud Native MG custom RBAC for Landing Zone Owner via IaC",
+"Task","New","",,,,"Document component RoleDefinition"
+"Task","New","",,,,"Create tasks for this User Story with Marius and Dante"
+"Task","New","",,,,"Document component RoleAssignment"
+"Task","New","",,,,"Assign reader access to building-blocks AAD Group on Cloud-Native MG"
+"Task","New","",,,,"Research for Azure Custom roles "
+"Task","New","",,,,"Create reusable component for RoleDefinition"
+"Task","New",,,,,"Detailed design on LZ Owner RoleDefinition for MVP"
+"Task","New","",,,,"Develop and deploy the RoleDefinition on temp MG"
+"Task","New","",,,,"Develop and deploy RoleAssignement to sub/LZ"
+"Task","New","",,,,"Prepare a demo for Sprint Review"
+"Task","New","",,,,"Align with Gregor"
+"Task","New","",,,,"Create a PR for Custom Role components"
+"Task","New","",,,,"Review Custom Role PR feedback"
+"Task","New","",,,,"Align with lead/architect to ensure deployment is on existing MG structure"
+"Task","New","",,,,"Deploy the custom role (RoleDefinition) to MG in production"
+"Task","New","",,,,"Document configuration in Wiki"
+"Task","New","",,,,"Assign permissions on Platform MGMT SPN according to design"
+"Task","New","",,,,"Assign permission on Platform management SPN on EA according to design"
+"Task","New","",,,,"Document the configuration to wiki"
+"User Story","New","",,,"Cloud Native Management Group deployment",
+"Task","New","",,,,"Create tasks for this US with Mikko"
+"User Story","New",,,,"Cloud Native MG policies",
+"User Story","New",,,,"Cloud Native MG RBAC definition",
+"Feature","New",,,"[MG] Sandbox",,
+"User Story","New","",,,"Sandbox MG deployed via IaC according to Design in Wiki",
+"Task","New","",,,,"Create tasks for this User Story with Gregory"
+"Task","New","",,,,"ARM template creation"
+"Task","New","",,,,"Create service principle to create MG"
+"Task","New","",,,,"Create MG component in IaC"
+"Task","New","",,,,"JSON Config file creation on Platform repo"
+"Task","New","",,,,"Deploy MG Configuration using MG component and JSON file"
+"Task","New","",,,,"Create service connection to environment"
+"Task","New","",,,,"Document the configuration to wiki"
+"Task","New","",,,,"Redeploy Sandbox MG following new naming convention"
+"Task","New","",,,,"Redeploy foundational componentes to new MG"
+"User Story","New",,,,"Sandbox MG RBAC definition",
+"User Story","New","",,,"Policies for Sandbox",
+"Feature","New",,,"[MG] Management",,
+"User Story","New","",,,"Management MG deployed via IaC according to Design in Wiki",
+"Task","New","",,,,"Deploy Management MG manually"
+"Task","New","",,,,"Document the configuration to wiki"
+"Task","New","",,,,"Create service connection to environment"
+"Task","New","",,,,"Review align with Peter and Alvaro on foundation design"
+"Task","New","",,,,"Review/update the foundation design"
+"User Story","New",,,,"Management MG RBAC definition",
+"User Story","New","",,,"MG Policies for Management",
+"Feature","New",,,"[MG] Non-Prod",,
+"User Story","New","",,,"Non Prod MG deployed via IaC according to Design in Wiki",
+"Task","New","",,,,"Agree on name for non-prod management group"
+"Task","New","",,,,"Document Non-prod MG"
+"Task","New","",,,,"Deploy non-prod MG with IaC"
+"User Story","New","",,,"MG Policies for Non-Prod",
+"Feature","New",,,"[MG] Prod",,
+"User Story","New","",,,"Prod MG deployed via IaC according to Design in Wiki",
+"Task","New","",,,,"Agree on name for prod management group"
+"Task","New","",,,,"Document Prod MG"
+"Task","New","",,,,"Deploy prod MG with IaC"
+"User Story","New","",,,"MG Policies for Prod",
+"Epic","New","","Azure DevOps",,,
+"Feature","New",,,"ADO Organization RBAC",,
+"User Story","New","",,,"Implementation of RBAC in Azure DevOps Organization",
+"Task","New","",,,,"Configure CCoE Admins AAD Group as org owners"
+"Task","New","",,,,"Configure CCoE Admins AAD Group as only member of Project Collection Administrators"
+"Task","New","",,,,"Restrict job authorization scope to only current projects for non-release and reslease pipellines"
+"Task","New","",,,,"Document configuration in Wiki"
+"User Story","New","",,,"Implementation of RBAC in building-blocks project",
+"Task","New","",,,,"Configure building-blocks ADO projects as in design"
+"Task","New","",,,,"Create Config file for builing-blocks ADO configuration"
+"Task","New","",,,,"Create module for ADO Project Create + RBAC configuration"
+"Task","New","",,,,"Deploy RBAC via pipelines"
+"Feature","New",,,"ADO Private Agents",,
+"Epic","New","","Certified Components ",,,
+"Feature","New","",,"Key Vault 1.0",,
+"User Story","New","",,,"Key Vault 1.0 policies according to final certification",
+"Task","New","",,,,"Define the criteria for MVP"
+"Task","New","",,,,"Key Vault artifact downloadable at org level"
+"Task","New","",,,,"Documentation with final requierments for Key Vault"
+"Task","New","",,,,"Publish Key Vault 1.0 policies"
+"Task","New","",,,,"Update documentation for Key Vault 1.0"
+"Task","New","",,,,"Publish Key Vault 1.0 as an artifact"
+"Task","New","",,,,"Combine design doc in the wiki with impl. details on repo"
+"Task","New","",,,,"Create policy: Diagnostic Settings DeployIfNotExists"
+"Task","New","",,,,"Create policy: Diagnostic Settings Audit"
+"Task","New","",,,,"Create Policy: Deny RBAC on Data Plane"
+"Task","New","",,,,"Modify KeyVault ARM template with parameters mentioned in the documentation"
+"Task","New","",,,,"Testing Policies"
+"Task","New","",,,,"Review and Complete the KeyVault documentation in WIKI"
+"Task","New","",,,,"Review the KeyVault documentation in WIKI"
+"Task","New","",,,,"Key Vault 1.0 certified according to certification process"
+"Task","New","",,,,"Update the policy effects to audit for Sandbox"
+"Task","New",,,,,"Publish initiatives to different MG (Prod & non-prod)"
+"Task","New","",,,,"Update the documentation with deployIfNotExists policy"
+"Task","New","",,,,"Build the DeployIfNotExists Policy"
+"Task","New","",,,,"Prepare a demo"
+"Task","New","",,,,"Update the KeyVault Documentation"
+"Task","New","",,,,"Create Policy to Audit Private endpoint"
+"Task","New","",,,,"Threat Protection for AKV in Azure Security Center needs to be enforced using Defender for Key Vault. "
+"Task","New","",,,,"Testing policies "
+"Task","New","",,,,"Finish the documentation for KeyVault"
+"Task","New","",,,,"Find solution to enforce the logs to be collected centrally"
+"Task","New","",,,,"Log Analytics retention is configured on the LAW product itself. More information: https://docs.microsoft.com/en-us/azure/key-vault/key-vault-logging "
+"Task","New","",,,,"update publishing process to comply with new versioning"
+"Task","New","",,,,"Change the Policy Framework structure"
+"Task","New","",,,,"Rework policy components to work for deployments from both IaC and Platform repos"
+"Task","New","",,,,"Integrated and assign KV policies to Subscription services in the Platform repo"
+"User Story","New","",,,"Key Vault arm template MVP",
+"Task","New","",,,,"Update the outdated ARM template for KeyVault"
+"Task","New","",,,,"Discussion about how other teams will deploy the Key Vault component"
+"Task","New","",,,,"Testing the ARM template in the correct repo"
+"Task","New","",,,,"Enable the Diagnostic settings in the ARM template"
+"User Story","New","",,,"Key Vault documentation MVP",
+"Task","New","",,,,"Create documentation for Azure KeyVault with the configurations"
+"Task","New","",,,,"Add component template to the repo"
+"User Story","New","",,,"Key Vault policy initiative MVP",
+"Task","New","",,,,"Create an ARM template for the KeyVault initiative"
+"Task","New","",,,,"Testing the KeyVault Policy Initiative in the correct repo"
+"User Story","New","",,,"Key Vault custom policies templates MVP",
+"Task","New","",,,,"Create a policy for Azure KeyVault"
+"Task","New","",,,,"Testing the KeyVault Custom policies in the correct repo"
+"Task","New","",,,,"Custom Policies/Initiatives development"
+"Task","New","",,,,"Key vault should have purge protection enabled"
+"Task","New",,,,,"Azure Defender for Key Vault should be enabled"
+"Task","New","",,,,"Key vault should have soft delete enabled"
+"Task","New",,,,,"[Preview]: Firewall should be enabled on Key Vault"
+"Task","New",,,,,"[Preview]: Private endpoint should be configured for Key Vault"
+"Task","New","",,,,"Enforce Deployment of Diagnostic Settings for Key Vault to Log Analytics workspace"
+"Task","New",,,,,"Key Vault should use a virtual network service endpoint"
+"Task","New","",,,,"Deploy Diagnostic Settings for Key Vault to Event Hub"
+"User Story","New","",,,"Key Vault cicd publishing pipeline MVP",
+"Task","New","",,,,"Create tasks for this User Story with Dante, Alvaro, Gregor, Peter"
+"Task","New","",,,,"Create Pipeline YAML template"
+"Task","New","",,,,"Testing the publishing pipeline in the correct repo"
+"Feature","New","",,"Virtual Network",,
+"User Story","New","",,,"Publish Virtual Network 1.0 Certified Component",
+"Task","New","",,,,"Create product description page in Product catalog according to template"
+"Task","New","",,,,"Review the product description page"
+"Task","New","",,,,"Create PBIs for development"
+"Task","New",,,,,"Create policies for Vnet as explained in design"
+"Task","New",,,,,"Create ARM template"
+"Task","New",,,,,"create a set of policies"
+"Task","New",,,,,"test ARM template deployment using pipeline"
+"Task","New",,,,,"create a pipeline for deployment"
+"Task","New","",,,,"rework comments in documentation"
+"User Story","New",,,,"Create Documentation",
+"Feature","New","",,"Storage Account",,
+"User Story","New","",,,"Publish Storage Account 1.0 Certified Component",
+"Task","New","",,,,"Create product description page in Product catalog according to template"
+"Task","New","",,,,"Review the product description page"
+"Task","New","",,,,"Create PBIs for development"
+"Task","New","",,,,"Create the Module according to the design in the wiki"
+"Task","New","",,,,"Create a policy according to the wiki to enforce https"
+"Task","New","",,,,"Create a policy to enforce soft delete according to the wiki"
+"Task","New","",,,,"Create a policy to disallow public anonymous access on the storage account"
+"Task","New","",,,,"The StorageAccount certified product should allow for non hierarchical namespace"
+"User Story","New",,,,"Create Documentation",
+"Feature","New","",,"SQL Database",,
+"User Story","New","",,,"Publish SQL Database 1.0 Certified Component",
+"Task","New","",,,,"Create PBIs for development"
+"Task","New","",,,,"Update + Test ARM Template according to Design"
+"Task","New","",,,,"Develop + Test Policies according to design"
+"Task","New","",,,,"Azure SQL: Develop configure backups retention policies for multiple databases"
+"Task","New",,,,,"Document Azure SQL Readme.md"
+"Task","New",,,,,"Publish SQL as Certified Component (Policies + Artifact)"
+"Task","New","",,,,"Azure SQL: Develop Auditing and Advanced Threat Protection as specified by product"
+"Task","New","",,,,"Azure SQL: Create and manage IP firewall rules with respect to product spec"
+"Task","New","",,,,"Create product description page in Product catalog according to template"
+"Task","New","",,,,"Create PBIs for development"
+"Task","New","",,,,"Review the product description page"
+"Task","New","",,,,"Create product description page in Product catalog according to template"
+"Task","New",,,,,"Azure SQL: Enable and configure alerts for anomalous activities"
+"Task","New",,,,,"Azure SQL: Configure conditional access meeting requirements"
+"Task","New","",,,,"Azure SQL: Develop set the minimal TLS 1.2 version via PowerShell"
+"Task","New","",,,,"Azure SQL: : Develop diagnostic settings for Azure SQL with the use of Log Analytics"
+"Task","New","",,,,"Review cert prod SQL demo deployment"
+"User Story","New","",,,"Create Documentation",
+"Feature","New","",,"Databricks",,
+"User Story","New","",,,"Publish Databricks 1.0 Certified Component",
+"Task","New","",,,,"Create product description page in Product catalog according to template"
+"Task","New","",,,,"Review the product description page"
+"Task","New","",,,,"Create PBIs for development"
+"Task","New",,,,,"Databricks: Develop diagnostic settings for Azure Databricks with the use of Log Analytics"
+"Task","New",,,,,"Databricks: Develop Conditional Access Named Locations to allow access from only specific logical groupings of IP address ranges or countries/regions can be configured"
+"Task","New",,,,,"Update + Test ARM Template based on Design Document"
+"Task","New",,,,,"Databricks: Develop if required encrypted data exchange between worker nodes in a cluster "
+"Task","New",,,,,"Databricks: Develop Azure Key Vault-backed and Databricks-backed secret scope"
+"Task","New",,,,,"Develop + Test Policies based on Design Document"
+"Task","New",,,,,"Databricks: The unkown-unknow"
+"Task","New",,,,,"Databricks: Enable and configure alerts for anomalous activities"
+"Task","New",,,,,"Databricks: Enable pass-through for Azure Storage Accounts"
+"Task","New","",,,,"Resolve reviewer's comments"
+"Task","New",,,,,"Document Databricks README.md"
+"Task","New",,,,,"Publish Databricks Certified Component"
+"Task","New","",,,,"Databricks: develop script to synch AAD Users-> ADB Workspace"
+"Task","New","",,,,"Databricks: Develop Policy Azure Storage account public access should be disallowed needs exception for Microsoft managed RG"
+"User Story","New","",,,"Create Documentation",
+"Task","New","",,,,"Databricks define Security Requirements"
+"Feature","New","",,"Machine Learning",,
+"User Story","New","",,,"Publish Machine Learning 1.0 Certified Component",
+"Task","New","",,,,"Create product description page in Product catalog according to template"
+"Task","New","",,,,"Review the product description page"
+"Task","New","",,,,"Create PBIs for development"
+"Task","New","",,,,"Create the ARM Template according to the design in the wiki"
+"Task","New","",,,,"Update the deployment pipeline for Machine Leaning, incl. dependent Certified Products"
+"Task","New","",,,,"Resolve reviewer's comments"
+"Task","New","",,,,"Create the validation pipeline for Machine Leaning ARM template"
+"User Story","New","",,,"Create Documentation",
+"Task","New","",,,,"Azure Machine Learning Service define Security Requirements"
+"Task","New","",,,,"Create product description page in Product catalog according to template"
+"Task","New","",,,,"Create PBIs for development"
+"Feature","New",,,"Virtual Machine",,
+"User Story","New","",,,"Publish Virtual Machine 1.0 Certified Component",
+"Task","New","",,,,"Create product description page in Product catalog according to template"
+"Task","New","",,,,"Review the product description page"
+"Task","New",,,,,"Create PBIs for development"
+"Task","New","",,,,"Create ARM template based on product description"
+"Task","New","",,,,"Create pipeline for deployment"
+"Task","New","",,,,"Test ARM template deployment using pipeline"
+"Task","New","",,,,"Create set of policies"
+"Task","New",,,,,"Test policies in sandbox environment"
+"Task","New",,,,,"Update feature with component requirements"
+"Feature","New","",,"Azure Synapse",,
+"User Story","New","",,,"Azure Synapse move Code to DevOps",
+"User Story","New",,,,"Publish Azure Synapse 1.0 Certified Component",
+"Feature","New","",,"Data Factory",,
+"User Story","New",,,,"Data Factory move Code to DevOps",
+"User Story","New",,,,"Publish Datafactory 1.0 Certified Component",
+"Feature","New","",,"Container Registry",,
+"User Story","New",,,,"Container Registry move Code to DevOps",
+"User Story","New",,,,"Publish Container Registry 1.0 Certified Component",
+"Task","New",,,,,"Container Registry arm template MVP"
+"Task","New",,,,,"Container Registry define Security Requirements"
+"Task","New",,,,,"Container Registry documentation MVP"
+"Task","New",,,,,"Container Registry cicd publishing pipeline MVP"
+"Feature","New","",,"Container Instance",,
+"User Story","New",,,,"Container Instance move Code to DevOps",
+"User Story","New",,,,"Publish Container Instance 1.0 Certified Component",
+"Feature","New",,,"VM Scale Set",,
+"User Story","New","",,,"Publish VM Scale Set 1.0 Certified Component",
+"Task","New","",,,,"Create product description page in Product catalog according to template"
+"Task","New","",,,,"Review the product description page"
+"Task","New",,,,,"Create PBIs for development"
+"Task","New","",,,,"Create ARM template based on product description"
+"Task","New","",,,,"Create pipeline for deployment"
+"Task","New","",,,,"Test ARM template deployment using pipeline"
+"Task","New","",,,,"Create set of policies"
+"Task","New","",,,,"Test policies in sandbox environment"
+"Task","New",,,,,"Update feature with component requirements"
+"Task","New","",,,,"Fill in the table with security controls"
+"Task","New","",,,,"Create product description page in Product catalog according to template - Shared Image Gallery"
+"User Story","New",,,,"VM Scale Set move Code to DataBricks",
+"User Story","New","",,,"VM Scale Set define Security Requirements",
+"Feature","New",,,"Resource Group",,
+"User Story","New",,,,"Publish Resource Group 1.0 Certified component",
+"Task","New",,,,,"Create Product Description in Product Catalog"
+"Task","New",,,,,"Review the product description in the product catalog"
+"Task","New",,,,,"Create PBIs for development"
+"Epic","New",,"Management Environment",,,
+"Feature","New","",,"[Subscription] Management Subscription",,
+"User Story","New","",,,"Management subscription deployed according to Design in Wiki",
+"Task","New","",,,,"Document the configuration to wiki"
+"Task","New","",,,,"deploy subscription using JSON file + component in Platfrom repo"
+"Feature","New",,,"[RG] RG For Management",,
+"User Story","New","",,,"Resource Group for Management according to Design in Wiki ",
+"Task","New","",,,,"Document the configuration to wiki"
+"Task","New","",,,,"Deployment pipeline for RG configuration using RG component"
+"Task","New","",,,,"Resource Group component in IaC repo"
+"Task","New","",,,,"JSON Config file creation in Platfrom repo"
+"Task","New",,,,,"Create service connection"
+"Task","New",,,,,"Create service principle "
+"Task","New","",,,,"Create tasks for this User Story with Gregory"
+"Task","New","",,,,"Update the Readme file in repo"
+"User Story","New","",,,"Role assignments for Management environment",
+"Task","New","",,,,"Create tasks for this User Story with Dante, Rinat"
+"Task","New","",,,,"Add CSIRT Team members to AAD group for read access"
+"Task","New","",,,,"Documentation of the deployment in the wiki"
+"Task","New","",,,,"Assigning Role to service principal "
+"Epic","New",,"Logging Environment",,,
+"Feature","New",,,"[Subscription] Logging Subscription",,
+"User Story","New","",,,"Logging subscription deployed according to Design in Wiki",
+"Task","New",,,,,"deploy logging subscription to Cloud-native Management MG"
+"Task","New","",,,,"Document the configuration to wiki"
+"Feature","New",,,"[RG] RG For Logging",,
+"User Story","New","",,,"Resource Group for dataplatform logging according to design in Wiki",
+"Task","New","",,,,"Update design in Wiki with logging requirements"
+"Task","New",,,,,"Create rg group config parameters"
+"Task","New",,,,,"Deploy rg via pipeline"
+"Task","New",,,,,"Document rg configuration in wiki"
+"Feature","New",,,"Event Hub",,
+"User Story","New","",,,"Event Hub for Data Platform LZ according to design in Wiki",
+"Task","New","",,,,"Create product description page in Product catalog according to template"
+"Task","New","",,,,"Create Event Hub module according to requirements in Wiki (Foundation Design > Management and Monitoring)"
+"Task","New","",,,,"Create Event Hub config files"
+"Task","New","",,,,"Deploy Event Hub via pipelines"
+"Task","New",,,,,"Document event hub config in wiki"
+"Task","New","",,,,"Create policy at cloud-native mg level to send logs to event hub according to design in Wiki"
+"Task","New","",,,,"Create PBIs for development"
+"Task","New","",,,,"Publish policies for Event Hub logs via pipelines"
+"Task","New",,,,,"Update Event Hub documentation in IaC repo"
+"Task","New","",,,,"Document policy config in wiki"
+"Task","New","",,,,"Update design to be in line with the latest discussions"
+"Task","New","",,,,"Create event hub instance module according to the wiki"
+"Feature","New",,,"Log Analytics Workspace for central logs",,
+"User Story","New","",,,"Log Analytics workspace for central management according to design in Wiki",
+"Task","New",,,,,"Create Log Analytics workspace module according to requirements in Wiki"
+"Task","New",,,,,"Update log analytics doc in IaC Repo"
+"Task","New",,,,,"Create configuration file"
+"Task","New",,,,,"Deploy via pipeline"
+"Task","New",,,,,"Document log analytics configuration in wiki"
+"Task","New","",,,,"Create policy at cloud-native mg level to automatically send logs"
+"Task","New","",,,,"Publish policies via pipeline"
+"Task","New","",,,,"Document policies in wiki"
+"Epic","New","","[Landing Zone] Data Platform",,,
+"Feature","New","",,"[ADO Project] Data Platform",,
+"User Story","New","",,,"RBAC configuration for Data Platform project according to Design in Wiki",
+"Task","New","",,,,"Create tasks for this US"
+"Task","New","",,,,"Create config file for ADO Project"
+"Task","New","",,,,"Update ADO Project via pipeline"
+"User Story","New","",,,"Service Connection for dataplatform Sandbox subscription",
+"Task","New","",,,,"Create tasks for this User Story with Margarita"
+"Task","New",,,,,"Configure Service Connection in ADO"
+"Task","New","",,,,"Create JSON config file for service connection"
+"Task","New","",,,,"Create CD pipeline for Service Connection deployment"
+"Task","New","",,,,"Document Service Connection configuration"
+"Task","New","",,,,"Provide Azure AD Reader permissions for Service Connection's principal"
+"Task","New","",,,,"Update design with permissions required for LZ Service Principals"
+"User Story","New","",,,"Service Connection for Dataplatform Non Production subscription",
+"Task","New","",,,,"Configure Service Connection in ADO"
+"Task","New","",,,,"Create JSON config file for service connection"
+"Task","New","",,,,"Create CD pipeline for Service Connection deployment"
+"Task","New","",,,,"Document Service Connection configuration"
+"User Story","New","",,,"Service Connection for Dataplatform Production subscription",
+"Task","New",,,,,"Configure Service Connection in ADO"
+"Task","New","",,,,"Create JSON config file for service connection"
+"Task","New",,,,,"Create CD pipeline for Service Connection deployment"
+"Task","New","",,,,"Document Service Connection configuration"
+"Feature","New","",,"[Subscription] Sandbox for Data Platform",,
+"User Story","New","",,,"Sandbox subscription for Data Platform deployed",
+"Task","New","",,,,"Create tasks for this User Story with Gregory"
+"Task","New","",,,,"Create JSON config file"
+"Task","New",,,,,"Redeploy subscription using IaC component in Platform pipeline"
+"Task","New",,,,,"Document the configuration to wiki"
+"User Story","New",,,,"[SB DP] RBAC assignments for building-blocks",
+"Feature","New","",,"[Subscription] Production for Data Platform",,
+"User Story","New","",,,"Production subscription for Data Platform deployed according to Design in Wiki",
+"Task","New","",,,,"JSON Config file creation"
+"Task","New","",,,,"Redeploy subscription using JSON file + component in Platfrom repo"
+"Task","New","",,,,"Document the configuration to wiki"
+"Task","New","",,,,"Create service connection to environment"
+"Task","New","",,,,"Create service principle to create subscription"
+"User Story","New",,,,"[Prod DP] RBAC assignments for building-blocks",
+"Feature","New","",,"[Subscription] Non Production for Data Platform",,
+"User Story","New","",,,"Non Production subscription for Data Platform deployed according to Design in Wiki",
+"Task","New","",,,,"deploy subscription using JSON file + component in Platfrom repo"
+"Task","New",,,,,"Migrate Non-prod subscriptions from Data platform team to cloud-native non-prod MGs"
+"Task","New","",,,,"Document the configuration to wiki"
+"Task","New","",,,,"Create service connection to environment"
+"Task","New","",,,,"Create service principle to create subscription"
+"Task","New","",,,,"Redeploy subscriptions via IaC"
+"User Story","New",,,,"[Non Prod - DP] RBAC assignments for building-blocks",
+"Feature","New","",,"[RG] Sandbox RG for Data Platform",,
+"User Story","New","",,,"Sandbox RG for Data Platform",
+"Task","New","",,,,"Create tasks for this User Story with Gregory"
+"Feature","New","",,"[RG] Production RG for Data Platform",,
+"User Story","New","",,,"Production RG for Data Platform",
+"Feature","New","",,"[RG] Non Production RG for Data Platform",,
+"User Story","New","",,,"Non Production RG for Data Platform",
+"Feature","New","",,"[AAD] AD Groups",,
+"User Story","New","",,,"AAD Group for data platform team",
+"Task","New","",,,,"Create tasks for this US with Marius"
+"Task","New",,,,,"Evaluate bringing in automation for creating AAD groups"
+"Task","New",,,,,"Bring in preexisting automation for creating"
+"Task","New","",,,,"Create group for read access to subscription"
+"Task","New",,,,,"Create deployment pipeline and JSON config file for AAD Group deployment in Platfrom repo"
+"Task","New","",,,,"Create parameter files for AAD group for lz owner on bdp sandbox sub"
+"Task","New",,,,,"Deploy group with pipeline and parameterfile"
+"Task","New","",,,,"Create Group for Data Platform Administratos"
+"Task","New","",,,,"Create Group for Data Platform Readers"
+"Feature","New","",,"[AAD] Service Principals",,
+"User Story","New","",,,"Service Principals for Data Platform Landing Zone according to Design in Wiki",
+"Task","New","",,,,"Clarify the SP topic in the wiki"
+"Task","New",,,,,"Follow up with #10172"
+"Task","New","",,,,"Create AD Application module with AD API permissions grating"
+"Task","New","",,,,"Create SP according to the design"
+"Task","New","",,,,"Document Service Principals in wiki"
+"Feature","New","",,"[RBAC] Role assignments",,
+"Feature","New","",,"[MGMT] Management Services",,
+"User Story","New","",,,"Security Center enabled for Dataplatform Landingzone according to design in Wiki",
+"Task","New","",,,,"Create Policy Definition type of component in IaC"
+"Task","New","",,,,"Create Initiative Definition type of component in IaC"
+"Task","New","",,,,"Create Policy Assignment type of component in IaC"
+"Task","New","",,,,"Test policy deinifition, initiative definition and policy assignment on keyvault pipeline"
+"Task","New","",,,,"Define Security Center policy in Platform repo"
+"Task","New","",,,,"Apply Security Center policy to Cloud Native MG (According to Design)"
+"Task","New","",,,,"The creation of the template for the SC policies"
+"User Story","New","",,,"Network Watcher enabled for Dataplatform Landingzone according to design in Wiki",
+"User Story","New","",,,"Threat protection enabled for Dataplatform Landingzone according to design in Wiki",
+"Feature","New","",,"[LOGGING] LZ Log Analytics Workspace",,
+"User Story","New","",,,"Log Analytics workspace for Data Platform LZ according to design in Wiki",
+"Task","New",,,,,"Create Log Analytics workspace configuration file"
+"Task","New",,,,,"Deploy Log Analytics workspace for Data Platform via pipeline"
+"Task","New",,,,,"Document configuration of Log Analytics workspace in Wiki"
+"Task","New","",,,,"Create policy at cloud-native mg group level to send logs to Data Platform Log Analytics Workspace"
+"Task","New","",,,,"Publish policies for Data Platform law via pipeline"
+"Task","New","",,,,"Document configuration of policies in Wiki"
+"Task","New","",,,,"Design decision: Central log analytics from Mgmt to Logging subscriptions"
+"Epic","New","","[Landing Zone] Building-blocks",,,
+"Feature","New","",,"[ADO Project] Building-Blocks",,
+"User Story","New","",,,"Repository for Wiki",
+"Task","New","",,,,"Document Conventions for Backlog"
+"Task","New","",,,,"Prepare structure for documentation of deployed Platform"
+"Task","New","",,,,"Agree and document on Certified Components definition (versioning on policies, arm templates, custom role, artifacts)"
+"Task","New","",,,,"Glossary"
+"Task","New","",,,,"Knowledge session recordings + Sprint reviews"
+"Task","New","",,,,"Design document + diagrams"
+"Task","New","",,,,"Update user story with tasks"
+"Task","New","",,,,"Update WIKI with Component creation and publishing "
+"User Story","New","",,,"Repository for IaC templates",
+"Task","New","",,,,"Overview session of what has been done for general audience"
+"Task","New","",,,,"Dante/Gregory/Youri to present what scripts/arm templates have been developed"
+"Task","New","",,,,"Create tasks for User Story with Dante/Gregory/Youri"
+"Task","New","",,,,"Create repo"
+"Task","New","",,,,"Define and document branching strategy"
+"Task","New","",,,,"Define, document and set branching policy on master"
+"Task","New","",,,,"Define and document repo structure"
+"Task","New","",,,,"Include Unit tests + ARM template per artifact"
+"User Story","New","",,,"Repository for Platform management",
+"Task","New","",,,,"Create tasks for User Story with Dante/Gregory/Youri"
+"Task","New","",,,,"Define and document the repo structure"
+"Task","New","",,,,"Define and document the repo branching strategy"
+"Task","New","",,,,"Create the Platform Management repo"
+"Task","New","",,,,"Set branch policy on master branch"
+"Task","New","",,,,"Alignment with Alvaro/Margarita on contents of the Platform repo"
+"Task","New","",,,,"Review platform repo structure and branching strategy"
+"User Story","New","",,,"Service Connections for Platform deployment environments",
+"Task","New","",,,,"Create tasks for this User Stories with Youri and Margarita & Wim"
+"Task","New","",,,,"Design secret management strategy for Azure DevOps"
+"Task","New","",,,,"Document Service Connection configuration"
+"Task","New","",,,,"IaC scripts for Service Connection creation"
+"Task","New","",,,,"Configure Service Connection in ADO"
+"Task","New","",,,,"Create JSON config file for Service Connection (re)deployment"
+"Task","New","",,,,"Create CD pipeline for Service Connection deployment"
+"Task","New","",,,,"Add permission to the org to manage service connecitons"
+"User Story","New","",,,"Service Connections for building-blocks sandbox environment",
+"Task","New","",,,,"Create tasks for User Stories with Youri and Margarita"
+"Task","New","",,,,"Configure Service Connection in ADO"
+"Task","New","",,,,"Document Service Connection configuration"
+"Task","New","",,,,"Create JSON config file for Service Connection (re)deployment"
+"Task","New","",,,,"Create CD pipeline for Service Connection deployment"
+"User Story","New","",,,"YAML pipeline for CD of Platform Management",
+"Task","New","",,,,"Create tasks for User Stories with Gregory, Youri and Margarita"
+"Task","New","",,,,"Configure Service Connection to the Building-Blocks environment"
+"Task","New","",,,,"Define parent YAML pipeline"
+"Task","New","",,,,"Inherit parent template in YAML pipelines"
+"Task","New","",,,,"Document YAML pipelines configuration in the repo README"
+"Task","New","",,,,"Creation of tasks"
+"Task","New","",,,,"Update documentation for YAML pipeline"
+"User Story","New","",,,"YAML pipeline for CD of IaC templates",
+"Task","New","",,,,"Create tasks for User Stories with Gregory, Youri and Margarita"
+"Task","New","",,,,"Document YAML pipelines configuration in the repo README"
+"Task","New","",,,,"Inherit/Reference parent template in YAML pipelines"
+"Task","New","",,,,"Define parent YAML pipeline"
+"Task","New","",,,,"Configure ADO Artifacts for components publishing"
+"Task","New","",,,,"Design properly - input listed - What are the constraints/questions we need to answer?"
+"Task","New","",,,,"Readout on how to use the parent template and create pipelines"
+"User Story","New","",,,"Add PR Review Process for Design of Components in Wiki",
+"Task","New","",,,,"Configure PR for Component Design in Wiki"
+"User Story","New",,,,"Repository for Certified Components",
+"User Story","New",,,,"Service Connections for Certified Components publishing",
+"User Story","New",,,,"YAML pipeline for CD of Certified Components publishing",
+"User Story","New",,,,"Dashboard for Project Overview",
+"User Story","New",,,,"YAML pipeline decorator for CredScan",
+"User Story","New",,,,"Implement ADO RBAC",
+"Feature","New","",,"[Subscription] Sandbox for building-blocks",,
+"User Story","New","",,,"Sandbox subscription for building-blocks deployed according to Design in Wiki",
+"Task","New","",,,,"Create tasks for this User Story with Gregory"
+"Task","New","",,,,"Create subscription component in IaC repository"
+"Task","New","",,,,"JSON Config file creation on Platform repo"
+"Task","New",,,,,"Create pipeline to deploy subscription in Platform repo"
+"Task","New","",,,,"Redeploy subscription using JSON file + component in Platfrom repo"
+"Task","New",,,,,"Create service principle to create subscription"
+"Task","New",,,,,"Create service connection to environment"
+"Task","New","",,,,"Document the configuration to wiki"
+"Task","New","",,,,"Assign permission to the building blocks SPN "
+"Task","New","",,,,"Gather requirements for Service Principals and request the permissions"
+"Task","New","",,,,"Troubleshoot permission issue for deploying sub with IaC"
+"Task","New","",,,,"Update sub component to enable resource providers"
+"Feature","New","",,"[RG] Sandbox RG for building-blocks",,
+"User Story","New","",,,"Sandbox RG for building-blocks team",
+"Task","New","",,,,"Create tasks for this User Story with Gregory"
+"Task","New","",,,,"Resource Group component in IaC repo"
+"Task","New",,,,,"JSON Config file creation in Platfrom repo"
+"Task","New",,,,,"Deployment pipeline for RG configuration using RG component"
+"Task","New",,,,,"Create service principle "
+"Task","New",,,,,"Create service connection"
+"User Story","New","",,,"Role assignments for Data Platform sandbox environment",
+"Task","New","",,,,"Create tasks for this User Story with Dante, Rinat"
+"Task","New","",,,,"Assign LZ Owner access to subscription for bdp group"
+"Task","New","",,,,"Assigning Role to service principal "
+"Task","New","",,,,"Add Platform Team members to AAD group for read access"
+"Task","New","",,,,"Documentation of the deployment in the wiki"
+"Task","New","",,,,"Assign LZ owner access to subscription for SPN"
+"Feature","New","",,"[AAD] AD Groups",,
+"User Story","New","",,,"AAD Group for bulding-blocks team",
+"Task","New","",,,,"Document aadgroup component"
+"Task","New","",,,,"Create tasks for this US with Marius"
+"Task","New","",,,,"Create Group for CCoE Admins via pipeline"
+"Task","New","",,,,"Create component for aadgroup in IaC repo"
+"Task","New",,,,,"Prepare session to agree on the landing zone deployment"
+"Task","New",,,,,"Configure PIM for CCoE Admins AD Group"
+"Task","New","",,,,"Create group for read access to subscription"
+"Task","New","",,,,"Create Group for CCoE Readers "
+"Task","New","",,,,"Create deployment pipeline and JSON config file for AAD Group deployment in Platfrom repo"
+"Task","New","",,,,"Assign rights to the SP in AAD to create groups and add people"
+"Task","New","",,,,"Assign LZ Owner access to the ccoe-sandbox group subscription "
+"Task","New","",,,,"Create parameter files for AAD group for lz owner on buildingblocks sandbox sub"
+"Task","New",,,,,"Deploy group with pipeline and parameterfile"
+"Task","New","",,,,"Agree PIM strategy with Peter"
+"Task","New","",,,,Clean up AAD groups grp-pxs-cn-s*
+"Feature","New","",,"[AAD] Service Principals",,
+"User Story","New","",,,"Service Principals for Platform management",
+"Task","New","",,,,"Create tasks for this US with Marious"
+"Task","New",,,,,"Design Credentials strategy for Service Principals and update backlog and design"
+"Task","New","",,,,"Get a Service Principal with permission to automate creation of Service Principals"
+"Task","New",,,,,"Get Azure AD read permissions"
+"Task","New","",,,,"IaC scripts for Service Principal creation"
+"Task","New","",,,,"Create CD pipeline for Service Principal deployment"
+"Task","New","",,,,"Document Service Principal configuration"
+"Task","New","",,,,"Create service principal for platform management"
+"Task","New","",,,,"Create parameter files for spn creation"
+"Task","New",,,,,"Document aadserviceprincipal component"
+"Task","New","",,,,"Update serviceconnection to be idempotent"
+"Feature","New","",,"[RBAC] Role assignments",,
+"Feature","New",,,"[MGMT] Management Services ",,
+"User Story","New","",,,"Network Watcher enabled for Building Blocks Landingzone",
+"User Story","New","",,,"Threat protection enabled for Building Blocks Landingzone",
+"User Story","New","",,,"Security Center enabled for Building Blocks Landingzone",
+"Epic","New",,"[Landing Zone] CSIRT",,,
+"Feature","New",,,"[ADO Project] CSIRT Project",,
+"User Story","New","",,,"ADO Project for CSIRT",
+"Task","New",,,,,"Create/use a pipeline to deploy ADO projects"
+"Task","New",,,,,"Create SP to deploy ADO projects"
+"User Story","New","",,,"Service Connection for CSIRT Sandbox subscription",
+"Feature","New","",,"[Subscription] Sandbox for CSIRT",,
+"User Story","New","",,,"Sandbox subscription for CSIRT deployed",
+"Task","New","",,,,"JSON Config file creation on Platform repo"
+"Task","New","",,,,"Create pipeline to deploy subscription in Platform repo"
+"Task","New","",,,,"Redeploy subscription using JSON file + component in Platfrom repo"
+"Task","New","",,,,"Document the configuration to wiki"
+"Task","New","",,,,"Create service connection to environment"
+"Feature","New","",,"[AAD] Service Principals ",,
+"User Story","New","",,,"Service Principals for CSIRT Landing Zone",
+"Task","New","",,,,"Define required SP's"
+"Task","New","",,,,"Create new deployment of SP using the existing SP creation pipeline"
+"Task","New","",,,,"Assign correct roles to the SP"
+"Feature","New","",,"[AAD] AD Groups",,
+"User Story","New","",,,"AAD Group for CSIRT team",
+"Task","New","",,,,"Define required AAD groups + roles"
+"Task","New","",,,,"Create Group for CSIRT Administrators via pipeline"
+"Task","New","",,,,"Create AAD groups for CSIRT Readers via pipeline"
+"Task","New","",,,,"Create AAD groups for CSIRT Contributors via pipeline"
+"Feature","New","",,"[RBAC] Role assignments",,
+"Feature","New",,,"[MGMT] Management Services ",,
+"User Story","New","",,,"Security Center enabled for CSIRT Landingzone",
+"User Story","New","",,,"Network Watcher enabled for CSIRT Landingzone",
+"User Story","New","",,,"Threat protection enabled for CSIRT Landingzone",
+"Feature","New","",,"[RG] Sandbox RG For CSIRT ",,
+"User Story","New",,,,"Sandbox RG for CSIRT team",
+"Task","New",,,,,"Create service connection"
+"Task","New",,,,,"JSON Config file creation in Platfrom repo"
+"Task","New",,,,,"Resource Group component in IaC repo"
+"Task","New",,,,,"Document the configuration to wiki"
+"Task","New",,,,,"Deployment pipeline for RG configuration using RG component"
+"Task","New","",,,,"Create tasks for this User Story with Gregory"
+"Task","New",,,,,"Create service principle "
+"User Story","New",,,,"Role assignments for CSIRT sandbox environment - Copy",
+"Task","New","",,,,"Create tasks for this User Story with Dante, Rinat"
+"Task","New","",,,,"Add CSIRT Team members to AAD group for read access"
+"Task","New","",,,,"Assigning Role to service principal "
+"Epic","New",,"Azure Monitor",,,
+"Feature","New",,,"[Monitor] RBAC Auditing",,
+"User Story","New",,,,"RBAC Auditing",
+"Epic","New",,"Azure Defender ATP",,,

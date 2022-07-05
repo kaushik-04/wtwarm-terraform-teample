@@ -1,0 +1,112 @@
+{
+    "$schema": "../Hydra/Hydra.Schema.json",
+    "organizationName": "ADO-Hydration",
+    "processes": [
+        {
+            "name": "Process 1",
+            "parentProcess": "Agile",
+            "description": "Custom process New",
+            "backlogLevels": [
+                {
+                    "name": "MyCustomBehavior",
+                    "color": "0366fc"
+                },
+                {
+                    "name": "MyCustomBehavior3",
+                    "color": "d613bf"
+                }
+            ],
+            "workitemtypes": [
+                {
+                    "name": "Work Item Type 12",
+                    "Color": "d613bf",
+                    "icon": "icon_flame",
+                    "description": "Some Description 12 New",
+                    "behavior": {
+                        "assignedBacklogLevel": "Epics",
+                        "isDefault": true
+                    },
+                    "states": [
+                        {
+                            "name": "Stage 121",
+                            "Color": "0366fc",
+                            "StateCategory": "Proposed"
+                        },
+                        {
+                            "name": "Stage 122",
+                            "Color": "d613bf",
+                            "StateCategory": "InProgress"
+                        },
+                        {
+                            "name": "Stage 123",
+                            "Color": "d613bf",
+                            "StateCategory": "Completed"
+                        },
+                        {
+                            "name": "Stage 124",
+                            "Color": "d613bf",
+                            "StateCategory": "InProgress"
+                        }
+                    ]
+                },
+                {
+                    "name": "Work Item Type 13",
+                    "Color": "13d620",
+                    "icon": "icon_gear",
+                    "description": "Some Description 13",
+                    "behavior": {
+                        "assignedBacklogLevel": "Epics",
+                        "isDefault": false
+                    },
+                    "states": [
+                        {
+                            "name": "Stage 121",
+                            "Color": "b2b2b2",
+                            "StateCategory": "Proposed"
+                        },
+                        {
+                            "name": "Stage 122",
+                            "Color": "0366fc",
+                            "StateCategory": "InProgress"
+                        },
+                        {
+                            "name": "Stage 123",
+                            "Color": "d613bf",
+                            "StateCategory": "Completed"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Process 3",
+            "parentProcess": "Agile",
+            "description": "New custom process",
+            "workitemtypes": [
+                {
+                    "name": "Work Item Type 31",
+                    "Color": "f6546a",
+                    "icon": "icon_airplane",
+                    "description": "Some Description 31",
+                    "states": [
+                        {
+                            "name": "Stage 311",
+                            "Color": "b2b2b2",
+                            "StateCategory": "Proposed"
+                        },
+                        {
+                            "name": "Stage 312",
+                            "Color": "0366fc",
+                            "StateCategory": "InProgress"
+                        },
+                        {
+                            "name": "Stage 313",
+                            "Color": "d613bf",
+                            "StateCategory": "Completed"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

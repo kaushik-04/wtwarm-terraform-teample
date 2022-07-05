@@ -1,0 +1,636 @@
+parameters:
+- name:  vmImage
+  default: ''
+- name:  poolName
+  default: ''
+- name:  serviceConnection
+  default:
+- name:  resourcegroupname
+  default:
+- name:  assetsStorageaccount
+  default:
+- name:  waitForImageBuild
+  default:
+- name:  removeImageTemplateResourceGroups
+  default:
+- name:  jobEnvironment
+  default:
+- name:  jobOs
+  default:
+- name:  jobScope
+  default:
+
+jobs:
+## Resource group
+- job: Deploy_AgentsResourceGroup
+  displayName: Deploy ResourceGroup
+  dependsOn: ''
+  condition: |
+    and(
+      succeeded(),
+      in('${{ parameters.jobScope }}', 'All', 'Only infrastructure')
+    )
+  timeoutInMinutes: 120
+  pool:
+    ${{ if ne(parameters.vmImage, '') }}:
+      vmImage: ${{ parameters.vmImage }}
+    ${{ if ne(parameters.poolName, '') }}:
+      name: ${{ parameters.poolName }}
+  steps:
+  - checkout: self
+  - template: pipeline.steps.artifact.yml
+    parameters:
+      moduleName: '$(resourceGroupModuleName)'
+      moduleVersion: '$(resourceGroupModuleVersion)'
+  - task: AzurePowerShell@4
+    displayName: 'Deploy module [$(resourceGroupModuleName)] version [$(resourceGroupModuleVersion)] in [${{ parameters.resourcegroupname }}] via [${{ parameters.serviceConnection }}]'
+    name: Deploy_ResourceGroup_Task_01
+    inputs:
+      azureSubscription: ${{ parameters.serviceConnection }}
+      ScriptType: InlineScript
+      inline: |
+        Write-Verbose "Load function" -Verbose
+        . '$(Build.Repository.LocalPath)/$(orchestrationFunctionsPath)/Invoke-GeneralDeployment.ps1'
+
+        $parameterFilePath = Join-Path '$(Build.Repository.LocalPath)' ('$(rgFolderPath)/Parameters/ResourceGroup/{0}.parameters.json' -f '${{ parameters.jobEnvironment }}')
+        $functionInput = @{
+          location          = '$(location)'
+          modulePackagePath = Join-Path '$(downloadDirectory)' '$(resourceGroupModuleName)'
+          parameterFilePath = $parameterFilePath
+        }
+
+        Write-Verbose "Invoke task with" -Verbose
+        $functionInput.Keys | ForEach-Object { Write-Verbose ("PARAMETER: `t'{0}' with value '{1}'" -f $_, $functionInput[$_]) -Verbose }
+
+        Invoke-GeneralDeployment @functionInput -Verbose
+      errorActionPreference: stop
+      azurePowerShellVersion: LatestVersion
+  - task: AzurePowerShell@4
+    displayName: 'Prepare environment'
+    inputs:
+      azureSubscription: ${{ parameters.serviceConnection }}
+      ScriptType: InlineScript
+      azurePowerShellVersion: LatestVersion
+      errorActionPreference: stop
+      inline: |
+        $maximumRetries = 60
+        $waitTime = 10
+        $requiredResourceProviders = @(
+            'Microsoft.VirtualMachineImages'
+        )
+
+        foreach ($requiredResourceProvider in $requiredResourceProviders) {
+            $states = (Get-AzResourceProvider -ProviderNamespace $requiredResourceProvider).RegistrationState
+            if ($states -contains 'NotRegistered' -or $states -contains 'Unregistered') {
+                Write-Verbose "Resource provider '$requiredResourceProvider' not registered. Registering" -Verbose
+                Register-AzResourceProvider -ProviderNamespace $requiredResourceProvider
+            }
+            else {
+                Write-Verbose "Resource provider '$requiredResourceProvider' already registered" -Verbose
+            }
+        }
+
+        foreach ($requiredResourceProvider in $requiredResourceProviders) {
+            $currentTry = 0
+            do {
+                Write-Verbose "Resource provider '$requiredResourceProvider' still registering. Waiting $waitTime seconds [$currentTry|$maximumRetries]" -Verbose
+                Start-Sleep $waitTime
+                $currentTry++
+            } while ($currentTry -le $maximumRetries -and (Get-AzResourceProvider -ProviderNamespace $requiredResourceProvider).RegistrationState -contains 'Registering')
+        }
+
+## User Assigned Identity (MSI)
+- job: Deploy_UserAssignedIdentities
+  displayName: Deploy Azure Image Builder Identity
+  dependsOn:
+  - ${{ if in( parameters.jobScope, 'All', 'Only infrastructure') }}:
+    - Deploy_AgentsResourceGroup
+  condition: |
+    and (
+      succeeded(),
+      in('${{ parameters.jobScope }}', 'All', 'Only infrastructure'),
+      in(dependencies.Deploy_AgentsResourceGroup.result, '', 'Succeeded')
+    )
+  timeoutInMinutes: 120
+  pool:
+    ${{ if ne(parameters.vmImage, '') }}:
+      vmImage: ${{ parameters.vmImage }}
+    ${{ if ne(parameters.poolName, '') }}:
+      name: ${{ parameters.poolName }}
+  steps:
+  - checkout: self
+  - template: pipeline.steps.artifact.yml
+    parameters:
+      moduleName: '$(msiModuleName)'
+      moduleVersion: '$(msiModuleVersion)'
+  - task: AzurePowerShell@4
+    displayName: 'Deploy module [$(msiModuleName)] version [$(msiModuleVersion)] in [${{ parameters.resourcegroupname }}] via [${{ parameters.serviceConnection }}]'
+    name: Deploy_UserAssignedIdentities_Task
+    inputs:
+      azureSubscription: ${{ parameters.serviceConnection }}
+      ScriptType: InlineScript
+      inline: |
+        Write-Verbose "Load function" -Verbose
+        . '$(Build.Repository.LocalPath)/$(orchestrationFunctionsPath)/Invoke-GeneralDeployment.ps1'
+
+        $parameterFilePath = Join-Path '$(Build.Repository.LocalPath)' ('$(rgFolderPath)/Parameters/ManagedServiceIdentity/{0}.parameters.json' -f '${{ parameters.jobEnvironment }}')
+        $functionInput = @{
+          resourcegroupName = '${{ parameters.resourcegroupname }}'
+          modulePackagePath = Join-Path '$(downloadDirectory)' '$(msiModuleName)'
+          parameterFilePath = $parameterFilePath
+        }
+
+        Write-Verbose "Invoke task with" -Verbose
+        $functionInput.Keys | ForEach-Object { Write-Verbose ("PARAMETER: `t'{0}' with value '{1}'" -f $_, $functionInput[$_]) -Verbose }
+
+        Invoke-GeneralDeployment @functionInput -Verbose
+      errorActionPreference: stop
+      azurePowerShellVersion: LatestVersion
+
+## MSI Subscription contributor assignment
+- job: Deploy_RoleAssignments_ImagingSubscriptionContributor
+  displayName: Azure Image Builder Identity Role Assignment
+  dependsOn:
+  - ${{ if in( parameters.jobScope, 'All', 'Only infrastructure') }}:
+    - Deploy_UserAssignedIdentities
+  condition: |
+    and (
+      succeeded(),
+      in('${{ parameters.jobScope }}', 'All', 'Only infrastructure'),
+      in(dependencies.Deploy_UserAssignedIdentities.result, '', 'Succeeded')
+    )
+  timeoutInMinutes: 120
+  pool:
+    ${{ if ne(parameters.vmImage, '') }}:
+      vmImage: ${{ parameters.vmImage }}
+    ${{ if ne(parameters.poolName, '') }}:
+      name: ${{ parameters.poolName }}
+  variables:
+    msiPrincipalId: $[ dependencies.Deploy_UserAssignedIdentities.outputs['Deploy_UserAssignedIdentities_Task.msiPrincipalId'] ]
+  steps:
+  - checkout: self
+  - template: pipeline.steps.artifact.yml
+    parameters:
+      moduleName: '$(rbacModuleName)'
+      moduleVersion: '$(rbacModuleVersion)'
+  - task: AzurePowerShell@4
+    displayName: 'Deploy module [$(rbacModuleName) version [$(rbacModuleVersion)] in [${{ parameters.resourcegroupname }}] via [${{ parameters.serviceConnection }}]'
+    name: Deploy_ImagingSubscriptionOwnerAssignment_Task
+    inputs:
+      azureSubscription: ${{ parameters.serviceConnection }}
+      ScriptType: InlineScript
+      inline: |
+        Write-Verbose "Load function" -Verbose
+        . '$(Build.Repository.LocalPath)/$(orchestrationFunctionsPath)/Invoke-GeneralDeployment.ps1'
+
+        $parameterFilePath = Join-Path '$(Build.Repository.LocalPath)' ('$(rgFolderPath)/Parameters/RoleAssignment/{0}.parameters.json' -f '${{ parameters.jobEnvironment }}')
+        $functionInput = @{
+          location          = '$(location)'
+          modulePackagePath = Join-Path '$(downloadDirectory)' '$(rbacModuleName)'
+          parameterFilePath = $parameterFilePath
+        }
+
+        $parameterObjects += @{
+          roleAssignments =   @{
+            roleDefinitionIdOrName = "Contributor"
+            principalIds           = @( '$(msiPrincipalId)' )
+          }
+        }
+
+        $functionInput += @{
+          optionalParameters = $parameterObjects
+        }
+
+        Write-Verbose "Invoke task with" -Verbose
+        $functionInput.Keys | ForEach-Object { Write-Verbose ("PARAMETER: `t'{0}' with value '{1}'" -f $_, $functionInput[$_]) -Verbose }
+
+        Invoke-GeneralDeployment @functionInput -Verbose
+      errorActionPreference: stop
+      azurePowerShellVersion: LatestVersion
+
+## Shared Image Gallery
+- job: Deploy_SharedImageGallery
+  displayName: Deploy Shared Image Gallery
+  dependsOn:
+  - ${{ if in( parameters.jobScope, 'All', 'Only infrastructure') }}:
+    - Deploy_AgentsResourceGroup
+  condition: |
+    and (
+      succeeded(),
+      in('${{ parameters.jobScope }}', 'All', 'Only infrastructure'),
+      in(dependencies.Deploy_AgentsResourceGroup.result, '', 'Succeeded')
+    )
+  timeoutInMinutes: 120
+  pool:
+    ${{ if ne(parameters.vmImage, '') }}:
+      vmImage: ${{ parameters.vmImage }}
+    ${{ if ne(parameters.poolName, '') }}:
+      name: ${{ parameters.poolName }}
+  steps:
+  - checkout: self
+  - template: pipeline.steps.artifact.yml
+    parameters:
+      moduleName: '$(sharedImageGalleryModuleName)'
+      moduleVersion: '$(sharedImageGalleryModuleVersion)'
+  - task: AzurePowerShell@4
+    displayName: 'Deploy module [$(sharedImageGalleryModuleName)] version [$(sharedImageGalleryModuleVersion)] in [${{ parameters.resourcegroupname }}] via [${{ parameters.serviceConnection }}]'
+    name: Deploy_SharedImageGallery_Task
+    inputs:
+      azureSubscription: ${{ parameters.serviceConnection }}
+      ScriptType: InlineScript
+      inline: |
+        Write-Verbose "Load function" -Verbose
+        . '$(Build.Repository.LocalPath)/$(orchestrationFunctionsPath)/Invoke-GeneralDeployment.ps1'
+
+        $parameterFilePath = Join-Path '$(Build.Repository.LocalPath)' ('$(rgFolderPath)/Parameters/SharedImageGallery/{0}.parameters.json' -f '${{ parameters.jobEnvironment }}')
+        $functionInput = @{
+          resourcegroupName = '${{ parameters.resourcegroupname }}'
+          modulePackagePath = Join-Path '$(downloadDirectory)' '$(sharedImageGalleryModuleName)'
+          parameterFilePath = $parameterFilePath
+        }
+
+        Write-Verbose "Invoke task with" -Verbose
+        $functionInput.Keys | ForEach-Object { Write-Verbose ("PARAMETER: `t'{0}' with value '{1}'" -f $_, $functionInput[$_]) -Verbose }
+
+        Invoke-GeneralDeployment @functionInput -Verbose
+      errorActionPreference: stop
+      azurePowerShellVersion: LatestVersion
+
+## Shared Image Definition Windows
+- job: Deploy_WindowsSharedImageDefinition
+  displayName: Deploy Shared Image Definition for Windows
+  dependsOn:
+  - ${{ if in( parameters.jobScope, 'All', 'Only infrastructure') }}:
+    - Deploy_SharedImageGallery
+  condition: |
+    and (
+      succeeded(),
+      in('${{ parameters.jobScope }}', 'All', 'Only infrastructure'),
+      in('${{ parameters.jobOs}}', 'Both', 'Only Windows'),
+      in(dependencies.Deploy_SharedImageGallery.result, '', 'Succeeded')
+    )
+  timeoutInMinutes: 120
+  pool:
+    ${{ if ne(parameters.vmImage, '') }}:
+      vmImage: ${{ parameters.vmImage }}
+    ${{ if ne(parameters.poolName, '') }}:
+      name: ${{ parameters.poolName }}
+  steps:
+  - checkout: self
+  - template: pipeline.steps.artifact.yml
+    parameters:
+      moduleName: '$(sharedImageDefinitionModuleName)'
+      moduleVersion: '$(sharedImageDefinitionModuleVersion)'
+  - task: AzurePowerShell@4
+    displayName: 'Deploy module [$(sharedImageDefinitionModuleName)] version [$(sharedImageDefinitionModuleVersion)] in [${{ parameters.resourcegroupname }}] via [${{ parameters.serviceConnection }}]'
+    name: Deploy_WindowsSharedImageDefinition_Task
+    inputs:
+      azureSubscription: ${{ parameters.serviceConnection }}
+      ScriptType: InlineScript
+      inline: |
+        Write-Verbose "Load function" -Verbose
+        . '$(Build.Repository.LocalPath)/$(orchestrationFunctionsPath)/Invoke-GeneralDeployment.ps1'
+        $parameterFilePath = Join-Path '$(Build.Repository.LocalPath)' ('$(rgFolderPath)/Parameters/SharedImageDefinition/{0}.windows.parameters.json' -f '${{ parameters.jobEnvironment }}')
+        $functionInput = @{
+          resourcegroupName = '${{ parameters.resourcegroupname }}'
+          modulePackagePath = Join-Path '$(downloadDirectory)' '$(sharedImageDefinitionModuleName)'
+          parameterFilePath = $parameterFilePath
+        }
+
+        Write-Verbose "Invoke task with" -Verbose
+        $functionInput.Keys | ForEach-Object { Write-Verbose ("PARAMETER: `t'{0}' with value '{1}'" -f $_, $functionInput[$_]) -Verbose }
+
+        Invoke-GeneralDeployment @functionInput -Verbose
+      errorActionPreference: stop
+      azurePowerShellVersion: LatestVersion
+
+## Shared Image Definition Linux
+- job: Deploy_LinuxSharedImageDefinition
+  displayName: Deploy Shared Image Definition for Linux
+  dependsOn:
+  - ${{ if in( parameters.jobScope, 'All', 'Only infrastructure') }}:
+    - Deploy_SharedImageGallery
+  condition: |
+    and (
+      succeeded(),
+      in('${{ parameters.jobScope }}', 'All', 'Only infrastructure'),
+      in('${{ parameters.jobOs}}', 'Both', 'Only Linux'),
+      in(dependencies.Deploy_SharedImageGallery.result, '', 'Succeeded')
+    )
+  timeoutInMinutes: 120
+  pool:
+    ${{ if ne(parameters.vmImage, '') }}:
+      vmImage: ${{ parameters.vmImage }}
+    ${{ if ne(parameters.poolName, '') }}:
+      name: ${{ parameters.poolName }}
+  steps:
+  - checkout: self
+  - template: pipeline.steps.artifact.yml
+    parameters:
+      moduleName: '$(sharedImageDefinitionModuleName)'
+      moduleVersion: '$(sharedImageDefinitionModuleVersion)'
+  - task: AzurePowerShell@4
+    displayName: 'Deploy module [$(sharedImageDefinitionModuleName)] version [$(sharedImageDefinitionModuleVersion)] in [${{ parameters.resourcegroupname }}] via [${{ parameters.serviceConnection }}]'
+    name: Deploy_LinuxSharedImageDefinition_Task
+    inputs:
+      azureSubscription: ${{ parameters.serviceConnection }}
+      ScriptType: InlineScript
+      inline: |
+        Write-Verbose "Load function" -Verbose
+        . '$(Build.Repository.LocalPath)/$(orchestrationFunctionsPath)/Invoke-GeneralDeployment.ps1'
+
+        $parameterFilePath = Join-Path '$(Build.Repository.LocalPath)' ('$(rgFolderPath)/Parameters/SharedImageDefinition/{0}.linux.parameters.json' -f '${{ parameters.jobEnvironment }}')
+        $functionInput = @{
+          resourcegroupName = '${{ parameters.resourcegroupname }}'
+          modulePackagePath = Join-Path '$(downloadDirectory)' '$(sharedImageDefinitionModuleName)'
+          parameterFilePath = $parameterFilePath
+        }
+
+        Write-Verbose "Invoke task with" -Verbose
+        $functionInput.Keys | ForEach-Object { Write-Verbose ("PARAMETER: `t'{0}' with value '{1}'" -f $_, $functionInput[$_]) -Verbose }
+
+        Invoke-GeneralDeployment @functionInput -Verbose
+      errorActionPreference: stop
+      azurePowerShellVersion: LatestVersion
+
+## Assets storage account deployment      
+- job: Deploy_StorageAccount
+  displayName: Deploy Assets Storage Account
+  dependsOn:
+  - ${{ if in( parameters.jobScope, 'All', 'Only infrastructure') }}:
+    - Deploy_AgentsResourceGroup
+  condition: |
+    and (
+      succeeded(),
+      in('${{ parameters.jobScope }}', 'All', 'Only infrastructure', 'Only Storage & Image'),
+      in(dependencies.Deploy_AgentsResourceGroup.result, '', 'Succeeded')
+    )
+  timeoutInMinutes: 120
+  pool:
+    ${{ if ne(parameters.vmImage, '') }}:
+      vmImage: ${{ parameters.vmImage }}
+    ${{ if ne(parameters.poolName, '') }}:
+      name: ${{ parameters.poolName }}
+  steps:
+  - checkout: self
+  - template: pipeline.steps.artifact.yml
+    parameters:
+      moduleName: '$(storageAccountsModuleName)'
+      moduleVersion: '$(storageAccountsModuleVersion)'
+  - task: AzurePowerShell@4
+    displayName: 'Deploy module [$(storageAccountsModuleName)] version [$(storageAccountsModuleVersion)] in [${{ parameters.resourcegroupname }}] via [${{ parameters.serviceConnection }}]'
+    name: Deploy_StorageAccounts_Task
+    inputs:
+      azureSubscription: ${{ parameters.serviceConnection }}
+      ScriptType: InlineScript
+      inline: |
+        Write-Verbose "Load function" -Verbose
+        . '$(Build.Repository.LocalPath)/$(orchestrationFunctionsPath)/Invoke-GeneralDeployment.ps1'
+
+        $parameterFilePath = Join-Path '$(Build.Repository.LocalPath)' ('$(rgFolderPath)/Parameters/StorageAccount/{0}.parameters.json' -f '${{ parameters.jobEnvironment }}')
+        $functionInput = @{
+          resourcegroupName = '${{ parameters.resourcegroupname }}'
+          modulePackagePath = Join-Path '$(downloadDirectory)' '$(storageAccountsModuleName)'
+          parameterFilePath = $parameterFilePath
+        }
+
+        Write-Verbose "Invoke task with" -Verbose
+        $functionInput.Keys | ForEach-Object { Write-Verbose ("PARAMETER: `t'{0}' with value '{1}'" -f $_, $functionInput[$_]) -Verbose }
+
+        Invoke-GeneralDeployment @functionInput -Verbose
+      errorActionPreference: stop
+      azurePowerShellVersion: LatestVersion
+  - task: AzurePowerShell@4
+    displayName: "Trigger module [$(storageAccountsModuleName)] post-deployment"
+    name: PostDeploy_StorageAccounts_Task
+    inputs:
+      azureSubscription: ${{ parameters.serviceConnection }}
+      ScriptType: InlineScript
+      inline: | 
+        Write-Verbose "Load function" -Verbose
+        . '$(Build.Repository.LocalPath)/$(orchestrationFunctionsPath)/Invoke-StorageAccountPostDeployment.ps1'
+
+        $functionInput = @{      
+          storageAccountName = "${{ parameters.assetsStorageaccount }}"
+        }
+
+        Write-Verbose "Invoke task with" -Verbose
+        $functionInput.Keys | ForEach-Object { Write-Verbose ("PARAMETER: `t'{0}' with value '{1}'" -f $_, $functionInput[$_]) -Verbose }
+
+        Invoke-StorageAccountPostDeployment @functionInput -Verbose
+      errorActionPreference: stop
+      azurePowerShellVersion: LatestVersion
+
+## Image template Windows
+- job: Deploy_ImageTemplateWindows
+  displayName: Deploy Image Template for Windows
+  dependsOn:
+  - ${{ if in( parameters.jobScope, 'All', 'Only infrastructure') }}:
+    - Deploy_WindowsSharedImageDefinition
+    - Deploy_RoleAssignments_ImagingSubscriptionContributor
+  - ${{ if in( parameters.jobScope, 'All', 'Only infrastructure', 'Only Storage & Image') }}:
+    - Deploy_StorageAccount
+  condition: |
+    and (
+      succeeded(),
+      in('${{ parameters.jobScope }}', 'All', 'Only image', 'Only Storage & Image'),
+      in('${{ parameters.jobOs}}', 'Both', 'Only Windows'),
+      in(dependencies.Deploy_WindowsSharedImageDefinition.result, '', 'Succeeded'),
+      in(dependencies.Deploy_RoleAssignments_ImagingSubscriptionContributor.result, '', 'Succeeded'),
+      in(dependencies.Deploy_StorageAccount.result, '', 'Succeeded')
+    )
+  timeoutInMinutes: 180
+  pool:
+    ${{ if ne(parameters.vmImage, '') }}:
+      vmImage: ${{ parameters.vmImage }}
+    ${{ if ne(parameters.poolName, '') }}:
+      name: ${{ parameters.poolName }}
+  steps:
+  - task: AzurePowerShell@4
+    displayName: 'Remove generated image template resource groups'
+    name: Remove_ImageTemplates_Task
+    inputs:
+      azureSubscription: ${{ parameters.serviceConnection }}
+      ScriptType: InlineScript
+      inline: |
+        Write-Verbose "Load function" -Verbose
+        . '$(Build.Repository.LocalPath)/$(orchestrationFunctionsPath)/Remove-ImageTemplate.ps1'
+
+        $parameterFilePath = Join-Path '$(Build.Repository.LocalPath)' ('$(rgFolderPath)/Parameters/ImageTemplate/{0}.windows.parameters.json' -f '${{ parameters.jobEnvironment }}')
+        $imageTemplateName = (ConvertFrom-Json (Get-Content $parameterFilePath -Raw)).parameters.imageTemplateName.value
+
+        $functionInput = @{
+          resourcegroupName = '${{ parameters.resourcegroupname }}'
+          imageTemplateName =  $imageTemplateName
+        }
+
+        Write-Verbose "Invoke task with" -Verbose
+        $functionInput.Keys | ForEach-Object { Write-Verbose ("PARAMETER: `t'{0}' with value '{1}'" -f $_, $functionInput[$_]) -Verbose }
+
+        Remove-ImageTemplate @functionInput -Verbose
+      errorActionPreference: stop
+      azurePowerShellVersion: LatestVersion
+    enabled: ${{ eq(parameters.removeImageTemplateResourceGroups, true) }}
+  - checkout: self
+  - template: pipeline.steps.artifact.yml
+    parameters:
+      moduleName: '$(imageTemplateModuleName)'
+      moduleVersion: '$(imageTemplateModuleVersion)'
+  - task: AzurePowerShell@4
+    displayName: 'Deploy module [$(imageTemplateModuleName)] version [$(imageTemplateModuleVersion)] in [${{ parameters.resourcegroupname }}] via [${{ parameters.serviceConnection }}]'
+    name: Deploy_ImageTemplateWindows_Task
+    inputs:
+      azureSubscription: ${{ parameters.serviceConnection }}
+      ScriptType: InlineScript
+      inline: |
+        Write-Verbose "Load function" -Verbose
+        . '$(Build.Repository.LocalPath)/$(orchestrationFunctionsPath)/Invoke-GeneralDeployment.ps1'
+        . '$(Build.Repository.LocalPath)/$(orchestrationFunctionsPath)/Set-SasKeysInFile.ps1'
+
+        $parameterFilePath = Join-Path '$(Build.Repository.LocalPath)' ('$(rgFolderPath)/Parameters/ImageTemplate/{0}.windows.parameters.json' -f '${{ parameters.jobEnvironment }}')
+        $functionInput = @{
+          resourcegroupName = '${{ parameters.resourcegroupname }}'
+          modulePackagePath = Join-Path '$(downloadDirectory)' '$(imageTemplateModuleName)'
+          parameterFilePath = $parameterFilePath
+        }
+
+        Write-Verbose "Invoke task with" -Verbose
+        $functionInput.Keys | ForEach-Object { Write-Verbose ("PARAMETER: `t'{0}' with value '{1}'" -f $_, $functionInput[$_]) -Verbose }
+
+        # Set SAS keys
+        Set-SasKeysInFile -filePath $parameterFilePath -Verbose
+
+        Invoke-GeneralDeployment @functionInput -Verbose
+      errorActionPreference: stop
+      azurePowerShellVersion: LatestVersion
+  ## Trigger building new image
+  - task: AzurePowerShell@4
+    displayName: "Trigger module [$(imageTemplateModuleName)] post-deployment"
+    name: PostDeploy_ImageTemplates_Task
+    inputs:
+      azureSubscription: ${{ parameters.serviceConnection }}
+      ScriptType: InlineScript
+      inline: |
+        Write-Verbose "Load function" -Verbose
+        . '$(Build.Repository.LocalPath)/$(orchestrationFunctionsPath)/Invoke-ImageTemplatesPostDeployment.ps1'
+
+        $functionInput = @{
+          orchestrationFunctionsPath     = Join-Path '$(Build.Repository.LocalPath)' '$(orchestrationFunctionsPath)'    
+          ResourceGroupName              = '${{ parameters.resourcegroupname }}'
+          ImageTemplateName              = '$(Deploy_ImageTemplateWindows_Task.imageTemplateName)' # template deployment output
+          synchronouslyWaitForImageBuild = [System.Convert]::ToBoolean('${{ parameters.waitForImageBuild }}')
+        }
+
+        Write-Verbose "Invoke task with" -Verbose
+        $functionInput.Keys | ForEach-Object { Write-Verbose ("PARAMETER: `t'{0}' with value '{1}'" -f $_, $functionInput[$_]) -Verbose }
+
+        Invoke-ImageTemplatesPostDeployment @functionInput -Verbose
+      errorActionPreference: stop
+      azurePowerShellVersion: LatestVersion
+
+## Image template Linux
+- job: Deploy_ImageTemplateLinux
+  displayName: Deploy Image Template for Linux
+  dependsOn:
+  - ${{ if in( parameters.jobScope, 'All', 'Only infrastructure') }}:
+    - Deploy_LinuxSharedImageDefinition
+    - Deploy_RoleAssignments_ImagingSubscriptionContributor
+  - ${{ if in( parameters.jobScope, 'All', 'Only infrastructure', 'Only Storage & Image') }}:
+    - Deploy_StorageAccount
+  condition: |
+    and (
+      succeeded(),
+      in('${{ parameters.jobScope }}', 'All', 'Only image', 'Only Storage & Image'),
+      in('${{ parameters.jobOs}}', 'Both', 'Only Linux'),
+      in(dependencies.Deploy_LinuxSharedImageDefinition.result, '', 'Succeeded'),
+      in(dependencies.Deploy_RoleAssignments_ImagingSubscriptionContributor.result, '', 'Succeeded'),
+      in(dependencies.Deploy_StorageAccount.result, '', 'Succeeded')
+    )
+  timeoutInMinutes: 180
+  pool:
+    ${{ if ne(parameters.vmImage, '') }}:
+      vmImage: ${{ parameters.vmImage }}
+    ${{ if ne(parameters.poolName, '') }}:
+      name: ${{ parameters.poolName }}
+  steps:
+  - task: AzurePowerShell@4
+    displayName: 'Remove generated image template resource groups'
+    name: Remove_ImageTemplates_Task
+    inputs:
+      azureSubscription: ${{ parameters.serviceConnection }}
+      ScriptType: InlineScript
+      inline: |
+        Write-Verbose "Load function" -Verbose
+        . '$(Build.Repository.LocalPath)/$(orchestrationFunctionsPath)/Remove-ImageTemplate.ps1'
+
+        $parameterFilePath = Join-Path '$(Build.Repository.LocalPath)' ('$(rgFolderPath)/Parameters/ImageTemplate/{0}.linux.parameters.json' -f '${{ parameters.jobEnvironment }}')
+        $imageTemplateName = (ConvertFrom-Json (Get-Content $parameterFilePath -Raw)).parameters.imageTemplateName.value
+
+        $functionInput = @{
+          resourcegroupName = '${{ parameters.resourcegroupname }}'
+          imageTemplateName =  $imageTemplateName
+        }
+
+        Write-Verbose "Invoke task with" -Verbose
+        $functionInput.Keys | ForEach-Object { Write-Verbose ("PARAMETER: `t'{0}' with value '{1}'" -f $_, $functionInput[$_]) -Verbose }
+
+        Remove-ImageTemplate @functionInput -Verbose
+      errorActionPreference: stop
+      azurePowerShellVersion: LatestVersion
+    enabled: ${{ eq(parameters.removeImageTemplateResourceGroups, true) }}
+  - checkout: self
+  - template: pipeline.steps.artifact.yml
+    parameters:
+      moduleName: '$(imageTemplateModuleName)'
+      moduleVersion: '$(imageTemplateModuleVersion)'
+  - task: AzurePowerShell@4
+    displayName: 'Deploy module [$(imageTemplateModuleName)] version [$(imageTemplateModuleVersion)] in [${{ parameters.resourcegroupname }}] via [${{ parameters.serviceConnection }}]'
+    name: Deploy_ImageTemplateLinux_Task
+    inputs:
+      azureSubscription: ${{ parameters.serviceConnection }}
+      ScriptType: InlineScript
+      inline: |
+        Write-Verbose "Load function" -Verbose
+        . '$(Build.Repository.LocalPath)/$(orchestrationFunctionsPath)/Invoke-GeneralDeployment.ps1'
+        . '$(Build.Repository.LocalPath)/$(orchestrationFunctionsPath)/Set-SasKeysInFile.ps1'
+
+        $parameterFilePath = Join-Path '$(Build.Repository.LocalPath)' ('$(rgFolderPath)/Parameters/ImageTemplate/{0}.linux.parameters.json' -f '${{ parameters.jobEnvironment }}')
+        $functionInput = @{
+          resourcegroupName = '${{ parameters.resourcegroupname }}'
+          modulePackagePath = Join-Path '$(downloadDirectory)' '$(imageTemplateModuleName)'
+          parameterFilePath = $parameterFilePath
+        }
+
+        Write-Verbose "Invoke task with" -Verbose
+        $functionInput.Keys | ForEach-Object { Write-Verbose ("PARAMETER: `t'{0}' with value '{1}'" -f $_, $functionInput[$_]) -Verbose }
+
+        # Set SAS keys
+        Set-SasKeysInFile -filePath $parameterFilePath -Verbose
+
+        Invoke-GeneralDeployment @functionInput -Verbose
+      errorActionPreference: stop
+      azurePowerShellVersion: LatestVersion
+  ## Trigger building new image
+  - task: AzurePowerShell@4
+    displayName: "Trigger module [$(imageTemplateModuleName)] post-deployment"
+    name: PostDeploy_ImageTemplates_Task
+    inputs:
+      azureSubscription: ${{ parameters.serviceConnection }}
+      ScriptType: InlineScript
+      inline: |
+        Write-Verbose "Load function" -Verbose
+        . '$(Build.Repository.LocalPath)/$(orchestrationFunctionsPath)/Invoke-ImageTemplatesPostDeployment.ps1'
+
+        $functionInput = @{
+          orchestrationFunctionsPath     = Join-Path '$(Build.Repository.LocalPath)' '$(orchestrationFunctionsPath)'    
+          ResourceGroupName              = '${{ parameters.resourcegroupname }}'
+          ImageTemplateName              = '$(Deploy_ImageTemplateLinux_Task.imageTemplateName)' # template deployment output
+          synchronouslyWaitForImageBuild = [System.Convert]::ToBoolean('${{ parameters.waitForImageBuild }}')
+        }
+
+        Write-Verbose "Invoke task with" -Verbose
+        $functionInput.Keys | ForEach-Object { Write-Verbose ("PARAMETER: `t'{0}' with value '{1}'" -f $_, $functionInput[$_]) -Verbose }
+
+        Invoke-ImageTemplatesPostDeployment @functionInput -Verbose
+      errorActionPreference: stop
+      azurePowerShellVersion: LatestVersion

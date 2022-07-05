@@ -1,0 +1,29 @@
+name: $(moduleName)
+
+variables:
+  - template: /cicd/global.variables.yml
+  - name: moduleName
+    value: serviceconnection
+  - name: moduleVersion
+    value: "1.0"
+
+trigger:
+  batch: true
+  branches:
+    include:
+    - master 
+  paths:
+    include:
+      - cicd/*
+      - common/*
+      - modules/serviceconnection/1.0/*
+    exclude:
+      - modules/serviceconnection/1.0/readme.md
+
+stages:
+- stage: Deploy
+  jobs:
+  - template: /modules/serviceconnection/1.0/Pipeline/pipeline.jobs.deploy.yml
+    parameters:
+      deploymentBlocks:
+      - path: "$(parametersPath)/parameters.json"

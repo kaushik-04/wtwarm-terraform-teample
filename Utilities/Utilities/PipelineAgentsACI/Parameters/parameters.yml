@@ -1,0 +1,24 @@
+variables:
+- name: ModuleName
+  value: PipelineAgentsACI
+- name: vmImage
+  value: 'ubuntu-latest' 
+- name: poolName
+  value: ''
+- name: modulePath
+  value: Utilities/$(moduleName)
+- name: resourceGroupName
+  value: agents-rg
+- name: acrName
+  value: sxxazacrx001
+- name: containerNamePrefix
+  value: sxx-az-aci
+- name: imageName
+  value: apa_ubuntu:latest
+- name: instanceCount
+  value: 5
+- name: adoUrl
+  value: https://dev.azure.com/servicescode/
+- name: agentPoolName
+  value: 'IaCS Container Agent Pool'
+- group: vg.sxx.artifacts-rg.PipelineAgentsACI      # necessary for agentPoolToken with Agent-Pools Read/Manage permissions

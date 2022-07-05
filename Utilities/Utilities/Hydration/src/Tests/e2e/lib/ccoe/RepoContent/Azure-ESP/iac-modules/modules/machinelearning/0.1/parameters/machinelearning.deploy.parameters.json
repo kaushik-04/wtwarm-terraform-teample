@@ -1,0 +1,36 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "workspaceName": {
+            "value": "pxs-mls-wb-demo-05"
+        },
+        "location": {
+            "value": "West Europe"
+        },
+        "workspaceSku":{
+            "value": "basic"
+        },
+        "storageAccountName": {
+            "value": "pxsmlsstordemo05"
+        },
+        "keyVaultName": {
+            "value": "pxs-mls-kv-demo-05"
+        },
+        "appInsightName": {
+            "value": "pxs-mls-appi-demo-05"
+        },
+        "containerRegistryName": {
+            "value": "pxsmlsacrdemo05"
+        },
+        "tags": {
+            "value": {
+                "platform-id": "bdp",
+                "application-id": "plt",
+                "cost-center": "508107",
+                "deployment-id": "mls@1",
+                "environment": "s"
+            }
+        }
+    }
+}

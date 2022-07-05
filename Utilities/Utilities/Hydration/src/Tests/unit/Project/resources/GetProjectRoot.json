@@ -1,0 +1,26 @@
+{
+  "_links": {
+    "collection": {
+      "href": "https://dev.azure.com/ADO-Hydration/_apis/projectCollections/d7158e17-b106-4897-ac4a-2159f0183ef5"
+    },
+    "self": {
+      "href": "https://dev.azure.com/ADO-Hydration/_apis/projects/69585924-a0d0-436f-beaa-2e9b8e8df728"
+    },
+    "web": {
+      "href": "https://dev.azure.com/ADO-Hydration/Hydration Unit Test"
+    }
+  },
+  "defaultTeam": {
+    "id": "62da07f5-c79e-43a0-bd55-e3b33cee5cef",
+    "name": "Hydration Unit Test Team",
+    "url": "https://dev.azure.com/ADO-Hydration/_apis/projects/69585924-a0d0-436f-beaa-2e9b8e8df728/teams/62da07f5-c79e-43a0-bd55-e3b33cee5cef"
+  },
+  "description": "Hydration Unit Test description",
+  "id": "69585924-a0d0-436f-beaa-2e9b8e8df728",
+  "lastUpdateTime": "2021-03-03T09:57:39.8Z",
+  "name": "Hydration Unit Test",
+  "revision": 393,
+  "state": "wellFormed",
+  "url": "https://dev.azure.com/ADO-Hydration/_apis/projects/69585924-a0d0-436f-beaa-2e9b8e8df728",
+  "visibility": "private"
+}

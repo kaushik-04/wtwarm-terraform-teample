@@ -1,0 +1,14 @@
+{
+    "id": 538,
+    "identifier": "51687f8b-5e62-4b40-a41d-7dd5a0b2f223",
+    "name": "Hydration Unit Test",
+    "structureType": "area",
+    "hasChildren": true,
+    "path": "\\Hydration Unit Test\\Area",
+    "_links": {
+        "self": {
+            "href": "https://dev.azure.com/ADO-Hydration/fd86a1f8-695f-45bf-b36f-73c6670bc4a5/_apis/wit/classificationNodes/Areas"
+        }
+    },
+    "url": "https://dev.azure.com/ADO-Hydration/fd86a1f8-695f-45bf-b36f-73c6670bc4a5/_apis/wit/classificationNodes/Areas"
+}

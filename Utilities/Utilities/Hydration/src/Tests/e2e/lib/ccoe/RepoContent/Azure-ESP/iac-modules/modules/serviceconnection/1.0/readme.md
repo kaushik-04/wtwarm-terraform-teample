@@ -1,0 +1,50 @@
+:)
+
+TODO: Create readme
+
+Template for service connection json
+``` json
+{
+  "administratorsGroup": [],
+  "readersGroup": [],
+  "usersGroup": [],
+  "authorization": {
+    "parameters": {
+      "authenticationType": "spnKey",
+      "serviceprincipalid": "SPNID",
+      "serviceprincipalkey": null,
+      "tenantid": "e7ab81b2-1e84-4bf7-9dcb-b6fec01ed138"
+    },
+    "scheme": "ServicePrincipal"
+  },
+  "authorized": true,
+  "data": {
+    "creationMode": "Manual",
+    "environment": "AzureCloud",
+    "scopeLevel": "Subscription",
+    "subscriptionId": "SUBSCRIPTIONDID",
+    "subscriptionName": "SUBSCRIPTIONNAME"
+  },
+  "description": "LZ Owner on 'SUBSCRIPTIONNAME'",
+  "groupScopeId": null,
+  "id": null,
+  "isReady": true,
+  "isShared": false,
+  "name": "SUBSCRIPTIONNAME",
+  "operationStatus": null,
+  "owner": "Library",
+  "serviceEndpointProjectReferences": [
+    {
+      "description": "LZ Owner on 'SUBSCRIPTIONNAME'",
+      "name": "SUBSCRIPTIONNAME",
+      "projectReference": {
+        "id": null,
+        "name": "PROJECT"
+      }
+    }
+  ],
+  "type": "azurerm",
+  "url": "https://management.azure.com/"
+}
+
+```

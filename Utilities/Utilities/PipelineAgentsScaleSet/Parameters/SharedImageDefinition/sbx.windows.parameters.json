@@ -1,0 +1,24 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "imageDefinitionName": {
+            "value": "windows-sid"
+        },
+        "galleryName": {
+            "value": "iacsgallery"
+        },
+        "osType": {
+            "value": "Windows"
+        },
+        "publisher": {
+            "value": "iacs"
+        },
+        "offer": {
+            "value": "iacs_windows"
+        },
+        "sku": {
+            "value": "iacs_windows_az_01"
+        }
+    }
+}

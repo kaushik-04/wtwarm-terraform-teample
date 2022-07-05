@@ -1,0 +1,24 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"logAnalyticsWorkspaceName": {
+			"value": "CRB-MG05175P-LOGANA"
+		},
+        "publicNetworkAccessForIngestion": {
+			"value": "Enabled"
+		},
+        "publicNetworkAccessForQuery": {
+			"value": "Enabled"
+		},
+        "dailyQuotaGb": {
+			"value": 10
+		},
+        "useResourcePermissions": {
+            "value": true
+        }, "tags": {
+			"value": {
+			}
+		}
+	}
+}

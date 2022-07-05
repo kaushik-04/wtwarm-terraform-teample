@@ -1,0 +1,41 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"logAnalyticsWorkspaceName": {
+			"value": "mgmt-p-log-csirt-law"
+		},
+		"solutions": {
+			"value": []
+		},
+		"enableLogAccessUsingOnlyResourcePermissions": {
+			"value": false
+		},
+		"roleAssignments": {
+			"value": [
+				{
+					"roleDefinitionIdOrName": "Log Analytics Reader",
+					"principalIds": [
+						"26c4ec64-2391-423b-a522-c8879279bf86" //grp-csirt-devops-contributor
+					]
+				},
+				{
+					"roleDefinitionIdOrName": "Log Analytics Contributor",
+					"principalIds": [
+						"2b91a870-96ee-4f29-b998-e9d53b5b9825" //cn-s-csirt-sub-sp
+						
+					]
+				}
+			]
+		},
+		"tags": {
+			"value": {
+				"application-id": "csirt",
+				"cost-center": "csirt",
+				"deployment-id": "AzureDevOps",
+				"environment": "p",
+				"platform-id": "csirt"
+			}
+		}
+	}
+}

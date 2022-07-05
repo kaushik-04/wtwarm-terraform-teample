@@ -1,0 +1,19 @@
+{
+   "name": "pxs-cn-s-validationInitiative-pi",
+   "displayName": "pxs-cn-s-validationInitiative-pi",
+   "description": "Validation initiative",
+   "metadata": {
+       "category": "CCoE"
+   },
+   "policyDefinitions": [
+       {   // A maximum of 3 owners should be designated for your subscription
+           "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/4f11b553-d42e-4e3a-89be-32ca364cad4c",
+           "parameters": {
+               "effect": {
+                   "value": "AuditIfNotExists"
+               }
+           }
+       }
+   ],
+   "parameters": {}
+}

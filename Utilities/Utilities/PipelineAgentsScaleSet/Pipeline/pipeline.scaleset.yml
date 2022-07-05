@@ -1,0 +1,81 @@
+name: $(scaleSetPipelineName)
+
+parameters:
+- name: jobEnvironment
+  displayName: Environment to deploy to
+  type: string
+  default: sbx
+  values:
+  - sbx
+#  - dev
+#  - prd
+- name: jobOs
+  displayName: Create ScaleSet with OS
+  type: string
+  default: Only Linux
+  values:
+  - Only Windows
+  - Only Linux
+  - Both
+- name: jobScope
+  displayName: Scope of deployment
+  type: string
+  default: Only Scale Set
+  values:
+  - All
+  - Only Scale Set
+- name: useLatestImage
+  displayName: Use the latest image
+  type: boolean
+  default: true
+
+variables:
+- template: variables.yml
+
+trigger: none
+
+stages:
+- stage: SBX_ImageDeployments
+  displayName: Deploy to SBX
+  condition: eq('${{ parameters.jobEnvironment }}', 'sbx')
+  jobs:
+  - template: .templates/pipeline.scaleset.jobs.yml
+    parameters:
+      resourcegroupname: '$(resourcegroupname_sbx)'
+      poolName: '$(poolName_sbx)'
+      vmImage: ''
+      serviceConnection: '$(serviceConnection_sbx)'
+      jobEnvironment: '${{ parameters.jobEnvironment }}'
+      jobOs: '${{ parameters.jobOs }}'
+      jobScope: '${{ parameters.jobScope }}'
+      useLatestImage: '${{ parameters.useLatestImage }}'
+
+# - stage: DEV_ImageDeployments
+#   displayName: Deploy to DEV
+#   condition: eq('${{ parameters.jobEnvironment }}', 'dev')
+#   jobs:
+#   - template: .templates/pipeline.scaleset.jobs.yml
+#     parameters:
+#       resourcegroupname: '$(resourcegroupname_dev)'
+#       poolName: '$(poolName_dev)'
+#       vmImage: ''
+#       serviceConnection: '$(serviceConnection_dev)'
+#       jobEnvironment: '${{ parameters.jobEnvironment }}'
+#       jobOs: '${{ parameters.jobOs }}'
+#       jobScope: '${{ parameters.jobScope }}'
+#       useLatestImage: '${{ parameters.useLatestImage }}'
+
+# - stage: PRD_ImageDeployments
+#   displayName: Deploy to PRD
+#   condition: eq('${{ parameters.jobEnvironment }}', 'prd')
+#   jobs:
+#   - template: .templates/pipeline.scaleset.jobs.yml
+#     parameters:
+#       resourcegroupname: '$(resourcegroupname_prd)'
+#       poolName: '$(poolName_prd)'
+#       vmImage: ''
+#       serviceConnection: '$(serviceConnection_prd)'
+#       jobEnvironment: '${{ parameters.jobEnvironment }}'
+#       jobOs: '${{ parameters.jobOs }}'
+#       jobScope: '${{ parameters.jobScope }}'
+#       useLatestImage: '${{ parameters.useLatestImage }}'

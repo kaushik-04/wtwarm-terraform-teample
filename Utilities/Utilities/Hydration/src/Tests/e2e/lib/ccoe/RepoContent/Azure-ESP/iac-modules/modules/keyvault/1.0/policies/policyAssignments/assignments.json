@@ -1,0 +1,100 @@
+{
+    "root": {
+        "scope": "/providers/Microsoft.Management/managementGroups/pxs-cloudnative-mg",
+        "scopeDisplayName": "pxs-cloudnative-mg",
+        "policyAssignments": [],
+        "policySetAssignments": [],
+        "children": [
+            {
+                "scope": "/providers/Microsoft.Management/managementGroups/pxs-cn-p-mg",
+                "scopeDisplayName": "pxs-cn-p-mg",
+                "policyAssignments": [],
+                "policySetAssignments": [
+                    {
+                        "managedIdentity": {
+                            "location": "",
+                            "assignIdentity": false
+                        },
+                        "displayName": "pxs-cn-p-kvt-pa",
+                        "definitionDisplayName": "pxs-cn-kvt-pi",
+                        "description": "This is the default set of policies monitored by the CCoE. They ensure that the defined security baselines for such component are enforced.",
+                        "name": "pxs-cn-p-kvt-pa",
+                        "notScopes": [],
+                        "parameters": {
+                            "allowedSKUs": [
+                                "Standard"
+                            ],
+                            "purgePolicyEffect": "Deny",
+                            "softDeletePolicyEffect": "Deny",
+                            "EnableRBACAuthorizationEffect": "Deny",
+                            "auditPrivateEndpointEffect": "Audit"
+                        },
+                        "enforcementMode": "Default",
+                        "definitionId": "/providers/Microsoft.Management/managementGroups/pxs-cloudnative-mg/providers/Microsoft.Authorization/policySetDefinitions/pxs-cn-kvt-pi"
+                    }
+                ],
+                "children": []
+            },
+            {
+                "scope": "/providers/Microsoft.Management/managementGroups/pxs-cn-n-mg",
+                "scopeDisplayName": "pxs-cn-n-mg",
+                "policyAssignments": [],
+                "policySetAssignments": [
+                    {
+                        "managedIdentity": {
+                            "location": "",
+                            "assignIdentity": false
+                        },
+                        "displayName": "pxs-cn-n-kvt-pa",
+                        "definitionDisplayName": "pxs-cn-kvt-pi",
+                        "description": "This is the default set of policies monitored by the CCoE. They ensure that the defined security baselines for such component are enforced.",
+                        "name": "pxs-cn-n-kvt-pa",
+                        "notScopes": [],
+                        "parameters": {
+                            "allowedSKUs": [
+                                "Standard"
+                            ],
+                            "purgePolicyEffect": "Audit",
+                            "softDeletePolicyEffect": "Audit",
+                            "EnableRBACAuthorizationEffect": "Audit",
+                            "auditPrivateEndpointEffect": "Audit"
+                        },
+                        "enforcementMode": "Default",
+                        "definitionId": "/providers/Microsoft.Management/managementGroups/pxs-cloudnative-mg/providers/Microsoft.Authorization/policySetDefinitions/pxs-cn-kvt-pi"
+                    }
+                ],
+                "children": []
+            },
+            {
+                "scope": "/providers/Microsoft.Management/managementGroups/pxs-cn-s-mg",
+                "scopeDisplayName": "pxs-cn-s-mg",
+                "policyAssignments": [],
+                "policySetAssignments": [
+                    {
+                        "managedIdentity": {
+                            "location": "",
+                            "assignIdentity": false
+                        },
+                        "displayName": "pxs-cn-s-kvt-pa",
+                        "definitionDisplayName": "pxs-cn-kvt-pi",
+                        "description": "This is the default set of policies monitored by the CCoE. They ensure that the defined security baselines for such component are enforced.",
+                        "name": "pxs-cn-s-kvt-pa",
+                        "notScopes": [],
+                        "parameters": {
+                            "allowedSKUs": [
+                                "Standard"
+                            ],
+                            "purgePolicyEffect": "Audit",
+                            "softDeletePolicyEffect": "Audit",
+                            "EnableRBACAuthorizationEffect": "Audit",
+                            "auditPrivateEndpointEffect": "Audit"
+                        },
+                        "enforcementMode": "Default",
+                        "definitionId": "/providers/Microsoft.Management/managementGroups/pxs-cloudnative-mg/providers/Microsoft.Authorization/policySetDefinitions/pxs-cn-kvt-pi"
+                    }
+                ],
+                "children": []
+            }
+        ]
+    }
+}

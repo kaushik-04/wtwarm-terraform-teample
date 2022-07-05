@@ -1,0 +1,40 @@
+variables:
+
+######################################
+# Agent settings
+######################################
+
+  vmImage: '' #'ubuntu-latest'                             # Use this for Microsoft-hosted agents
+  poolName: 'IaCS Scale Set Linux'   # Use this for self-hosted agents
+  serviceConnection: 'SPN-ES-INT-IaCS-DEV-iacsowners-owner'
+
+######################################
+# Source
+######################################
+  modulesRepository: Components # The repository hosting the deployment code (i.e. 'Components'). MUST be provided as a variable with every pipeline
+  modulesPath: Utilities/Hydration/src
+  moduleName: Hydra
+  modulePath: $(modulesPath)/$(moduleName) # only use in module pielines
+  parametersPath: $(modulePath)/Parameters # only use in module pielines
+  templateFunctionsPath: Modules/ARM/.global/PipelineTemplates/Scripts
+
+######################################
+# Universal Packages
+######################################
+
+# Set to true, if you would like to publish modules as Universal Packages (in ADO Artifacts)
+# If you provide a name below, you have to create an Artifact Feed in ADO with the same name before using this feed.
+  # publishToArtifactsFeed: true
+  # vstsFeedName: 'Modules'
+  vstsFeedProject: '$(System.TeamProject)'
+  vstsFeedOrganization: 'servicescode'
+
+######################################
+# Nuget Packages
+######################################
+
+# Set to true, if you would like to publish modules as Nuget Packages (in ADO Artifacts)
+# If you provide a name below, you have to create an Artifact Feed in ADO with the same name before using this feed.
+  publishToNugetArtifactsFeed: true
+  vstsNugetFeedName: 'Nuget-Modules'
+  vstNugetFeedUrl: 'https://pkgs.dev.azure.com/servicescode/infra-as-code-source/_packaging/Nuget-Modules/nuget/v2'

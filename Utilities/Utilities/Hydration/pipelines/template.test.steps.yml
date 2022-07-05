@@ -1,0 +1,46 @@
+parameters:
+  IncludeTag:
+  TestFile: 
+  TestCase: 
+  cleanupE2Eproject:
+
+steps:
+- task: PowerShell@2
+  displayName: Invoke-Pester for [${{ parameters.includeTag }}]
+  inputs:
+    targetType: inline
+    pwsh: true
+    script: | 
+      . '$(System.DefaultWorkingDirectory)/Utilities/Hydration/pipelines/scripts/Invoke-PesterWrapper.ps1'
+
+      $root = '$(System.DefaultWorkingDirectory)/Utilities/Hydration'
+      $InputObject = @{
+        Root                   = $root
+        OutputPath             = '$(System.DefaultWorkingDirectory)/Utilities/Hydration/${{parameters.IncludeTag}}-Test-Pester-$(Build.BuildId).xml' 
+        CodeCoverageOutputPath = '$(System.DefaultWorkingDirectory)/Utilities/Hydration/${{parameters.IncludeTag}}-Test-Coverage-$(Build.BuildId).xml'
+        IncludeTags            = '${{parameters.IncludeTag}}'
+        TestFolder             = Join-Path $root -ChildPath 'src' -AdditionalChildPath 'Tests'
+        ModuleFolder           = Join-Path $root -ChildPath 'src' -AdditionalChildPath 'Hydra'
+      }                 
+      if('${{parameters.TestFile}}' -ne '-') { $InputObject['TestFile']  = '${{parameters.TestFile}}' }
+      if('${{parameters.TestCase}}' -ne '-') { $InputObject['TestCase']  = '${{parameters.TestCase}}' }
+      if('${{parameters.cleanupE2Eproject}}' -eq $true) { $InputObject['cleanupE2Eproject'] = $true }
+
+      Write-Output "Invoke-Pester with"
+      $InputObject.Keys | ForEach-Object { Write-Output ("PARAMETER: `t'{0}' with value '{1}' of type '{2}'" -f $_, $inputObject[$_], $inputObject[$_].GetType()) }  
+      Invoke-PesterWrapper @InputObject -Verbose
+    errorActionPreference: continue
+  env:
+    AZURE_DEVOPS_EXT_PAT: $(Azure.DevOps.Ext.PAT)
+  enabled: true
+
+- task: PublishTestResults@2
+  displayName: Publish ${{parameters.IncludeTag}} Test Results
+  inputs:
+    testRunTitle: "${{parameters.IncludeTag}} Test"
+    testResultsFormat: NUnit
+    testResultsFiles: "${{parameters.IncludeTag}}-Test-Pester-$(Build.BuildId).xml"
+    failTaskOnFailedTests: false
+    searchFolder: '$(System.DefaultWorkingDirectory)/Utilities/Hydration'
+  continueOnError: false
+  condition: succeededOrFailed()

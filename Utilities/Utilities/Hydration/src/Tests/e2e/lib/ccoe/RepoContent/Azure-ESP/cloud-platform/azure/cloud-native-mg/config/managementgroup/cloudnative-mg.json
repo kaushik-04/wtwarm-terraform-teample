@@ -1,0 +1,36 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "mgStructure": {
+            "value": [
+                {
+                    "name":"cloudnative-mg",
+                    "parentId":"e7ab81b2-1e84-4bf7-9dcb-b6fec01ed138",
+                    "parentNotManagedInThisTemplate": true,
+                    "roleAssignments":[
+                        {   // Cloud Native Governance Administrator
+                            "roleDefinitionIdOrName": "/providers/Microsoft.Management/managementGroups/cloudnative-mg/providers/Microsoft.Authorization/roleDefinitions/95d36d6b-0bc9-502d-9674-213c583a384a",
+                            "principalIds": [
+                                "3bd3b9d5-2577-41d0-a8a3-cd6851d2b16a", //buildingblocks-buildingblocks-d-mg-sp
+                                "12522564-c546-4b31-b88e-4f87512b051b"  //grp-ccoe-devops-admin
+                            ]
+                        },
+                        {
+                            "roleDefinitionIdOrName": "Reader",
+                            "principalIds": [
+                                "cf61a428-7cb8-4048-977e-d8a9201a5855" //grp-ccoe-devops-contributor
+                            ]
+                        },
+                        {
+                            "roleDefinitionIdOrName": "Security Reader",
+                            "principalIds": [
+                                "1084037e-20a9-40eb-ab0b-0352068e0f1d" //grp-csirt-securitycenter-read
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}

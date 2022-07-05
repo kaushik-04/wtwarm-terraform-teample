@@ -1,0 +1,72 @@
+name: $(subscriptionName) - $(managementGroupID) - $(tenantName)
+
+variables:
+- template: sub.variables.yml
+
+trigger:
+  batch: true
+  branches:
+    include:
+    - master
+  paths:
+    include:
+    - .global/*
+    - tenant.variables.yml
+    - cloudnative-mg/mg.variables.yml
+    - cloudnative-mg/cn-s-mg/mg.variables.yml
+    - cloudnative-mg/cn-s-mg/cn-s-bdpcognitive-sub/sub.variables.yml
+    - cloudnative-mg/cn-s-mg/cn-s-bdpcognitive-sub/pipeline.yml
+    - cloudnative-mg/cn-s-mg/cn-s-bdpcognitive-sub/parameters/*
+
+resources:
+  repositories:
+  - repository: IaC
+    type: git
+    ref: 'refs/heads/master'
+    name: IaC
+
+stages:
+- stage: Deploy_Principals
+  jobs:
+  - template: /cicd/templates/pipeline.jobs.deploy.yml@IaC
+    parameters:
+      serviceConnection: 'aad-automation'
+      moduleName: aadserviceprincipal
+      moduleVersion: '1.1'
+      deploymentBlocks:
+      - path: "$(parametersPath)/aadserviceprincipal/cn-s-bdpcognitive-sub-sp.json"
+      checkoutRepositories:
+      - IaC
+
+- stage: Deploy_Subscription
+  jobs:
+    - template: /cicd/templates/pipeline.jobs.deploy.yml@IaC
+      parameters:
+        serviceConnection: $(serviceConnection)
+        moduleName: subscription
+        moduleVersion: '1.0'
+        deploymentBlocks:
+        - path: $(parametersPath)/subscription/cn-s-bdpcognitive-sub.json
+        checkoutRepositories:
+        - IaC
+
+- stage: Deploy_PolicyAssignment
+  jobs:
+  - template: /cicd/templates/pipeline.jobs.deploy.yml@IaC
+    parameters:
+      moduleName: policyAssignment
+      moduleVersion: "2.1"
+      serviceConnection: $(serviceConnection)
+      deploymentBlocks:
+      - path: "$(parametersPath)/policyAssignments/cn-sub-security-pa.json"
+      checkoutRepositories:
+      - IaC
+
+- stage: Deploy_ServiceConnection
+  jobs:
+  - template: /modules/serviceconnection/1.0/Pipeline/pipeline.jobs.deploy.yml@IaC
+    parameters:
+      deploymentBlocks:
+      - path: "$(parametersPath)/serviceconnection/parameters.json"
+      checkoutRepositories:
+        - IaC

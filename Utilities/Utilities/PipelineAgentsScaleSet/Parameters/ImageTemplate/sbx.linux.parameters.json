@@ -1,0 +1,51 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "imageTemplateName": {
+            "value": "lin_it"
+        },
+        "userMsiName": {
+            "value": "iacsImagingMsi"
+        },
+        "userMsiResourceGroup": {
+            "value": "agents-vmss-rg"
+        },
+        "imageSource": {
+            "value": {
+                "type": "PlatformImage",
+                "publisher": "Canonical",
+                "offer": "UbuntuServer",
+                "sku": "18.04-LTS",
+                "version": "latest"
+            }
+        },
+        "customizationSteps": {
+            "value": [
+                //{
+                //    "type": "File",
+                //    "name": "TempSpecPreview",
+                //    "sourceUri": "https://iacsscalesetagentsa.blob.core.windows.net/scalessetscripts/azTSpec.zip<SAS>",
+                //    "destination": "azTSpec.zip"
+                //},
+                {
+                    "type": "Shell",
+                    "name": "PowerShell installation",
+                    "scriptUri": "https://iacsscalesetagentsa.blob.core.windows.net/scalessetscripts/LinuxInstallPowerShell.sh<SAS>"
+                },
+                {
+                    "type": "Shell",
+                    "name": "Prepare software installation",
+                    "inline": [
+                        "wget 'https://iacsscalesetagentsa.blob.core.windows.net/scalessetscripts/LinuxPrepareMachine.ps1<SAS>' -O 'LinuxPrepareMachine.ps1'",
+                        "sed -i 's/\r$//' 'LinuxPrepareMachine.ps1'",
+                        "pwsh 'LinuxPrepareMachine.ps1'"
+                    ]
+                }
+            ]
+        },
+        "sigImageDefinitionId": {
+            "value": "/subscriptions/8629be3b-96bc-482d-a04b-ffff597c65a2/resourceGroups/agents-vmss-rg/providers/Microsoft.Compute/galleries/iacsgallery/images/linux-sid"
+        }
+    }
+}

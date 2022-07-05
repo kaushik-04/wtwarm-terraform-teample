@@ -1,0 +1,74 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "adoOrganizationName": {
+            "value": "contoso-azure"
+        },
+        "adoProjectName": {
+            "value": "csirt-platform"
+        },
+        "adoProjectDescription": {
+            "value": "This project is created to manage the cloud native landing zones via IaC and certified components."
+        },
+        "adoProjectProcess": {
+            "value": "scrum"
+        },
+        "adoProjectSourceControl": {
+            "value": "git"
+        },
+        "adoProjectVisibility": {
+            "value": "private"
+        },
+        "adoProjectTeams": {
+            "value": [
+                {
+                    "name": "csirt-platform Team",
+                    "description": "Team containing all DevOps Contributor identities",
+                    "members": [
+                        "[TEAM FOUNDATION]\\grp-csirt-devops-contributor"
+                    ]
+                }
+            ]
+        },
+        "adoProjectGroups": {
+            "value": [
+                {
+                    "name": "Contributors",
+                    "members": [
+                        "[csirt-platform]\\csirt-platform Team"
+                    ]
+                },
+                {
+                    "name": "Project Administrators",
+                    "members": [
+                        "[TEAM FOUNDATION]\\grp-csirt-devops-admin",
+                        "[TEAM FOUNDATION]\\grp-ccoe-devops-admin"
+                    ]
+                },
+                {
+                    "name": "Readers",
+                    "members": [
+                        "[TEAM FOUNDATION]\\grp-csirt-devops-reader"
+                    ]
+                }
+            ]
+        },
+        "adoAzureRMServiceConnections": {
+            "value": [
+                {
+                    "Name": "cn-s-csirt-sub",
+                    "Description": "Service connection with permissions to deploy in subscription 'cn-s-csirt-sub'",
+                    "AzureSubscriptionName": "cn-s-csirt-sub",
+                    "AzureSubscriptionId": "4c7f2020-7f00-4b60-a858-88de14ddee16",
+                    "AzureADTenantId": "e7ab81b2-1e84-4bf7-9dcb-b6fec01ed138",
+                    "varName_ApplicationId": "cn-s-csirt-sub-sp_ApplicationId",
+                    "varNameEncrypted_ServicePrincipalPassword": "cn-s-csirt-sub-sp_ServicePrincipalPassword",
+                    "Users": [
+                        "[csirt-platform]\\csirt-platform Team"
+                    ]
+                }
+            ]
+        }
+    }
+}

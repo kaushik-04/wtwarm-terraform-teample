@@ -1,0 +1,19 @@
+{
+    "$schema": "../../../../../Hydra/Hydra.Schema.json",
+    "organizationName": "ADO-Hydration",
+    "projects": [
+        {
+            "projectName": "Hydrate Backlog Integration Test",
+            "organizationName": "ADO-Hydration",
+            "description": "Hydration",
+            "process": "Agile",
+            "sourceControl": "git",
+            "visibility": "private",
+            "backlogs": [
+                {
+                    "relativeBacklogFilePath": "SyncBoardBuildUpdatePropertiesAfter.csv"
+                }
+            ]
+        }
+    ]
+}

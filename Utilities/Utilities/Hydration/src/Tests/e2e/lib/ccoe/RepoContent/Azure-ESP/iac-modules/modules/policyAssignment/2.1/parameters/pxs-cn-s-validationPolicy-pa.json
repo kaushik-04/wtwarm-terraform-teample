@@ -1,0 +1,30 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "scope": {
+            "value": "/providers/Microsoft.Management/managementGroups/pxs-cn-s-mg"
+        },
+        "properties": {
+            "value": {
+                "policyAssignment": {
+                    "displayName": "pxs-cn-validationInitiative-pa",
+                    "description": "validationPolicy",
+                    "definitionId": "/providers/Microsoft.Authorization/policyDefinitions/61a4d60b-7326-440e-8051-9f94394d4dd1", //Add or replace a tag on subscriptions
+                    "definitionDisplayName": "pxs-cn-validationInitiative-pi",
+                    "notScopes": [],
+                    "enforcementMode": "Default",
+                    "parameters": {
+                        "tagName": "Environment",
+                        "tagValue": "Sandbox"
+                    },
+                    "managedIdentity": {
+                        "assignIdentity": true,
+                        "location": "westeurope",
+                        "outofscope": false
+                    }
+                }
+            }
+        }
+    }
+}

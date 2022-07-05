@@ -1,0 +1,48 @@
+name: $(moduleName)
+
+parameters:
+- name: versioningOption
+  displayName: Default publish version
+  type: string
+  default: patch
+  values:
+  - patch
+  - minor
+  - major
+- name: uiCustomVersion
+  displayName: -OR- Custom publish version
+  type: string
+  default: '-'
+- name: removeDeployment
+  displayName: Remove resources post-deployment
+  type: boolean
+  default: false
+
+variables:
+- template: /Modules/ARM/.global/global.variables.yml
+- name: moduleName
+  value: ManagementGroups
+- name: pipelineCustomVersion
+  value: 1.0.0
+
+trigger:
+  batch: true
+  branches:
+    include:
+    - main
+    - master 
+  paths:
+    include:
+    - Modules/ARM/.global/*
+    - Modules/ARM/ManagementGroups/*
+    exclude:
+    - Modules/ARM/ManagementGroups/readme.md
+    
+stages:
+- stage: Publishing
+  condition: and(succeeded(), in(variables['Build.SourceBranch'], 'refs/heads/main','refs/heads/master'))
+  jobs:
+  - template: /Modules/ARM/.global/PipelineTemplates/pipeline.jobs.publish.yml
+    parameters:
+      versioningOption: '${{ parameters.versioningOption }}'
+      uiCustomVersion: '${{ parameters.uiCustomVersion }}'

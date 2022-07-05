@@ -1,0 +1,30 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "mgStructure": {
+            "value": [
+                {
+                    "name":"management-mg",
+                    "parentId":"e7ab81b2-1e84-4bf7-9dcb-b6fec01ed138",
+                    "parentNotManagedInThisTemplate": true,
+                    "roleAssignments":[
+                        {   // Management Governance Administrator
+                            "roleDefinitionIdOrName": "/providers/Microsoft.Management/managementGroups/management-mg/providers/Microsoft.Authorization/roleDefinitions/00e8dd8e-7ed2-5611-ad8c-39198dd4fc88",
+                            "principalIds": [
+                                "3bd3b9d5-2577-41d0-a8a3-cd6851d2b16a", //buildingblocks-buildingblocks-d-mg-sp
+                                "12522564-c546-4b31-b88e-4f87512b051b"  //grp-ccoe-devops-admin
+                            ]
+                        },
+                        {
+                            "roleDefinitionIdOrName": "Reader",
+                            "principalIds": [
+                                "cf61a428-7cb8-4048-977e-d8a9201a5855" //grp-ccoe-devops-contributor
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}

@@ -1,0 +1,66 @@
+name: Hydra
+
+parameters:
+- name: versioningOption
+  displayName: Default publish version
+  type: string
+  default: patch
+  values:
+  - patch
+  - minor
+  - major
+- name: uiCustomVersion
+  displayName: -OR- Custom publish version
+  type: string
+  default: '-'
+- name: skipTests
+  displayName: Skip Tests
+  type: boolean
+  default: false
+
+trigger:
+  batch: true
+  branches:
+    include:
+    - main
+    - master
+  paths:
+    include:
+      - Utilities/Hydration/*
+
+variables:
+- template: variables.yaml
+# This group MUST contain a secret 'Azure.DevOps.Ext.PAT' with a valid PAT token for target organization integration tests
+- group: HydrationSecrets
+
+stages:
+- ${{ if eq(parameters.skipTests, false) }}:
+  - stage: Test
+    displayName: Test Hydra
+    jobs:
+    - template: .\template.test.jobs.yml
+      parameters:
+        PAR_Job_Config:
+        - IncludeTag: Help
+          displayname: Help Tests
+        - IncludeTag: ScriptAnalyzer
+          displayname: Script Analyzer Tests
+        - IncludeTag: Unit
+          displayname: Unit Tests
+        - IncludeTag: Build
+          displayname: Build Tests
+        - IncludeTag: Integration
+          displayname: Integration Tests
+        - IncludeTag: Acceptance
+          displayname: Acceptance Tests
+          cleanupE2Eproject: true
+          dependsOn:
+          - Integration
+
+- stage: Publish
+  condition: and(succeeded(), in(variables['Build.SourceBranch'], 'refs/heads/main','refs/heads/master'))
+  jobs:
+  - template: /Modules/ARM/.global/PipelineTemplates/pipeline.jobs.publish.yml
+    parameters:
+      versioningOption: '${{ parameters.versioningOption }}'
+      uiCustomVersion: '${{ parameters.uiCustomVersion }}'

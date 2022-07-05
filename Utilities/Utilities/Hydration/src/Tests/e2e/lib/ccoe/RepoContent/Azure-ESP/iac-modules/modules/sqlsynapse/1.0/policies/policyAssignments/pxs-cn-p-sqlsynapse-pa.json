@@ -1,0 +1,45 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "scope": {
+            "value": "/providers/Microsoft.Management/managementGroups/pxs-cn-p-mg"
+        },
+        "properties": {
+            "value": {
+                "policyAssignment": {
+                    "managedIdentity": {
+                        "location": "westeurope",
+                        "assignIdentity": true
+                    },
+                    "displayName": "pxs-cn-p-sqlsynapse-pa",
+                    "definitionDisplayName": "pxs-cn-sqlsynapse-pi",
+                    "description": "This is the default set of policies monitored by the CCoE. They ensure that the defined security baselines for such component are enforced.",
+                    "name": "pxs-cn-p-sqlsynapse-pa",
+                    "notScopes": [],
+                    "parameters": {
+                        "allowedSKUs": [
+                            "DW100c",
+                            "DW200c",
+                            "DW300c",
+                            "DW400c",
+                            "DW500c",
+                            "DW1000c",
+                            "DW1500c",
+                            "DW2000c",
+                            "DW2500c",
+                            "DW3000c",
+                            "DW5000c",
+                            "DW6000c",
+                            "DW7500c",
+                            "DW10000c"
+                        ],
+                        "skuPolicyEffect": "Audit"
+                    },
+                    "enforcementMode": "Default",
+                    "definitionId": "/providers/Microsoft.Management/managementGroups/pxs-cloudnative-mg/providers/Microsoft.Authorization/policySetDefinitions/pxs-cn-sqlsynapse-pi"
+                }
+            }
+        }
+    }
+}

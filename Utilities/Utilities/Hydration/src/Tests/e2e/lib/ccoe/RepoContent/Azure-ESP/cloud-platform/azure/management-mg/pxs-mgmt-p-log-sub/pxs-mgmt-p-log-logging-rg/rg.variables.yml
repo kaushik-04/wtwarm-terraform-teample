@@ -1,0 +1,6 @@
+variables:
+- template: ../sub.variables.yml
+- name: resourceGroupName
+  value: 'mgmt-p-log-logging-rg'
+- name: parametersPath
+  value: 'management-mg/mgmt-p-log-sub/mgmt-p-log-logging-rg/parameters'

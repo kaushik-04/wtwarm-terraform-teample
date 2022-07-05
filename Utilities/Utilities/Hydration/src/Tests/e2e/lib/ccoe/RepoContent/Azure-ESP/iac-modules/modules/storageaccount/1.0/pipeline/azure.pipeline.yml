@@ -1,0 +1,105 @@
+name: $(Build.DefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:r)
+
+parameters:
+  - name: removeDeployment
+    displayName: Remove resources post-deployment
+    type: boolean
+    default: true
+
+variables:
+  - template: /cicd/global.variables.yml
+  - name: moduleName
+    value: storageaccount
+  - name: moduleVersion
+    value: "1.0"
+  - name: policyServiceConnection
+    ${{ if eq(variables['Build.SourceBranch'], 'refs/heads/master') }}:
+      value: pxs-cloudnative-mg
+    ${{ if ne(variables['Build.SourceBranch'], 'refs/heads/master') }}:
+      value: pxs-cloudnative-mg
+  - name: vstsFeedName
+    ${{ if eq(variables['Build.SourceBranch'], 'refs/heads/master') }}:
+      value: contoso-azure-release
+    ${{ if ne(variables['Build.SourceBranch'], 'refs/heads/master') }}:
+      value: contoso-azure
+
+trigger:
+  batch: true
+  branches:
+    include:
+      - master
+  paths:
+    include:
+      - cicd/*
+      - common/1.0/scripts/*
+      - modules/storageaccount/1.0/*
+    exclude:
+      - modules/storageaccount/1.0/readme.md
+
+stages:
+  - stage: Validation
+    jobs:
+      - template: /cicd/templates/pipeline.jobs.validate.yml
+        parameters:
+          deploymentBlocks:
+            - path: $(parametersPath)/deploy.parameters.json
+
+  - stage: PolicyDefinition
+    jobs:
+      - template: /cicd/templates/pipeline.jobs.deploy.yml
+        parameters:
+          moduleName: policyDefinition
+          moduleVersion: "2.0"
+          serviceConnection: $(policyServiceConnection)
+          deploymentBlocks:
+            - path: $(modulePath)/policies/policyDefinitions/pxs-cn-sa-encryption-pd.json
+            - path: $(modulePath)/policies/policyDefinitions/pxs-cn-sa-allowpublicaccess-pd.json
+          # - path: $(modulePath)/policies/policyDefinitions/pxs-cn-sa-sharedkeyaccess-pd.json
+            - path: $(modulePath)/policies/policyDefinitions/pxs-cn-sa-tls-pd.json
+            - path: $(modulePath)/policies/policyDefinitions/pxs-cn-sa-softdelete-pd.json
+
+  - stage: InitiativeDefinition
+    dependsOn: PolicyDefinition
+    jobs:
+      - template: /cicd/templates/pipeline.jobs.deploy.yml
+        parameters:
+          moduleName: initiativeDefinition
+          moduleVersion: "2.0"
+          serviceConnection: $(policyServiceConnection)
+          deploymentBlocks:
+            - path: $(modulePath)/policies/initiativeDefinitions/pxs-cn-sa-pi.json
+
+
+  - stage: PolicyAssignment
+    dependsOn: InitiativeDefinition
+    jobs:
+      - template: /cicd/templates/pipeline.jobs.deploy.yml
+        parameters:
+          moduleName: policyAssignment
+          moduleVersion: "2.0"
+          serviceConnection: $(policyServiceConnection)
+          deploymentBlocks:
+            - path: $(modulePath)/policies/policyAssignments/pxs-cn-s-sa-pa.json
+            - path: $(modulePath)/policies/policyAssignments/pxs-cn-p-sa-pa.json
+
+  - stage: Deployment
+    jobs:
+      - template: /cicd/templates/pipeline.jobs.deploy.yml
+        parameters:
+          removeDeployment: "${{ parameters.removeDeployment }}"
+          deploymentBlocks:
+            - path: $(parametersPath)/deploy.parameters.json
+
+  - stage: Publishing
+    jobs:
+      - template: /cicd/templates/pipeline.jobs.publish.yml
+        parameters:
+          moduleVersion: '$(moduleVersion)'
+          vstsFeedName: '$(vstsFeedName)'
+
+  - stage: Removal
+    dependsOn: Deployment
+    condition: and(succeededOrFailed(), eq( '${{ parameters.removeDeployment }}', 'true'))
+    jobs:
+      - template: /cicd/templates/pipeline.jobs.remove.yml
+

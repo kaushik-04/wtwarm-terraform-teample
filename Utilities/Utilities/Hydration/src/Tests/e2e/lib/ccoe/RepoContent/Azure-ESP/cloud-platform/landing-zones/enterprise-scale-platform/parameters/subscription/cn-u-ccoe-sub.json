@@ -1,0 +1,35 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "subscriptionAliasName": {
+            "value": "cn-u-ccoe-sub"
+        },
+        "displayName": {
+            "value": "cn-u-ccoe-sub"
+        },
+        "targetManagementGroupId": {
+            "value": "cn-p-mg"
+        },
+        "billingScope": {
+            "value": "/providers/Microsoft.Billing/billingAccounts/60287334/enrollmentAccounts/275943"
+        },
+        "roleAssignments": {
+            "value": [
+                {   //LZ Owner
+                    "roleDefinitionIdOrName": "/providers/Microsoft.Management/managementGroups/cloudnative-mg/providers/Microsoft.Authorization/roleDefinitions/688b6f0a-6630-5d07-b4ca-c9784d56c104",
+                    "principalIds": [
+                        "5f8ac12a-3968-4383-a7e5-5620e08f8fbf", //cn-u-ccoe-sub-sp
+                        "12522564-c546-4b31-b88e-4f87512b051b" //grp-ccoe-devops-admin
+                    ]
+                },
+                {
+                    "roleDefinitionIdOrName": "Reader",
+                    "principalIds": [
+                        "cf61a428-7cb8-4048-977e-d8a9201a5855" //grp-ccoe-devops-contributor
+                    ]
+                }
+            ]
+        }
+    }
+}

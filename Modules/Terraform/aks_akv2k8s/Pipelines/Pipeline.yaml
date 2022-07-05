@@ -1,0 +1,40 @@
+parameters:
+- name: versionOption
+  type: string
+  default: patch
+  displayName: 'The semantic version type (major, minor, or patch)'
+
+name: layer-aks_akv2k8s-$(Date:yyyyMMdd).$(Rev:rr)
+
+trigger:
+  branches:
+    include:
+    - main
+    - master
+
+  paths:
+    include:
+      - /Modules/Terraform/aks_akv2k8s
+      - /Modules/Terraform/.global/*
+    exclude: 
+      - /**/*.md
+      - /.attachments
+
+variables:
+  - name: system.debug 
+    value: true
+  - name: downloadPath
+    value: $(Build.ArtifactStagingDirectory)
+  - name: layerName
+    value: aks_akv2k8s
+
+pool: IaCS Scale Set Linux
+
+steps:
+- template: /Modules/Terraform/.global/PipelineLibrary/Version.yaml
+  parameters:
+    layerName: ${{ variables.layerName}}
+    versionOption: ${{ parameters.versionOption }}
+        # this variable will be instantiated from an upstream pipeline named manual-version-layers
+        # at https://dev.azure.com/StratumKit/Stratum/_build?definitionId=430&_a=summary
+    triggerPipelineVersionOption: "$(triggerPipelineVersionOption)"

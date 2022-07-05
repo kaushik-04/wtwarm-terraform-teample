@@ -1,0 +1,30 @@
+name: $(moduleName)
+
+variables:
+  - template: /cicd/global.variables.yml
+  - name: moduleName
+    value: policyDefinition
+  - name: moduleVersion
+    value: "1.1"
+
+trigger:
+  batch: true
+  branches:
+    include:
+    - master
+  paths:
+    include:
+      - cicd/*
+      - common/*
+      - modules/policyDefinition/1.1/*
+    exclude:
+      - modules/policyDefinition/1.1/readme.md
+
+stages:
+- stage: Deploy
+  jobs:
+  - template: /modules/policyDefinition/1.1/pipeline/pipeline.jobs.deploy.yml
+    parameters:
+      serviceConnection: "pxs-cloudnative-mg"
+      managementGroupId: "pxs-cn-s-mg"
+      policyDefinitionsPath: "$(parametersPath)"

@@ -1,0 +1,91 @@
+name: $(imagePipelineName)
+
+parameters:
+- name: jobEnvironment
+  displayName: Environment to deploy to
+  type: string
+  default: sbx
+  values:
+  - sbx
+# - dev
+# - prd
+- name: jobOs
+  displayName: Create image for OS
+  type: string
+  default: Only Linux
+  values:
+  - Only Windows
+  - Only Linux
+  - Both
+- name: jobScope
+  displayName: Scope of deployment
+  type: string
+  default: Only Storage & Image
+  values:
+  - All
+  - Only infrastructure
+  - Only Storage & Image
+  - Only image
+- name: waitForImageBuild
+  displayName: Wait for image build
+  type: boolean
+  default: false
+- name: removeImageTemplateResourceGroups
+  displayName: Pre-Remove Image Template Resource Groups
+  type: boolean
+  default: true
+
+variables:
+- template: variables.yml
+
+trigger: none
+
+stages:
+- stage: SBX_ImageDeployments
+  displayName: Deploy to SBX
+  condition: eq('${{ parameters.jobEnvironment }}', 'sbx')
+  jobs:
+  - template: .templates/pipeline.image.jobs.yml
+    parameters:
+      resourcegroupname: '$(resourcegroupname_sbx)'
+      assetsStorageaccount: '$(assetsStorageAccountName_sbx)'
+      poolName: '$(poolName_sbx)'
+      vmImage: ''
+      serviceConnection: '$(serviceConnection_sbx)'
+      jobEnvironment: '${{ parameters.jobEnvironment }}'
+      jobOs: '${{ parameters.jobOs }}'
+      jobScope: '${{ parameters.jobScope }}'
+      waitForImageBuild: '${{ parameters.waitForImageBuild }}'
+      removeImageTemplateResourceGroups: '${{ parameters.removeImageTemplateResourceGroups }}'
+
+# - stage: DEV_ImageDeployments
+#   displayName: Deploy to DEV
+#   condition: eq('${{ parameters.jobEnvironment }}', 'dev')
+#   jobs:
+#   - template: .templates/pipeline.image.jobs.yml
+#     parameters:
+#       resourcegroupname: '$(resourcegroupname_dev)'
+#       assetsStorageaccount: '$(assetsStorageAccountName_dev)'
+#       poolName: '$(poolName_dev)'
+#       vmImage: ''
+#       serviceConnection: '$(serviceConnection_dev)'
+#       jobEnvironment: '${{ parameters.jobEnvironment }}'
+#       jobOs: '${{ parameters.jobOs }}'
+#       jobScope: '${{ parameters.jobScope }}'
+#       waitForImageBuild: '${{ parameters.waitForImageBuild }}'
+
+# - stage: PRD_ImageDeployments
+#   displayName: Deploy to PRD
+#   condition: eq('${{ parameters.jobEnvironment }}', 'prd')
+#   jobs:
+#   - template: .templates/pipeline.image.jobs.yml
+#     parameters:
+#       resourcegroupname: '$(resourcegroupname_prd)'
+#       assetsStorageaccount: '$(assetsStorageAccountName_prd)'
+#       poolName: '$(poolName_prd)'
+#       vmImage: ''
+#       serviceConnection: '$(serviceConnection_prd)'
+#       jobEnvironment: '${{ parameters.jobEnvironment }}'
+#       jobOs: '${{ parameters.jobOs }}'
+#       jobScope: '${{ parameters.jobScope }}'
+#       waitForImageBuild: '${{ parameters.waitForImageBuild }}'

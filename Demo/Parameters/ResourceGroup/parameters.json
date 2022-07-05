@@ -1,0 +1,20 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "resourceGroupName": {
+        "value": "CRB-MG05175P-RGRP"
+      }, "tags": {
+        "value": {
+          "CRBMigrated": "Yes",
+          "CRBSourceVM": "N11-CS-IDWS003P",
+          "CRBPurpose": "DB",
+          "CRBExternalFacing": "Yes",
+          "CRBEnvironment": "Production",
+          "CRBAppID-1": "000432",
+          "CRBAppName-1": "Col",
+          "CRBServiceManager-1": "Jose Gomez"
+        }
+      }
+    }
+  }

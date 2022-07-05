@@ -1,0 +1,126 @@
+{
+    "count": 1,
+    "value": [
+        {
+            "id": 0,
+            "identifier": "d3761d90-4c40-4699-a11c-a0a16a0ae1bd",
+            "name": "Module Playground",
+            "structureType": "area",
+            "hasChildren": true,
+            "children": [
+                {
+                    "id": 1,
+                    "identifier": "81252c83-b143-4721-ab6f-904d0010d9bd",
+                    "name": "Area 1",
+                    "structureType": "area",
+                    "hasChildren": false,
+                    "path": "\\Module Playground\\Area\\Area 1",
+                    "url": "https://dev.azure.com/contoso/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/classificationNodes/Areas/Area%201"
+                },
+                {
+                    "id": 2,
+                    "identifier": "81252c83-b143-4721-ab6f-904d0010d9bd",
+                    "name": "Area 2",
+                    "structureType": "area",
+                    "hasChildren": false,
+                    "path": "\\Module Playground\\Area\\Area 2",
+                    "url": "https://dev.azure.com/contoso/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/classificationNodes/Areas/Area%202"
+                },
+                {
+                    "id": 3,
+                    "identifier": "81252c83-b143-4721-ab6f-904d0010d9bd",
+                    "name": "Area 3",
+                    "structureType": "area",
+                    "hasChildren": false,
+                    "path": "\\Module Playground\\Area\\Area 3",
+                    "url": "https://dev.azure.com/contoso/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/classificationNodes/Areas/Area%203"
+                },
+                {
+                    "id": 4,
+                    "identifier": "81252c83-b143-4721-ab6f-904d0010d9bd",
+                    "name": "Area 4",
+                    "structureType": "area",
+                    "hasChildren": false,
+                    "path": "\\Module Playground\\Area\\Area 4",
+                    "url": "https://dev.azure.com/contoso/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/classificationNodes/Areas/Area%204"
+                },
+                {
+                    "id": 5,
+                    "identifier": "81252c83-b143-4721-ab6f-904d0010d9bd",
+                    "name": "Area 5",
+                    "structureType": "area",
+                    "hasChildren": false,
+                    "path": "\\Module Playground\\Area\\Area 5",
+                    "url": "https://dev.azure.com/contoso/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/classificationNodes/Areas/Area%205"
+                },
+                {
+                    "id": 6,
+                    "identifier": "7b306151-dc69-4c94-9395-785267404957",
+                    "name": "Area 6",
+                    "structureType": "area",
+                    "hasChildren": true,
+                    "children": [
+                        {
+                            "id": 61,
+                            "identifier": "b160bf92-02b2-426b-bd27-2083bb08d5e4",
+                            "name": "Area 61",
+                            "structureType": "area",
+                            "hasChildren": false,
+                            "path": "\\Module Playground\\Area\\Area 6\\Area 61",
+                            "url": "https://dev.azure.com/contoso/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/classificationNodes/Areas/Area%206/Area%2061"
+                        },
+                        {
+                            "id": 62,
+                            "identifier": "b160bf92-02b2-426b-bd27-2083bb08d5e4",
+                            "name": "Area 62",
+                            "structureType": "area",
+                            "hasChildren": false,
+                            "path": "\\Module Playground\\Area\\Area 6\\Area 62",
+                            "url": "https://dev.azure.com/contoso/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/classificationNodes/Areas/Area%206/Area%2062"
+                        }
+                    ],
+                    "path": "\\Module Playground\\Area\\Area 6",
+                    "url": "https://dev.azure.com/contoso/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/classificationNodes/Areas/Area%206"
+                },
+                {
+                    "id": 7,
+                    "identifier": "7b306151-dc69-4c94-9395-785267404957",
+                    "name": "Area 7",
+                    "structureType": "area",
+                    "hasChildren": true,
+                    "children": [
+                        {
+                            "id": 71,
+                            "identifier": "b160bf92-02b2-426b-bd27-2083bb08d5e4",
+                            "name": "Area 71",
+                            "structureType": "area",
+                            "hasChildren": true,
+                            "children": [
+                                {
+                                    "id": 711,
+                                    "identifier": "b160bf92-02b2-426b-bd27-2083bb08d5e4",
+                                    "name": "Area 711",
+                                    "structureType": "area",
+                                    "hasChildren": false,
+                                    "path": "\\Module Playground\\Area\\Area 7\\Area 71\\Area 711",
+                                    "url": "https://dev.azure.com/contoso/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/classificationNodes/Areas/Area%207/Area%2071/Area%20711"
+                                }
+                            ],
+                            "path": "\\Module Playground\\Area\\Area 7\\Area 71",
+                            "url": "https://dev.azure.com/contoso/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/classificationNodes/Areas/Area%207/Area%2071"
+                        }
+                    ],
+                    "path": "\\Module Playground\\Area\\Area 7",
+                    "url": "https://dev.azure.com/contoso/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/classificationNodes/Areas/Area%207"
+                }
+            ],
+            "path": "\\Module Playground\\Area",
+            "_links": {
+                "self": {
+                    "href": "https://dev.azure.com/contoso/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/classificationNodes/Areas"
+                }
+            },
+            "url": "https://dev.azure.com/contoso/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/classificationNodes/Areas"
+        }
+    ]
+}

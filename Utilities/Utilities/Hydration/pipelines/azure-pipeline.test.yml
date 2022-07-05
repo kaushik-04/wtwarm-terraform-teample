@@ -1,0 +1,93 @@
+name: Hydra
+
+parameters:
+- name: Help
+  displayName: Run Help Tests
+  type: boolean
+  default: true
+- name: ScriptAnalyzer
+  displayName: Run ScriptAnalyzer Tests
+  type: boolean
+  default: true
+- name: Unit
+  displayName: Run Unit Tests
+  type: boolean
+  default: true
+- name: Build
+  displayName: Run Build Tests
+  type: boolean
+  default: true
+- name: Integration
+  displayName: Run Integration Tests
+  type: boolean
+  default: false
+- name: Acceptance
+  displayName: Run Acceptance Tests
+  type: boolean
+  default: false
+- name: cleanupE2Eproject
+  displayName: Cleanup Acceptance Test project
+  type: boolean
+  default: true
+- name: testcase
+  displayName: Test Case
+  type: string
+  default: '-'
+- name: testfile
+  displayName: Test File
+  type: string
+  default: '-'
+
+trigger:
+  batch: true
+  branches:
+    exclude:
+    - main
+    - master 
+  paths:
+    include:
+      - Utilities/Hydration/*
+
+variables:
+- template: variables.yaml
+# This group MUST contain a secret 'Azure.DevOps.Ext.PAT' with a valid PAT token for target organization integration tests
+- group: HydrationSecrets
+
+stages:
+- stage: Test
+  displayName: Test Hydra
+  jobs:
+  - template: .\template.test.jobs.yml
+    parameters:
+      PAR_Job_Config: 
+      - ${{ if eq(parameters.Help, 'true') }}:
+        - IncludeTag: Help
+          displayname: Help Tests
+          testcase: ${{ parameters.testcase }}
+          testfile: ${{ parameters.testfile }}
+      - ${{ if eq(parameters.ScriptAnalyzer, 'true') }}:
+        - IncludeTag: ScriptAnalyzer
+          displayname: Script Analyzer Tests
+          testcase: ${{ parameters.testcase }}
+          testfile: ${{ parameters.testfile }}
+      - ${{ if eq(parameters.Unit, 'true') }}:
+        - IncludeTag: Unit
+          displayname: Unit Tests
+          testcase: ${{ parameters.testcase }}
+          testfile: ${{ parameters.testfile }}
+      - ${{ if eq(parameters.Build, 'true') }}:
+        - IncludeTag: Build
+          displayname: Build Tests
+          testcase: ${{ parameters.testcase }}
+          testfile: ${{ parameters.testfile }}
+      - ${{ if eq(parameters.Integration, 'true') }}:
+        - IncludeTag: Integration
+          displayname: Integration Tests
+          testcase: ${{ parameters.testcase }}
+          testfile: ${{ parameters.testfile }}
+      - ${{ if eq(parameters.Acceptance, 'true') }}:
+        - IncludeTag: Acceptance
+          displayname: Acceptance Tests
+          testcase: ${{ parameters.testcase }}
+          testfile: ${{ parameters.testfile }}
+          cleanupE2Eproject: ${{ parameters.cleanupE2Eproject }}

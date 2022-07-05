@@ -1,0 +1,103 @@
+name: $(resourceGroupName) - $(subscriptionName) - $(managementGroupID) - $(tenantName)
+
+variables:
+- template: rg.variables.yml
+
+trigger:
+  batch: true
+  branches:
+    include:
+    - master
+  paths:
+    include:
+    - .global/*
+    - tenant.variables.yml
+    - management-mg/mg.variables.yml
+    - management-mg/mgmt-p-log-sub/sub.variables.yml
+    - management-mg/mgmt-p-log-sub/mgmt-p-log-logging-rg/pipeline.yml
+    - management-mg/mgmt-p-log-sub/mgmt-p-log-logging-rg/rg.variables.yml
+    - management-mg/mgmt-p-log-sub/mgmt-p-log-logging-rg/parameters/*
+
+resources:
+  repositories:
+  - repository: IaC
+    type: git
+    ref: 'refs/heads/master'
+    name: IaC
+
+stages:
+- stage: Deploy_ResourceGroup
+  jobs: 
+    - template: /cicd/templates/pipeline.jobs.deploy.yml@IaC
+      parameters:
+        moduleName: resourcegroup
+        moduleVersion: '1.0'
+        deploymentBlocks:
+        - path: $(parametersPath)/resourcegroup/mgmt-p-log-logging-rg.json
+        checkoutRepositories:
+        - IaC
+
+- stage: Deploy_LogAnalytics
+  dependsOn: Deploy_ResourceGroup
+  jobs:
+    - template: /cicd/templates/pipeline.jobs.deploy.yml@IaC
+      parameters:
+        moduleName: loganalytics
+        moduleVersion: '1.0'
+        deploymentBlocks:
+        - path: $(parametersPath)/loganalytics/mgmt-p-log-mgmt-law.json
+        checkoutRepositories:
+        - IaC
+
+- stage: DeployEH
+  dependsOn: Deploy_ResourceGroup
+  jobs: 
+    - template: /cicd/templates/pipeline.jobs.deploy.yml@IaC
+      parameters:
+        moduleName: eventhub
+        moduleVersion: '1.0'
+        deploymentBlocks:
+        - path: $(parametersPath)/eventhub/mgmt-p-log-nonprod-ehn.json
+          jobName: Deploy_eventhubnonprod
+        - path: $(parametersPath)/eventhub/mgmt-p-log-prod-ehn.json
+          jobName: Deploy_eventhubprod
+        checkoutRepositories:
+        - IaC
+
+    - template: /cicd/templates/pipeline.jobs.deploy.yml@IaC
+      parameters:
+        moduleName: eventhubInstance
+        moduleVersion: '1.0'
+        dependsOn: Deploy_eventhubnonprod
+        deploymentBlocks:
+        - path: $(parametersPath)/eventhubInstance/mgmt-p-log-nonprod-subscriptionactivitylog-ehi.json
+        - path: $(parametersPath)/eventhubInstance/mgmt-p-log-nonprod-keyvault-ehi.json
+        - path: $(parametersPath)/eventhubInstance/mgmt-p-log-nonprod-storageaccount-ehi.json
+        - path: $(parametersPath)/eventhubInstance/mgmt-p-log-nonprod-sql-ehi.json
+        - path: $(parametersPath)/eventhubInstance/mgmt-p-log-nonprod-databricks-ehi.json
+        - path: $(parametersPath)/eventhubInstance/mgmt-p-log-nonprod-synapse-ehi.json
+        - path: $(parametersPath)/eventhubInstance/mgmt-p-log-nonprod-containerregistry-ehi.json
+        - path: $(parametersPath)/eventhubInstance/mgmt-p-log-nonprod-containerinstance-ehi.json
+        - path: $(parametersPath)/eventhubInstance/mgmt-p-log-nonprod-datafactory-ehi.json
+        - path: $(parametersPath)/eventhubInstance/mgmt-p-log-nonprod-machinelearning-ehi.json
+        checkoutRepositories:
+        - IaC
+
+    - template: /cicd/templates/pipeline.jobs.deploy.yml@IaC
+      parameters:
+        moduleName: eventhubInstance
+        moduleVersion: '1.0'
+        dependsOn: Deploy_eventhubprod
+        deploymentBlocks:
+        - path: $(parametersPath)/eventhubInstance/mgmt-p-log-prod-subscriptionactivitylog-ehi.json
+        - path: $(parametersPath)/eventhubInstance/mgmt-p-log-prod-keyvault-ehi.json
+        - path: $(parametersPath)/eventhubInstance/mgmt-p-log-prod-storageaccount-ehi.json
+        - path: $(parametersPath)/eventhubInstance/mgmt-p-log-prod-sql-ehi.json
+        - path: $(parametersPath)/eventhubInstance/mgmt-p-log-prod-databricks-ehi.json
+        - path: $(parametersPath)/eventhubInstance/mgmt-p-log-prod-synapse-ehi.json
+        - path: $(parametersPath)/eventhubInstance/mgmt-p-log-prod-containerregistry-ehi.json
+        - path: $(parametersPath)/eventhubInstance/mgmt-p-log-prod-containerinstance-ehi.json
+        - path: $(parametersPath)/eventhubInstance/mgmt-p-log-prod-datafactory-ehi.json
+        - path: $(parametersPath)/eventhubInstance/mgmt-p-log-prod-machinelearning-ehi.json
+        checkoutRepositories:
+        - IaC

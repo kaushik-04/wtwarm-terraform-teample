@@ -1,0 +1,97 @@
+{
+    "$schema": "../Hydra/Hydra.Schema.json",
+    "projectName": "Hydration",
+    "organizationName": "ADO-Hydration",
+    "description": "Hydration",
+    "process": "Agile",
+    "sourceControl": "git",
+    "visibility": "private",
+    "repositoryName": "Hydration-Components",
+    "areaPaths": [
+        {
+            "name": "CCoE Cloud Solutions Team"
+        },
+        {
+            "name": "CCoE Cloud Platform Team"
+        },
+        {
+            "name": "CCoE Security Champions"
+        },
+        {
+            "name": "CCoE Cloud Operations Champions"
+        },
+        {
+            "name": "CCoE DevOps Enablement Office"
+        },
+        {
+            "name": "Customer Application Teams",
+            "children": [
+                {
+                    "name": "Customer Application Team 3",
+                    "children": []
+                },
+                {
+                    "name": "CCoE Cloud Solutions Team 4",
+                    "children": []
+                }
+            ]
+        }
+    ],
+    "iterationPaths": [
+        {
+            "name": "Sprint 0",
+            "attributes": {
+                "startDate": "2020-12-14",
+                "finishDate": "2020-12-28"
+            }
+        },
+        {
+            "name": "Sprint 1",
+            "children": [
+                {
+                    "name": "Sprint 1.1",
+                    "attributes": {
+                        "startDate": "2021-01-04",
+                        "finishDate": "2021-01-11"
+                    }
+                },
+                {
+                    "name": "Sprint 1.2",
+                    "attributes": {
+                        "startDate": "2021-01-12",
+                        "finishDate": "2021-01-18"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Sprint 3"
+        }
+    ],
+    "teams": [
+        {
+            "name": "Hydration Team",
+            "description": "The default project team."
+        },
+        {
+            "name": "CCoE Cloud Solutions Team"
+        },
+        {
+            "name": "CCoE Cloud Platform Team"
+        },
+        {
+            "name": "CCoE Security Champions"
+        },
+        {
+            "name": "CCoE Cloud Operations Champions"
+        },
+        {
+            "name": "CCoE DevOps Enablement Office"
+        }
+    ],
+    "backlogs": [
+        {
+            "localBacklogDataPath": "C:/dev/ip/IaCS/Components/Utilities/Hydration/src/Tests/Board/resources/BoardHydrationHierarchy.csv"
+        }
+    ]
+}

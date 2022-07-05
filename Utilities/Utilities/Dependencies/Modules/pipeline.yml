@@ -1,0 +1,288 @@
+name: Dependencies
+
+variables:
+- template: /Modules/ARM/.global/global.variables.yml
+- name: parametersPath
+  value: /Utilities/Dependencies/Modules
+- name: resourceGroupName
+  value: dependencies-rg
+
+trigger:
+  batch: true
+  branches:
+    include:
+    - notrigger
+  paths:
+    include:
+    - Utilities/Dependencies/Modules/*
+
+stages:
+- stage: ResourceGroups
+  displayName: Resource Groups
+  jobs:
+  - template: /Modules/ARM/.global/PipelineTemplates/pipeline.jobs.deploy.yml
+    parameters:
+      moduleName: ResourceGroup
+      modulePath: $(modulesPath)/ResourceGroup
+      deploymentBlocks:
+        - path: $(parametersPath)/ResourceGroup/Parameters/artifacts.parameters.json
+          displayName: Artifacts ResourceGroup
+
+  - template: /Modules/ARM/.global/PipelineTemplates/pipeline.jobs.deploy.yml
+    parameters:
+      moduleName: ResourceGroup
+      modulePath: $(modulesPath)/ResourceGroup
+      deploymentBlocks:
+        - path: $(parametersPath)/ResourceGroup/Parameters/dependencies.parameters.json
+          displayName: Dependency ResourceGroup
+
+  - template: /Modules/ARM/.global/PipelineTemplates/pipeline.jobs.deploy.yml
+    parameters:
+      moduleName: ResourceGroup
+      modulePath: $(modulesPath)/ResourceGroup
+      deploymentBlocks:
+        - path: $(parametersPath)/ResourceGroup/Parameters/validation.parameters.json
+          displayName: Validation ResourceGroup 
+
+# Modules
+- stage: RequiredModules
+  displayName: Required Modules
+  jobs:
+  - template: /Modules/ARM/.global/PipelineTemplates/pipeline.jobs.deploy.yml
+    parameters:
+      moduleName: RouteTables
+      modulePath: $(modulesPath)/RouteTables
+      deploymentBlocks:
+        - path: $(parametersPath)/RouteTables/Parameters/parameters.json
+          displayName: RouteTable
+        
+  - template: /Modules/ARM/.global/PipelineTemplates/pipeline.jobs.deploy.yml
+    parameters:
+      moduleName: NetworkSecurityGroups
+      modulePath: $(modulesPath)/NetworkSecurityGroups
+      deploymentBlocks:
+        - path: $(parametersPath)/NetworkSecurityGroups/Parameters/parameters.json
+          displayName: Network Security Group
+
+  - template: /Modules/ARM/.global/PipelineTemplates/pipeline.jobs.deploy.yml
+    parameters:
+      moduleName: PrivateDnsZones
+      modulePath: $(modulesPath)/PrivateDnsZones
+      deploymentBlocks:
+        - path: $(parametersPath)/PrivateDnsZones/Parameters/parameters.json
+          displayName: Private Dns Zones
+
+  - template: /Modules/ARM/.global/PipelineTemplates/pipeline.jobs.deploy.yml
+    parameters:
+      moduleName: VirtualNetwork
+      modulePath: $(modulesPath)/VirtualNetwork
+      deploymentBlocks:
+        - path: $(parametersPath)/VirtualNetwork/Parameters/parameters.json
+          displayName: Virtual Network
+
+  - template: /Modules/ARM/.global/PipelineTemplates/pipeline.jobs.deploy.yml
+    parameters:
+      moduleName: VirtualNetwork
+      modulePath: $(modulesPath)/VirtualNetwork
+      deploymentBlocks:
+        - path: $(parametersPath)/VirtualNetwork/Parameters/2.parameters.json
+          displayName: Virtual Network 2
+
+  - template: /Modules/ARM/.global/PipelineTemplates/pipeline.jobs.deploy.yml
+    parameters:
+      moduleName: VirtualNetwork
+      modulePath: $(modulesPath)/VirtualNetwork
+      resourceGroupName: validation-rg # vnet needs to be in same rg where afw resides
+      deploymentBlocks:
+        - path: $(parametersPath)/VirtualNetwork/Parameters/3.parameters.json
+          displayName: Virtual Network 3 Azure Firewall
+
+  - template: /Modules/ARM/.global/PipelineTemplates/pipeline.jobs.deploy.yml
+    parameters:
+      moduleName: VirtualNetwork
+      modulePath: $(modulesPath)/VirtualNetwork
+      deploymentBlocks:
+        - path: $(parametersPath)/VirtualNetwork/Parameters/4.parameters.json
+          displayName: Virtual Network 4 (AKS)
+
+  - template: /Modules/ARM/.global/PipelineTemplates/pipeline.jobs.deploy.yml
+    parameters:
+      moduleName: VirtualNetworkPeering
+      modulePath: $(modulesPath)/VirtualNetworkPeering
+      deploymentBlocks:
+        - path: $(parametersPath)/VirtualNetworkPeering/Parameters/parameters.json
+          displayName: Virtual Network Peering
+  
+  - template: /Modules/ARM/.global/PipelineTemplates/pipeline.jobs.deploy.yml
+    parameters:
+      moduleName: PrivateDnsZones
+      modulePath: $(modulesPath)/PrivateDnsZones
+      deploymentBlocks:
+        - path: $(parametersPath)/PrivateDnsZones/Parameters/2.parameters.json
+          displayName: Private Dns Zone for KeyVault private endpoint
+
+  - template: /Modules/ARM/.global/PipelineTemplates/pipeline.jobs.deploy.yml
+    parameters:
+      moduleName: ApiManagement
+      modulePath: $(modulesPath)/ApiManagement
+      deploymentBlocks:
+        - path: $(parametersPath)/ApiManagement/Parameters/parameters.json
+          displayName: Api Management
+
+## Storage Account for Diagnostics and WVD
+  - template: /Modules/ARM/.global/PipelineTemplates/pipeline.jobs.deploy.yml
+    parameters:
+      moduleName: StorageAccounts
+      modulePath: $(modulesPath)/StorageAccounts
+      deploymentBlocks:
+        - path: $(parametersPath)/StorageAccounts/Parameters/parameters.json
+          displayName: Storage Account for Diagnostics and WVD
+
+## Storage Account for Function App
+  - template: /Modules/ARM/.global/PipelineTemplates/pipeline.jobs.deploy.yml
+    parameters:
+      moduleName: StorageAccounts
+      modulePath: $(modulesPath)/StorageAccounts
+      deploymentBlocks:
+        - path: $(parametersPath)/StorageAccounts/Parameters/fa.parameters.json
+          displayName: Storage Account Function App
+
+  - template: /Modules/ARM/.global/PipelineTemplates/pipeline.jobs.deploy.yml
+    parameters:
+      moduleName: KeyVault
+      modulePath: $(modulesPath)/KeyVault
+      deploymentBlocks:
+        - path: $(parametersPath)/KeyVault/Parameters/parameters.json
+          displayName: Key Vault
+
+# Create Secrets and Keys
+  - job:
+    displayName: Create Secrets and Keys
+    pool:
+      ${{ if eq(variables['vmImage'], '') }}:
+        name: $(poolName)
+      ${{ if eq(variables['poolName'], '') }}:
+        vmImage: $(vmImage)
+    steps:
+    - task: AzureCLI@2
+      enabled: true
+      displayName: Create Secrets and Keys
+      inputs:
+        azureSubscription: $(serviceConnection)
+        scriptType: 'pscore'
+        scriptLocation: 'inlineScript'
+        inlineScript: |
+          $username = (-join ((65..90) + (97..122) | Get-Random -Count 9 -SetSeed 1 | % {[char]$_ + "$_"})).substring(0,19) # max length
+          $password = (New-Guid).Guid.SubString(0,19)
+          $vpnSharedKey =  (New-Guid).Guid.SubString(0,32)
+          az keyvault secret set --vault-name "sxx-conti-kv-weu-x-005" --name "adminUsername" --value "$username"
+          az keyvault secret set --vault-name "sxx-conti-kv-weu-x-005" --name "adminPassword" --value "$password"
+          az keyvault secret set --vault-name "sxx-conti-kv-weu-x-005" --name "administratorLogin" --value "$username"
+          az keyvault secret set --vault-name "sxx-conti-kv-weu-x-005" --name "administratorLoginPassword" --value "$password"
+          az keyvault secret set --vault-name "sxx-conti-kv-weu-x-005" --name "vpnSharedKey" --value "$vpnSharedKey"
+          az keyvault key create --vault-name "sxx-az-kv-weu-x-004" --name "keyEncryptionKey"
+          az keyvault key create --vault-name "sxx-az-kv-weu-x-004" --name "keyEncryptionKeySqlMi"
+
+  - template: /Modules/ARM/.global/PipelineTemplates/pipeline.jobs.deploy.yml
+    parameters:
+      moduleName: LogAnalytics
+      modulePath: $(modulesPath)/LogAnalytics
+      deploymentBlocks:
+        - path: $(parametersPath)/LogAnalytics/Parameters/parameters.json
+          displayName: Log Analytics Workspace
+
+  - template: /Modules/ARM/.global/PipelineTemplates/pipeline.jobs.deploy.yml
+    parameters:
+      moduleName: PublicIpPrefixes
+      modulePath: $(modulesPath)/PublicIpPrefixes
+      deploymentBlocks:
+        - path: $(parametersPath)/PublicIpPrefixes/Parameters/parameters.json
+          displayName: Public IP Prefix
+
+  - template: /Modules/ARM/.global/PipelineTemplates/pipeline.jobs.deploy.yml
+    parameters:
+      moduleName: PublicIPAddresses
+      modulePath: $(modulesPath)/PublicIPAddresses
+      deploymentBlocks:
+        - path: $(parametersPath)/PublicIPAddresses/Parameters/parameters.json
+          displayName: Public IP Address
+
+  - template: /Modules/ARM/.global/PipelineTemplates/pipeline.jobs.deploy.yml
+    parameters:
+      moduleName: EventHubNamespaces
+      modulePath: $(modulesPath)/EventHubNamespaces
+      deploymentBlocks:
+        - path: $(parametersPath)/EventHubNamespaces/Parameters/parameters.json
+          displayName: Event Hub Namespace
+
+  - template: /Modules/ARM/.global/PipelineTemplates/pipeline.jobs.deploy.yml
+    parameters:
+      moduleName: EventHubs
+      modulePath: $(modulesPath)/EventHubs
+      deploymentBlocks:
+        - path: $(parametersPath)/EventHubs/Parameters/parameters.json
+          displayName: Event Hub
+
+  - template: /Modules/ARM/.global/PipelineTemplates/pipeline.jobs.deploy.yml
+    parameters:
+      moduleName: SharedImageGallery
+      modulePath: $(modulesPath)/SharedImageGallery
+      deploymentBlocks:
+        - path: $(parametersPath)/SharedImageGallery/Parameters/parameters.json
+          displayName: Shared Image Gallery
+
+  - template: /Modules/ARM/.global/PipelineTemplates/pipeline.jobs.deploy.yml
+    parameters:
+      moduleName: SharedImageDefinition
+      modulePath: $(modulesPath)/SharedImageDefinition
+      deploymentBlocks:
+        - path: $(parametersPath)/SharedImageDefinition/Parameters/parameters.json
+          displayName: Shared Image Definition
+
+  - template: /Modules/ARM/.global/PipelineTemplates/pipeline.jobs.deploy.yml
+    parameters:
+      moduleName: UserAssignedIdentities
+      modulePath: $(modulesPath)/UserAssignedIdentities
+      deploymentBlocks:
+        - path: $(parametersPath)/UserAssignedIdentities/Parameters/parameters.json
+          displayName: User Assigned Identity
+
+  - template: /Modules/ARM/.global/PipelineTemplates/pipeline.jobs.deploy.yml
+    parameters:
+      moduleName: RoleAssignments
+      modulePath: $(modulesPath)/RoleAssignments
+      deploymentBlocks:
+        - path: $(parametersPath)/RoleAssignments/Parameters/parameters.json
+          displayName: MSI Role Assignment
+
+  - template: /Modules/ARM/.global/PipelineTemplates/pipeline.jobs.deploy.yml
+    parameters:
+      moduleName: AppServicePlan
+      modulePath: $(modulesPath)/AppServicePlan
+      deploymentBlocks:
+        - path: $(parametersPath)/AppServicePlan/Parameters/parameters.json
+          displayName: App Service Plan
+
+  - template: /Modules/ARM/.global/PipelineTemplates/pipeline.jobs.deploy.yml
+    parameters:
+      moduleName: ApplicationSecurityGroups
+      modulePath: $(modulesPath)/ApplicationSecurityGroups
+      deploymentBlocks:
+        - path: $(parametersPath)/ApplicationSecurityGroups/Parameters/parameters.json
+          displayName: Application Security Groups
+
+  - template: /Modules/ARM/.global/PipelineTemplates/pipeline.jobs.deploy.yml
+    parameters:
+      moduleName: ActionGroup
+      modulePath: $(modulesPath)/ActionGroup
+      deploymentBlocks:
+        - path: $(parametersPath)/ActionGroup/Parameters/parameters.json
+          displayName: Action Group
+  
+  - template: /Modules/ARM/.global/PipelineTemplates/pipeline.jobs.deploy.yml
+    parameters:
+      moduleName: ApplicationInsights
+      modulePath: $(modulesPath)/ApplicationInsights
+      deploymentBlocks:
+        - path: $(parametersPath)/ApplicationInsights/Parameters/parameters.json
+          displayName: Application Insights

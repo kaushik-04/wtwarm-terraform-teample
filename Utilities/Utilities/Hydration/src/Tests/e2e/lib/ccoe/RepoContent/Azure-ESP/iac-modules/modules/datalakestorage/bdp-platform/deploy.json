@@ -1,0 +1,69 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"platform_id": {
+			"type": "string",
+			"defaultValue": "bdp"
+		},
+		"app_id": {
+			"type": "string"
+		},
+		"environment": {
+			"type": "String"
+		},
+        "suffix": {
+            "type": "String"
+        },
+		"location": {
+			"type": "string",
+			"defaultValue": "[resourceGroup().location]"
+		},
+		"cost_center": {
+			"type": "string",
+			"defaultValue": "unknown"
+		}
+	},
+	"variables": {
+		"dlsName": "[toLower( concat( 'pxs', parameters('platform_id'), parameters('app_id'), parameters('environment'), 'dls', parameters('suffix') ))]"
+	},
+	"resources": [
+        {   "name": "[variables('dlsName')]",
+            "type": "Microsoft.Storage/storageAccounts",
+            "apiVersion": "2019-06-01",
+            "location": "[parameters('location')]",
+            "tags": {   "function": "SO",
+                        "environment": "[parameters('environment')]",
+                        "platform-id": "[parameters('platform_id')]",
+                        "application-id": "[parameters('app_id')]",
+                        "deployment-id": "[deployment().name]",
+                        "cost-center": "[parameters('cost_center')]"
+            },
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "kind": "StorageV2",
+            "properties": {
+                "isHnsEnabled": true,
+                "networkAcls": {
+                    "bypass": "AzureServices",
+                    "virtualNetworkRules": [],
+                    "ipRules": [],
+                    "defaultAction": "Allow"
+                },
+                "supportsHttpsTrafficOnly": true,
+                "minimumTlsVersion": "TLS1_2",
+                "encryption": {
+                    "services": {
+                        "file": { "enabled": true },
+                        "blob": { "enabled": true }
+                    },
+                    "keySource": "Microsoft.Storage"
+                },
+                "accessTier": "Hot",
+                "allowBlobPublicAccess": false
+            }
+        }
+    ]
+}

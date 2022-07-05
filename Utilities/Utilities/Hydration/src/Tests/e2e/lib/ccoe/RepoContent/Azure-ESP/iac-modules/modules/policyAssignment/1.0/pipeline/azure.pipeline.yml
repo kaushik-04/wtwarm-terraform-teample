@@ -1,0 +1,25 @@
+parameters:
+  # Pipeline-related parameters
+  serviceConnection: ''
+  vmImage: '$(vmImage)'
+  # Logic-related parameters
+  policyAssignmentsPath: ''
+  policyAssignmentsScriptPath: 'modules/policyAssignment/1.0'
+
+jobs:
+- job: SetPolicyAssignments
+  displayName: Set Policy Assignments
+  pool:
+    vmImage: $(vmImage)
+  steps:
+    - task: AzurePowerShell@5
+      displayName: Set Policy Assignments
+      inputs:
+        azureSubscription: ${{ parameters.serviceConnection }}
+        ScriptType: FilePath
+        scriptPath: $(Build.Repository.LocalPath)/${{ parameters.policyAssignmentsScriptPath }}/Set-PolicyAssignments.ps1
+        azurePowerShellVersion: LatestVersion
+        pwsh: true
+        scriptArguments:
+          -AssignmentFilePath $(Build.Repository.LocalPath)/${{ parameters.policyAssignmentsPath }}/assignments.json
+          -AssignmentSchemaPath $(Build.Repository.LocalPath)/${{ parameters.policyAssignmentsScriptPath }}/assignmentSchema.json

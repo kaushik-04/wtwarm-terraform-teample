@@ -1,0 +1,153 @@
+{
+    "properties": {
+        "name": "pxs-cn-vmss-os-restriction-pd",
+        "displayName": "OS Restriction for the creation Virtual Machine Scale Set",
+        "description": "This policy enforce the use of specific SKU imgages for the creation of Virtual Machine Scale Set",
+        "policyType": "Custom",
+        "mode": "All",
+        "parameters": {
+            "effect": {
+                "type": "String",
+                "metadata": {
+                "displayName": "Effect",
+                "description": "The effect determines what happens when the policy rule is evaluated to match"
+                },
+                "allowedValues": [
+                    "Audit",
+                    "Deny",
+                    "Disabled"
+                ],
+                "defaultValue": "Audit"
+            },
+            "allowedWindowsSKUImages": {
+                "type": "array",
+                "metadata": {
+                    "displayName": "allowed SKU Image for Scale Set",
+                    "description": "allowed SKU Image for Scale Set"
+                },
+                "DefaultValue": [
+                    "2012-R2-Datacenter",
+                    "2016-Datacenter-Server-Core",
+                    "2016-Datacenter",
+                    "2019-Datacenter-Core",
+                    "2019-Datacenter"
+                ]
+            }
+        },
+        "policyRule": {
+            "if": {
+                "allOf": [
+                    {
+                        "field": "type",
+                        "in": [
+                            "Microsoft.Compute/VirtualMachineScaleSets"
+                        ]
+                    },
+                    {
+                        "allOf": [
+                            {
+                                "field": "Microsoft.Compute/imageSku",
+                                "exists": true
+                            },
+                            {
+                                "not": {
+                                    "allOf": [
+                                        {
+                                            "field": "Microsoft.Compute/licenseType",
+                                            "notEquals": "Windows_Server"
+                                        },
+                                        {
+                                            "field": "Microsoft.Compute/imagePublisher",
+                                            "in": [
+                                                "MicrosoftWindowsServer"
+                                            ]
+                                        },
+                                        {
+                                            "field": "Microsoft.Compute/imageOffer",
+                                            "in": [
+                                                "WindowsServer"
+                                            ]
+                                        },
+                                        {
+                                            "field": "Microsoft.Compute/imageSku",
+                                            "in": "[parameters('allowedWindowsSKUImages')]"
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "not": {
+                                    "allOf": [
+                                        {
+                                            "field": "Microsoft.Compute/imagePublisher",
+                                            "in": [
+                                                "MicrosoftSQLServer"
+                                            ]
+                                        },
+                                        {
+                                            "field": "Microsoft.Compute/imageOffer",
+                                            "in": [
+                                                "sql2019-rhel8",
+                                                "sql2019-ws2019"
+                                            ]
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "not": {
+                                    "allOf": [
+                                        {
+                                            "field": "Microsoft.Compute/imagePublisher",
+                                            "in": [
+                                                "RedHat"
+                                            ]
+                                        },
+                                        {
+                                            "field": "Microsoft.Compute/imageOffer",
+                                            "in": [
+                                                "RHEL"
+                                            ]
+                                        },
+                                        {
+                                            "field": "Microsoft.Compute/imageSku",
+                                            "in": [
+                                                "8",
+                                                "8-LVM"
+                                            ]
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "not": {
+                                    "allOf": [
+                                        {
+                                            "field": "Microsoft.Compute/imagePublisher",
+                                            "in": [
+                                                "microsoft-aks"
+                                            ]
+                                        },
+                                        {
+                                            "field": "Microsoft.Compute/imageOffer",
+                                            "in": [
+                                                "aks",
+                                                "aks-windows"
+                                            ]
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            "then": {
+                "effect": "[parameters('effect')]"
+            }
+        },
+        "metadata": {
+            "category": "Compute"
+        }
+    }
+}

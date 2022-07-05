@@ -1,0 +1,14 @@
+ado_subscription_id = ""
+ado_rg_name = "appid-eastus2-devops-rg"
+ado_vnet_name = "appid-eastus2-devops-vnet"
+ado_subnet_name = "appid-eastus2-base-snet"
+app_resource_group = "APP-eastus2-dev-rg"
+app_vnet_name = "APP-eastus2-dev-vnet" # must match the vnet you created for the app
+Location = "eastus2"
+Enumerator = 22
+App = "test01"
+appid = "12345"
+EnvType = "dev"
+AppTier = "db"
+corpuid = "abc1234"
+Workload = "adk34kdn"

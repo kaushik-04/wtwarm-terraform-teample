@@ -1,0 +1,312 @@
+{
+    "$schema": "../../../../Hydra/Hydra.Schema.json",
+    "organizationName": "ADO-Hydration",
+    "processes": [
+        {
+            "name": "agile-product-management",
+            "parentProcess": "Agile",
+            "description": "Agile Product Management Process",
+            "backlogLevels": [
+                {
+                    "name": "Product Portfolio",
+                    "color": "7f1725"
+                }
+            ],
+            "workitemtypes": [
+                {
+                    "name": "Component",
+                    "color": "339947",
+                    "icon": "icon_gear",
+                    "behavior": {
+                        "assignedBacklogLevel": "Epics",
+                        "isDefault": false
+                    }
+                },
+                {
+                    "name": "Landing Zone",
+                    "color": "aaaaaa",
+                    "icon": "icon_airplane",
+                    "behavior": {
+                        "assignedBacklogLevel": "Epics",
+                        "isDefault": false
+                    }
+                },
+                {
+                    "name": "Product",
+                    "color": "7f1725",
+                    "icon": "icon_gift",
+                    "behavior": {
+                        "assignedBacklogLevel": "Product Portfolio",
+                        "isDefault": true
+                    }
+                },
+                {
+                    "name": "Objective",
+                    "color": "ec008c",
+                    "icon": "icon_clipboard"
+                }
+            ]
+        }
+    ],
+    "projects": [
+        {
+            "projectName": "azure-enterprise-scale-platform",
+            "description": "Acceptance Test Project",
+            "process": "agile-product-management",
+            "sourceControl": "git",
+            "visibility": "private",
+            "relativeIconFilePath": "assets\\projectIcons\\Cloud Infrastructure Champions.png",
+            "repositories": [
+                {
+                    "name": "enterprise-scale-platform",
+                    "relativePath":"RepoContent\\Azure-ESP\\cloud-platform",
+                    "targetBranch": "main"
+                },
+                {
+                    "name": "iac-modules",
+                    "relativePath":"RepoContent\\Azure-ESP\\iac-modules",
+                    "targetBranch": "main"
+                },
+                {
+                    "name": "wiki",
+                    "relativePath":"RepoContent\\Azure-ESP\\Wiki",
+                    "targetBranch": "main"
+                }
+            ],
+            "areaPaths": [
+                {
+                    "name": "foundation"
+                },
+                {
+                    "name": "iac-components"
+                }
+            ],
+            "iterationPaths": [
+                {
+                    "name": "Sprint 1"
+                }
+            ],
+            "teams": [
+                {
+                    "name": "Enterprise-scale Foundation Team",
+                    "isProjectDefault": true,
+                    "boardSettings": {
+                        "areaConfig": {
+                            "defaultValue": "foundation",
+                            "values": [
+                                {
+                                    "value": "azure-enterprise-scale-platform",
+                                    "includeChildren": false
+                                },
+                                {
+                                    "value": "foundation",
+                                    "includeChildren": false
+                                }
+                            ]
+                        },
+                        "iterationConfig": {
+                            "defaultValue": "Sprint 1",
+                            "backlog": "azure-enterprise-scale-platform",
+                            "values": [
+                                "Sprint 1"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "IaC Components Team",
+                    "boardSettings": {
+                        "areaConfig": {
+                            "defaultValue": "iac-components",
+                            "values": [
+                                {
+                                    "value": "azure-enterprise-scale-platform",
+                                    "includeChildren": false
+                                },
+                                {
+                                    "value": "iac-components",
+                                    "includeChildren": false
+                                }
+                            ]
+                        },
+                        "iterationConfig": {
+                            "defaultValue": "Sprint 1",
+                            "backlog": "azure-enterprise-scale-platform",
+                            "values": [
+                                "Sprint 1"
+                            ]
+                        }
+                    }
+                }
+            ],
+            "backlogs": [
+                {
+                    "relativeBacklogFilePath": "assets/backlogs/agileProductManagement.csv"
+                }
+            ]
+        },
+        {
+            "projectName": "product-council",
+            "description": "Acceptance Test Project",
+            "process": "agile-product-management",
+            "sourceControl": "git",
+            "visibility": "private",
+            "relativeIconFilePath": "assets\\projectIcons\\Product Council.png",
+            "areaPaths": [
+                {
+                    "name": "product-council"
+                }
+            ],
+            "iterationPaths": [
+                {
+                    "name": "Sprint 1"
+                }
+            ],
+            "teams": [
+                {
+                    "name": "product-council Team",
+                    "isProjectDefault": true,
+                    "boardSettings": {
+                        "workingDays": [
+                            "monday",
+                            "tuesday",
+                            "wednesday",
+                            "thursday",
+                            "friday"
+                        ],
+                        "backlogVisibilities": {
+                            "Product Portfolio": true,
+                            "Microsoft.EpicCategory": false,
+                            "Microsoft.FeatureCategory": false,
+                            "Microsoft.RequirementCategory": false
+                        },
+                        "bugsBehavior": "off",
+                        "areaConfig": {
+                            "defaultValue": "product-council",
+                            "values": [
+                                {
+                                    "value": "product-council",
+                                    "includeChildren": false
+                                }
+                            ]
+                        },
+                        "iterationConfig": {
+                            "defaultValue": "Sprint 1",
+                            "backlog": "product-council",
+                            "values": [
+                                "Sprint 1"
+                            ]
+                        },
+                        "design": [
+                            {
+                                "backlogLevel": "Product Portfolio",
+                                "cardConfig": {
+                                    "cardStyles": [
+                                        {
+                                            "name": "Blocked",
+                                            "isEnabled": true,
+                                            "filter": "[Tags] contains 'Blocked'",
+                                            "background-color": "#de5e5e",
+                                            "title-color": "#000000"
+                                        }
+                                    ],
+                                    "tagStyles": [
+                                        {
+                                            "name": "Blocked",
+                                            "color": "#ec001d"
+                                        },
+                                        {
+                                            "name": "Enablement",
+                                            "color": "#525252"
+                                        },
+                                        {
+                                            "name": "Platform",
+                                            "color": "#525252"
+                                        },
+                                        {
+                                            "name": "Product",
+                                            "color": "#525252"
+                                        },
+                                        {
+                                            "name": "Hybrid",
+                                            "color": "#fbbc3d"
+                                        },
+                                        {
+                                            "name": "Cloud-Native",
+                                            "color": "#602f70"
+                                        }
+                                    ]
+                                },
+                                "boardConfig": {
+                                    "columns": [
+                                        {
+                                            "name": "Envisioning",
+                                            "itemsInProgressLimit": 0,
+                                            "stateMappings": {
+                                                "Product": "Active"
+                                            },
+                                            "isSplit": false
+                                        },
+                                        {
+                                            "name": "MVP",
+                                            "itemsInProgressLimit": 0,
+                                            "stateMappings": {
+                                                "Product": "Active"
+                                            },
+                                            "isSplit": false
+                                        },
+                                        {
+                                            "name": "Scale-out",
+                                            "itemsInProgressLimit": 0,
+                                            "stateMappings": {
+                                                "Product": "Active"
+                                            },
+                                            "isSplit": false
+                                        },
+                                        {
+                                            "name": "Retired",
+                                            "itemsInProgressLimit": 0,
+                                            "stateMappings": {
+                                                "Product": "Closed"
+                                            },
+                                            "columnType": "outgoing"
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    }
+                }
+            ],
+            "backlogs": [
+                {
+                    "relativeBacklogFilePath": "assets/backlogs/productCouncil.csv"
+                }
+            ]
+        },
+        {
+            "projectName": "cloud-security-and-reliable-operations",
+            "description": "Acceptance Test Project",
+            "process": "Agile",
+            "sourceControl": "git",
+            "visibility": "private",
+            "relativeIconFilePath": "assets\\projectIcons\\Cloud Security & Operations Champions.png"
+        },
+        {
+            "projectName": "devops-enablement-office",
+            "description": "Acceptance Test Project",
+            "process": "Agile",
+            "sourceControl": "git",
+            "visibility": "private",
+            "relativeIconFilePath": "assets\\projectIcons\\DevOps Enablement Office.png"
+        },
+        {
+            "projectName": "smart-hotel-360-product",
+            "description": "Acceptance Test Project",
+            "process": "Agile",
+            "sourceControl": "git",
+            "visibility": "private",
+            "relativeIconFilePath": "assets\\projectIcons\\Cloud Solutions Team.png"
+        }
+    ]
+}

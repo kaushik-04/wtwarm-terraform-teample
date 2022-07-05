@@ -1,0 +1,88 @@
+name: $(resourceGroupName)
+
+variables:
+- template: pipeline.variables.yml
+
+trigger:
+  batch: true
+  branches:
+    include:
+    - notrigger
+  paths:
+    include:
+    - Demo/
+
+stages:
+- stage: DeployResourceGroup
+  jobs:
+  - template: /Modules/ARM/.global/PipelineTemplates/pipeline.jobs.deploy.yml
+    parameters:
+      moduleName: ResourceGroup
+      modulePath: $(modulesPath)/ResourceGroup
+      deploymentBlocks:
+      - path: $(parametersPath)/ResourceGroup/parameters.json
+        jobName: DeployResourceGroup
+        displayName: Deploy ResourceGroup
+
+- stage: DeployVirtualNetwork
+  jobs:
+  - template: /Modules/ARM/.global/PipelineTemplates/pipeline.jobs.deploy.yml
+    parameters:
+      moduleName: VirtualNetwork
+      modulePath: $(modulesPath)/VirtualNetwork
+      deploymentBlocks:
+      - path: $(parametersPath)/VirtualNetwork/parameters.json
+        jobName: DeployVirtualNetwork
+        displayName: Deploy VirtualNetwork
+      #dependsOn:
+      #- DeployResourceGroup
+
+# - stage: DeployTempVirtualNetwork
+#   jobs:
+#   - template: /Modules/ARM/.global/PipelineTemplates/pipeline.jobs.deploy.yml
+#     parameters:
+#       moduleName: VirtualNetwork
+#       modulePath: $(modulesPath)/VirtualNetwork
+#       deploymentBlocks:
+#       - path: $(parametersPath)/VirtualNetworkTemp/parameters.json
+#         jobName: DeployTempVirtualNetwork
+#         displayName: Deploy Temp VirtualNetwork
+      #dependsOn:
+      #- DeployResourceGroup
+
+- stage: DeployLogAnalytics
+  jobs:
+  - template: /Modules/ARM/.global/PipelineTemplates/pipeline.jobs.deploy.yml
+    parameters:
+      moduleName: LogAnalytics
+      modulePath: $(modulesPath)/LogAnalytics
+      deploymentBlocks:
+      - path: $(parametersPath)/LogAnalytics/parameters.json
+        jobName: DeployLogAnalytics
+        displayName: Deploy LogAnalytics
+      #dependsOn:
+      #- DeployVirtualNetwork
+
+- stage: DeployAzureBastion
+  jobs:
+  - template: /Modules/ARM/.global/PipelineTemplates/pipeline.jobs.deploy.yml
+    parameters:
+      moduleName: AzureBastion
+      modulePath: $(modulesPath)/AzureBastion
+      deploymentBlocks:
+      - path: $(parametersPath)/AzureBastion/parameters.json
+        jobName: DeployAzureBastion
+        displayName: Deploy AzureBastion
+      # dependsOn:
+      # - DeployVirtualNetwork      
+
+# - stage: DeployNetworkSecurityGroup
+#   jobs:
+#   - template: /Modules/ARM/.global/PipelineTemplates/pipeline.jobs.deploy.yml
+#     parameters:
+#       moduleName: NetworkSecurityGroups
+#       modulePath: $(modulesPath)/NetworkSecurityGroups
+#       deploymentBlocks:
+#       - path: $(parametersPath)/NetworkSecurityGroups/parameters.json
+#         jobName: DeployNetworkSecurityGroup
+#         displayName: Deploy NetworkSecurityGroup

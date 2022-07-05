@@ -1,0 +1,365 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "http://example.com/example.json",
+    "type": "object",
+    "title": "The root schema",
+    "description": "The root schema comprises the entire JSON document.",
+    "examples": [
+        {
+            "scope": {
+                "value": "/providers/Microsoft.Management/managementGroups/pxs-cn-s-mg"
+            },
+            "properties": {
+                "value": {
+                    "policyAssignment": {
+                        "displayName": "Audit Key Vault Location",
+                        "description": "Audit Key Vault Location",
+                        "definitionId": "/providers/Microsoft.Management/managementGroups/<tenantRootGroupId>/providers/Microsoft.Authorization/policyDefinitions/AuditKeyVaultLocation",
+                        "definitionDisplayName": "Audit Key Vault Location",
+                        "notScopes": [
+                            "/subscriptions/<subscriptionId>/resourceGroups/<resourceGroupName>/providers/providers/Microsoft.KeyVault/vaults/<resourceName>"
+                        ],
+                        "enforcementMode": "Default",
+                        "parameters": {
+                            "allowedLocation": [
+                                "westeurope",
+                                "northeurope"
+                            ]
+                        },
+                        "managedIdentity": {
+                            "assignIdentity": false,
+                            "location": ""
+                        }
+                    }
+                }
+            }
+        }
+    ],
+    "required": [
+        "scope",
+        "properties"
+    ],
+    "properties": {
+        "scope": {
+            "$id": "#/properties/scope",
+            "type": "object",
+            "title": "The scope schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": {},
+            "examples": [
+                {
+                    "value": "/providers/Microsoft.Management/managementGroups/pxs-cn-s-mg"
+                }
+            ],
+            "required": [
+                "value"
+            ],
+            "properties": {
+                "value": {
+                    "$id": "#/properties/scope/properties/value",
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 512,
+                    "title": "The value schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": "",
+                    "oneOf": [
+                        {
+                            "pattern": "^/providers/Microsoft.Management/managementGroups/[^/]+[^/]$"
+                        },
+                        {
+                            "pattern": "^/subscriptions/([a-f]|[0-9]){8}-([a-f]|[0-9]){4}-([a-f]|[0-9]){4}-([a-f]|[0-9]){4}-([a-f]|[0-9]){12}($|/resourceGroups/[^/]+[^/]$)"
+                        }
+                    ],
+                    "examples": [
+                        "/providers/Microsoft.Management/managementGroups/pxs-cn-s-mg",
+                        "/subscriptions/04bc18d0-07c0-4ba9-ad72-4cf8a795d335"
+                    ]
+                }
+            }
+        },
+        "properties": {
+            "$id": "#/properties/properties",
+            "type": "object",
+            "title": "The properties schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": {},
+            "examples": [
+                {
+                    "value": {
+                        "policyAssignment": {
+                            "displayName": "Audit Key Vault Location",
+                            "description": "Audit Key Vault Location",
+                            "definitionId": "/providers/Microsoft.Management/managementGroups/<tenantRootGroupId>/providers/Microsoft.Authorization/policyDefinitions/AuditKeyVaultLocation",
+                            "definitionDisplayName": "Audit Key Vault Location",
+                            "notScopes": [
+                                "/subscriptions/<subscriptionId>/resourceGroups/<resourceGroupName>/providers/providers/Microsoft.KeyVault/vaults/<resourceName>"
+                            ],
+                            "enforcementMode": "Default",
+                            "parameters": {
+                                "allowedLocation": [
+                                    "westeurope",
+                                    "northeurope"
+                                ]
+                            },
+                            "managedIdentity": {
+                                "assignIdentity": false,
+                                "location": ""
+                            }
+                        }
+                    }
+                }
+            ],
+            "required": [
+                "value"
+            ],
+            "properties": {
+                "value": {
+                    "$id": "#/properties/properties/properties/value",
+                    "type": "object",
+                    "title": "The value schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": {},
+                    "examples": [
+                        {
+                            "policyAssignment": {
+                                "displayName": "Audit Key Vault Location",
+                                "description": "Audit Key Vault Location",
+                                "definitionId": "/providers/Microsoft.Management/managementGroups/<tenantRootGroupId>/providers/Microsoft.Authorization/policyDefinitions/AuditKeyVaultLocation",
+                                "definitionDisplayName": "Audit Key Vault Location",
+                                "notScopes": [
+                                    "/subscriptions/<subscriptionId>/resourceGroups/<resourceGroupName>/providers/providers/Microsoft.KeyVault/vaults/<resourceName>"
+                                ],
+                                "enforcementMode": "Default",
+                                "parameters": {
+                                    "allowedLocation": [
+                                        "westeurope",
+                                        "northeurope"
+                                    ]
+                                },
+                                "managedIdentity": {
+                                    "assignIdentity": false,
+                                    "location": ""
+                                }
+                            }
+                        }
+                    ],
+                    "required": [
+                        "policyAssignment"
+                    ],
+                    "properties": {
+                        "policyAssignment": {
+                            "$id": "#/properties/properties/properties/value/properties/policyAssignment",
+                            "type": "object",
+                            "title": "The policyAssignment schema",
+                            "description": "An explanation about the purpose of this instance.",
+                            "default": {},
+                            "examples": [
+                                {
+                                    "displayName": "Audit Key Vault Location",
+                                    "description": "Audit Key Vault Location",
+                                    "definitionId": "/providers/Microsoft.Management/managementGroups/<tenantRootGroupId>/providers/Microsoft.Authorization/policyDefinitions/AuditKeyVaultLocation",
+                                    "definitionDisplayName": "Audit Key Vault Location",
+                                    "notScopes": [
+                                        "/subscriptions/<subscriptionId>/resourceGroups/<resourceGroupName>/providers/providers/Microsoft.KeyVault/vaults/<resourceName>"
+                                    ],
+                                    "enforcementMode": "Default",
+                                    "parameters": {
+                                        "allowedLocation": [
+                                            "westeurope",
+                                            "northeurope"
+                                        ]
+                                    },
+                                    "managedIdentity": {
+                                        "assignIdentity": false,
+                                        "location": ""
+                                    }
+                                }
+                            ],
+                            "required": [
+                                "displayName",
+                                "description",
+                                "definitionId",
+                                "definitionDisplayName",
+                                "notScopes",
+                                "enforcementMode",
+                                "parameters",
+                                "managedIdentity"
+                            ],
+                            "properties": {
+                                "displayName": {
+                                    "$id": "#/properties/properties/properties/value/properties/policyAssignment/properties/displayName",
+                                    "type": "string",
+                                    "minLength": 1,
+                                    "maxLength": 128,
+                                    "title": "The displayName schema",
+                                    "description": "An explanation about the purpose of this instance.",
+                                    "default": "",
+                                    "examples": [
+                                        "Audit Key Vault Location"
+                                    ]
+                                },
+                                "description": {
+                                    "$id": "#/properties/properties/properties/value/properties/policyAssignment/properties/description",
+                                    "type": "string",
+                                    "title": "The description schema",
+                                    "description": "An explanation about the purpose of this instance.",
+                                    "default": "",
+                                    "examples": [
+                                        "Audit Key Vault Location"
+                                    ]
+                                },
+                                "definitionId": {
+                                    "$id": "#/properties/properties/properties/value/properties/policyAssignment/properties/definitionId",
+                                    "type": "string",
+                                    "title": "The definitionId schema",
+                                    "description": "An explanation about the purpose of this instance.",
+                                    "default": "",
+                                    "examples": [
+                                        "/providers/Microsoft.Management/managementGroups/<tenantRootGroupId>/providers/Microsoft.Authorization/policyDefinitions/AuditKeyVaultLocation"
+                                    ]
+                                },
+                                "definitionDisplayName": {
+                                    "$id": "#/properties/properties/properties/value/properties/policyAssignment/properties/definitionDisplayName",
+                                    "type": "string",
+                                    "minLength": 1,
+                                    "maxLength": 128,
+                                    "title": "The definitionDisplayName schema",
+                                    "description": "An explanation about the purpose of this instance.",
+                                    "default": "",
+                                    "examples": [
+                                        "Audit Key Vault Location"
+                                    ]
+                                },
+                                "notScopes": {
+                                    "$id": "#/properties/properties/properties/value/properties/policyAssignment/properties/notScopes",
+                                    "type": "array",
+                                    "minItems": 0,
+                                    "maxItems": 400,
+                                    "uniqueItems": true,
+                                    "title": "The notScopes schema",
+                                    "description": "An explanation about the purpose of this instance.",
+                                    "default": [],
+                                    "examples": [
+                                        [
+                                            "/subscriptions/<subscriptionId>/resourceGroups/<resourceGroupName>/providers/providers/Microsoft.KeyVault/vaults/<resourceName>"
+                                        ]
+                                    ],
+                                    "additionalItems": true,
+                                    "items": {
+                                        "$id": "#/properties/properties/properties/value/properties/policyAssignment/properties/notScopes/items",
+                                        "type": "string",
+                                        "title": "The items schema",
+                                        "description": "An explanation about the purpose of this instance.",
+                                        "default": "",
+                                        "oneOf": [
+                                            {
+                                                "pattern": "^/providers/Microsoft.Management/managementGroups/[^/]+[^/]$"
+                                            },
+                                            {
+                                                "pattern": "^/subscriptions/([a-f]|[0-9]){8}-([a-f]|[0-9]){4}-([a-f]|[0-9]){4}-([a-f]|[0-9]){4}-([a-f]|[0-9]){12}($|/.+[^/]$)"
+                                            }
+                                        ],
+                                        "examples": [
+                                            "/subscriptions/12345678-1234-1234-1234-123456789abc/resourceGroups/resourceGroups/ResourceGroupName01",
+                                            "/subscriptions/12345678-1234-1234-1234-123456789abc/resourceGroups/resourceGroups/ResourceGroupName01/providers/Microsoft.Network/publicIPAddresses/ResourceName01"
+                                        ]
+                                    }
+                                },
+                                "enforcementMode": {
+                                    "$id": "#/properties/properties/properties/value/properties/policyAssignment/properties/enforcementMode",
+                                    "type": "string",
+                                    "enum": [
+                                        "Default",
+                                        "default",
+                                        "DoNotEnforce",
+                                        "doNotEnforce"
+                                    ],
+                                    "title": "The enforcementMode schema",
+                                    "description": "An explanation about the purpose of this instance.",
+                                    "default": "",
+                                    "examples": [
+                                        "Default"
+                                    ]
+                                },
+                                "parameters": {
+                                    "$id": "#/properties/properties/properties/value/properties/policyAssignment/properties/parameters",
+                                    "type": "object",
+                                    "minProperties": 0,
+                                    "maxProperties": 100,
+                                    "title": "The parameters schema",
+                                    "description": "An explanation about the purpose of this instance.",
+                                    "default": {},
+                                    "examples": [
+                                        {
+                                            "allowedLocation": [
+                                                "westeurope",
+                                                "northeurope"
+                                            ]
+                                        }
+                                    ]
+                                },
+                                "managedIdentity": {
+                                    "$id": "#/properties/properties/properties/value/properties/policyAssignment/properties/managedIdentity",
+                                    "type": "object",
+                                    "title": "The managedIdentity schema",
+                                    "description": "An explanation about the purpose of this instance.",
+                                    "default": {},
+                                    "examples": [
+                                        {
+                                            "assignIdentity": true,
+                                            "location": "westeurope"
+                                        },
+                                        {
+                                            "assignIdentity": false,
+                                            "location": ""
+                                        }
+                                    ],
+                                    "required": [
+                                        "assignIdentity",
+                                        "location"
+                                    ],
+                                    "properties": {
+                                        "assignIdentity": {
+                                            "$id": "#/properties/properties/properties/value/properties/policyAssignment/properties/managedIdentity/properties/assignIdentity",
+                                            "type": "boolean",
+                                            "title": "The assignIdentity schema",
+                                            "description": "An explanation about the purpose of this instance.",
+                                            "default": false,
+                                            "examples": [
+                                                true,
+                                                false
+                                            ]
+                                        },
+                                        "location": {
+                                            "$id": "#/properties/properties/properties/value/properties/policyAssignment/properties/managedIdentity/properties/location",
+                                            "type": "string",
+                                            "title": "The location schema",
+                                            "description": "An explanation about the purpose of this instance.",
+                                            "default": "",
+                                            "examples": [
+                                                "westeurope",
+                                                ""
+                                            ]
+                                        },
+                                        "outofscope": {
+                                            "$id": "#/properties/properties/properties/value/properties/policyAssignment/properties/managedIdentity/properties/outofscope",
+                                            "type": "boolean",
+                                            "title": "The outofscope schema",
+                                            "description": "An explanation about the purpose of this instance.",
+                                            "default": false,
+                                            "examples": [
+                                                true,
+                                                false
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

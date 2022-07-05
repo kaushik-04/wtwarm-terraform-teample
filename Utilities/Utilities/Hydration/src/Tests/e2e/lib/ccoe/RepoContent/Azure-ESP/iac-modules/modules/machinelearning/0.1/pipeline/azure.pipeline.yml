@@ -1,0 +1,119 @@
+name: $(Build.DefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:r)
+
+parameters:
+  - name: removeDeployment
+    displayName: Remove resources post-deployment
+    type: boolean
+    default: true
+
+variables:
+  - template: /cicd/global.variables.yml
+  - name: moduleName
+    value: machinelearning
+  - name: moduleVersion
+    value: "0.1"
+  - name: resourceGroup
+    value: pxs-bdp-plt-s-rg-mls
+  - name: policyServiceConnection
+    ${{ if eq(variables['Build.SourceBranch'], 'refs/heads/master') }}:
+      value: pxs-cloudnative-mg
+    ${{ if ne(variables['Build.SourceBranch'], 'refs/heads/master') }}:
+      value: pxs-cloudnative-mg
+  - name: vstsFeedName
+    ${{ if eq(variables['Build.SourceBranch'], 'refs/heads/master') }}:
+      value: contoso-azure-release
+    ${{ if ne(variables['Build.SourceBranch'], 'refs/heads/master') }}:
+      value: contoso-azure
+
+
+trigger:
+  batch: true
+  branches:
+    include:
+      - master
+  paths:
+    include:
+      - cicd/*
+      - common/1.0/scripts/*
+      - modules/machinelearning/$(moduleVersion)/*
+    exclude:
+      - modules/machinelearning/$(moduleVersion)/readme.md
+
+stages:
+  - stage: Validation
+    jobs:
+      - template: /cicd/templates/pipeline.jobs.validate.yml
+        parameters:
+          deploymentBlocks:
+            - path: $(parametersPath)/machinelearning.deploy.parameters.json
+
+  - stage: PolicyDefinition
+    jobs:
+      - template: /cicd/templates/pipeline.jobs.deploy.yml
+        parameters:
+          moduleName: policyDefinition
+          moduleVersion: "2.0"
+          serviceConnection: $(policyServiceConnection)
+          deploymentBlocks:
+            - path: $(modulePath)/policies/policyDefinitions/pxs-cn-mls-sku-pd.json
+
+
+  - stage: InitiativeDefinition
+    dependsOn: PolicyDefinition
+    jobs:
+      - template: /cicd/templates/pipeline.jobs.deploy.yml
+        parameters:
+          moduleName: initiativeDefinition
+          moduleVersion: "2.0"
+          serviceConnection: $(policyServiceConnection)
+          deploymentBlocks:
+            - path: $(modulePath)/policies/initiativeDefinitions/pxs-cn-mls-pi.json
+
+  - stage: PolicyAssignment
+    dependsOn: InitiativeDefinition
+    jobs:
+      - template: /cicd/templates/pipeline.jobs.deploy.yml
+        parameters:
+          moduleName: policyAssignment
+          moduleVersion: "2.0"
+          serviceConnection: $(policyServiceConnection)
+          deploymentBlocks:
+            - path: $(modulePath)/policies/policyAssignments/pxs-cn-s-mls-pa.json
+
+  - stage: PreDeployment
+    jobs:
+      - job: PreDeployment
+        steps:
+        - task: AzurePowerShell@5
+          inputs:
+            azureSubscription: $(serviceConnection)
+            scriptType: FilePath
+            scriptPath: '$(modulePath)/scripts/deploy-dependentResources.ps1'
+            ScriptArguments: '-InformationAction Continue'
+            azurePowerShellVersion: LatestVersion
+            errorActionPreference: Continue
+            pwsh: true
+
+  - stage: Deployment
+    jobs:
+      - template: /cicd/templates/pipeline.jobs.deploy.yml
+        parameters:
+          resourceGroupName: $(resourceGroup)
+          removeDeployment: "${{ parameters.removeDeployment }}"
+          deploymentBlocks:
+            - path: $(parametersPath)/machinelearning.deploy.parameters.json
+
+  - stage: Publishing
+    jobs:
+    - template: /cicd/templates/pipeline.jobs.publish.yml
+      parameters:
+        moduleVersion: '$(moduleVersion)'
+        vstsFeedName: '$(vstsFeedName)'
+
+  - stage: Removal
+    dependsOn: Deployment
+    condition: and(succeededOrFailed(), eq( '${{ parameters.removeDeployment }}', 'true'))
+    jobs:
+    - template: /cicd/templates/pipeline.jobs.remove.yml
+      parameters:
+        resourceGroupName: $(resourceGroup)

@@ -1,0 +1,109 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "scope": {
+            "value": "/providers/Microsoft.Management/managementGroups/pxs-cloudnative-mg"
+        },
+        "properties": {
+            "value": {
+                "name": "pxs-cn-kvt-pi",
+                "displayName": "pxs-cn-kvt-pi",
+                "description": "This initiative restrics the configuration of any deployed keyvault that differs from the compliant.",
+                "metadata": {
+                    "category": "CCoE"
+                },
+                "policyDefinitions": [
+                    {
+                        "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/pxs-cloudnative-mg/providers/Microsoft.Authorization/policyDefinitions/pxs-cn-kvt-sku-pd",
+                        "parameters": {
+                            "allowedSKUs": {
+                                "value": "[parameters('allowedSKUs')]"
+                            }
+                        }
+                    },
+                    {
+                        "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/pxs-cloudnative-mg/providers/Microsoft.Authorization/policyDefinitions/pxs-cn-kvt-purge-pd",
+                        "parameters": {
+                            "purgePolicyEffect": {
+                                "value": "[parameters('purgePolicyEffect')]"
+                            }
+                        }
+                    },
+                    {
+                        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/1e66c121-a66a-4b1f-9b83-0fd99bf0fc2d",
+                        "parameters": {
+                            "effect": {
+                                "value": "[parameters('softDeletePolicyEffect')]"
+                            }
+                        }
+                    },
+                    {
+                        "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/pxs-cloudnative-mg/providers/Microsoft.Authorization/policyDefinitions/pxs-cn-kvt-rbac-pd",
+                        "parameters": {
+                            "EnableRBACAuthorizationEffect": {
+                                "value": "[parameters('EnableRBACAuthorizationEffect')]"
+                            }
+                        }
+                    },
+                    {
+                        "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/pxs-cloudnative-mg/providers/Microsoft.Authorization/policyDefinitions/pxs-cn-kvt-private-endpoint-pd",
+                        "parameters": {
+                            "auditPrivateEndpointEffect": {
+                                "value": "[parameters('auditPrivateEndpointEffect')]"
+                            }
+                        }
+                    }
+                ],
+                "parameters": {
+                    "allowedSKUs": {
+                        "type": "array",
+                        "metadata": {
+                            "displayName": "allowedSKUs",
+                            "description": "List of locations allowed SKUs for the Key Vault resource type."
+                        }
+                    },
+                    "purgePolicyEffect": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "purgePolicyEffect",
+                            "description": "Enable or disable the execution of the policy"
+                        },
+                        "allowedValues": [
+                            "Audit",
+                            "Deny"
+                        ]
+                    },
+                    "softDeletePolicyEffect": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "softDeletePolicyEffect",
+                            "description": "Enable or disable the execution of the policy"
+                        },
+                        "allowedValues": [
+                            "Audit",
+                            "Deny"
+                        ]
+                    },
+                    "EnableRBACAuthorizationEffect": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "EnableRBACAuthorizationEffect",
+                            "description": "Enable or disable the execution of the policy"
+                        },
+                        "allowedValues": [
+                            "Audit",
+                            "Deny"
+                        ]
+                    },
+                    "auditPrivateEndpointEffect": {
+                        "type": "String",
+                        "metadata": {
+                            "description": "Enable auditing of Private Endpoint usage for KeyVaults"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

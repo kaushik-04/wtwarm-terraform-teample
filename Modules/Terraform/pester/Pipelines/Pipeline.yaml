@@ -1,0 +1,43 @@
+parameters:
+- name: versionOption
+  type: string
+  default: patch
+  displayName: 'The semantic version type (major, minor, or patch)'
+- name: triggerPipelineVersionOption
+  type: string
+  default: null
+  displayName: 'The value will be null if not provided. This is the version option provided from an upstream pipeline'
+
+name: layer-pester-$(Date:yyyyMMdd).$(Rev:rr)
+
+trigger:
+  branches:
+    include:
+    - main
+    - master
+
+  paths:
+    include:
+      - /Modules/Terraform/pester
+      - /Modules/Terraform/.global/*
+    exclude: 
+      - /**/*.md
+      - /.attachments
+
+variables:
+  - name: system.debug 
+    value: true
+  - name: downloadPath
+    value: $(Build.ArtifactStagingDirectory)
+  - name: layerName
+    value: pester
+
+pool: IaCS Scale Set Linux
+steps:
+- template: /Modules/Terraform/.global/PipelineLibrary/Version.yaml
+  parameters:
+    layerName: ${{ variables.layerName}}
+    versionOption: ${{ parameters.versionOption }}
+        # this variable will be instantiated from an upstream pipeline named manual-version-layers
+        # at https://dev.azure.com/StratumKit/Stratum/_build?definitionId=430&_a=summary
+    triggerPipelineVersionOption: "$(triggerPipelineVersionOption)"

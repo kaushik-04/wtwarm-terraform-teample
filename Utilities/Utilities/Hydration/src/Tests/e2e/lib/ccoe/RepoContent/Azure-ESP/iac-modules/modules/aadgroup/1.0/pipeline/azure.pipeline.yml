@@ -1,0 +1,33 @@
+name: $(moduleName)
+
+variables:
+  - template: /cicd/global.variables.yml
+  - name: moduleName
+    value: aadgroup
+  - name: moduleVersion
+    value: '1.0'
+  - name: serviceConnection
+    value: 'aad-automation'
+
+trigger:
+  batch: true
+  branches:
+    include:
+      - master
+  paths:
+    include:
+      - cicd/*
+      - modules/aadgroup/1.0/*
+    exclude:
+      - modules/aadgroup/1.0/readme.md
+
+steps:
+- checkout: self
+- task: AzurePowerShell@5
+  displayName: "Set AAD Group"
+  inputs:
+    azureSubscription: '$(serviceConnection)'
+    ScriptType: 'FilePath'
+    ScriptPath: '$(modulePath)/Set-AADGroup.ps1'
+    ScriptArguments: '-Directory $(parametersPath)'
+    azurePowerShellVersion: 'LatestVersion'

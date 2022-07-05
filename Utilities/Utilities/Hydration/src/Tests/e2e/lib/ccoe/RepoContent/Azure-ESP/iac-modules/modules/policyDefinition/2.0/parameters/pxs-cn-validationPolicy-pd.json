@@ -1,0 +1,53 @@
+{
+   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+   "contentVersion": "1.0.0.0",
+   "parameters": {
+      "scope": {
+         "value": "/providers/Microsoft.Management/managementGroups/pxs-cloudnative-mg"
+      },
+      "properties": {
+         "value": {
+            "name": "pxs-cn-validationPolicy-pd",
+            "displayName": "pxs-cn-validationPolicy-pd",
+            "description": "Audit delegation of scopes to a managing tenant via Azure Lighthouse.",
+            "policyType": "Custom",
+            "mode": "All",
+            "metadata": {
+               "version": "1.0.0",
+               "category": "Validation"
+            },
+            "parameters": {
+               "effect": {
+                  "type": "string",
+                  "defaultValue": "Audit",
+                  "allowedValues": [
+                     "Audit",
+                     "Disabled"
+                  ],
+                  "metadata": {
+                     "displayName": "Effect",
+                     "description": "Enable or disable the execution of the policy"
+                  }
+               }
+            },
+            "policyRule": {
+               "if": {
+                  "allOf": [
+                     {
+                        "field": "type",
+                        "equals": "Microsoft.ManagedServices/registrationAssignments"
+                     },
+                     {
+                        "value": "true",
+                        "equals": "true"
+                     }
+                  ]
+               },
+               "then": {
+                  "effect": "[parameters('effect')]"
+               }
+            }
+         }
+      }
+   }
+}

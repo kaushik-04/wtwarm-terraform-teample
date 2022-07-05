@@ -1,0 +1,7 @@
+Work Item Type,Title,Assigned To,State,Tags,Board Column
+"Product","SmartHotel 360","Alvaro Guadamillas Herranz <alguadam@microsoft.com>","Active","Cloud-Native; Product","Scale-out"
+"Product","Azure Enterprise-scale Platform",,"Active","Platform","MVP"
+"Product","DevOps and ACM Enablement",,"Active","Enablement","MVP"
+"Product","product_name_2",,"Active","Blocked; Hybrid; Product","Envisioning"
+"Product","Cloud Security and Operations",,"Active","Enablement","MVP"
+"Product","product_name_3",,"New",,"New"

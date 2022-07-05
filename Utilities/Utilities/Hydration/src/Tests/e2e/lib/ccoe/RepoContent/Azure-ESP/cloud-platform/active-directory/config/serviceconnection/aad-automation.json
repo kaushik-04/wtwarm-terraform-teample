@@ -1,0 +1,41 @@
+{
+    "administratorsGroup": [],
+    "readersGroup": [],
+    "usersGroup": [],
+    "authorization": {
+        "parameters": {
+            "authenticationType": "spnKey",
+            "serviceprincipalid": "7eafa4c5-9e5f-41a2-87ec-938414b62b36",
+            "serviceprincipalkey": null,
+            "tenantid": "e7ab81b2-1e84-4bf7-9dcb-b6fec01ed138"
+        },
+        "scheme": "ServicePrincipal"
+    },
+    "authorized": true,
+    "data": {
+        "creationMode": "Manual",
+        "environment": "AzureCloud",
+        "scopeLevel": "Subscription",
+        "subscriptionId": "38cc88c6-5c9c-4fd6-b332-ec5de508f048",
+        "subscriptionName": "mgmt-p-ccoe-sub"
+    },
+    "description": "Automation SP for building blocks having both: cloud application administrator & groups administrator, reader on 'mgmt-p-ccoe-sub'",
+    "groupScopeId": null,
+    "isReady": true,
+    "isShared": false,
+    "name": "aad-automation",
+    "operationStatus": null,
+    "owner": "Library",
+    "serviceEndpointProjectReferences": [
+        {
+            "description": "Automation SP for building blocks having both: cloud application administrator & groups administrator, reader on 'mgmt-p-ccoe-sub'",
+            "name": "aad-automation",
+            "projectReference": {
+                "id": null,
+                "name": "building-blocks"
+            }
+        }
+    ],
+    "type": "azurerm",
+    "url": "https://management.azure.com/"
+}

@@ -1,0 +1,50 @@
+{
+    "properties": {
+        "name": "pxs-cn-kvt-rbac-pd",
+        "displayName": "Disable RBAC authorization on Data Plane",
+        "policyType": "Custom",
+        "description": "Disable RBAC authorization on Data Plane to manage Keys, Secrets and Certificates.",
+        "mode": "All",
+        "metadata": {
+            "category": "Key Vault"
+        },
+        "parameters": {
+            "EnableRBACAuthorizationEffect": {
+                "type": "String",
+                "metadata": {
+                    "displayName": "EnableRBACAuthorizationEffect",
+                    "description": "Enable or disable the execution of the policy"
+                },
+                "allowedValues": [
+                    "Audit",
+                    "Deny"
+                ]
+            }
+        },
+        "policyRule": {
+            "if": {
+                "allOf": [
+                    {
+                        "field": "type",
+                        "equals": "Microsoft.KeyVault/vaults"
+                    },
+                    {
+                        "anyOf": [
+                            {
+                                "field": "Microsoft.KeyVault/vaults/enableRbacAuthorization",
+                                "exists": "false"
+                            },
+                            {
+                                "field": "Microsoft.KeyVault/vaults/enableRbacAuthorization",
+                                "equals": "true"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "then": {
+                "effect": "[parameters('EnableRBACAuthorizationEffect')]"
+            }
+        }
+    }
+}

@@ -1,0 +1,40 @@
+[
+    {
+        "fields": {
+            "Microsoft.VSTS.Common.Priority": 2,
+            "Microsoft.VSTS.Common.ValueArea": "Business",
+            "System.AreaPath": "Module Playground",
+            "System.BoardColumn": "Active",
+            "System.BoardColumnDone": false,
+            "System.CreatedDate": "2021-02-10T18:27:17.973Z",
+            "System.IterationPath": "Module Playground\\Iteration 1",
+            "System.Reason": "New",
+            "System.State": "Active",
+            "System.TeamProject": "Module Playground",
+            "System.Title": "User Story 1",
+            "System.WorkItemType": "User Story"
+        },
+        "id": 100,
+        "relations": [],
+        "rev": 1,
+        "url": "https://dev.azure.com/ADO-Hydration/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/workItems/100"
+    },
+    {
+        "fields": {
+            "Microsoft.VSTS.Common.Priority": 2,
+            "Microsoft.VSTS.Common.ValueArea": "Business",
+            "System.AreaPath": "Module Playground",
+            "System.CreatedDate": "2021-02-10T18:27:15.077Z",
+            "System.IterationPath": "Module Playground\\Iteration 1",
+            "System.Reason": "New",
+            "System.State": "New",
+            "System.TeamProject": "Module Playground",
+            "System.Title": "Epic 999",
+            "System.WorkItemType": "Epic"
+        },
+        "id": 999,
+        "relations": [],
+        "rev": 1,
+        "url": "https://dev.azure.com/ADO-Hydration/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/workItems/999"
+    }
+]

@@ -1,0 +1,35 @@
+name: Dependencies
+
+variables:
+- template: /Modules/ARM/.global/global.variables.yml
+- name: parametersPath
+  value: /Utilities/Dependencies
+- name: resourceGroupName
+  value: dependencies-rg
+
+trigger:
+  batch: true
+  branches:
+    include:
+    - main
+    - master 
+  paths:
+    include:
+    - Utilities/Dependencies/*
+
+stages:
+- stage: ResourceGroups
+  displayName: Resource Groups
+  jobs:
+  steps:
+  - task: AzurePowerShell@5
+    displayName: .
+    azurePowerShellVersion: LatestVersion
+    inputs:
+      azureSubscription: 'SPN-ES-INT-IaCS-DEV-iacsowners-owner'
+      ScriptType: InlineScript
+      Inline: |
+      Write-Verbose "" -Verbose
+      Write-Verbose "" -Verbose
+      Write-Verbose "###############################" -Verbose
+      Write-Verbose "" -Verbose

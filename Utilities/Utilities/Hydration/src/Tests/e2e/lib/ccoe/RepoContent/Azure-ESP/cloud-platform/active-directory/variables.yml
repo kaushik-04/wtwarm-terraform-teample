@@ -1,0 +1,2 @@
+variables:
+- template: ../.global/global.variables.yml

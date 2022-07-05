@@ -1,0 +1,4 @@
+variables:
+- template: ../cn-landing-zones.variables.yml
+- name: parametersPath
+  value: 'cn-landing-zones/bdp/parameters'

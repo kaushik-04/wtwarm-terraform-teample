@@ -1,0 +1,1877 @@
+{
+  "root": {
+    "scope": "/providers/Microsoft.Management/managementGroups/123456789-1234-1234-1234-123456789012",
+    "scopeDisplayName": "Tenant Root Group",
+    "policyAssignments": [
+      {
+        "name": "cde35d769c7f4914b9c72303",
+        "displayName": "Azure data catalogue Not allowed",
+        "description": "Created to prevent that a data catalogue is created within our AD tenant without proper approval",
+        "definitionId": "/providers/Microsoft.Authorization/policyDefinitions/6c112d4e-5bc7-47ae-a041-ea2d9dccd749",
+        "definitionDisplayName": "Not allowed resource types",
+        "notScopes": [],
+        "enforcementMode": "Default",
+        "parameters": {
+          "listOfResourceTypesNotAllowed": [
+            "microsoft.datacatalog/datacatalogs"
+          ]
+        },
+        "managedIdentity": {
+          "assignIdentity": false,
+          "location": ""
+        }
+      }
+    ],
+    "policySetAssignments": [],
+    "children": [
+      {
+        "scope": "/providers/Microsoft.Management/managementGroups/contoso",
+        "scopeDisplayName": "contoso",
+        "policyAssignments": [
+          {
+            "name": "12181cbca53a401a810eeb18",
+            "displayName": "Inherit a tag from the resource group",
+            "description": ".",
+            "definitionId": "/providers/Microsoft.Authorization/policyDefinitions/cd3aa116-8754-49c9-a813-ad46512ece54",
+            "definitionDisplayName": "Inherit a tag from the resource group",
+            "notScopes": [],
+            "enforcementMode": "Default",
+            "parameters": {
+              "tagName": "PO"
+            },
+            "managedIdentity": {
+              "assignIdentity": true,
+              "location": "westeurope"
+            }
+          },
+          {
+            "name": "95f146ecf29a4c90a09c8743",
+            "displayName": "Not allowed resource types",
+            "description": "Disable creation of Public IPs",
+            "definitionId": "/providers/Microsoft.Authorization/policyDefinitions/6c112d4e-5bc7-47ae-a041-ea2d9dccd749",
+            "definitionDisplayName": "Not allowed resource types",
+            "notScopes": [
+              "/providers/Microsoft.Management/managementGroups/us-ext",
+              "/providers/Microsoft.Management/managementGroups/sharedinfra-prod",
+              "/providers/Microsoft.Management/managementGroups/sharedinfra-devtest",
+              "/providers/Microsoft.Management/managementGroups/ds-ext",
+              "/providers/Microsoft.Management/managementGroups/co-ext",
+              "/providers/Microsoft.Management/managementGroups/ca-ext",
+              "/providers/Microsoft.Management/managementGroups/ca-devtest"
+            ],
+            "enforcementMode": "Default",
+            "parameters": {
+              "listOfResourceTypesNotAllowed": [
+                "Microsoft.Network/publicIPAddresses",
+                "Microsoft.Network/publicIPPrefixes"
+              ]
+            },
+            "managedIdentity": {
+              "assignIdentity": false,
+              "location": ""
+            }
+          }
+        ],
+        "policySetAssignments": [],
+        "children": [
+          {
+            "scope": "/providers/Microsoft.Management/managementGroups/is",
+            "scopeDisplayName": "is",
+            "policyAssignments": [],
+            "policySetAssignments": [],
+            "children": [
+              {
+                "scope": "/providers/Microsoft.Management/managementGroups/sharedinfra-prod",
+                "scopeDisplayName": "sharedinfra-prod",
+                "policyAssignments": [],
+                "policySetAssignments": [],
+                "children": [
+                  {
+                    "scope": "/subscriptions/06075cf8-3461-42ce-a5e7-4dec00ab1baf",
+                    "scopeDisplayName": "contoso-sharedinfra-prod",
+                    "policyAssignments": [],
+                    "policySetAssignments": [
+                      {
+                        "name": "SecurityCenterBuiltIn",
+                        "displayName": "ASC Default (subscription: 06075cf8-3461-42ce-a5e7-4dec00ab1baf)",
+                        "description": "This policy assignment was automatically created by Azure Security Center",
+                        "definitionId": "/providers/Microsoft.Authorization/policySetDefinitions/1f3afdf9-d0c9-4c3d-847f-89da613e70a8",
+                        "definitionDisplayName": "Enable Monitoring in Azure Security Center",
+                        "notScopes": [],
+                        "enforcementMode": "Default",
+                        "parameters": {
+                          "sqlAuditingMonitoringEffect": "AuditIfNotExists",
+                          "nextGenerationFirewallMonitoringEffect": "AuditIfNotExists",
+                          "jitNetworkAccessMonitoringEffect": "AuditIfNotExists",
+                          "identityRemoveExternalAccountWithOwnerPermissionsMonitoringEffect": "AuditIfNotExists",
+                          "identityRemoveDeprecatedAccountMonitoringEffect": "AuditIfNotExists",
+                          "networkSecurityGroupsMonitoringEffect": "AuditIfNotExists",
+                          "identityEnableMFAForOwnerPermissionsMonitoringEffect": "AuditIfNotExists",
+                          "identityDesignateMoreThanOneOwnerMonitoringEffect": "AuditIfNotExists",
+                          "identityRemoveDeprecatedAccountWithOwnerPermissionsMonitoringEffect": "AuditIfNotExists",
+                          "vulnerabilityAssesmentMonitoringEffect": "AuditIfNotExists",
+                          "webApplicationFirewallMonitoringEffect": "AuditIfNotExists",
+                          "identityRemoveExternalAccountWithReadPermissionsMonitoringEffect": "AuditIfNotExists",
+                          "systemConfigurationsMonitoringEffect": "AuditIfNotExists",
+                          "storageEncryptionMonitoringEffect": "Audit",
+                          "endpointProtectionMonitoringEffect": "AuditIfNotExists",
+                          "adaptiveApplicationControlsMonitoringEffect": "AuditIfNotExists",
+                          "systemUpdatesMonitoringEffect": "AuditIfNotExists",
+                          "identityEnableMFAForWritePermissionsMonitoringEffect": "AuditIfNotExists",
+                          "diagnosticsLogsInServiceFabricMonitoringEffect": "AuditIfNotExists",
+                          "identityRemoveExternalAccountWithWritePermissionsMonitoringEffect": "AuditIfNotExists",
+                          "diskEncryptionMonitoringEffect": "AuditIfNotExists",
+                          "identityDesignateLessThanOwnersMonitoringEffect": "AuditIfNotExists",
+                          "identityEnableMFAForReadPermissionsMonitoringEffect": "AuditIfNotExists",
+                          "sqlEncryptionMonitoringEffect": "AuditIfNotExists"
+                        },
+                        "managedIdentity": {
+                          "assignIdentity": false,
+                          "location": ""
+                        }
+                      }
+                    ],
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "scope": "/providers/Microsoft.Management/managementGroups/sharedinfra-devtest",
+                "scopeDisplayName": "sharedinfra-devtest",
+                "policyAssignments": [],
+                "policySetAssignments": [],
+                "children": [
+                  {
+                    "scope": "/subscriptions/5ce8f243-1fd7-4c7f-b9e4-de95372c5362",
+                    "scopeDisplayName": "contoso-sharedinfra-devtest",
+                    "policyAssignments": [],
+                    "policySetAssignments": [
+                      {
+                        "name": "SecurityCenterBuiltIn",
+                        "displayName": "ASC Default (subscription: 5ce8f243-1fd7-4c7f-b9e4-de95372c5362)",
+                        "description": "This policy assignment was automatically created by Azure Security Center",
+                        "definitionId": "/providers/Microsoft.Authorization/policySetDefinitions/1f3afdf9-d0c9-4c3d-847f-89da613e70a8",
+                        "definitionDisplayName": "Enable Monitoring in Azure Security Center",
+                        "notScopes": [],
+                        "enforcementMode": "Default",
+                        "parameters": {
+                          "diagnosticsLogsInDataLakeAnalyticsMonitoringEffect": "AuditIfNotExists",
+                          "systemConfigurationsMonitoringEffect": "AuditIfNotExists",
+                          "nextGenerationFirewallMonitoringEffect": "AuditIfNotExists",
+                          "identityRemoveExternalAccountWithOwnerPermissionsMonitoringEffect": "AuditIfNotExists",
+                          "diagnosticsLogsInDataLakeStoreMonitoringEffect": "AuditIfNotExists",
+                          "diskEncryptionMonitoringEffect": "AuditIfNotExists",
+                          "disableUnrestrictedNetworkToStorageAccountMonitoringEffect": "Audit",
+                          "jitNetworkAccessMonitoringEffect": "AuditIfNotExists",
+                          "diagnosticsLogsInEventHubMonitoringEffect": "AuditIfNotExists",
+                          "sqlDbVulnerabilityAssesmentMonitoringEffect": "AuditIfNotExists",
+                          "sqlEncryptionMonitoringEffect": "AuditIfNotExists",
+                          "identityRemoveExternalAccountWithWritePermissionsMonitoringEffect": "AuditIfNotExists",
+                          "aadAuthenticationInSqlServerMonitoringEffect": "AuditIfNotExists",
+                          "sqlAuditingMonitoringEffect": "AuditIfNotExists",
+                          "identityEnableMFAForOwnerPermissionsMonitoringEffect": "AuditIfNotExists",
+                          "identityEnableMFAForWritePermissionsMonitoringEffect": "AuditIfNotExists",
+                          "storageEncryptionMonitoringEffect": "Audit",
+                          "identityDesignateLessThanOwnersMonitoringEffect": "AuditIfNotExists",
+                          "namespaceAuthorizationRulesInServiceBusMonitoringEffect": "Audit",
+                          "adaptiveApplicationControlsMonitoringEffect": "AuditIfNotExists",
+                          "metricAlertsInBatchAccountMonitoringEffect": "AuditIfNotExists",
+                          "identityRemoveDeprecatedAccountWithOwnerPermissionsMonitoringEffect": "AuditIfNotExists",
+                          "diagnosticsLogsInRedisCacheMonitoringEffect": "Audit",
+                          "identityRemoveExternalAccountWithReadPermissionsMonitoringEffect": "AuditIfNotExists",
+                          "classicStorageAccountsMonitoringEffect": "Audit",
+                          "aadAuthenticationInServiceFabricMonitoringEffect": "Audit",
+                          "classicComputeVMsMonitoringEffect": "Audit",
+                          "secureTransferToStorageAccountMonitoringEffect": "Audit",
+                          "diagnosticsLogsInServiceBusMonitoringEffect": "AuditIfNotExists",
+                          "webApplicationFirewallMonitoringEffect": "AuditIfNotExists",
+                          "identityEnableMFAForReadPermissionsMonitoringEffect": "AuditIfNotExists",
+                          "identityRemoveDeprecatedAccountMonitoringEffect": "AuditIfNotExists",
+                          "diagnosticsLogsInBatchAccountMonitoringEffect": "AuditIfNotExists",
+                          "diagnosticsLogsInServiceFabricMonitoringEffect": "AuditIfNotExists",
+                          "endpointProtectionMonitoringEffect": "AuditIfNotExists",
+                          "networkSecurityGroupsMonitoringEffect": "AuditIfNotExists",
+                          "identityDesignateMoreThanOneOwnerMonitoringEffect": "AuditIfNotExists",
+                          "clusterProtectionLevelInServiceFabricMonitoringEffect": "Audit",
+                          "vulnerabilityAssesmentMonitoringEffect": "AuditIfNotExists",
+                          "systemUpdatesMonitoringEffect": "AuditIfNotExists"
+                        },
+                        "managedIdentity": {
+                          "assignIdentity": false,
+                          "location": ""
+                        }
+                      }
+                    ],
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "scope": "/providers/Microsoft.Management/managementGroups/ca",
+            "scopeDisplayName": "ca",
+            "policyAssignments": [],
+            "policySetAssignments": [],
+            "children": [
+              {
+                "scope": "/providers/Microsoft.Management/managementGroups/ca-prod",
+                "scopeDisplayName": "ca-prod",
+                "policyAssignments": [],
+                "policySetAssignments": [],
+                "children": [
+                  {
+                    "scope": "/subscriptions/b19ac585-7a01-4bb0-912a-300660d327b5",
+                    "scopeDisplayName": "contoso-ca-prod",
+                    "policyAssignments": [
+                      {
+                        "name": "a0399c571f64412e8c24a9b0",
+                        "displayName": "Inherit a tag from the resource group",
+                        "description": ".",
+                        "definitionId": "/providers/Microsoft.Authorization/policyDefinitions/cd3aa116-8754-49c9-a813-ad46512ece54",
+                        "definitionDisplayName": "Inherit a tag from the resource group",
+                        "notScopes": [],
+                        "enforcementMode": "Default",
+                        "parameters": {
+                          "tagName": "PO"
+                        },
+                        "managedIdentity": {
+                          "assignIdentity": true,
+                          "location": "westeurope"
+                        }
+                      },
+                      {
+                        "name": "checkregionconsistency-contoso-ca-prod",
+                        "displayName": "Check region consistency within CA Prod RGs",
+                        "description": "Check for region inconsistencies in the subscription Common Apps Prod. Excluding the NetworkWatcherRG resource group.",
+                        "definitionId": "/subscriptions/b19ac585-7a01-4bb0-912a-300660d327b5/providers/Microsoft.Authorization/policyDefinitions/check-region-consistency",
+                        "definitionDisplayName": "Audit resource location matches resource group location.",
+                        "notScopes": [],
+                        "enforcementMode": "Default",
+                        "parameters": {},
+                        "managedIdentity": {
+                          "assignIdentity": false,
+                          "location": ""
+                        }
+                      }
+                    ],
+                    "policySetAssignments": [
+                      {
+                        "name": "SecurityCenterBuiltIn",
+                        "displayName": "ASC Default (subscription: b19ac585-7a01-4bb0-912a-300660d327b5)",
+                        "description": "This policy assignment was automatically created by Azure Security Center",
+                        "definitionId": "/providers/Microsoft.Authorization/policySetDefinitions/1f3afdf9-d0c9-4c3d-847f-89da613e70a8",
+                        "definitionDisplayName": "Enable Monitoring in Azure Security Center",
+                        "notScopes": [],
+                        "enforcementMode": "Default",
+                        "parameters": {
+                          "diagnosticsLogsInDataLakeAnalyticsMonitoringEffect": "AuditIfNotExists",
+                          "systemConfigurationsMonitoringEffect": "AuditIfNotExists",
+                          "nextGenerationFirewallMonitoringEffect": "AuditIfNotExists",
+                          "identityRemoveExternalAccountWithOwnerPermissionsMonitoringEffect": "AuditIfNotExists",
+                          "diagnosticsLogsInDataLakeStoreMonitoringEffect": "AuditIfNotExists",
+                          "diskEncryptionMonitoringEffect": "AuditIfNotExists",
+                          "disableUnrestrictedNetworkToStorageAccountMonitoringEffect": "Audit",
+                          "jitNetworkAccessMonitoringEffect": "AuditIfNotExists",
+                          "diagnosticsLogsInEventHubMonitoringEffect": "AuditIfNotExists",
+                          "sqlDbVulnerabilityAssesmentMonitoringEffect": "AuditIfNotExists",
+                          "sqlEncryptionMonitoringEffect": "AuditIfNotExists",
+                          "identityRemoveExternalAccountWithWritePermissionsMonitoringEffect": "AuditIfNotExists",
+                          "aadAuthenticationInSqlServerMonitoringEffect": "AuditIfNotExists",
+                          "sqlAuditingMonitoringEffect": "AuditIfNotExists",
+                          "identityEnableMFAForOwnerPermissionsMonitoringEffect": "AuditIfNotExists",
+                          "identityEnableMFAForWritePermissionsMonitoringEffect": "AuditIfNotExists",
+                          "storageEncryptionMonitoringEffect": "Audit",
+                          "identityDesignateLessThanOwnersMonitoringEffect": "AuditIfNotExists",
+                          "namespaceAuthorizationRulesInServiceBusMonitoringEffect": "Audit",
+                          "adaptiveApplicationControlsMonitoringEffect": "AuditIfNotExists",
+                          "metricAlertsInBatchAccountMonitoringEffect": "AuditIfNotExists",
+                          "identityRemoveDeprecatedAccountWithOwnerPermissionsMonitoringEffect": "AuditIfNotExists",
+                          "diagnosticsLogsInRedisCacheMonitoringEffect": "Audit",
+                          "identityRemoveExternalAccountWithReadPermissionsMonitoringEffect": "AuditIfNotExists",
+                          "classicStorageAccountsMonitoringEffect": "Audit",
+                          "aadAuthenticationInServiceFabricMonitoringEffect": "Audit",
+                          "classicComputeVMsMonitoringEffect": "Audit",
+                          "secureTransferToStorageAccountMonitoringEffect": "Audit",
+                          "diagnosticsLogsInServiceBusMonitoringEffect": "AuditIfNotExists",
+                          "webApplicationFirewallMonitoringEffect": "AuditIfNotExists",
+                          "identityEnableMFAForReadPermissionsMonitoringEffect": "AuditIfNotExists",
+                          "identityRemoveDeprecatedAccountMonitoringEffect": "AuditIfNotExists",
+                          "diagnosticsLogsInBatchAccountMonitoringEffect": "AuditIfNotExists",
+                          "diagnosticsLogsInServiceFabricMonitoringEffect": "AuditIfNotExists",
+                          "endpointProtectionMonitoringEffect": "AuditIfNotExists",
+                          "networkSecurityGroupsMonitoringEffect": "AuditIfNotExists",
+                          "identityDesignateMoreThanOneOwnerMonitoringEffect": "AuditIfNotExists",
+                          "clusterProtectionLevelInServiceFabricMonitoringEffect": "Audit",
+                          "vulnerabilityAssesmentMonitoringEffect": "AuditIfNotExists",
+                          "systemUpdatesMonitoringEffect": "AuditIfNotExists"
+                        },
+                        "managedIdentity": {
+                          "assignIdentity": false,
+                          "location": ""
+                        }
+                      }
+                    ],
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "scope": "/providers/Microsoft.Management/managementGroups/ca-ext",
+                "scopeDisplayName": "ca-ext",
+                "policyAssignments": [],
+                "policySetAssignments": [],
+                "children": []
+              },
+              {
+                "scope": "/providers/Microsoft.Management/managementGroups/ca-devtest",
+                "scopeDisplayName": "ca-devtest",
+                "policyAssignments": [],
+                "policySetAssignments": [],
+                "children": [
+                  {
+                    "scope": "/subscriptions/9d500e44-eda1-4130-b27b-269a91e35501",
+                    "scopeDisplayName": "contoso-ca-devtest",
+                    "policyAssignments": [
+                      {
+                        "name": "48974be10e6d43ad8573fbdb",
+                        "displayName": "Inherit a tag from the resource group",
+                        "description": ".",
+                        "definitionId": "/providers/Microsoft.Authorization/policyDefinitions/cd3aa116-8754-49c9-a813-ad46512ece54",
+                        "definitionDisplayName": "Inherit a tag from the resource group",
+                        "notScopes": [],
+                        "enforcementMode": "Default",
+                        "parameters": {
+                          "tagName": "PO"
+                        },
+                        "managedIdentity": {
+                          "assignIdentity": true,
+                          "location": "westeurope"
+                        }
+                      },
+                      {
+                        "name": "checkregionconsistency-contoso-ca-devtest",
+                        "displayName": "Check region consistency within CA DevTest RGs",
+                        "description": "Check for location inconsistencies in the subscription.",
+                        "definitionId": "/subscriptions/9d500e44-eda1-4130-b27b-269a91e35501/providers/Microsoft.Authorization/policyDefinitions/check-region-consistency",
+                        "definitionDisplayName": "Audit resource location matches resource group location.",
+                        "notScopes": [
+                          "/subscriptions/9d500e44-eda1-4130-b27b-269a91e35501/resourceGroups/NetworkWatcherRG"
+                        ],
+                        "enforcementMode": "Default",
+                        "parameters": {},
+                        "managedIdentity": {
+                          "assignIdentity": false,
+                          "location": ""
+                        }
+                      }
+                    ],
+                    "policySetAssignments": [
+                      {
+                        "name": "SecurityCenterBuiltIn",
+                        "displayName": "ASC Default (subscription: 9d500e44-eda1-4130-b27b-269a91e35501)",
+                        "description": "This is the default set of policies monitored by Azure Security Center. It was automatically assigned as part of onboarding to Security Center. The default assignment contains only audit policies. For more information please visit https://aka.ms/ascpolicies",
+                        "definitionId": "/providers/Microsoft.Authorization/policySetDefinitions/1f3afdf9-d0c9-4c3d-847f-89da613e70a8",
+                        "definitionDisplayName": "Enable Monitoring in Azure Security Center",
+                        "notScopes": [],
+                        "enforcementMode": "Default",
+                        "parameters": {},
+                        "managedIdentity": {
+                          "assignIdentity": false,
+                          "location": ""
+                        }
+                      }
+                    ],
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "scope": "/providers/Microsoft.Management/managementGroups/co",
+            "scopeDisplayName": "co",
+            "policyAssignments": [],
+            "policySetAssignments": [],
+            "children": [
+              {
+                "scope": "/providers/Microsoft.Management/managementGroups/co-prod",
+                "scopeDisplayName": "co-prod",
+                "policyAssignments": [],
+                "policySetAssignments": [],
+                "children": []
+              },
+              {
+                "scope": "/providers/Microsoft.Management/managementGroups/co-devtest",
+                "scopeDisplayName": "co-devtest",
+                "policyAssignments": [],
+                "policySetAssignments": [],
+                "children": []
+              },
+              {
+                "scope": "/providers/Microsoft.Management/managementGroups/co-ext",
+                "scopeDisplayName": "co-ext",
+                "policyAssignments": [],
+                "policySetAssignments": [],
+                "children": []
+              }
+            ]
+          },
+          {
+            "scope": "/providers/Microsoft.Management/managementGroups/us",
+            "scopeDisplayName": "us",
+            "policyAssignments": [],
+            "policySetAssignments": [],
+            "children": [
+              {
+                "scope": "/providers/Microsoft.Management/managementGroups/us-prod",
+                "scopeDisplayName": "us-prod",
+                "policyAssignments": [],
+                "policySetAssignments": [],
+                "children": [
+                  {
+                    "scope": "/subscriptions/04bc18d0-07c0-4ba9-ad72-4cf8a795d335",
+                    "scopeDisplayName": "contoso-us-prod",
+                    "policyAssignments": [
+                      {
+                        "name": "6d79bfa3775c49509e5b5c26",
+                        "displayName": "Inherit a tag from the resource group",
+                        "description": ".",
+                        "definitionId": "/providers/Microsoft.Authorization/policyDefinitions/cd3aa116-8754-49c9-a813-ad46512ece54",
+                        "definitionDisplayName": "Inherit a tag from the resource group",
+                        "notScopes": [],
+                        "enforcementMode": "Default",
+                        "parameters": {
+                          "tagName": "PO"
+                        },
+                        "managedIdentity": {
+                          "assignIdentity": true,
+                          "location": "westeurope"
+                        }
+                      }
+                    ],
+                    "policySetAssignments": [
+                      {
+                        "name": "SecurityCenterBuiltIn",
+                        "displayName": "ASC Default (subscription: 04bc18d0-07c0-4ba9-ad72-4cf8a795d335)",
+                        "description": "This is the default set of policies monitored by Azure Security Center. It was automatically assigned as part of onboarding to Security Center. The default assignment contains only audit policies. For more information please visit https://aka.ms/ascpolicies",
+                        "definitionId": "/providers/Microsoft.Authorization/policySetDefinitions/1f3afdf9-d0c9-4c3d-847f-89da613e70a8",
+                        "definitionDisplayName": "Enable Monitoring in Azure Security Center",
+                        "notScopes": [],
+                        "enforcementMode": "Default",
+                        "parameters": {},
+                        "managedIdentity": {
+                          "assignIdentity": false,
+                          "location": ""
+                        }
+                      }
+                    ],
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "scope": "/providers/Microsoft.Management/managementGroups/us-devtest",
+                "scopeDisplayName": "us-devtest",
+                "policyAssignments": [],
+                "policySetAssignments": [],
+                "children": [
+                  {
+                    "scope": "/subscriptions/9e0139e6-e4f5-4124-b887-d2bab9e59915",
+                    "scopeDisplayName": "contoso-us-devtest",
+                    "policyAssignments": [
+                      {
+                        "name": "dea1803ce8d04cce8c0ad5a6",
+                        "displayName": "Inherit a tag from the resource group",
+                        "description": ".",
+                        "definitionId": "/providers/Microsoft.Authorization/policyDefinitions/cd3aa116-8754-49c9-a813-ad46512ece54",
+                        "definitionDisplayName": "Inherit a tag from the resource group",
+                        "notScopes": [],
+                        "enforcementMode": "Default",
+                        "parameters": {
+                          "tagName": "PO"
+                        },
+                        "managedIdentity": {
+                          "assignIdentity": true,
+                          "location": "westeurope"
+                        }
+                      }
+                    ],
+                    "policySetAssignments": [
+                      {
+                        "name": "SecurityCenterBuiltIn",
+                        "displayName": "ASC Default (subscription: 9e0139e6-e4f5-4124-b887-d2bab9e59915)",
+                        "description": "This is the default set of policies monitored by Azure Security Center. It was automatically assigned as part of onboarding to Security Center. The default assignment contains only audit policies. For more information please visit https://aka.ms/ascpolicies",
+                        "definitionId": "/providers/Microsoft.Authorization/policySetDefinitions/1f3afdf9-d0c9-4c3d-847f-89da613e70a8",
+                        "definitionDisplayName": "Enable Monitoring in Azure Security Center",
+                        "notScopes": [],
+                        "enforcementMode": "Default",
+                        "parameters": {},
+                        "managedIdentity": {
+                          "assignIdentity": false,
+                          "location": ""
+                        }
+                      }
+                    ],
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "scope": "/providers/Microsoft.Management/managementGroups/us-ext",
+                "scopeDisplayName": "us-ext",
+                "policyAssignments": [],
+                "policySetAssignments": [],
+                "children": [
+                  {
+                    "scope": "/subscriptions/952b7972-1c8c-4fd1-8d8f-6ea6bc42f6cf",
+                    "scopeDisplayName": "cegal-us",
+                    "policyAssignments": [],
+                    "policySetAssignments": [
+                      {
+                        "name": "SecurityCenterBuiltIn",
+                        "displayName": "ASC Default (subscription: 952b7972-1c8c-4fd1-8d8f-6ea6bc42f6cf)",
+                        "description": "This is the default set of policies monitored by Azure Security Center. It was automatically assigned as part of onboarding to Security Center. The default assignment contains only audit policies. For more information please visit https://aka.ms/ascpolicies",
+                        "definitionId": "/providers/Microsoft.Authorization/policySetDefinitions/1f3afdf9-d0c9-4c3d-847f-89da613e70a8",
+                        "definitionDisplayName": "Enable Monitoring in Azure Security Center",
+                        "notScopes": [],
+                        "enforcementMode": "Default",
+                        "parameters": {},
+                        "managedIdentity": {
+                          "assignIdentity": false,
+                          "location": ""
+                        }
+                      }
+                    ],
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "scope": "/providers/Microsoft.Management/managementGroups/ds",
+            "scopeDisplayName": "ds",
+            "policyAssignments": [],
+            "policySetAssignments": [],
+            "children": [
+              {
+                "scope": "/providers/Microsoft.Management/managementGroups/ds-prod",
+                "scopeDisplayName": "ds-prod",
+                "policyAssignments": [],
+                "policySetAssignments": [],
+                "children": [
+                  {
+                    "scope": "/subscriptions/6cb3b5a4-f982-4b4c-93aa-d0bb531fc89c",
+                    "scopeDisplayName": "contoso-ds-prod",
+                    "policyAssignments": [
+                      {
+                        "name": "952abbdb3a754a10a9b5dff7",
+                        "displayName": "Inherit a tag from the resource group",
+                        "description": ".",
+                        "definitionId": "/providers/Microsoft.Authorization/policyDefinitions/cd3aa116-8754-49c9-a813-ad46512ece54",
+                        "definitionDisplayName": "Inherit a tag from the resource group",
+                        "notScopes": [],
+                        "enforcementMode": "Default",
+                        "parameters": {
+                          "tagName": "PO"
+                        },
+                        "managedIdentity": {
+                          "assignIdentity": true,
+                          "location": "eastus"
+                        }
+                      }
+                    ],
+                    "policySetAssignments": [
+                      {
+                        "name": "SecurityCenterBuiltIn",
+                        "displayName": "ASC Default (subscription: 6cb3b5a4-f982-4b4c-93aa-d0bb531fc89c)",
+                        "description": "This is the default set of policies monitored by Azure Security Center. It was automatically assigned as part of onboarding to Security Center. The default assignment contains only audit policies. For more information please visit https://aka.ms/ascpolicies",
+                        "definitionId": "/providers/Microsoft.Authorization/policySetDefinitions/1f3afdf9-d0c9-4c3d-847f-89da613e70a8",
+                        "definitionDisplayName": "Enable Monitoring in Azure Security Center",
+                        "notScopes": [],
+                        "enforcementMode": "Default",
+                        "parameters": {},
+                        "managedIdentity": {
+                          "assignIdentity": false,
+                          "location": ""
+                        }
+                      }
+                    ],
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "scope": "/providers/Microsoft.Management/managementGroups/ds-devtest",
+                "scopeDisplayName": "ds-devtest",
+                "policyAssignments": [],
+                "policySetAssignments": [],
+                "children": [
+                  {
+                    "scope": "/subscriptions/2b42689c-4a4e-4cf2-ba20-bc01f33b12bd",
+                    "scopeDisplayName": "contoso-ds-devtest",
+                    "policyAssignments": [
+                      {
+                        "name": "aa9939acfd1847bab632074e",
+                        "displayName": "Inherit a tag from the resource group",
+                        "description": ".",
+                        "definitionId": "/providers/Microsoft.Authorization/policyDefinitions/cd3aa116-8754-49c9-a813-ad46512ece54",
+                        "definitionDisplayName": "Inherit a tag from the resource group",
+                        "notScopes": [],
+                        "enforcementMode": "Default",
+                        "parameters": {
+                          "tagName": "PO"
+                        },
+                        "managedIdentity": {
+                          "assignIdentity": true,
+                          "location": "westeurope"
+                        }
+                      }
+                    ],
+                    "policySetAssignments": [
+                      {
+                        "name": "SecurityCenterBuiltIn",
+                        "displayName": "ASC Default (subscription: 2b42689c-4a4e-4cf2-ba20-bc01f33b12bd)",
+                        "description": "This is the default set of policies monitored by Azure Security Center. It was automatically assigned as part of onboarding to Security Center. The default assignment contains only audit policies. For more information please visit https://aka.ms/ascpolicies",
+                        "definitionId": "/providers/Microsoft.Authorization/policySetDefinitions/1f3afdf9-d0c9-4c3d-847f-89da613e70a8",
+                        "definitionDisplayName": "Enable Monitoring in Azure Security Center",
+                        "notScopes": [],
+                        "enforcementMode": "Default",
+                        "parameters": {},
+                        "managedIdentity": {
+                          "assignIdentity": false,
+                          "location": ""
+                        }
+                      }
+                    ],
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "scope": "/providers/Microsoft.Management/managementGroups/ds-ext",
+                "scopeDisplayName": "ds-ext",
+                "policyAssignments": [],
+                "policySetAssignments": [],
+                "children": [
+                  {
+                    "scope": "/subscriptions/2468edeb-8341-4e27-a3e9-d7cfc3413679",
+                    "scopeDisplayName": "hiddenbrains-ds",
+                    "policyAssignments": [],
+                    "policySetAssignments": [
+                      {
+                        "name": "SecurityCenterBuiltIn",
+                        "displayName": "ASC Default (subscription: 2468edeb-8341-4e27-a3e9-d7cfc3413679)",
+                        "description": "This is the default set of policies monitored by Azure Security Center. It was automatically assigned as part of onboarding to Security Center. The default assignment contains only audit policies. For more information please visit https://aka.ms/ascpolicies",
+                        "definitionId": "/providers/Microsoft.Authorization/policySetDefinitions/1f3afdf9-d0c9-4c3d-847f-89da613e70a8",
+                        "definitionDisplayName": "Enable Monitoring in Azure Security Center",
+                        "notScopes": [],
+                        "enforcementMode": "Default",
+                        "parameters": {},
+                        "managedIdentity": {
+                          "assignIdentity": false,
+                          "location": ""
+                        }
+                      }
+                    ],
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "scope": "/providers/Microsoft.Management/managementGroups/contososec",
+        "scopeDisplayName": "contososec",
+        "policyAssignments": [
+          {
+            "name": "d816503a2ca544a99791bded",
+            "displayName": "Not allowed resource types",
+            "description": "Disable creation of Public IPs",
+            "definitionId": "/providers/Microsoft.Authorization/policyDefinitions/6c112d4e-5bc7-47ae-a041-ea2d9dccd749",
+            "definitionDisplayName": "Not allowed resource types",
+            "notScopes": [],
+            "enforcementMode": "Default",
+            "parameters": {
+              "listOfResourceTypesNotAllowed": [
+                "Microsoft.Network/publicIPAddresses",
+                "Microsoft.Network/publicIPPrefixes"
+              ]
+            },
+            "managedIdentity": {
+              "assignIdentity": false,
+              "location": ""
+            }
+          }
+        ],
+        "policySetAssignments": [],
+        "children": [
+          {
+            "scope": "/subscriptions/1460baf0-c327-4b63-8e0e-39cc8b0025c7",
+            "scopeDisplayName": "contoso-t0-sec-pd-01",
+            "policyAssignments": [],
+            "policySetAssignments": [
+              {
+                "name": "SecurityCenterBuiltIn",
+                "displayName": "ASC Default (subscription: 1460baf0-c327-4b63-8e0e-39cc8b0025c7)",
+                "description": "This is the default set of policies monitored by Azure Security Center. It was automatically assigned as part of onboarding to Security Center. The default assignment contains only audit policies. For more information please visit https://aka.ms/ascpolicies",
+                "definitionId": "/providers/Microsoft.Authorization/policySetDefinitions/1f3afdf9-d0c9-4c3d-847f-89da613e70a8",
+                "definitionDisplayName": "Enable Monitoring in Azure Security Center",
+                "notScopes": [],
+                "enforcementMode": "Default",
+                "parameters": {},
+                "managedIdentity": {
+                  "assignIdentity": false,
+                  "location": ""
+                }
+              }
+            ],
+            "children": []
+          },
+          {
+            "scope": "/subscriptions/def3cc87-e9b6-4461-905b-e254f6d473b6",
+            "scopeDisplayName": "contoso-t0-sec-pd-02",
+            "policyAssignments": [],
+            "policySetAssignments": [
+              {
+                "name": "SecurityCenterBuiltIn",
+                "displayName": "ASC Default (subscription: def3cc87-e9b6-4461-905b-e254f6d473b6)",
+                "description": "This is the default set of policies monitored by Azure Security Center. It was automatically assigned as part of onboarding to Security Center. The default assignment contains only audit policies. For more information please visit https://aka.ms/ascpolicies",
+                "definitionId": "/providers/Microsoft.Authorization/policySetDefinitions/1f3afdf9-d0c9-4c3d-847f-89da613e70a8",
+                "definitionDisplayName": "Enable Monitoring in Azure Security Center",
+                "notScopes": [],
+                "enforcementMode": "Default",
+                "parameters": {},
+                "managedIdentity": {
+                  "assignIdentity": false,
+                  "location": ""
+                }
+              }
+            ],
+            "children": []
+          }
+        ]
+      },
+      {
+        "scope": "/providers/Microsoft.Management/managementGroups/controlled",
+        "scopeDisplayName": "controlled",
+        "policyAssignments": [
+          {
+            "name": "4661283d1578417fa7e7823e",
+            "displayName": "Allowed locations",
+            "description": " ",
+            "definitionId": "/providers/Microsoft.Authorization/policyDefinitions/e56962a6-4747-49cd-b67b-bf8b01975c4c",
+            "definitionDisplayName": "Allowed locations",
+            "notScopes": [],
+            "enforcementMode": "Default",
+            "parameters": {
+              "listOfAllowedLocations": [
+                "australiaeast",
+                "australiasoutheast",
+                "northeurope",
+                "uaenorth",
+                "uaecentral",
+                "westeurope",
+                "global"
+              ]
+            },
+            "managedIdentity": {
+              "assignIdentity": false,
+              "location": ""
+            }
+          },
+          {
+            "name": "4755f652519f43a3b80501c9",
+            "displayName": "Allowed locations for resource groups",
+            "description": " ",
+            "definitionId": "/providers/Microsoft.Authorization/policyDefinitions/e765b5de-1225-4ba3-bd56-1ac6695af988",
+            "definitionDisplayName": "Allowed locations for resource groups",
+            "notScopes": [],
+            "enforcementMode": "Default",
+            "parameters": {
+              "listOfAllowedLocations": [
+                "australiaeast",
+                "australiasoutheast",
+                "northeurope",
+                "global",
+                "uaenorth",
+                "uaecentral",
+                "westeurope"
+              ]
+            },
+            "managedIdentity": {
+              "assignIdentity": false,
+              "location": ""
+            }
+          },
+          {
+            "name": "c908775e5d4b47a1a7f62674",
+            "displayName": "Not allowed resource types",
+            "description": "",
+            "definitionId": "/providers/Microsoft.Authorization/policyDefinitions/6c112d4e-5bc7-47ae-a041-ea2d9dccd749",
+            "definitionDisplayName": "Not allowed resource types",
+            "notScopes": [
+              "/providers/Microsoft.Management/managementGroups/contoso-sh",
+              "/subscriptions/f9d05f83-c64d-4ace-884d-326fdb84dec6/resourceGroups/contoso-t0-main-pd-01-euw-rg-network-s00-pd-01/providers/Microsoft.Network/publicIPAddresses/contoso-t0-main-pd-01-euw-bastion-01-pip-s-01",
+              "/subscriptions/a46d56c9-1b50-47e4-9b6b-44a43c1c20eb/resourceGroups/contoso-t0-main-np-01-euw-rg-network-s00-np-01/providers/Microsoft.Network/publicIPAddresses/contoso-t0-main-np-01-euw-bastion-01-pip-s-01",
+              "/providers/Microsoft.Management/managementGroups/contoso-md"
+            ],
+            "enforcementMode": "Default",
+            "parameters": {
+              "listOfResourceTypesNotAllowed": [
+                "microsoft.network/publicipaddresses",
+                "microsoft.compute/virtualmachinescalesets/publicipaddresses",
+                "microsoft.network/applicationgateways"
+              ]
+            },
+            "managedIdentity": {
+              "assignIdentity": false,
+              "location": ""
+            }
+          }
+        ],
+        "policySetAssignments": [
+          {
+            "name": "107001105b7043e192565497",
+            "displayName": "[Preview]: Audit CIS Microsoft Azure Foundations Benchmark 1.1.0 recommendations and deploy specific supporting VM Extensions",
+            "description": " ",
+            "definitionId": "/providers/Microsoft.Authorization/policySetDefinitions/1a5bb27d-173f-493e-9568-eb56638dde4d",
+            "definitionDisplayName": "[Preview]: Audit CIS Microsoft Azure Foundations Benchmark 1.1.0 recommendations and deploy specific supporting VM extensions",
+            "notScopes": [],
+            "enforcementMode": "Default",
+            "parameters": {
+              "listOfRegionsWhereNetworkWatcherShouldBeEnabled": [
+                "westeurope",
+                "northeurope",
+                "australiasoutheast",
+                "australiaeast",
+                "uaecentral",
+                "uaenorth"
+              ]
+            },
+            "managedIdentity": {
+              "assignIdentity": false,
+              "location": ""
+            }
+          },
+          {
+            "name": "27f248de9a0c465ab6d64410",
+            "displayName": "[Preview]: Audit ISO 27001:2013 controls and deploy specific VM Extensions to support audit requirements",
+            "description": ".",
+            "definitionId": "/providers/Microsoft.Authorization/policySetDefinitions/89c6cddc-1c73-4ac1-b19c-54d1a15a42f2",
+            "definitionDisplayName": "[Preview]: Audit ISO 27001:2013 controls and deploy specific VM Extensions to support audit requirements",
+            "notScopes": [],
+            "enforcementMode": "Default",
+            "parameters": {
+              "listOfResourceTypesWithDiagnosticLogsEnabled": [
+                "Microsoft.AnalysisServices/servers",
+                "Microsoft.Network/virtualNetworkGateways",
+                "Microsoft.Network/virtualNetworks",
+                "Microsoft.Compute/virtualMachineScaleSets",
+                "Microsoft.Compute/virtualMachines",
+                "Microsoft.Network/trafficManagerProfiles",
+                "Microsoft.TimeSeriesInsights/environments",
+                "Microsoft.StreamAnalytics/streamingjobs",
+                "Microsoft.Sql/servers/elasticPools",
+                "Microsoft.Sql/servers/databases",
+                "Microsoft.SignalRService/SignalR",
+                "Microsoft.ServiceBus/namespaces",
+                "Microsoft.Search/searchServices",
+                "Microsoft.Relay/namespaces",
+                "Microsoft.Cache/redis",
+                "Microsoft.RecoveryServices/vaults",
+                "Microsoft.Network/publicIPAddresses",
+                "Microsoft.PowerBIDedicated/capacities",
+                "Microsoft.DBforPostgreSQL/servers",
+                "Microsoft.Network/networkSecurityGroups",
+                "Microsoft.Network/networkInterfaces",
+                "Microsoft.DBforMySQL/servers",
+                "Microsoft.Logic/workflows",
+                "Microsoft.Logic/integrationAccounts",
+                "Microsoft.Network/loadBalancers",
+                "Microsoft.KeyVault/vaults",
+                "Microsoft.Devices/IotHubs",
+                "Microsoft.HDInsight/clusters",
+                "Microsoft.Network/azureFirewalls",
+                "Microsoft.Network/expressRouteCircuits",
+                "Microsoft.EventHub/namespaces",
+                "Microsoft.EventGrid/topics",
+                "Microsoft.EventGrid/eventSubscriptions",
+                "Microsoft.DataLakeStore/accounts",
+                "Microsoft.DataLakeAnalytics/accounts",
+                "Microsoft.DataFactory/factories",
+                "Microsoft.DocumentDB/databaseAccounts",
+                "Microsoft.CognitiveServices/accounts",
+                "Microsoft.Cdn/profiles/endpoints",
+                "Microsoft.Batch/batchAccounts",
+                "Microsoft.ContainerService/managedClusters",
+                "Microsoft.ContainerRegistry/registries",
+                "Microsoft.ContainerInstance/containerGroups",
+                "Microsoft.Automation/automationAccounts",
+                "Microsoft.Network/applicationGateways",
+                "Microsoft.ApiManagement/service"
+              ]
+            },
+            "managedIdentity": {
+              "assignIdentity": true,
+              "location": "westeurope"
+            }
+          },
+          {
+            "name": "3ed1e3eecce045a6863ee937",
+            "displayName": "Audit Windows VMs that are not joined to the specified domain",
+            "description": ".",
+            "definitionId": "/providers/Microsoft.Authorization/policySetDefinitions/6b3c1e80-8ae5-405b-b021-c23d13b3959f",
+            "definitionDisplayName": "Audit Windows VMs that are not joined to the specified domain",
+            "notScopes": [],
+            "enforcementMode": "Default",
+            "parameters": {
+              "DomainName": "ww.contoso.com"
+            },
+            "managedIdentity": {
+              "assignIdentity": true,
+              "location": "eastus"
+            }
+          },
+          {
+            "name": "4fddf25a25fa457cabfc06af",
+            "displayName": "[Preview]: Enable Monitoring in Azure Security Center",
+            "description": " ",
+            "definitionId": "/providers/Microsoft.Authorization/policySetDefinitions/1f3afdf9-d0c9-4c3d-847f-89da613e70a8",
+            "definitionDisplayName": "Enable Monitoring in Azure Security Center",
+            "notScopes": [],
+            "enforcementMode": "Default",
+            "parameters": {
+              "webAppUsedCustomDomainsMonitoringEffect": "AuditIfNotExists",
+              "sqlAuditingMonitoringEffect": "AuditIfNotExists",
+              "apiAppUsedLatestDotNetMonitoringEffect": "AuditIfNotExists",
+              "apiAppUsedCustomDomainsMonitoringEffect": "AuditIfNotExists",
+              "disableUnrestrictedNetworkToStorageAccountMonitoringEffect": "Audit",
+              "webAppConfigureIPRestrictionsMonitoringEffect": "AuditIfNotExists",
+              "namespaceAuthorizationRulesInServiceBusMonitoringEffect": "Audit",
+              "storageEncryptionMonitoringEffect": "Audit",
+              "webAppUsedLatestJavaMonitoringEffect": "AuditIfNotExists",
+              "webAppUsedLatestPythonMonitoringEffect": "AuditIfNotExists",
+              "webAppEnforceHttpsMonitoringEffect": "AuditIfNotExists",
+              "networkSecurityGroupsOnVirtualMachinesMonitoringEffect": "AuditIfNotExists",
+              "aadAuthenticationInServiceFabricMonitoringEffect": "Disabled",
+              "functionAppUsedCustomDomainsMonitoringEffect": "AuditIfNotExists",
+              "functionAppConfigureIPRestrictionsMonitoringEffect": "AuditIfNotExists",
+              "webAppDisableWebSocketsMonitoringEffect": "AuditIfNotExists",
+              "diagnosticsLogsInAppServiceMonitoringEffect": "Audit",
+              "identityDesignateMoreThanOneOwnerMonitoringEffect": "Disabled",
+              "accessRulesInEventHubNamespaceMonitoringEffect": "Audit",
+              "apiAppUsedLatestPythonMonitoringEffect": "AuditIfNotExists",
+              "apiAppUsedLatestJavaMonitoringEffect": "AuditIfNotExists",
+              "functionAppDisableWebSocketsMonitoringEffect": "AuditIfNotExists",
+              "sqlEncryptionMonitoringEffect": "AuditIfNotExists",
+              "apiAppDisableWebSocketsMonitoringEffect": "AuditIfNotExists",
+              "webAppUsedLatestNodeJsMonitoringEffect": "AuditIfNotExists",
+              "functionAppEnforceHttpsMonitoringEffect": "AuditIfNotExists",
+              "webAppUsedLatestDotNetMonitoringEffect": "AuditIfNotExists",
+              "apiAppUsedLatestPHPMonitoringEffect": "AuditIfNotExists",
+              "apiAppConfigureIPRestrictionsMonitoringEffect": "AuditIfNotExists",
+              "webAppUsedLatestPHPMonitoringEffect": "AuditIfNotExists",
+              "apiAppEnforceHttpsMonitoringEffect": "AuditIfNotExists",
+              "networkSecurityGroupsMonitoringEffect": "AuditIfNotExists",
+              "accessRulesInEventHubMonitoringEffect": "AuditIfNotExists"
+            },
+            "managedIdentity": {
+              "assignIdentity": false,
+              "location": ""
+            }
+          },
+          {
+            "name": "58cb3da5da604867b0597c70",
+            "displayName": "Audit Windows web servers that are not using secure communication protocols",
+            "description": ".",
+            "definitionId": "/providers/Microsoft.Authorization/policySetDefinitions/8bc55e6b-e9d5-4266-8dac-f688d151ec9c",
+            "definitionDisplayName": "Audit Windows web servers that are not using secure communication protocols",
+            "notScopes": [],
+            "enforcementMode": "Default",
+            "parameters": {
+              "MinimumTLSVersion": "1.2"
+            },
+            "managedIdentity": {
+              "assignIdentity": true,
+              "location": "eastus"
+            }
+          },
+          {
+            "name": "8f893d67fd4a4f54ad05cac5",
+            "displayName": "[Preview]: Enable Azure Monitor for VMs",
+            "description": ".",
+            "definitionId": "/providers/Microsoft.Authorization/policySetDefinitions/55f3eceb-5573-4f18-9695-226972c6d74a",
+            "definitionDisplayName": "Enable Azure Monitor for VMs",
+            "notScopes": [],
+            "enforcementMode": "Default",
+            "parameters": {
+              "logAnalytics_1": "/subscriptions/7b3aaceb-4f7f-4fc1-9f1f-02c95bfc09a9/resourcegroups/contoso-sh-main-pd-01-euw-rg-mgmt-sna-pd-01/providers/microsoft.operationalinsights/workspaces/contoso-sh-main-pd-01-euw-law-01"
+            },
+            "managedIdentity": {
+              "assignIdentity": true,
+              "location": "eastus"
+            }
+          },
+          {
+            "name": "905e74710f17440c85f5ef04",
+            "displayName": "[Preview]: Audit Windows VMs that do not match Azure security baseline settings",
+            "description": ".",
+            "definitionId": "/providers/Microsoft.Authorization/policySetDefinitions/d618d658-b2d0-410e-9e2e-bfbfd04d09fa",
+            "definitionDisplayName": "[Preview]: Audit Windows VMs that do not match Azure security baseline settings",
+            "notScopes": [],
+            "enforcementMode": "Default",
+            "parameters": {
+              "AuditGroupMembership": "Success and Failure"
+            },
+            "managedIdentity": {
+              "assignIdentity": true,
+              "location": "eastus"
+            }
+          },
+          {
+            "name": "b7319f68c56246f484136ac4",
+            "displayName": "[Preview]: Enable Azure Monitor for VM Scale Sets (VMSS)",
+            "description": ".",
+            "definitionId": "/providers/Microsoft.Authorization/policySetDefinitions/75714362-cae7-409e-9b99-a8e5075b7fad",
+            "definitionDisplayName": "Enable Azure Monitor for Virtual Machine Scale Sets",
+            "notScopes": [],
+            "enforcementMode": "Default",
+            "parameters": {
+              "logAnalytics_1": "/subscriptions/7b3aaceb-4f7f-4fc1-9f1f-02c95bfc09a9/resourcegroups/contoso-sh-main-pd-01-euw-rg-mgmt-sna-pd-01/providers/microsoft.operationalinsights/workspaces/contoso-sh-main-pd-01-euw-law-01"
+            },
+            "managedIdentity": {
+              "assignIdentity": true,
+              "location": "eastus"
+            }
+          },
+          {
+            "name": "f194825157d046cfb901a0f0",
+            "displayName": "[Preview]: Audit VMs with insecure password security settings",
+            "description": ".",
+            "definitionId": "/providers/Microsoft.Authorization/policySetDefinitions/3fa7cbf5-c0a4-4a59-85a5-cca4d996d5a6",
+            "definitionDisplayName": "[Preview]: Audit VMs with insecure password security settings",
+            "notScopes": [],
+            "enforcementMode": "Default",
+            "parameters": {},
+            "managedIdentity": {
+              "assignIdentity": true,
+              "location": "eastus"
+            }
+          },
+          {
+            "name": "f2f43b5d6df74c629c743a97",
+            "displayName": "Audit Windows VMs on which the specified services are not installed and 'Running'",
+            "description": ".",
+            "definitionId": "/providers/Microsoft.Authorization/policySetDefinitions/8eeec860-e2fa-4f89-a669-84942c57225f",
+            "definitionDisplayName": "Audit Windows VMs on which the specified services are not installed and 'Running'",
+            "notScopes": [],
+            "enforcementMode": "Default",
+            "parameters": {
+              "ServiceName": "Symantec Endpoint Protection; CarbonBlack"
+            },
+            "managedIdentity": {
+              "assignIdentity": true,
+              "location": "eastus"
+            }
+          }
+        ],
+        "children": [
+          {
+            "scope": "/providers/Microsoft.Management/managementGroups/contoso-t0",
+            "scopeDisplayName": "contoso-t0",
+            "policyAssignments": [],
+            "policySetAssignments": [],
+            "children": [
+              {
+                "scope": "/providers/Microsoft.Management/managementGroups/contoso-t0-pd",
+                "scopeDisplayName": "contoso-t0-pd",
+                "policyAssignments": [],
+                "policySetAssignments": [],
+                "children": [
+                  {
+                    "scope": "/subscriptions/f9d05f83-c64d-4ace-884d-326fdb84dec6",
+                    "scopeDisplayName": "contoso-t0-main-pd-01",
+                    "policyAssignments": [],
+                    "policySetAssignments": [
+                      {
+                        "name": "DataProtectionSecurityCenter",
+                        "displayName": "ASC DataProtection (subscription: f9d05f83-c64d-4ace-884d-326fdb84dec6)",
+                        "description": "This policy assignment was automatically created by Azure Security Center",
+                        "definitionId": "/providers/Microsoft.Authorization/policySetDefinitions/9cb3cc7a-b39b-4b82-bc89-e5a5d9ff7b97",
+                        "definitionDisplayName": "[Preview]: Enable Data Protection Suite",
+                        "notScopes": [],
+                        "enforcementMode": "Default",
+                        "parameters": {},
+                        "managedIdentity": {
+                          "assignIdentity": true,
+                          "location": "westeurope"
+                        }
+                      },
+                      {
+                        "name": "SecurityCenterBuiltIn",
+                        "displayName": "ASC Default (subscription: f9d05f83-c64d-4ace-884d-326fdb84dec6)",
+                        "description": "This is the default set of policies monitored by Azure Security Center. It was automatically assigned as part of onboarding to Security Center. The default assignment contains only audit policies. For more information please visit https://aka.ms/ascpolicies",
+                        "definitionId": "/providers/Microsoft.Authorization/policySetDefinitions/1f3afdf9-d0c9-4c3d-847f-89da613e70a8",
+                        "definitionDisplayName": "Enable Monitoring in Azure Security Center",
+                        "notScopes": [],
+                        "enforcementMode": "Default",
+                        "parameters": {},
+                        "managedIdentity": {
+                          "assignIdentity": false,
+                          "location": ""
+                        }
+                      }
+                    ],
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "scope": "/providers/Microsoft.Management/managementGroups/contoso-t0-np",
+                "scopeDisplayName": "contoso-t0-np",
+                "policyAssignments": [],
+                "policySetAssignments": [],
+                "children": [
+                  {
+                    "scope": "/subscriptions/a46d56c9-1b50-47e4-9b6b-44a43c1c20eb",
+                    "scopeDisplayName": "contoso-t0-main-np-01",
+                    "policyAssignments": [],
+                    "policySetAssignments": [
+                      {
+                        "name": "DataProtectionSecurityCenter",
+                        "displayName": "ASC DataProtection (subscription: a46d56c9-1b50-47e4-9b6b-44a43c1c20eb)",
+                        "description": "This policy assignment was automatically created by Azure Security Center",
+                        "definitionId": "/providers/Microsoft.Authorization/policySetDefinitions/9cb3cc7a-b39b-4b82-bc89-e5a5d9ff7b97",
+                        "definitionDisplayName": "[Preview]: Enable Data Protection Suite",
+                        "notScopes": [],
+                        "enforcementMode": "Default",
+                        "parameters": {},
+                        "managedIdentity": {
+                          "assignIdentity": true,
+                          "location": "westeurope"
+                        }
+                      },
+                      {
+                        "name": "SecurityCenterBuiltIn",
+                        "displayName": "ASC Default (subscription: a46d56c9-1b50-47e4-9b6b-44a43c1c20eb)",
+                        "description": "This is the default set of policies monitored by Azure Security Center. It was automatically assigned as part of onboarding to Security Center. The default assignment contains only audit policies. For more information please visit https://aka.ms/ascpolicies",
+                        "definitionId": "/providers/Microsoft.Authorization/policySetDefinitions/1f3afdf9-d0c9-4c3d-847f-89da613e70a8",
+                        "definitionDisplayName": "Enable Monitoring in Azure Security Center",
+                        "notScopes": [],
+                        "enforcementMode": "Default",
+                        "parameters": {},
+                        "managedIdentity": {
+                          "assignIdentity": false,
+                          "location": ""
+                        }
+                      }
+                    ],
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "scope": "/providers/Microsoft.Management/managementGroups/contoso-cs",
+            "scopeDisplayName": "contoso-cs",
+            "policyAssignments": [],
+            "policySetAssignments": [],
+            "children": [
+              {
+                "scope": "/providers/Microsoft.Management/managementGroups/contoso-cs-pd",
+                "scopeDisplayName": "contoso-cs-pd",
+                "policyAssignments": [],
+                "policySetAssignments": [],
+                "children": []
+              },
+              {
+                "scope": "/providers/Microsoft.Management/managementGroups/contoso-cs-np",
+                "scopeDisplayName": "contoso-cs-np",
+                "policyAssignments": [],
+                "policySetAssignments": [],
+                "children": []
+              }
+            ]
+          },
+          {
+            "scope": "/providers/Microsoft.Management/managementGroups/contoso-sh",
+            "scopeDisplayName": "contoso-sh",
+            "policyAssignments": [],
+            "policySetAssignments": [],
+            "children": [
+              {
+                "scope": "/providers/Microsoft.Management/managementGroups/contoso-sh-pd",
+                "scopeDisplayName": "contoso-sh-pd",
+                "policyAssignments": [],
+                "policySetAssignments": [],
+                "children": [
+                  {
+                    "scope": "/subscriptions/7b3aaceb-4f7f-4fc1-9f1f-02c95bfc09a9",
+                    "scopeDisplayName": "contoso-sh-main-pd-01",
+                    "policyAssignments": [],
+                    "policySetAssignments": [
+                      {
+                        "name": "DataProtectionSecurityCenter",
+                        "displayName": "ASC DataProtection (subscription: 7b3aaceb-4f7f-4fc1-9f1f-02c95bfc09a9)",
+                        "description": "This policy assignment was automatically created by Azure Security Center",
+                        "definitionId": "/providers/Microsoft.Authorization/policySetDefinitions/9cb3cc7a-b39b-4b82-bc89-e5a5d9ff7b97",
+                        "definitionDisplayName": "[Preview]: Enable Data Protection Suite",
+                        "notScopes": [],
+                        "enforcementMode": "Default",
+                        "parameters": {},
+                        "managedIdentity": {
+                          "assignIdentity": true,
+                          "location": "westeurope"
+                        }
+                      },
+                      {
+                        "name": "SecurityCenterBuiltIn",
+                        "displayName": "ASC Default (subscription: 7b3aaceb-4f7f-4fc1-9f1f-02c95bfc09a9)",
+                        "description": "This is the default set of policies monitored by Azure Security Center. It was automatically assigned as part of onboarding to Security Center. The default assignment contains only audit policies. For more information please visit https://aka.ms/ascpolicies",
+                        "definitionId": "/providers/Microsoft.Authorization/policySetDefinitions/1f3afdf9-d0c9-4c3d-847f-89da613e70a8",
+                        "definitionDisplayName": "Enable Monitoring in Azure Security Center",
+                        "notScopes": [],
+                        "enforcementMode": "Default",
+                        "parameters": {},
+                        "managedIdentity": {
+                          "assignIdentity": false,
+                          "location": ""
+                        }
+                      }
+                    ],
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "scope": "/providers/Microsoft.Management/managementGroups/contoso-sh-np",
+                "scopeDisplayName": "contoso-sh-np",
+                "policyAssignments": [],
+                "policySetAssignments": [],
+                "children": [
+                  {
+                    "scope": "/subscriptions/f5f63d1a-3d28-40cd-ace9-a720aaa907ca",
+                    "scopeDisplayName": "contoso-sh-main-np-01",
+                    "policyAssignments": [],
+                    "policySetAssignments": [
+                      {
+                        "name": "SecurityCenterBuiltIn",
+                        "displayName": "ASC Default (subscription: f5f63d1a-3d28-40cd-ace9-a720aaa907ca)",
+                        "description": "This is the default set of policies monitored by Azure Security Center. It was automatically assigned as part of onboarding to Security Center. The default assignment contains only audit policies. For more information please visit https://aka.ms/ascpolicies",
+                        "definitionId": "/providers/Microsoft.Authorization/policySetDefinitions/1f3afdf9-d0c9-4c3d-847f-89da613e70a8",
+                        "definitionDisplayName": "Enable Monitoring in Azure Security Center",
+                        "notScopes": [],
+                        "enforcementMode": "Default",
+                        "parameters": {},
+                        "managedIdentity": {
+                          "assignIdentity": false,
+                          "location": ""
+                        }
+                      }
+                    ],
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "scope": "/providers/Microsoft.Management/managementGroups/contoso-mc",
+            "scopeDisplayName": "contoso-mc",
+            "policyAssignments": [],
+            "policySetAssignments": [],
+            "children": [
+              {
+                "scope": "/providers/Microsoft.Management/managementGroups/contoso-mc-pd",
+                "scopeDisplayName": "contoso-mc-pd",
+                "policyAssignments": [],
+                "policySetAssignments": [],
+                "children": []
+              },
+              {
+                "scope": "/providers/Microsoft.Management/managementGroups/contoso-mc-np",
+                "scopeDisplayName": "contoso-mc-np",
+                "policyAssignments": [],
+                "policySetAssignments": [],
+                "children": []
+              }
+            ]
+          },
+          {
+            "scope": "/providers/Microsoft.Management/managementGroups/contoso-md",
+            "scopeDisplayName": "contoso-md",
+            "policyAssignments": [],
+            "policySetAssignments": [],
+            "children": [
+              {
+                "scope": "/providers/Microsoft.Management/managementGroups/contoso-md-pd",
+                "scopeDisplayName": "contoso-md-pd",
+                "policyAssignments": [],
+                "policySetAssignments": [],
+                "children": [
+                  {
+                    "scope": "/subscriptions/641b6ced-8063-48b3-9e0c-374ffc75d5c8",
+                    "scopeDisplayName": "contoso-md-rtrus-pd-01",
+                    "policyAssignments": [],
+                    "policySetAssignments": [],
+                    "children": []
+                  },
+                  {
+                    "scope": "/subscriptions/8fe266da-c931-4a38-9d9a-5c33b10ffcd3",
+                    "scopeDisplayName": "contoso-md-txtrl-pd-01",
+                    "policyAssignments": [],
+                    "policySetAssignments": [],
+                    "children": []
+                  },
+                  {
+                    "scope": "/subscriptions/709aef7f-9e07-484b-a210-7db588d6751b",
+                    "scopeDisplayName": "contoso-md-psp2o-pd-01",
+                    "policyAssignments": [],
+                    "policySetAssignments": [],
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "scope": "/providers/Microsoft.Management/managementGroups/contoso-md-np",
+                "scopeDisplayName": "contoso-md-np",
+                "policyAssignments": [],
+                "policySetAssignments": [],
+                "children": [
+                  {
+                    "scope": "/subscriptions/bdbd33f2-c36f-4aef-949f-7753ebc31ddf",
+                    "scopeDisplayName": "contoso-md-psp2o-np-01",
+                    "policyAssignments": [],
+                    "policySetAssignments": [],
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "scope": "/providers/Microsoft.Management/managementGroups/uncontrolled",
+        "scopeDisplayName": "uncontrolled",
+        "policyAssignments": [],
+        "policySetAssignments": [],
+        "children": [
+          {
+            "scope": "/providers/Microsoft.Management/managementGroups/contoso-sb",
+            "scopeDisplayName": "contoso-sb",
+            "policyAssignments": [],
+            "policySetAssignments": [],
+            "children": [
+              {
+                "scope": "/providers/Microsoft.Management/managementGroups/contoso-sb-np",
+                "scopeDisplayName": "contoso-sb-np",
+                "policyAssignments": [],
+                "policySetAssignments": [],
+                "children": [
+                  {
+                    "scope": "/subscriptions/6be61bb4-87dc-4181-8b16-691a37e67f32",
+                    "scopeDisplayName": "contoso-sb-nwrk-np-01",
+                    "policyAssignments": [],
+                    "policySetAssignments": [
+                      {
+                        "name": "SecurityCenterBuiltIn",
+                        "displayName": "ASC Default (subscription: 6be61bb4-87dc-4181-8b16-691a37e67f32)",
+                        "description": "This is the default set of policies monitored by Azure Security Center. It was automatically assigned as part of onboarding to Security Center. The default assignment contains only audit policies. For more information please visit https://aka.ms/ascpolicies",
+                        "definitionId": "/providers/Microsoft.Authorization/policySetDefinitions/1f3afdf9-d0c9-4c3d-847f-89da613e70a8",
+                        "definitionDisplayName": "Enable Monitoring in Azure Security Center",
+                        "notScopes": [],
+                        "enforcementMode": "Default",
+                        "parameters": {},
+                        "managedIdentity": {
+                          "assignIdentity": false,
+                          "location": ""
+                        }
+                      }
+                    ],
+                    "children": []
+                  },
+                  {
+                    "scope": "/subscriptions/807d2b40-7cb0-44cd-9ac6-b898535b2db0",
+                    "scopeDisplayName": "contoso-sb-sndbx-np-03",
+                    "policyAssignments": [],
+                    "policySetAssignments": [
+                      {
+                        "name": "SecurityCenterBuiltIn",
+                        "displayName": "ASC Default (subscription: 807d2b40-7cb0-44cd-9ac6-b898535b2db0)",
+                        "description": "This is the default set of policies monitored by Azure Security Center. It was automatically assigned as part of onboarding to Security Center. The default assignment contains only audit policies. For more information please visit https://aka.ms/ascpolicies",
+                        "definitionId": "/providers/Microsoft.Authorization/policySetDefinitions/1f3afdf9-d0c9-4c3d-847f-89da613e70a8",
+                        "definitionDisplayName": "Enable Monitoring in Azure Security Center",
+                        "notScopes": [],
+                        "enforcementMode": "Default",
+                        "parameters": {},
+                        "managedIdentity": {
+                          "assignIdentity": false,
+                          "location": ""
+                        }
+                      }
+                    ],
+                    "children": []
+                  },
+                  {
+                    "scope": "/subscriptions/2aaad42f-ee04-4533-a2b9-e54f0266e8ea",
+                    "scopeDisplayName": "contoso-sb-sndbx-np-01",
+                    "policyAssignments": [],
+                    "policySetAssignments": [
+                      {
+                        "name": "SecurityCenterBuiltIn",
+                        "displayName": "ASC Default (subscription: 2aaad42f-ee04-4533-a2b9-e54f0266e8ea)",
+                        "description": "This is the default set of policies monitored by Azure Security Center. It was automatically assigned as part of onboarding to Security Center. The default assignment contains only audit policies. For more information please visit https://aka.ms/ascpolicies",
+                        "definitionId": "/providers/Microsoft.Authorization/policySetDefinitions/1f3afdf9-d0c9-4c3d-847f-89da613e70a8",
+                        "definitionDisplayName": "Enable Monitoring in Azure Security Center",
+                        "notScopes": [],
+                        "enforcementMode": "Default",
+                        "parameters": {},
+                        "managedIdentity": {
+                          "assignIdentity": false,
+                          "location": ""
+                        }
+                      }
+                    ],
+                    "children": []
+                  },
+                  {
+                    "scope": "/subscriptions/acba7a1f-ac25-448e-931c-ddf65966a4f6",
+                    "scopeDisplayName": "contoso-sb-sndbx-np-02",
+                    "policyAssignments": [
+                      {
+                        "name": "AuditKeyVaultLocation",
+                        "displayName": "Audit Key Vault Location",
+                        "description": "test description",
+                        "definitionId": "/providers/Microsoft.Management/managementGroups/123456789-1234-1234-1234-123456789012/providers/Microsoft.Authorization/policyDefinitions/AuditKeyVaultLocation",
+                        "definitionDisplayName": "Audit Key Vault Location",
+                        "notScopes": [],
+                        "enforcementMode": "Default",
+                        "parameters": {
+                          "allowedLocation": [
+                            "westeurope",
+                            "northeurope"
+                          ]
+                        },
+                        "managedIdentity": {
+                          "assignIdentity": false,
+                          "location": ""
+                        }
+                      }
+                    ],
+                    "policySetAssignments": [
+                      {
+                        "name": "SecurityCenterBuiltIn",
+                        "displayName": "ASC Default (subscription: acba7a1f-ac25-448e-931c-ddf65966a4f6)",
+                        "description": "This is the default set of policies monitored by Azure Security Center. It was automatically assigned as part of onboarding to Security Center. The default assignment contains only audit policies. For more information please visit https://aka.ms/ascpolicies",
+                        "definitionId": "/providers/Microsoft.Authorization/policySetDefinitions/1f3afdf9-d0c9-4c3d-847f-89da613e70a8",
+                        "definitionDisplayName": "Enable Monitoring in Azure Security Center",
+                        "notScopes": [],
+                        "enforcementMode": "Default",
+                        "parameters": {},
+                        "managedIdentity": {
+                          "assignIdentity": false,
+                          "location": ""
+                        }
+                      }
+                    ],
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "scope": "/providers/Microsoft.Management/managementGroups/contoso-ec",
+            "scopeDisplayName": "contoso-ec",
+            "policyAssignments": [],
+            "policySetAssignments": [],
+            "children": [
+              {
+                "scope": "/providers/Microsoft.Management/managementGroups/contoso-ec-np",
+                "scopeDisplayName": "contoso-ec-np",
+                "policyAssignments": [],
+                "policySetAssignments": [],
+                "children": [
+                  {
+                    "scope": "/subscriptions/6b002c24-2f4a-4e96-9a4f-d59f26e15520",
+                    "scopeDisplayName": "contoso-ec-trdta-np-01",
+                    "policyAssignments": [],
+                    "policySetAssignments": [
+                      {
+                        "name": "SecurityCenterBuiltIn",
+                        "displayName": "ASC Default (subscription: 6b002c24-2f4a-4e96-9a4f-d59f26e15520)",
+                        "description": "This is the default set of policies monitored by Azure Security Center. It was automatically assigned as part of onboarding to Security Center. The default assignment contains only audit policies. For more information please visit https://aka.ms/ascpolicies",
+                        "definitionId": "/providers/Microsoft.Authorization/policySetDefinitions/1f3afdf9-d0c9-4c3d-847f-89da613e70a8",
+                        "definitionDisplayName": "Enable Monitoring in Azure Security Center",
+                        "notScopes": [],
+                        "enforcementMode": "Default",
+                        "parameters": {},
+                        "managedIdentity": {
+                          "assignIdentity": false,
+                          "location": ""
+                        }
+                      }
+                    ],
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "scope": "/providers/Microsoft.Management/managementGroups/contoso-ec-pd",
+                "scopeDisplayName": "contoso-ec-pd",
+                "policyAssignments": [],
+                "policySetAssignments": [],
+                "children": [
+                  {
+                    "scope": "/subscriptions/0920cdf1-addd-4ef1-87bf-d5f452d03ae0",
+                    "scopeDisplayName": "contoso-ec-trdta-pd-01",
+                    "policyAssignments": [],
+                    "policySetAssignments": [
+                      {
+                        "name": "SecurityCenterBuiltIn",
+                        "displayName": "ASC Default (subscription: 0920cdf1-addd-4ef1-87bf-d5f452d03ae0)",
+                        "description": "This is the default set of policies monitored by Azure Security Center. It was automatically assigned as part of onboarding to Security Center. The default assignment contains only audit policies. For more information please visit https://aka.ms/ascpolicies",
+                        "definitionId": "/providers/Microsoft.Authorization/policySetDefinitions/1f3afdf9-d0c9-4c3d-847f-89da613e70a8",
+                        "definitionDisplayName": "Enable Monitoring in Azure Security Center",
+                        "notScopes": [],
+                        "enforcementMode": "Default",
+                        "parameters": {},
+                        "managedIdentity": {
+                          "assignIdentity": false,
+                          "location": ""
+                        }
+                      }
+                    ],
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "scope": "/providers/Microsoft.Management/managementGroups/contoso-ed",
+            "scopeDisplayName": "contoso-ed",
+            "policyAssignments": [],
+            "policySetAssignments": [],
+            "children": [
+              {
+                "scope": "/providers/Microsoft.Management/managementGroups/contoso-ed-np",
+                "scopeDisplayName": "contoso-ed-np",
+                "policyAssignments": [],
+                "policySetAssignments": [],
+                "children": [
+                  {
+                    "scope": "/subscriptions/88ef36d5-75f2-458c-8ee7-1477b2324b49",
+                    "scopeDisplayName": "contoso-ed-scrif-np-01",
+                    "policyAssignments": [],
+                    "policySetAssignments": [
+                      {
+                        "name": "SecurityCenterBuiltIn",
+                        "displayName": "ASC Default (subscription: 88ef36d5-75f2-458c-8ee7-1477b2324b49)",
+                        "description": "This is the default set of policies monitored by Azure Security Center. It was automatically assigned as part of onboarding to Security Center. The default assignment contains only audit policies. For more information please visit https://aka.ms/ascpolicies",
+                        "definitionId": "/providers/Microsoft.Authorization/policySetDefinitions/1f3afdf9-d0c9-4c3d-847f-89da613e70a8",
+                        "definitionDisplayName": "Enable Monitoring in Azure Security Center",
+                        "notScopes": [],
+                        "enforcementMode": "Default",
+                        "parameters": {},
+                        "managedIdentity": {
+                          "assignIdentity": false,
+                          "location": ""
+                        }
+                      }
+                    ],
+                    "children": []
+                  },
+                  {
+                    "scope": "/subscriptions/384d64b5-9888-4d5b-9dc5-e86b9e640b2f",
+                    "scopeDisplayName": "contoso-ed-vttrm-np-01",
+                    "policyAssignments": [],
+                    "policySetAssignments": [
+                      {
+                        "name": "SecurityCenterBuiltIn",
+                        "displayName": "ASC Default (subscription: 384d64b5-9888-4d5b-9dc5-e86b9e640b2f)",
+                        "description": "This is the default set of policies monitored by Azure Security Center. It was automatically assigned as part of onboarding to Security Center. The default assignment contains only audit policies. For more information please visit https://aka.ms/ascpolicies",
+                        "definitionId": "/providers/Microsoft.Authorization/policySetDefinitions/1f3afdf9-d0c9-4c3d-847f-89da613e70a8",
+                        "definitionDisplayName": "Enable Monitoring in Azure Security Center",
+                        "notScopes": [],
+                        "enforcementMode": "Default",
+                        "parameters": {},
+                        "managedIdentity": {
+                          "assignIdentity": false,
+                          "location": ""
+                        }
+                      }
+                    ],
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "scope": "/providers/Microsoft.Management/managementGroups/contoso-ed-pd",
+                "scopeDisplayName": "contoso-ed-pd",
+                "policyAssignments": [],
+                "policySetAssignments": [],
+                "children": [
+                  {
+                    "scope": "/subscriptions/44a7676a-a7f4-49a6-95a4-a8d78973f92d",
+                    "scopeDisplayName": "contoso-ed-mfile-pd-01",
+                    "policyAssignments": [],
+                    "policySetAssignments": [
+                      {
+                        "name": "SecurityCenterBuiltIn",
+                        "displayName": "ASC Default (subscription: 44a7676a-a7f4-49a6-95a4-a8d78973f92d)",
+                        "description": "This is the default set of policies monitored by Azure Security Center. It was automatically assigned as part of onboarding to Security Center. The default assignment contains only audit policies. For more information please visit https://aka.ms/ascpolicies",
+                        "definitionId": "/providers/Microsoft.Authorization/policySetDefinitions/1f3afdf9-d0c9-4c3d-847f-89da613e70a8",
+                        "definitionDisplayName": "Enable Monitoring in Azure Security Center",
+                        "notScopes": [],
+                        "enforcementMode": "Default",
+                        "parameters": {},
+                        "managedIdentity": {
+                          "assignIdentity": false,
+                          "location": ""
+                        }
+                      }
+                    ],
+                    "children": []
+                  },
+                  {
+                    "scope": "/subscriptions/89638226-0b0e-4c42-b1eb-effffee3bd25",
+                    "scopeDisplayName": "contoso-ed-gcnzb-pd-01",
+                    "policyAssignments": [],
+                    "policySetAssignments": [
+                      {
+                        "name": "SecurityCenterBuiltIn",
+                        "displayName": "ASC Default (subscription: 89638226-0b0e-4c42-b1eb-effffee3bd25)",
+                        "description": "This is the default set of policies monitored by Azure Security Center. It was automatically assigned as part of onboarding to Security Center. The default assignment contains only audit policies. For more information please visit https://aka.ms/ascpolicies",
+                        "definitionId": "/providers/Microsoft.Authorization/policySetDefinitions/1f3afdf9-d0c9-4c3d-847f-89da613e70a8",
+                        "definitionDisplayName": "Enable Monitoring in Azure Security Center",
+                        "notScopes": [],
+                        "enforcementMode": "Default",
+                        "parameters": {},
+                        "managedIdentity": {
+                          "assignIdentity": false,
+                          "location": ""
+                        }
+                      }
+                    ],
+                    "children": []
+                  },
+                  {
+                    "scope": "/subscriptions/580f9d95-bae1-4dbb-b38a-c2ccabbe0daa",
+                    "scopeDisplayName": "contoso-ed-vttrm-pd-01",
+                    "policyAssignments": [],
+                    "policySetAssignments": [
+                      {
+                        "name": "SecurityCenterBuiltIn",
+                        "displayName": "ASC Default (subscription: 580f9d95-bae1-4dbb-b38a-c2ccabbe0daa)",
+                        "description": "This is the default set of policies monitored by Azure Security Center. It was automatically assigned as part of onboarding to Security Center. The default assignment contains only audit policies. For more information please visit https://aka.ms/ascpolicies",
+                        "definitionId": "/providers/Microsoft.Authorization/policySetDefinitions/1f3afdf9-d0c9-4c3d-847f-89da613e70a8",
+                        "definitionDisplayName": "Enable Monitoring in Azure Security Center",
+                        "notScopes": [],
+                        "enforcementMode": "Default",
+                        "parameters": {},
+                        "managedIdentity": {
+                          "assignIdentity": false,
+                          "location": ""
+                        }
+                      }
+                    ],
+                    "children": []
+                  },
+                  {
+                    "scope": "/subscriptions/e62fe910-5799-4767-aa23-effc0978d901",
+                    "scopeDisplayName": "contoso-ed-clmgt-pd-01",
+                    "policyAssignments": [],
+                    "policySetAssignments": [
+                      {
+                        "name": "SecurityCenterBuiltIn",
+                        "displayName": "ASC Default (subscription: e62fe910-5799-4767-aa23-effc0978d901)",
+                        "description": "This is the default set of policies monitored by Azure Security Center. It was automatically assigned as part of onboarding to Security Center. The default assignment contains only audit policies. For more information please visit https://aka.ms/ascpolicies",
+                        "definitionId": "/providers/Microsoft.Authorization/policySetDefinitions/1f3afdf9-d0c9-4c3d-847f-89da613e70a8",
+                        "definitionDisplayName": "Enable Monitoring in Azure Security Center",
+                        "notScopes": [],
+                        "enforcementMode": "Default",
+                        "parameters": {},
+                        "managedIdentity": {
+                          "assignIdentity": false,
+                          "location": ""
+                        }
+                      }
+                    ],
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "scope": "/providers/Microsoft.Management/managementGroups/engineering",
+        "scopeDisplayName": "engineering",
+        "policyAssignments": [],
+        "policySetAssignments": [],
+        "children": [
+          {
+            "scope": "/providers/Microsoft.Management/managementGroups/contoso-cc",
+            "scopeDisplayName": "contoso-cc",
+            "policyAssignments": [],
+            "policySetAssignments": [],
+            "children": [
+              {
+                "scope": "/providers/Microsoft.Management/managementGroups/contoso-cc-np",
+                "scopeDisplayName": "contoso-cc-np",
+                "policyAssignments": [],
+                "policySetAssignments": [],
+                "children": [
+                  {
+                    "scope": "/subscriptions/3fb93bd4-2dd2-4b12-afba-3dd335c8154d",
+                    "scopeDisplayName": "contoso-cc-valid-np-01",
+                    "policyAssignments": [
+                      {
+                        "name": "AuditKeyVaultLocation",
+                        "displayName": "Audit Key Vault Location",
+                        "description": "test description",
+                        "definitionId": "/providers/Microsoft.Management/managementGroups/123456789-1234-1234-1234-123456789012/providers/Microsoft.Authorization/policyDefinitions/AuditKeyVaultLocation",
+                        "definitionDisplayName": "Audit Key Vault Location",
+                        "notScopes": [
+                          "/subscriptions/3fb93bd4-2dd2-4b12-afba-3dd335c8154d/resourceGroups/contoso-sb-ccoe-np-01-euw-rg-validate-np-01",
+                          "/subscriptions/3fb93bd4-2dd2-4b12-afba-3dd335c8154d/resourceGroups/contoso-sb-ccoe-np-01-euw-rg-validatecp-np-01/providers/Microsoft.Network/publicIPAddresses/csazeuwxcpint1"
+                        ],
+                        "enforcementMode": "Default",
+                        "parameters": {
+                          "allowedLocation": [
+                            "westeurope",
+                            "northeurope"
+                          ]
+                        },
+                        "managedIdentity": {
+                          "assignIdentity": false,
+                          "location": ""
+                        }
+                      },
+                      {
+                        "name": "PwdMax70Days",
+                        "displayName": "[Preview]: Deploy prerequisites to audit Windows VMs that do not have a maximum password age of 70 days",
+                        "description": ".",
+                        "definitionId": "/providers/Microsoft.Authorization/policyDefinitions/356a906e-05e5-4625-8729-90771e0ee934",
+                        "definitionDisplayName": "[Preview]: Deploy prerequisites to audit Windows VMs that do not have a maximum password age of 70 days",
+                        "notScopes": [],
+                        "enforcementMode": "Default",
+                        "parameters": {},
+                        "managedIdentity": {
+                          "assignIdentity": true,
+                          "location": "westeurope"
+                        }
+                      }                     
+                    ],
+                    "policySetAssignments": [
+                      {
+                        "name": "27001",
+                        "displayName": "[Preview]: Audit ISO 27001:2013 controls and deploy specific VM Extensions to support audit requirements",
+                        "description": ".",
+                        "definitionId": "/providers/Microsoft.Authorization/policySetDefinitions/89c6cddc-1c73-4ac1-b19c-54d1a15a42f2",
+                        "definitionDisplayName": "[Preview]: Audit ISO 27001:2013 controls and deploy specific VM Extensions to support audit requirements",
+                        "notScopes": [],
+                        "enforcementMode": "Default",
+                        "parameters": {
+                          "listOfResourceTypesWithDiagnosticLogsEnabled": [
+                            "Microsoft.AnalysisServices/servers",
+                            "Microsoft.Network/virtualNetworkGateways",
+                            "Microsoft.Network/virtualNetworks",
+                            "Microsoft.Compute/virtualMachineScaleSets",
+                            "Microsoft.Compute/virtualMachines",
+                            "Microsoft.Network/trafficManagerProfiles",
+                            "Microsoft.TimeSeriesInsights/environments",
+                            "Microsoft.StreamAnalytics/streamingjobs",
+                            "Microsoft.Sql/servers/elasticPools",
+                            "Microsoft.Sql/servers/databases",
+                            "Microsoft.SignalRService/SignalR",
+                            "Microsoft.ServiceBus/namespaces",
+                            "Microsoft.Search/searchServices",
+                            "Microsoft.Relay/namespaces",
+                            "Microsoft.Cache/redis",
+                            "Microsoft.RecoveryServices/vaults",
+                            "Microsoft.Network/publicIPAddresses",
+                            "Microsoft.PowerBIDedicated/capacities",
+                            "Microsoft.DBforPostgreSQL/servers",
+                            "Microsoft.Network/networkSecurityGroups",
+                            "Microsoft.Network/networkInterfaces",
+                            "Microsoft.DBforMySQL/servers",
+                            "Microsoft.Logic/workflows",
+                            "Microsoft.Logic/integrationAccounts",
+                            "Microsoft.Network/loadBalancers",
+                            "Microsoft.KeyVault/vaults",
+                            "Microsoft.Devices/IotHubs",
+                            "Microsoft.HDInsight/clusters",
+                            "Microsoft.Network/azureFirewalls",
+                            "Microsoft.Network/expressRouteCircuits",
+                            "Microsoft.EventHub/namespaces",
+                            "Microsoft.EventGrid/topics",
+                            "Microsoft.EventGrid/eventSubscriptions",
+                            "Microsoft.DataLakeStore/accounts",
+                            "Microsoft.DataLakeAnalytics/accounts",
+                            "Microsoft.DataFactory/factories",
+                            "Microsoft.DocumentDB/databaseAccounts",
+                            "Microsoft.CognitiveServices/accounts",
+                            "Microsoft.Cdn/profiles/endpoints",
+                            "Microsoft.Batch/batchAccounts",
+                            "Microsoft.ContainerService/managedClusters",
+                            "Microsoft.ContainerRegistry/registries",
+                            "Microsoft.ContainerInstance/containerGroups",
+                            "Microsoft.Automation/automationAccounts",
+                            "Microsoft.Network/applicationGateways",
+                            "Microsoft.ApiManagement/service"
+                          ]
+                        },
+                        "managedIdentity": {
+                          "assignIdentity": true,
+                          "location": "westeurope"
+                        }
+                      },
+                      {
+                        "name": "DataProtectionSecurityCenter",
+                        "displayName": "ASC DataProtection (subscription: 3fb93bd4-2dd2-4b12-afba-3dd335c8154d)",
+                        "description": "This policy assignment was automatically created by Azure Security Center",
+                        "definitionId": "/providers/Microsoft.Authorization/policySetDefinitions/9cb3cc7a-b39b-4b82-bc89-e5a5d9ff7b97",
+                        "definitionDisplayName": "[Preview]: Enable Data Protection Suite",
+                        "notScopes": [],
+                        "enforcementMode": "Default",
+                        "parameters": {},
+                        "managedIdentity": {
+                          "assignIdentity": true,
+                          "location": "westeurope"
+                        }
+                      },
+                      {
+                        "name": "SecurityCenterBuiltIn",
+                        "displayName": "ASC Default (subscription: 3fb93bd4-2dd2-4b12-afba-3dd335c8154d)",
+                        "description": "This is the default set of policies monitored by Azure Security Center. It was automatically assigned as part of onboarding to Security Center. The default assignment contains only audit policies. For more information please visit https://aka.ms/ascpolicies",
+                        "definitionId": "/providers/Microsoft.Authorization/policySetDefinitions/1f3afdf9-d0c9-4c3d-847f-89da613e70a8",
+                        "definitionDisplayName": "Enable Monitoring in Azure Security Center",
+                        "notScopes": [],
+                        "enforcementMode": "Default",
+                        "parameters": {},
+                        "managedIdentity": {
+                          "assignIdentity": false,
+                          "location": ""
+                        }
+                      }
+                    ],
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

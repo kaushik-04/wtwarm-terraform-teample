@@ -1,0 +1,148 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "scope": {
+            "value": "/providers/Microsoft.Management/managementGroups/management-mg"
+        },
+        "properties": {
+            "value": {
+                "name": "mgmt-security-pi",
+                "displayName": "mgmt-security-pi",
+                "description": "Deploys the Azure Defender settings in Azure Security Center for the specific services.",
+                "metadata": {
+                    "category": "Security"
+                },
+                "parameters": {
+                    "pricingTierVMs": {
+                        "type": "string",
+                        "metadata": {
+                            "displayName": "pricingTierVMs",
+                            "description": null
+                        },
+                        "allowedValues": [
+                            "Standard",
+                            "Free"
+                        ],
+                        "defaultValue": "Standard"
+                    },
+                    "pricingTierSqlServers": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "pricingTierSqlServers",
+                            "description": null
+                        },
+                        "allowedValues": [
+                            "Standard",
+                            "Free"
+                        ],
+                        "defaultValue": "Standard"
+                    },
+                    "pricingTierAppServices": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "pricingTierAppServices",
+                            "description": null
+                        },
+                        "allowedValues": [
+                            "Standard",
+                            "Free"
+                        ],
+                        "defaultValue": "Standard"
+                    },
+                    "pricingTierStorageAccounts": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "pricingTierStorageAccounts",
+                            "description": null
+                        },
+                        "allowedValues": [
+                            "Standard",
+                            "Free"
+                        ],
+                        "defaultValue": "Standard"
+                    },
+                    "pricingTierContainerRegistry": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "pricingTierContainerRegistry",
+                            "description": null
+                        },
+                        "allowedValues": [
+                            "Standard",
+                            "Free"
+                        ],
+                        "defaultValue": "Standard"
+                    },
+                    "pricingTierKeyVaults": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "pricingTierKeyVaults",
+                            "description": null
+                        },
+                        "allowedValues": [
+                            "Standard",
+                            "Free"
+                        ],
+                        "defaultValue": "Standard"
+                    },
+                    "pricingTierKubernetesService": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "pricingTierKubernetesService",
+                            "description": null
+                        },
+                        "allowedValues": [
+                            "Standard",
+                            "Free"
+                        ],
+                        "defaultValue": "Standard"
+                    },
+                    "effect": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Effect",
+                            "description": "Enable or disable the execution of the policy"
+                        },
+                        "allowedValues": [
+                            "DeployIfNotExists",
+                            "Disabled"
+                        ],
+                        "defaultValue": "Disabled"
+                    }
+                },
+                "policyDefinitions": [
+                    {
+                        "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/management-mg/providers/Microsoft.Authorization/policyDefinitions/mgmt-deployasc-pd",
+                        "parameters": {
+                            "pricingTierVMs": {
+                                "value": "[parameters('pricingTierVMs')]"
+                            },
+                            "pricingTierSqlServers": {
+                                "value": "[parameters('pricingTierSqlServers')]"
+                            },
+                            "pricingTierAppServices": {
+                                "value": "[parameters('pricingTierAppServices')]"
+                            },
+                            "pricingTierStorageAccounts": {
+                                "value": "[parameters('pricingTierStorageAccounts')]"
+                            },
+                            "pricingTierContainerRegistry": {
+                                "value": "[parameters('pricingTierContainerRegistry')]"
+                            },
+                            "pricingTierKeyVaults": {
+                                "value": "[parameters('pricingTierKeyVaults')]"
+                            },
+                            "pricingTierKubernetesService": {
+                                "value": "[parameters('pricingTierKubernetesService')]"
+                            },
+                            "effect": {
+                                "value": "[parameters('effect')]"
+                            }
+                        }
+                    }
+                ]
+            }
+        }
+    }
+}

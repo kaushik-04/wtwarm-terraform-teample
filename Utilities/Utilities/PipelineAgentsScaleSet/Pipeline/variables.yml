@@ -1,0 +1,94 @@
+#######################################################################
+##                                NOTE                               ##
+## ------------------------------------------------------------------##
+## - These variables are used to configure the pipeline and provide  ##
+##   variables to pipeline scripts                                   ##
+## - Parameters used for resource deployments are located in the     ##
+##   parameter files in the '.\Parameters' folder                    ##
+#######################################################################
+
+variables:
+#############
+## GENERAL ##
+#############
+#region shared
+  vmImage: '' # Use this for microsoft-hosted agents
+  
+  poolName_sbx: 'IaCS Scale Set Linux'   # Use this for self-hosted agents
+  poolName_dev: 'IaCS Scale Set Linux'   # Use this for self-hosted agents
+  poolName_prd: 'IaCS Scale Set Linux'   # Use this for self-hosted agents
+
+  serviceConnection_sbx: 'SPN-ES-INT-IaCS-DEV-iacsowners-owner'
+  serviceConnection_dev: 'SPN-ES-INT-IaCS-DEV-iacsowners-owner'
+  serviceConnection_prd: 'SPN-ES-INT-IaCS-DEV-iacsowners-owner'
+
+  artifactFeedPath: '$(System.Teamproject)/Modules'
+  packagePath: ModulePackages
+  downloadDirectory: $(Build.SourcesDirectory)/$(packagePath)
+#endregion
+
+#region specific
+  rgFolderPath: 'Utilities/PipelineAgentsScaleSet'
+  orchestrationFunctionsPath: '$(rgFolderPath)/Scripts'
+  location: westeurope
+#endregion
+
+#######################
+## PIPELINE CONTROLS ##
+#######################
+#region pipeline controls
+
+# Pipeline Name
+# -------------
+  imagePipelineName: 'ScaleSet Image Deployment'
+  scaleSetPipelineName: 'ScaleSet Deployment'
+
+# Deployed Module Specs
+# ---------------------
+  resourceGroupModuleName: ResourceGroup
+  resourceGroupModuleVersion: '*'
+
+  msiModuleName: UserAssignedIdentities
+  msiModuleVersion: '*'
+
+  rbacModuleName: RoleAssignments
+  rbacModuleVersion: '*'
+
+  sharedImageGalleryModuleName: SharedImageGallery
+  sharedImageGalleryModuleVersion: '*'
+
+  sharedImageDefinitionModuleName: SharedImageDefinition
+  sharedImageDefinitionModuleVersion: '*'
+
+  imageTemplateModuleName: ImageTemplates
+  imageTemplateModuleVersion: '*'
+
+  storageAccountsModuleName: StorageAccounts
+  storageAccountsModuleVersion: '*'
+
+  scaleSetModuleName: 'VirtualMachineScaleSets'
+  scaleSetModuleVersion: '*'
+  
+  virtualNetworkModuleName: 'VirtualNetwork'
+  virtualNetworkModuleVersion: '*'
+#endregion
+
+######################
+## SCRIPT VARIABLES ##
+######################
+#region script variables
+
+# ResourceGroup related
+# ---------------------
+  resourcegroupname_sbx: 'agents-vmss-rg'
+  resourcegroupname_dev: 'agents-vmss-rg'
+  resourcegroupname_prd: 'agents-vmss-rg'
+
+# StorageAccount related
+# ----------------------
+  assetsStorageAccountName_sbx: 'iacsscalesetagentsa'
+  assetsStorageAccountName_dev: 'iacsscalesetagentsa'
+  assetsStorageAccountName_prd: 'iacsscalesetagentsa'
+  
+  uploadsPath: 'Utilities/PipelineAgentsScaleSet/Scripts/Uploads'
+#endregion

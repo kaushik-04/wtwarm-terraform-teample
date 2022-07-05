@@ -1,0 +1,10 @@
+allowedRoleDefinitionIds
+------------------------
+"acdd72a7-3385-48ef-bd42-f606fba81ae7" //Reader (built-in)
+"688b6f0a-6630-5d07-b4ca-c9784d56c104" //LZ Owner (custom)
+"00482a5a-887f-4fb3-b363-3b7fe8e74483" //Key Vault Administrator (built-in)
+"21090545-7ca7-4776-b22c-e363652d74d2" //Key Vault Reader (built-in)
+
+excludedPrincipalIds
+--------------------
+"3bd3b9d5-2577-41d0-a8a3-cd6851d2b16a" //buildingblocks-buildingblocks-d-mg-sp

@@ -1,0 +1,43 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"logAnalyticsWorkspaceName": {
+			"value": "mgmt-p-log-ccoe-law"
+		},
+		"solutions": {
+			"value": []
+		},
+		"enableLogAccessUsingOnlyResourcePermissions": {
+			"value": false
+		},
+		"roleAssignments": {
+			"value": [
+				{
+					"roleDefinitionIdOrName": "Log Analytics Reader",
+					"principalIds": [
+						"cf61a428-7cb8-4048-977e-d8a9201a5855" //grp-ccoe-devops-contributor
+					]
+				},
+				{
+					"roleDefinitionIdOrName": "Log Analytics Contributor",
+					"principalIds": [
+						"483065f3-c78b-485d-8779-441d659aa931", //cn-s-ccoe-sub-sp
+						"6a8eff98-bae0-471c-9582-5b233facb945", //cn-n-ccoe-sub-sp
+						"5f8ac12a-3968-4383-a7e5-5620e08f8fbf", //cn-u-ccoe-sub-sp
+						"1ceeb84d-630c-48bc-b385-f1ee9f886612"  //cn-p-ccoe-sub-sp
+					]
+				}
+			]
+		},
+		"tags": {
+			"value": {
+				"application-id": "ccoe",
+				"cost-center": "ccoe",
+				"deployment-id": "AzureDevOps",
+				"environment": "p",
+				"platform-id": "ccoe"
+			}
+		}
+	}
+}

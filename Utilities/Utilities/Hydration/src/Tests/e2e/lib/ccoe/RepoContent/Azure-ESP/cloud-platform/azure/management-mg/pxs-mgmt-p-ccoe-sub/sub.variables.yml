@@ -1,0 +1,10 @@
+variables:
+- template: ../mg.variables.yml
+- name: subscriptionID
+  value: '38cc88c6-5c9c-4fd6-b332-ec5de508f048'
+- name: subscriptionName
+  value: 'mgmt-p-ccoe-sub'
+- name: serviceConnection
+  value: 'mgmt-p-ccoe-sub'
+- name: parametersPath
+  value: 'management-mg/mgmt-p-ccoe-sub/parameters'

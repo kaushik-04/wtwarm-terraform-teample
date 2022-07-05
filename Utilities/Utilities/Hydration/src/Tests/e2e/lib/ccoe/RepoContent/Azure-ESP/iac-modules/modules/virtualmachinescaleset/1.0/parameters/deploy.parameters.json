@@ -1,0 +1,62 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "vmssName": {
+            "value": "pxsvmss"
+        },
+        "instanceCount": {
+            "value": 2
+        },
+        "vmSku": {
+            "value": "Standard_DS1_v2"
+        },
+        "windowsOSVersion": {
+            "value": "2019-Datacenter"
+        },
+        "osDiskType": {
+            "value": "StandardSSD_LRS"
+        },
+        "OSInGuestUpdate": {
+            "value": true
+        },
+        "resourcegroupvirtualnetwork": {
+            "value": "validation-rg"
+        },
+        "virtualnetwork": {
+            "value": "validationvnet"
+        },
+        "subnet": {
+            "value": "Default"
+        },
+        "adminUsername": {
+            "value": "win-admin"
+        },
+        "adminPassword": {
+            "reference":  {
+                "keyVault":  {
+                  "id":  "/subscriptions/b9bc4b81-2c1d-46bb-a1d6-6e0970f05f3c/resourceGroups/validation-rg/providers/Microsoft.KeyVault/vaults/validation-kvt"
+                  },
+                "secretName":  "win-password"
+             }
+        },
+        "workspaceid": {
+            "value": "/subscriptions/b9bc4b81-2c1d-46bb-a1d6-6e0970f05f3c/resourcegroups/validation-rg/providers/microsoft.operationalinsights/workspaces/validationlawpxs"
+        },
+        "storageAccountId": {
+            "value": "/subscriptions/b9bc4b81-2c1d-46bb-a1d6-6e0970f05f3c/resourcegroups/validation-rg/providers/Microsoft.Storage/storageAccounts/pxsvalidationstg"
+        },
+        "storageAccountName": {
+            "value": "pxsvalidationstg"
+        },
+        "tags": {
+            "value": {
+                "application-id": "Application-id-tag",
+                "cost-center": "cost-center-tag",
+                "deployment-id": "deployment-id-tag",
+                "environment": "d",
+                "platform-id": "platform-id-tag"
+            }
+        }
+    }
+}

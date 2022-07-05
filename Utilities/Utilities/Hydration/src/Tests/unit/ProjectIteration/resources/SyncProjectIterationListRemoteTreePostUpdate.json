@@ -1,0 +1,176 @@
+{
+    "count": 1,
+    "value": [
+        {
+            "hasChildren": true,
+            "id": 0,
+            "identifier": "028d7b85-0fc5-4d27-a0c9-4d3e102b1c44",
+            "name": "Module Playground",
+            "path": "\\Module Playground\\Iteration",
+            "structureType": "iteration",
+            "url": "https://dev.azure.com/contoso/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/classificationNodes/Iterations",
+            "_links": {
+                "self": {
+                    "href": "https://dev.azure.com/contoso/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/classificationNodes/Iterations"
+                }
+            },
+            "children": [
+                {
+                    "hasChildren": false,
+                    "id": 1,
+                    "identifier": "52c9c18b-4ffb-4e2c-af56-3e4e015fc39a",
+                    "name": "Iteration 1",
+                    "path": "\\Module Playground\\Iteration\\Iteration 1",
+                    "structureType": "iteration",
+                    "attributes": {
+                        "finishDate": "2021-01-11T00:00:00Z",
+                        "startDate": "2021-06-01T00:00:00Z"
+                    },
+                    "url": "https://dev.azure.com/contoso/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/classificationNodes/Iterations/Iteration%201"
+                },
+                {
+                    "hasChildren": false,
+                    "id": 2,
+                    "identifier": "5bfa8f8c-1d51-4a69-a5a3-1334d4c00bf7",
+                    "name": "Iteration 2 New",
+                    "path": "\\Module Playground\\Iteration\\Iteration 2",
+                    "structureType": "iteration",
+                    "attributes": {
+                        "finishDate": "2021-01-11T00:00:00Z",
+                        "startDate": "2021-06-01T00:00:00Z"
+                    },
+                    "url": "https://dev.azure.com/contoso/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/classificationNodes/Iterations/Iteration%202"
+                },
+                {
+                    "hasChildren": true,
+                    "id": 3,
+                    "identifier": "2a236208-22b9-4ecd-b515-b3d01ef8ca8a",
+                    "name": "Iteration 3",
+                    "path": "\\Module Playground\\Iteration\\Iteration 3",
+                    "structureType": "iteration",
+                    "url": "https://dev.azure.com/contoso/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/classificationNodes/Iterations/Iteration%203",
+                    "children": [
+                        {
+                            "attributes": {
+                                "finishDate": "2021-01-11T00:00:00Z",
+                                "startDate": "2021-01-04T00:00:00Z"
+                            },
+                            "hasChildren": false,
+                            "id": 31,
+                            "identifier": "ecdd2220-49d6-48a9-a932-04a7a4f92bd9",
+                            "name": "Iteration 3.1",
+                            "path": "\\Module Playground\\Iteration\\Iteration 3\\Iteration 3.1",
+                            "structureType": "iteration",
+                            "url": "https://dev.azure.com/contoso/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/classificationNodes/Iterations/Iteration%203/Iteration%203.1"
+                        },
+                        {
+                            "attributes": {
+                                "finishDate": "2021-01-18T00:00:00Z",
+                                "startDate": "2021-01-12T00:00:00Z"
+                            },
+                            "hasChildren": true,
+                            "id": 32,
+                            "identifier": "d2b82c90-6755-4bb2-9bee-728fd97bd7c9",
+                            "name": "Iteration 3.2",
+                            "path": "\\Module Playground\\Iteration\\Iteration 3\\Iteration 3.2",
+                            "structureType": "iteration",
+                            "url": "https://dev.azure.com/contoso/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/classificationNodes/Iterations/Iteration%203/Iteration%203.2",
+                            "children": [
+                                {
+                                    "attributes": {
+                                        "finishDate": "2021-01-11T00:00:00Z",
+                                        "startDate": "2021-01-04T00:00:00Z"
+                                    },
+                                    "hasChildren": false,
+                                    "id": 321,
+                                    "identifier": "ecdd2220-49d6-48a9-a932-04a7a4f92bd9",
+                                    "name": "Iteration 3.2.1",
+                                    "path": "\\Module Playground\\Iteration\\Iteration 3\\Iteration 3.1\\Iteration 3.2.1",
+                                    "structureType": "iteration",
+                                    "url": "https://dev.azure.com/contoso/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/classificationNodes/Iterations/Iteration%203/Iteration%203.2/Iteration%203.2.1"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "hasChildren": false,
+                    "id": 4,
+                    "identifier": "5bfa8f8c-1d51-4a69-a5a3-1334d4c00bf7",
+                    "name": "Iteration 4",
+                    "path": "\\Module Playground\\Iteration\\Iteration 4",
+                    "structureType": "iteration",
+                    "url": "https://dev.azure.com/contoso/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/classificationNodes/Iterations/Iteration%204"
+                },
+                {
+                    "hasChildren": false,
+                    "id": 5,
+                    "identifier": "5bfa8f8c-1d51-4a69-a5a3-1334d4c00bf7",
+                    "name": "Iteration 5",
+                    "path": "\\Module Playground\\Iteration\\Iteration 5",
+                    "structureType": "iteration",
+                    "url": "https://dev.azure.com/contoso/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/classificationNodes/Iterations/Iteration%205"
+                },
+                {
+                    "hasChildren": true,
+                    "id": 6,
+                    "identifier": "5bfa8f8c-1d51-4a69-a5a3-1334d4c00bf7",
+                    "name": "Iteration 6",
+                    "path": "\\Module Playground\\Iteration\\Iteration 6",
+                    "structureType": "iteration",
+                    "url": "https://dev.azure.com/contoso/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/classificationNodes/Iterations/Iteration%206",
+                    "children": [
+                        {
+                            "attributes": {
+                                "finishDate": "2021-01-11T00:00:00Z",
+                                "startDate": "2021-01-04T00:00:00Z"
+                            },
+                            "hasChildren": false,
+                            "id": 61,
+                            "identifier": "ecdd2220-49d6-48a9-a932-04a7a4f92bd9",
+                            "name": "Iteration 6.1",
+                            "path": "\\Module Playground\\Iteration\\Iteration 6\\Iteration 6.1",
+                            "structureType": "iteration",
+                            "url": "https://dev.azure.com/contoso/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/classificationNodes/Iterations/Iteration%206/Iteration%206.1"
+                        }
+                    ]
+                },
+                {
+                    "hasChildren": true,
+                    "id": 7,
+                    "identifier": "2a276208-22b9-4ecd-b515-b7d01ef8ca8a",
+                    "name": "Iteration 7",
+                    "path": "\\Module Playground\\Iteration\\Iteration 7",
+                    "structureType": "iteration",
+                    "url": "https://dev.azure.com/contoso/a0e8d9f6-0191-4f77-81ce-4f4e7ba1411a/_apis/wit/classificationNodes/Iterations/Iteration%207",
+                    "children": [
+                        {
+                            "attributes": {
+                                "finishDate": "2021-01-18T00:00:00Z",
+                                "startDate": "2021-01-12T00:00:00Z"
+                            },
+                            "hasChildren": true,
+                            "id": 71,
+                            "identifier": "d2b82c90-6755-4bb2-9bee-728fd97bd7c9",
+                            "name": "Iteration 7.1",
+                            "path": "\\Module Playground\\Iteration\\Iteration 7\\Iteration 7.1",
+                            "structureType": "iteration",
+                            "url": "https://dev.azure.com/contoso/a0e8d9f6-0191-4f77-81ce-4f4e7ba1411a/_apis/wit/classificationNodes/Iterations/Iteration%207/Iteration%207.1",
+                            "children": [
+                                {
+                                    "hasChildren": false,
+                                    "id": 712,
+                                    "identifier": "ecdd2220-49d6-48a9-a972-04a7a4f92bd9",
+                                    "name": "Iteration 7.1.2",
+                                    "path": "\\Module Playground\\Iteration\\Iteration 7\\Iteration 7.1\\Iteration 7.1.2",
+                                    "structureType": "iteration",
+                                    "url": "https://dev.azure.com/contoso/a0e8d9f6-0191-4f77-81ce-4f4e7ba1411a/_apis/wit/classificationNodes/Iterations/Iteration%207/Iteration%207.1/Iteration%207.1.2"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

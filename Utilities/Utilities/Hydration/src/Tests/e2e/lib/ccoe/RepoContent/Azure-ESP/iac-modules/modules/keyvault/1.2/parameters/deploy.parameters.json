@@ -1,0 +1,70 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "keyVaultName": {
+            "value": "kvt-cc-sndbx2"
+        },
+        "location": {
+            "value": "West Europe"
+        },
+        "accessPolicies": {
+            "value": [
+                {
+                    "tenantId": "e7ab81b2-1e84-4bf7-9dcb-b6fec01ed138",
+                    "objectId": "ac225f13-0ad3-4871-9e63-0efbd1e0e48e",
+                    "permissions": {
+                        "certificates": [
+                            "get"
+                        ],
+                        "keys": [
+                            "get"
+                        ],
+                        "secrets": [
+                            "get"
+                        ],
+                        "storage": [
+                            "get"
+                        ]
+                    }
+                }
+            ]
+        },
+        "softDeleteRetentionInDays": {
+            "value": 90
+        },
+        "enableVaultForDeployment": {
+            "value": false
+        },
+        "enableVaultForTemplateDeployment": {
+            "value": false
+        },
+        "enabledForDiskEncryption": {
+            "value": false
+        },
+        "enablePurgeProtection": {
+            "value": false
+        },
+        "diagnosticSettingsName": {
+            "value": ""
+        },
+        "tags": {
+            "value": {
+                "application-id": "Application-id-tag",
+                "cost-center": "cost-center-tag",
+                "deployment-id": "deployment-id-tag",
+                "environment": "d",
+                "platform-id": "platform-id-tag"
+            }
+        },
+        "workspaceId": {
+            "value": ""
+        },
+        "eventHubAuthorizationRuleId": {
+            "value": ""
+        },
+        "eventHubName": {
+            "value": ""
+        }
+    }
+}

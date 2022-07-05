@@ -1,0 +1,95 @@
+{
+    "count": 1,
+    "value": [
+        {
+            "id": 538,
+            "identifier": "51687f8b-5e62-4b40-a41d-7dd5a0b2f223",
+            "name": "Hydration Acceptance Test",
+            "structureType": "area",
+            "hasChildren": true,
+            "children": [
+                {
+                    "id": 539,
+                    "identifier": "c61d8fdf-56af-49cb-b23a-83f5093cdbd0",
+                    "name": "CCoE Cloud Solutions Team",
+                    "structureType": "area",
+                    "hasChildren": false,
+                    "path": "\\Hydration Acceptance Test\\Area\\CCoE Cloud Solutions Team",
+                    "url": "https://dev.azure.com/ADO-Hydration/fd86a1f8-695f-45bf-b36f-73c6670bc4a5/_apis/wit/classificationNodes/Areas/CCoE%20Cloud%20Solutions%20Team"
+                },
+                {
+                    "id": 540,
+                    "identifier": "a9d262ef-2bd5-4d7d-aa3a-1b40ef55c62d",
+                    "name": "CCoE Cloud Platform Team",
+                    "structureType": "area",
+                    "hasChildren": false,
+                    "path": "\\Hydration Acceptance Test\\Area\\CCoE Cloud Platform Team",
+                    "url": "https://dev.azure.com/ADO-Hydration/fd86a1f8-695f-45bf-b36f-73c6670bc4a5/_apis/wit/classificationNodes/Areas/CCoE%20Cloud%20Platform%20Team"
+                },
+                {
+                    "id": 541,
+                    "identifier": "8d006a67-13a5-4249-b7ed-21c06201d33e",
+                    "name": "CCoE Security Champions",
+                    "structureType": "area",
+                    "hasChildren": false,
+                    "path": "\\Hydration Acceptance Test\\Area\\CCoE Security Champions",
+                    "url": "https://dev.azure.com/ADO-Hydration/fd86a1f8-695f-45bf-b36f-73c6670bc4a5/_apis/wit/classificationNodes/Areas/CCoE%20Security%20Champions"
+                },
+                {
+                    "id": 542,
+                    "identifier": "4e8ffca4-3272-4b68-b5aa-3254f61c43ad",
+                    "name": "CCoE Cloud Operations Champions",
+                    "structureType": "area",
+                    "hasChildren": false,
+                    "path": "\\Hydration Acceptance Test\\Area\\CCoE Cloud Operations Champions",
+                    "url": "https://dev.azure.com/ADO-Hydration/fd86a1f8-695f-45bf-b36f-73c6670bc4a5/_apis/wit/classificationNodes/Areas/CCoE%20Cloud%20Operations%20Champions"
+                },
+                {
+                    "id": 543,
+                    "identifier": "04c2fcc9-c25b-4374-99c0-4c3b33737ee2",
+                    "name": "CCoE DevOps Enablement Office",
+                    "structureType": "area",
+                    "hasChildren": false,
+                    "path": "\\Hydration Acceptance Test\\Area\\CCoE DevOps Enablement Office",
+                    "url": "https://dev.azure.com/ADO-Hydration/fd86a1f8-695f-45bf-b36f-73c6670bc4a5/_apis/wit/classificationNodes/Areas/CCoE%20DevOps%20Enablement%20Office"
+                },
+                {
+                    "id": 544,
+                    "identifier": "36b015ac-8604-4050-920b-492737929e33",
+                    "name": "Customer Application Teams",
+                    "structureType": "area",
+                    "hasChildren": true,
+                    "children": [
+                        {
+                            "id": 545,
+                            "identifier": "cd776dc6-a75f-4ba2-a631-539452b695d5",
+                            "name": "Customer Application Team 3",
+                            "structureType": "area",
+                            "hasChildren": false,
+                            "path": "\\Hydration Acceptance Test\\Area\\Customer Application Teams\\Customer Application Team 3",
+                            "url": "https://dev.azure.com/ADO-Hydration/fd86a1f8-695f-45bf-b36f-73c6670bc4a5/_apis/wit/classificationNodes/Areas/Customer%20Application%20Teams/Customer%20Application%20Team%203"
+                        },
+                        {
+                            "id": 546,
+                            "identifier": "3e5e7e0b-84d0-4e58-a51f-fc120005c6f7",
+                            "name": "CCoE Cloud Solutions Team 4",
+                            "structureType": "area",
+                            "hasChildren": false,
+                            "path": "\\Hydration Acceptance Test\\Area\\Customer Application Teams\\CCoE Cloud Solutions Team 4",
+                            "url": "https://dev.azure.com/ADO-Hydration/fd86a1f8-695f-45bf-b36f-73c6670bc4a5/_apis/wit/classificationNodes/Areas/Customer%20Application%20Teams/CCoE%20Cloud%20Solutions%20Team%204"
+                        }
+                    ],
+                    "path": "\\Hydration Acceptance Test\\Area\\Customer Application Teams",
+                    "url": "https://dev.azure.com/ADO-Hydration/fd86a1f8-695f-45bf-b36f-73c6670bc4a5/_apis/wit/classificationNodes/Areas/Customer%20Application%20Teams"
+                }
+            ],
+            "path": "\\Hydration Acceptance Test\\Area",
+            "_links": {
+                "self": {
+                    "href": "https://dev.azure.com/ADO-Hydration/fd86a1f8-695f-45bf-b36f-73c6670bc4a5/_apis/wit/classificationNodes/Areas"
+                }
+            },
+            "url": "https://dev.azure.com/ADO-Hydration/fd86a1f8-695f-45bf-b36f-73c6670bc4a5/_apis/wit/classificationNodes/Areas"
+        }
+    ]
+}

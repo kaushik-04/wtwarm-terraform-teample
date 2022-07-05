@@ -1,0 +1,171 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "serverName": {
+            "type": "string",
+            "minLength": 1,
+            "metadata": {
+                "description": "Required. Name of the Azure SQL Server to which the database will be attached."
+            }
+        },
+        "databaseName": {
+            "type": "string",
+            "minLength": 1,
+            "metadata": {
+                "description": "Required. Name of the Azure SQL Database."
+            }
+        },
+        "tags": {
+            "type": "object",
+            "metadata": {
+                "description": "Required. Resource tags."
+            }
+        },
+        "location": {
+            "type": "string",
+            "defaultValue": "West Europe",
+            "allowedValues": [
+                "West Europe",
+                "North Europe"
+            ],
+            "metadata": {
+                "description": "Optional. Location for the Azure SQL Database."
+            }
+        },
+        "skuName": {
+            "type": "string",
+            "defaultValue": "GP_Gen5",
+            "allowedValues": [
+                "GP_Gen5"
+            ],
+            "metadata": {
+                "description": "Optional. The name of the SKU, typically, a letter + Number code."
+            }
+        },
+        "skuCapacity": {
+            "type": "int",
+            "defaultValue": 2,
+            "metadata": {
+                "description": "Optional. Capacity of the particular SKU."
+            }
+        },
+        "databaseMaxSize": {
+            "type": "int",
+            "defaultValue": 1073741824,
+            "metadata": {
+                "description": "Optional. The max size of the database expressed in bytes."
+            }
+        },
+        "backupShortTermRetentionDays": {
+            "type": "int",
+            "defaultValue": 30,
+            "minValue": 30,
+            "metadata": {
+                "description": "Optional. The backup retention period in days. This is how many days Point-in-Time Restore will be supported."
+            }
+        },
+        "backupLongTermRetentionProperties": {
+            "type": "object",
+            "defaultValue": {},
+            "metadata": {
+                "description": "Optional. Configuration of long term retention policy object. Expects key-value pairs with values in an ISO 8601 format."
+            }
+        },
+        "diagnosticSettingsName": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. Name of diagnostics settings."
+            }
+        },
+        "diagnosticSettingsProperties": {
+            "type": "object",
+            "defaultValue": {},
+            "metadata": {
+                "description": "Optional. Configuration of diagnostics settings (references to Event Hub, Log Analytics, logs & metrics)."
+            }
+        }
+    },
+    "variables": {
+        "fullDatabaseName": "[toLower(concat( parameters('serverName'), '/', parameters('databaseName')))]"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Sql/servers/databases",
+            "apiVersion": "2019-06-01-preview",
+            "name": "[variables('fullDatabaseName')]",
+            "location": "[parameters('location')]",
+            "tags": "[parameters('tags')]",
+            "sku": {
+                "name": "[parameters('skuName')]",
+                "capacity": "[parameters('skuCapacity')]"
+            },
+            "properties": {
+                "collation": "SQL_Latin1_General_CP1_CI_AS",
+                "maxSizeBytes": "[parameters('databaseMaxSize')]",
+                "catalogCollation": "SQL_Latin1_General_CP1_CI_AS",
+                "zoneRedundant": false,
+                "licenseType": "LicenseIncluded",
+                "readScale": "Disabled",
+                "readReplicaCount": 0,
+                "storageAccountType": "GRS"
+            }
+        },
+        {
+            "type": "Microsoft.Sql/servers/databases/backupShortTermRetentionPolicies",
+            "apiVersion": "2017-10-01-preview",
+            "name": "[concat(variables('fullDatabaseName'), '/default')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers/databases', parameters('serverName'), parameters('databaseName'))]"
+            ],
+            "properties": {
+                "retentionDays": "[parameters('backupShortTermRetentionDays')]"
+            }
+        },
+        {
+            "type": "Microsoft.Sql/servers/databases/backupLongTermRetentionPolicies",
+            "apiVersion": "2017-03-01-preview",
+            "condition": "[not(empty(parameters('backupLongTermRetentionProperties')))]",
+            "name": "[concat(variables('fullDatabaseName'), '/default')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers/databases', parameters('serverName'), parameters('databaseName'))]"
+            ],
+            "properties": "[parameters('backupLongTermRetentionProperties')]"
+        },
+        {
+            "type": "Microsoft.Sql/servers/databases/providers/diagnosticSettings",
+            "apiVersion": "2017-05-01-preview",
+            "condition": "[not(empty(parameters('diagnosticSettingsProperties')))]",
+            "name": "[concat(variables('fullDatabaseName'), '/microsoft.insights/', if(empty(parameters('diagnosticSettingsName')), 'dummy', parameters('diagnosticSettingsName')))]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers/databases', parameters('serverName'), parameters('databaseName'))]"
+            ],
+            "properties": "[parameters('diagnosticSettingsProperties')]"
+        }
+    ],
+    "functions": [],
+    "outputs": {
+        "sqlDatabaseResourceId": {
+            "type": "string",
+            "value": "[resourceId('Microsoft.Sql/servers/databases', parameters('serverName'), parameters('databaseName'))]",
+            "metadata": {
+                "description": "The Resource Id of the SQL Database."
+            }
+        },
+        "sqlDatabaseResourceGroup": {
+            "type": "string",
+            "value": "[resourceGroup().name]",
+            "metadata": {
+                "description": "The name of the Resource Group the SQL Database was created in."
+            }
+        },
+        "sqlDatabaseName": {
+            "type": "string",
+            "value": "[parameters('databaseName')]",
+            "metadata": {
+                "description": "The Name of the SQL Database."
+            }
+        }
+    }
+}

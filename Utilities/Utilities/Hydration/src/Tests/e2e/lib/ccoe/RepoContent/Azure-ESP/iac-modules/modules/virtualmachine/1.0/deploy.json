@@ -1,0 +1,346 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "metadata": {
+                "description": "Required. Location of the Vnet where VM will be deployed."
+            }
+        },
+        "networkInterfaceName": {
+            "type": "string",
+            "metadata": {
+                "description": "Required. Name of the network interface."
+            }
+        },
+        "subnetName": {
+            "type": "string",
+            "metadata": {
+                "description": "Required. Name of the subnet."
+            }
+        },
+        "virtualNetworkId": {
+            "type": "string",
+            "metadata": {
+                "description": "Required. Id of the Vnet."
+            }
+        },
+        "virtualMachineName": {
+            "type": "string",
+            "metadata": {
+                "description": "Required. Name of the Virtual Machine."
+            }
+        },
+        "virtualMachineRG": {
+            "type": "string",
+            "metadata": {
+                "description": "Required. Name of the Resource Group where the VM will be part of."
+            }
+        },
+        "virtualMachineComputerName": {
+            "type": "string",
+            "metadata": {
+                "description": "Required. Computername of the Virtual Machine."
+            }
+        },
+        "osDiskType": {
+            "type": "string",
+            "defaultValue": "StandardSSD_LRS",
+            "allowedValues": [
+                "StandardSSD_LRS"
+            ],
+            "metadata": {
+                "description": "Required. Type of the disk used in the VM."
+            }
+        },
+        "virtualMachineSize": {
+            "type": "string",
+            "metadata": {
+                "description": "Required. Size of the VM (CPU, RAM, storage capacity...)."
+            }
+        },
+        "adminUsername": {
+            "type": "string",
+            "metadata": {
+                "description": "Required. Username of the admin profile of the VM."
+            }
+        },
+        "adminPassword": {
+            "type": "secureString",
+            "metadata": {
+                "description": "Password for local admin account. Gotten from the Key Vault"
+            }
+        },
+        "patchMode": {
+            "type": "string",
+            "defaultValue": "AutomaticByOS",
+            "metadata": {
+                "description": "Required. Type of the patching used in the VM."
+            }
+        },
+        "tags": {
+            "type": "object",
+            "defaultvalue": {},
+            "metadata": {
+                "description": "Required. Tags on the VM"
+            }
+        },
+        "imageReference": {
+            "type": "object",
+            "metadata": {
+                "description": "Required. OS image used on the VM. Requires the values publisher, offer, sku and version"
+            }
+        },
+        "storageAccountName": {
+            "type": "string",
+            "metadata": {
+                "description": "The name of an existing storage account to which diagnostics data is transfered."
+            }
+        },
+        "storageAccountId": {
+            "type": "string",
+            "metadata": {
+                "description": "The resource group for the storage account specified in existingdiagnosticsStorageAccountName"
+            }
+        },
+        "workspaceid": {
+            "type": "string",
+            "defaultValue": "/subscriptions/b9bc4b81-2c1d-46bb-a1d6-6e0970f05f3c/resourcegroups/gerbaudtemprg/providers/microsoft.operationalinsights/workspaces/pxs-cn-gerbaud-s-la"
+        }
+    },
+    "variables": {
+        "vnetId": "[parameters('virtualNetworkId')]",
+        "subnetRef": "[concat(variables('vnetId'), '/subnets/', parameters('subnetName'))]"
+    },
+    "resources": [
+        {
+            "name": "[parameters('networkInterfaceName')]",
+            "type": "Microsoft.Network/networkInterfaces",
+            "apiVersion": "2018-10-01",
+            "location": "[parameters('location')]",
+            "dependsOn": [],
+            "properties": {
+                "ipConfigurations": [
+                    {
+                        "name": "ipconfig1",
+                        "properties": {
+                            "subnet": {
+                                "id": "[variables('subnetRef')]"
+                            },
+                            "privateIPAllocationMethod": "Dynamic"
+                        }
+                    }
+                ]
+            },
+            "tags": "[parameters('tags')]"
+        },
+        {
+            "name": "[parameters('virtualMachineName')]",
+            "type": "Microsoft.Compute/virtualMachines",
+            "apiVersion": "2020-12-01",
+            "location": "[parameters('location')]",
+            "dependsOn": [
+                "[concat('Microsoft.Network/networkInterfaces/', parameters('networkInterfaceName'))]"
+            ],
+            "properties": {
+                "hardwareProfile": {
+                    "vmSize": "[parameters('virtualMachineSize')]"
+                },
+                "storageProfile": {
+                    "osDisk": {
+                        "createOption": "fromImage",
+                        "managedDisk": {
+                            "storageAccountType": "[parameters('osDiskType')]"
+                        }
+                    },
+                    "imageReference": "[parameters('imageReference')]"
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaceName'))]"
+                        }
+                    ]
+                },
+                "osProfile": {
+                    "computerName": "[parameters('virtualMachineComputerName')]",
+                    "adminUsername": "[parameters('adminUsername')]",
+                    "adminPassword": "[parameters('adminPassword')]",
+                    "windowsConfiguration": {
+                        "enableAutomaticUpdates": true,
+                        "provisionVmAgent": true,
+                        "patchSettings": {
+                            "patchMode": "[parameters('patchMode')]"
+                        }
+                    }
+                },
+                "diagnosticsProfile": {
+                    "bootDiagnostics": {
+                        "enabled": true
+                    }
+                }
+            },
+            "tags": "[parameters('tags')]"
+        },
+        {
+            "name": "[concat(parameters('virtualMachineName'),'/IaaSAntimalware')]",
+            "type": "Microsoft.Compute/virtualMachines/extensions",
+            "location": "[parameters('location')]",
+            "dependsOn": [
+                "[concat('Microsoft.Compute/virtualMachines/', parameters('virtualMachineName'))]"
+            ],
+            "apiVersion": "2015-06-15",
+            "properties": {
+                "publisher": "Microsoft.Azure.Security",
+                "type": "IaaSAntimalware",
+                "typeHandlerVersion": "1.3",
+                "autoUpgradeMinorVersion": true,
+                "settings": {
+                    "AntimalwareEnabled": true,
+                    "RealtimeProtectionEnabled": "true",
+                    "ScheduledScanSettings": {
+                        "isEnabled": "false",
+                        "day": "7",
+                        "time": "120",
+                        "scanType": "Quick"
+                    },
+                    "Exclusions": {
+                        "Extensions": "",
+                        "Paths": "",
+                        "Processes": ""
+                    }
+                }
+            },
+            "tags": "[parameters('tags')]"
+        },
+        {
+            "name": "[concat(parameters('virtualMachineName'),'/AzureNetworkWatcherExtension')]",
+            "type": "Microsoft.Compute/virtualMachines/extensions",
+            "location": "[parameters('location')]",
+            "dependsOn": [
+                "[concat('Microsoft.Compute/virtualMachines/', parameters('virtualMachineName'))]"
+            ],
+            "apiVersion": "2015-06-15",
+            "properties": {
+                "publisher": "Microsoft.Azure.NetworkWatcher",
+                "type": "NetworkWatcherAgentWindows",
+                "typeHandlerVersion": "1.4",
+                "autoUpgradeMinorVersion": true
+            },
+            "tags": "[parameters('tags')]"
+        },
+        {
+            "type": "Microsoft.Compute/virtualMachines/extensions",
+            "name": "[concat(parameters('virtualMachineName'), '/Microsoft.Insights.VMDiagnosticsSettings')]",
+            "apiVersion": "2015-06-15",
+            "location": "[parameters('location')]",
+            "dependsOn": [
+                "[concat('Microsoft.Compute/virtualMachines/', parameters('virtualMachineName'))]"
+            ],
+            "properties": {
+                "publisher": "Microsoft.Azure.Diagnostics",
+                "type": "IaaSDiagnostics",
+                "typeHandlerVersion": "1.5",
+                "autoUpgradeMinorVersion": true,
+                "settings": {
+                    "WadCfg": {
+                        "DiagnosticMonitorConfiguration": {
+                            "overallQuotaInMB": 10000,
+                            "DiagnosticInfrastructureLogs": {
+                                "scheduledTransferLogLevelFilter": "Error"
+                            },
+                            "PerformanceCounters": {
+                                "scheduledTransferPeriod": "PT1M",
+                                "sinks": "AzureMonitorSink",
+                                "PerformanceCounterConfiguration": [
+                                    {
+                                        "counterSpecifier": "\\Processor(_Total)\\% Processor Time",
+                                        "sampleRate": "PT1M",
+                                        "unit": "percent"
+                                    }
+                                ]
+                            },
+                            "WindowsEventLog": {
+                                "scheduledTransferPeriod": "PT5M",
+                                "DataSource": [
+                                    {
+                                        "name": "System!*[System[Provider[@Name='Microsoft Antimalware']]]"
+                                    },
+                                    {
+                                        "name": "System!*[System[Provider[@Name='NTFS'] and (EventID=55)]]"
+                                    },
+                                    {
+                                        "name": "System!*[System[Provider[@Name='disk'] and (EventID=7 or EventID=52 or EventID=55)]]"
+                                    }
+                                ]
+                            }
+                        },
+                        "SinksConfig": {
+                            "Sink": [
+                                {
+                                    "name": "AzureMonitorSink",
+                                    "AzureMonitor": {
+                                        "ResourceId": "[parameters('workspaceid')]"
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "storageAccount": "[parameters('storageAccountName')]"
+                },
+                "protectedSettings": {
+                    "storageAccountName": "[parameters('storageAccountName')]",
+                    "storageAccountKey": "[listkeys(parameters('storageAccountId'), '2019-06-01').keys[0].value]",
+                    "storageAccountEndPoint": "https://core.windows.net"
+                }
+            },
+            "tags": "[parameters('tags')]"
+        },
+        {
+            "name": "[concat(parameters('virtualMachineName'),'/AzureMonitorWindowsAgent')]",
+            "type": "Microsoft.Compute/virtualMachines/extensions",
+            "location": "[parameters('location')]",
+            "dependsOn": [
+                "[concat('Microsoft.Compute/virtualMachines/', parameters('virtualMachineName'))]"
+            ],
+            "apiVersion": "2020-06-01",
+            "properties": {
+                "publisher": "Microsoft.Azure.Monitor",
+                "type": "AzureMonitorWindowsAgent",
+                "typeHandlerVersion": "1.0",
+                "autoUpgradeMinorVersion": true
+            },
+            "tags": "[parameters('tags')]"
+        }
+        // {
+        //     "type": "Microsoft.Compute/virtualMachines/extensions",
+        //     "name": "[concat(parameters('virtualMachineName'), '/Microsoft.Insights.LogAnalyticsAgent')]",
+        //     "apiVersion": "2015-06-15",
+        //     "location": "[parameters('location')]",
+        //     "dependsOn": [
+        //         "[concat('Microsoft.Compute/virtualMachines/', parameters('virtualMachineName'))]"
+        //     ],
+        //     "properties": {
+        //         "publisher": "Microsoft.EnterpriseCloud.Monitoring",
+        //         "type": "MicrosoftMonitoringAgent",
+        //         "typeHandlerVersion": "1.0",
+        //         "autoUpgradeMinorVersion": true,
+        //         "settings": {
+        //             "workspaceId": "[parameters('workspaceId')]"
+        //         },
+        //         "protectedSettings": {
+        //             "workspaceKey": "[listKeys(parameters('workspaceid'), '2015-03-20').primarySharedKey]"
+        //         }
+        //     },
+        //     "tags": "[parameters('tags')]"
+        // }
+    ],
+    "functions": [],
+    "outputs": {
+        "adminUsername": {
+            "type": "string",
+            "value": "[parameters('adminUsername')]"
+        }
+    }
+}

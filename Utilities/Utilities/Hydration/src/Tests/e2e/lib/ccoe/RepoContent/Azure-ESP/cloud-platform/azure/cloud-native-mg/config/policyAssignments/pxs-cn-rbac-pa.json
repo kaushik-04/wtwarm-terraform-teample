@@ -1,0 +1,37 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "scope": {
+            "value": "/providers/Microsoft.Management/managementGroups/cloudnative-mg"
+        },
+        "properties": {
+            "value": {
+                "policyAssignment": {
+                    "displayName": "cn-rbac-pa",
+                    "description": "RBAC validation for Cloud-Native Management Group and child items",
+                    "definitionId": "/providers/Microsoft.Management/managementGroups/cloudnative-mg/providers/Microsoft.Authorization/policySetDefinitions/cn-rbac-pi",
+                    "definitionDisplayName": "cn-rbac-pi",
+                    "notScopes": [],
+                    "enforcementMode": "Default",
+                    "parameters": {
+                        "allowedRoleDefinitionIds": [
+                            "acdd72a7-3385-48ef-bd42-f606fba81ae7",
+                            "688b6f0a-6630-5d07-b4ca-c9784d56c104",
+                            "00482a5a-887f-4fb3-b363-3b7fe8e74483",
+                            "21090545-7ca7-4776-b22c-e363652d74d2"
+                        ],
+                        "excludedPrincipalIds": [
+                            "3bd3b9d5-2577-41d0-a8a3-cd6851d2b16a"
+                        ],
+                        "effect": "Audit"
+                    },
+                    "managedIdentity": {
+                        "assignIdentity": false,
+                        "location": ""
+                    }
+                }
+            }
+        }
+    }
+}

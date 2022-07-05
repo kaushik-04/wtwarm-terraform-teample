@@ -1,0 +1,7 @@
+variables:
+- name: folderPathModules
+  value: Modules
+- name: folderPathSolutions
+  value: Solutions
+- name: accessToken
+  value: $(System.AccessToken)

@@ -1,0 +1,50 @@
+name: CreateSubscription
+
+parameters:
+  - name: SubscriptionName
+    displayName: 'Subscription Name'
+    type: string
+  - name: ManagementGroupId
+    displayName: 'Management Group Id'
+    type: string
+  - name: OfferType
+    displayName: 'Offer Type (EA or Dev/Test)'
+    type: string
+    default: 'MS-AZR-0017P'
+    values:
+    - 'MS-AZR-0017P'
+    - 'MS-AZR-0148P'
+  - name: EnrollmentAccountObjectId
+    displayName: 'Enrollment Account ObjectId'
+    type: string
+    default: '00000000-0000-0000-0000-000000000000'
+  - name: AadGroupPrefix
+    displayName: 'Prefix for AAD groups'
+    type: string
+    default: 'IaCS-RBAC-'
+
+trigger: none
+
+stages:
+- stage: CreateSubscription
+  jobs:
+  - job: CreateSubscription
+    pool:
+      vmImage: 'ubuntu-latest' 
+    continueOnError: true
+    steps:
+    - checkout: self
+      clean: true
+      persistCredentials: true
+    - task: AzurePowerShell@4
+      displayName: 'Azure PowerShell script: Create subscription'
+      inputs:
+        azureSubscription: sc-acf-subscription-creator
+        ScriptPath: 'SubscriptionCreation/New-AzureSubscription.ps1'
+        scriptArguments:
+          -EnrollmentAccountObjectId '${{ parameters.EnrollmentAccountObjectId }}'`
+          -OfferType '${{ parameters.OfferType }}'`
+          -SubscriptionName '${{ parameters.SubscriptionName }}'`
+          -ManagementGroupId '${{ parameters.ManagementGroupId }}'`
+          -AadGroupPrefix '${{ parameters.AadGroupPrefix }}'
+        azurePowerShellVersion: LatestVersion

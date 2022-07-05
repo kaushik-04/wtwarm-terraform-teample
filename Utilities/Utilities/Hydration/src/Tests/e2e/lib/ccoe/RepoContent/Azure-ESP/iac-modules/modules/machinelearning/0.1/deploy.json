@@ -1,0 +1,123 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "workspaceName": {
+            "type": "string",
+            "minLength": 1,
+            "metadata": {
+                "description": "Required. Name of the Machine Learning Workspace."
+            }
+        },
+        "location": {
+            "type": "string",
+            "defaultValue": "West Europe",
+            "allowedValues": [
+                "West Europe",
+                "North Europe"
+            ],
+            "metadata": {
+                "description": "Optional. Location for the Machine Learning Workspace."
+            }
+        },
+        "workspaceSku": {
+            "type": "string",
+            "defaultValue": "basic",
+            "allowedValues": [
+                "basic"
+            ],
+            "metadata": {
+                "description": "Optional. Specifies the sku, also referred as 'edition' of the Machine Learning workspace."
+            }
+        },
+        "storageAccountName": {
+            "type": "string",
+            "defaultValue": "",
+            "allowedValues": [],
+            "metadata": {
+                "description": "Required. The name of a pre-provisioned StorageAccount to be used by the Machine Learning workspace."
+            }
+        },
+        "keyVaultName": {
+            "type": "string",
+            "defaultValue": "",
+            "allowedValues": [],
+            "metadata": {
+                "description": "Required. The name of a pre-provisioned KeyVault to be used by the Machine Learning workspace."
+            }
+        },
+        "appInsightName": {
+            "type": "string",
+            "defaultValue": "",
+            "allowedValues": [],
+            "metadata": {
+                "description": "Required. The name of a pre-provisioned Application Insight to be used by the Machine Learning workspace."
+            }
+        },
+        "containerRegistryName": {
+            "type": "string",
+            "defaultValue": "",
+            "allowedValues": [],
+            "metadata": {
+                "description": "Required. The name of a pre-provisioned Container Registry to be used by the Machine Learning workspace."
+            }
+        },
+        "tags": {
+            "type": "object",
+            "metadata": {
+                "description": "Required. Resource tags."
+            },
+            "defaultValue": {}
+        }
+    },
+    "variables": {
+    },
+    "functions": [
+    ],
+    "resources": [
+       {
+            "type": "Microsoft.MachineLearningServices/workspaces",
+            "apiVersion": "2020-09-01-preview",
+            "name": "[parameters('workspaceName')]",
+            "location": "[parameters('location')]",
+            "tags": "[parameters('tags')]",
+            "identity": {
+                "type": "SystemAssigned"
+            },
+            "sku": {
+                "tier": "[parameters('workspaceSku')]",
+                "name": "[parameters('workspaceSku')]"
+            },
+            "properties": {
+                "friendlyName": "[parameters('workspaceName')]",
+                "storageAccount": "[concat('/subscriptions/', subscription().subscriptionId, '/resourceGroups/', resourceGroup().name, '/providers/Microsoft.Storage/storageAccounts/', parameters('storageAccountName'))]",
+                "keyVault": "[concat('/subscriptions/', subscription().subscriptionId, '/resourceGroups/', resourceGroup().name, '/providers/Microsoft.KeyVault/vaults/', parameters('keyVaultName'))]",
+                "applicationInsights": "[concat('/subscriptions/', subscription().subscriptionId, '/resourceGroups/', resourceGroup().name, '/providers/Microsoft.Insights/components/', parameters('appInsightName'))]",
+                "containerRegistry": "[concat('/subscriptions/', subscription().subscriptionId, '/resourceGroups/', resourceGroup().name, '/providers/Microsoft.ContainerRegistry/registries/', parameters('containerRegistryName'))]"
+            }
+        }
+    ],
+    "outputs": {
+        "MlWorkspaceId": {
+            "type": "string",
+            "value": "[resourceId('Microsoft.MachineLearningServices/workspaces', parameters('workspaceName'))]",
+            "metadata": {
+                "description": "The Resource Id of the Machine Learning Workspace"
+            }
+        },
+        "MlWorkspaceResourceGroup": {
+            "type": "string",
+            "value": "[resourceGroup().name]",
+            "metadata": {
+                "description": "The name of the Resource Group the Machine Learning Workspace was created in"
+            }
+        },
+        "MlWorkspaceName": {
+            "type": "string",
+            "value": "[parameters('workspaceName')]",
+            "metadata": {
+                "description": "The Name of the Machine Learning Workspace"
+            }
+        }
+    }
+}

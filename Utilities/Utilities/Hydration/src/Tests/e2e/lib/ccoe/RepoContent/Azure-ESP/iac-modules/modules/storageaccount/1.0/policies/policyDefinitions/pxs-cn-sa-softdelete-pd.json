@@ -1,0 +1,60 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "scope": {
+          "value": "/providers/Microsoft.Management/managementGroups/pxs-cloudnative-mg"
+        },
+        "properties": {
+            "value": {
+                "name": "pxs-cn-sa-softdelete-pd",
+                "displayName": "Enable or Disable Audit on Soft Delete Blob storageAccount",
+                "policyType": "Custom",
+                "mode": "All",
+                "description": "This policy audits/disables the Soft Delete setting for Blob kind of storageAccounts",
+                "metadata": {
+                    "category": "CCoE"
+                },
+                "parameters": {
+                    "auditSoftDeleteEffect": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Audit Soft Delete",
+                            "description": "Enable or Disable Audit on whether Soft Delete is enabled for Blob or container policy"
+                        },
+                        "allowedValues": [
+                            "Audit",
+                            "Deny"
+                        ],
+                        "defaultValue": "Audit"
+                    }
+                },
+                "policyRule": {
+                    "if": {
+                        "allOf": [
+                            {
+                                "field": "type",
+                                "equals": "Microsoft.Storage/storageAccounts"
+                            },
+                            {
+                                "allOf": [
+                                    {
+                                        "field": "Microsoft.Storage/storageAccounts/blobServices/deleteRetentionPolicy.enabled",
+                                        "exists": "true"
+                                    },
+                                    {
+                                        "field": "Microsoft.Storage/storageAccounts/blobServices/deleteRetentionPolicy.enabled",
+                                        "notEquals": "true"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    "then": {
+                        "effect": "[parameters('auditSoftDeleteEffect')]"
+                    } 
+                }  
+            }
+        }
+    }
+}

@@ -1,0 +1,736 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "scope": {
+            "value": "/providers/Microsoft.Management/managementGroups/cloudnative-mg"
+        },
+        "properties": {
+            "value": {
+                "name": "cn-mg-security-pi",
+                "displayName": "cn-mg-security-pi",
+                "description": "Deploys security baseline on environment specific management group scope.",
+                "metadata": {
+                    "version": "1.0.0",
+                    "category": "Security"
+                },
+                "parameters": {
+                    "profileName": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Profile name",
+                            "description": "The diagnostic settings profile name"
+                        },
+                        "defaultValue": "Environment-Logging"
+                    },
+                    "eventHubRuleId": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Event Hub Authorization Rule Id",
+                            "description": "The Event Hub authorization rule Id for Azure Diagnostics. The authorization rule needs to be at Event Hub namespace level. e.g. /subscriptions/{subscription Id}/resourceGroups/{resource group}/providers/Microsoft.EventHub/namespaces/{Event Hub namespace}/authorizationrules/{authorization rule}",
+                            "strongType": "Microsoft.EventHub/Namespaces/AuthorizationRules"
+                        },
+                        "defaultValue": ""
+                    },
+                    "asc_resourceTags": {
+                        "type": "Object",
+                        "metadata": {
+                            "displayName": "Resource tags",
+                            "description": "Tgas to be added in the automation resource."
+                        },
+                        "defaultValue": {}
+                    },
+                    "asc_resourceGroupName": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Resource Group name",
+                            "description": "Name of the Resource Group to create for the contineous export resources."
+                        },
+                        "defaultValue": "asc-export-rg"
+                    },
+                    "activityLog_effect": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Effect",
+                            "description": "Enable or disable the execution of the policy"
+                        },
+                        "allowedValues": [
+                            "DeployIfNotExists",
+                            "Disabled"
+                        ],
+                        "defaultValue": "Disabled"
+                    },
+                    "activityLog_eventHubName": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Event hub name for Key Vault logging",
+                            "description": "Optional. Choose an event hub name to send telemetry to."
+                        },
+                        "defaultValue": ""
+                    },
+                    "activityLog_logsEnabled": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Enable logs",
+                            "description": "Whether to enable logs stream to the Event Hub  - True or False"
+                        },
+                        "allowedValues": [
+                            "True",
+                            "False"
+                        ],
+                        "defaultValue": "False"
+                    },
+                    "keyVault_effect": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Effect",
+                            "description": "Enable or disable the execution of the policy"
+                        },
+                        "allowedValues": [
+                            "DeployIfNotExists",
+                            "Disabled"
+                        ],
+                        "defaultValue": "Disabled"
+                    },
+                    "keyVault_eventHubName": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Event hub name for Key Vault logging",
+                            "description": "Optional. Choose an event hub name to send telemetry to."
+                        },
+                        "defaultValue": ""
+                    },
+                    "keyVault_metricsEnabled": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Enable metrics",
+                            "description": "Whether to enable metrics stream to the Event Hub - True or False"
+                        },
+                        "allowedValues": [
+                            "True",
+                            "False"
+                        ],
+                        "defaultValue": "False"
+                    },
+                    "keyVault_logsEnabled": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Enable logs",
+                            "description": "Whether to enable logs stream to the Event Hub  - True or False"
+                        },
+                        "allowedValues": [
+                            "True",
+                            "False"
+                        ],
+                        "defaultValue": "False"
+                    },
+                    "storageAccount_effect": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Effect",
+                            "description": "Enable or disable the execution of the policy"
+                        },
+                        "allowedValues": [
+                            "DeployIfNotExists",
+                            "Disabled"
+                        ],
+                        "defaultValue": "Disabled"
+                    },
+                    "storageAccount_eventHubName": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Event hub name for Key Vault logging",
+                            "description": "Optional. Choose an event hub name to send telemetry to."
+                        },
+                        "defaultValue": ""
+                    },
+                    "storageAccount_metricsEnabled": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Enable metrics",
+                            "description": "Whether to enable metrics stream to the Event Hub - True or False"
+                        },
+                        "allowedValues": [
+                            "True",
+                            "False"
+                        ],
+                        "defaultValue": "False"
+                    },
+                    "storageAccount_logsEnabled": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Enable logs",
+                            "description": "Whether to enable logs stream to the Event Hub  - True or False"
+                        },
+                        "allowedValues": [
+                            "True",
+                            "False"
+                        ],
+                        "defaultValue": "False"
+                    },
+                    "sqlDb_effect": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Effect",
+                            "description": "Enable or disable the execution of the policy"
+                        },
+                        "allowedValues": [
+                            "DeployIfNotExists",
+                            "Disabled"
+                        ],
+                        "defaultValue": "Disabled"
+                    },
+                    "sqlDb_eventHubName": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Event hub name for Key Vault logging",
+                            "description": "Optional. Choose an event hub name to send telemetry to."
+                        },
+                        "defaultValue": ""
+                    },
+                    "sqlDb_metricsEnabled": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Enable metrics",
+                            "description": "Whether to enable metrics stream to the Event Hub - True or False"
+                        },
+                        "allowedValues": [
+                            "True",
+                            "False"
+                        ],
+                        "defaultValue": "False"
+                    },
+                    "sqlDb_logsEnabled": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Enable logs",
+                            "description": "Whether to enable logs stream to the Event Hub  - True or False"
+                        },
+                        "allowedValues": [
+                            "True",
+                            "False"
+                        ],
+                        "defaultValue": "False"
+                    },
+                    "sqlServer_effect": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Effect",
+                            "description": "Enable or disable the execution of the policy"
+                        },
+                        "allowedValues": [
+                            "DeployIfNotExists",
+                            "Disabled"
+                        ],
+                        "defaultValue": "Disabled"
+                    },
+                    "sqlServer_eventHubName": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Event hub name for Key Vault logging",
+                            "description": "Optional. Choose an event hub name to send telemetry to."
+                        },
+                        "defaultValue": ""
+                    },
+                    "sqlServer_logsEnabled": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Enable logs",
+                            "description": "Whether to enable logs stream to the Event Hub  - True or False"
+                        },
+                        "allowedValues": [
+                            "True",
+                            "False"
+                        ],
+                        "defaultValue": "False"
+                    },
+                    "containerInstance_effect": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Effect",
+                            "description": "Enable or disable the execution of the policy"
+                        },
+                        "allowedValues": [
+                            "DeployIfNotExists",
+                            "Disabled"
+                        ],
+                        "defaultValue": "Disabled"
+                    },
+                    "containerInstance_eventHubName": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Event hub name",
+                            "description": "Optional. Choose an event hub name to send telemetry to."
+                        },
+                        "defaultValue": ""
+                    },
+                    "containerInstance_metricsEnabled": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Enable metrics",
+                            "description": "Whether to enable metrics stream to the Event Hub - True or False"
+                        },
+                        "allowedValues": [
+                            "True",
+                            "False"
+                        ],
+                        "defaultValue": "False"
+                    },
+                    "containerRegistry_effect": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Effect",
+                            "description": "Enable or disable the execution of the policy"
+                        },
+                        "allowedValues": [
+                            "DeployIfNotExists",
+                            "Disabled"
+                        ],
+                        "defaultValue": "Disabled"
+                    },
+                    "containerRegistry_eventHubName": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Event hub name",
+                            "description": "Optional. Choose an event hub name to send telemetry to."
+                        },
+                        "defaultValue": ""
+                    },
+                    "containerRegistry_metricsEnabled": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Enable metrics",
+                            "description": "Whether to enable metrics stream to the Event Hub - True or False"
+                        },
+                        "allowedValues": [
+                            "True",
+                            "False"
+                        ],
+                        "defaultValue": "False"
+                    },
+                    "containerRegistry_logsEnabled": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Enable logs",
+                            "description": "Whether to enable logs stream to the Event Hub  - True or False"
+                        },
+                        "allowedValues": [
+                            "True",
+                            "False"
+                        ],
+                        "defaultValue": "False"
+                    },
+                    "databricks_effect": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Effect",
+                            "description": "Enable or disable the execution of the policy"
+                        },
+                        "allowedValues": [
+                            "DeployIfNotExists",
+                            "Disabled"
+                        ],
+                        "defaultValue": "Disabled"
+                    },
+                    "databricks_eventHubName": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Event hub name",
+                            "description": "Optional. Choose an event hub name to send telemetry to."
+                        },
+                        "defaultValue": ""
+                    },
+                    "databricks_logsEnabled": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Enable logs",
+                            "description": "Whether to enable logs stream to the Event Hub  - True or False"
+                        },
+                        "allowedValues": [
+                            "True",
+                            "False"
+                        ],
+                        "defaultValue": "False"
+                    },
+                    "datafactory_effect": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Effect",
+                            "description": "Enable or disable the execution of the policy"
+                        },
+                        "allowedValues": [
+                            "DeployIfNotExists",
+                            "Disabled"
+                        ],
+                        "defaultValue": "Disabled"
+                    },
+                    "datafactory_eventHubName": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Event hub name",
+                            "description": "Optional. Choose an event hub name to send telemetry to."
+                        },
+                        "defaultValue": ""
+                    },
+                    "datafactory_metricsEnabled": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Enable metrics",
+                            "description": "Whether to enable metrics stream to the Event Hub - True or False"
+                        },
+                        "allowedValues": [
+                            "True",
+                            "False"
+                        ],
+                        "defaultValue": "False"
+                    },
+                    "datafactory_logsEnabled": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Enable logs",
+                            "description": "Whether to enable logs stream to the Event Hub  - True or False"
+                        },
+                        "allowedValues": [
+                            "True",
+                            "False"
+                        ],
+                        "defaultValue": "False"
+                    },
+                    "machinelearning_effect": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Effect",
+                            "description": "Enable or disable the execution of the policy"
+                        },
+                        "allowedValues": [
+                            "DeployIfNotExists",
+                            "Disabled"
+                        ],
+                        "defaultValue": "Disabled"
+                    },
+                    "machinelearning_eventHubName": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Event hub name",
+                            "description": "Optional. Choose an event hub name to send telemetry to."
+                        },
+                        "defaultValue": ""
+                    },
+                    "machinelearning_metricsEnabled": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Enable metrics",
+                            "description": "Whether to enable metrics stream to the Event Hub - True or False"
+                        },
+                        "allowedValues": [
+                            "True",
+                            "False"
+                        ],
+                        "defaultValue": "False"
+                    },
+                    "machinelearning_logsEnabled": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Enable logs",
+                            "description": "Whether to enable logs stream to the Event Hub  - True or False"
+                        },
+                        "allowedValues": [
+                            "True",
+                            "False"
+                        ],
+                        "defaultValue": "False"
+                    },
+                    "synapse_effect": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Effect",
+                            "description": "Enable or disable the execution of the policy"
+                        },
+                        "allowedValues": [
+                            "DeployIfNotExists",
+                            "Disabled"
+                        ],
+                        "defaultValue": "Disabled"
+                    },
+                    "synapse_eventHubName": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Event hub name",
+                            "description": "Optional. Choose an event hub name to send telemetry to."
+                        },
+                        "defaultValue": ""
+                    },
+                    "synapse_logsEnabled": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Enable logs",
+                            "description": "Whether to enable logs stream to the Event Hubs - True or False"
+                        },
+                        "allowedValues": [
+                            "True",
+                            "False"
+                        ],
+                        "defaultValue": "False"
+                    }
+                },
+                "policyDefinitions": [
+                    {
+                        "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/cloudnative-mg/providers/Microsoft.Authorization/policyDefinitions/cn-asc-exportEventHub-pd",
+                        "parameters": {
+                            "profileName": {
+                                "value": "[parameters('profileName')]"
+                            },
+                            "eventHubDetails": {
+                                "value": "[parameters('eventHubRuleId')]"
+                            },
+                            "resourceGroupName": {
+                                "value": "[parameters('asc_resourceGroupName')]"
+                            },
+                            "resourceTags": {
+                                "value": "[parameters('asc_resourceTags')]"
+                            }
+                        }
+                    },
+                    {
+                        "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/cloudnative-mg/providers/Microsoft.Authorization/policyDefinitions/cn-ci-diagEventhub-pd",
+                        "parameters": {
+                            "profileName": {
+                                "value": "[parameters('profileName')]"
+                            },
+                            "eventHubRuleId": {
+                                "value": "[parameters('eventHubRuleId')]"
+                            },
+                            "eventHubName": {
+                                "value": "[parameters('containerInstance_eventHubName')]"
+                            },
+                            "effect": {
+                                "value": "[parameters('containerInstance_effect')]"
+                            },
+                            "metricsEnabled": {
+                                "value": "[parameters('containerInstance_metricsEnabled')]"
+                            }
+                        }
+                    },
+                    {
+                        "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/cloudnative-mg/providers/Microsoft.Authorization/policyDefinitions/cn-cr-diagEventhub-pd",
+                        "parameters": {
+                            "profileName": {
+                                "value": "[parameters('profileName')]"
+                            },
+                            "eventHubRuleId": {
+                                "value": "[parameters('eventHubRuleId')]"
+                            },
+                            "eventHubName": {
+                                "value": "[parameters('containerRegistry_eventHubName')]"
+                            },
+                            "effect": {
+                                "value": "[parameters('containerRegistry_effect')]"
+                            },
+                            "metricsEnabled": {
+                                "value": "[parameters('containerRegistry_metricsEnabled')]"
+                            },
+                            "logsEnabled": {
+                                "value": "[parameters('containerRegistry_logsEnabled')]"
+                            }
+                        }
+                    },
+                    {
+                        "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/cloudnative-mg/providers/Microsoft.Authorization/policyDefinitions/cn-databricks-diagEventhub-pd",
+                        "parameters": {
+                            "profileName": {
+                                "value": "[parameters('profileName')]"
+                            },
+                            "eventHubRuleId": {
+                                "value": "[parameters('eventHubRuleId')]"
+                            },
+                            "eventHubName": {
+                                "value": "[parameters('databricks_eventHubName')]"
+                            },
+                            "effect": {
+                                "value": "[parameters('databricks_effect')]"
+                            },
+                            "logsEnabled": {
+                                "value": "[parameters('databricks_logsEnabled')]"
+                            }
+                        }
+                    },
+                    {
+                        "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/cloudnative-mg/providers/Microsoft.Authorization/policyDefinitions/cn-df-diagEventhub-pd",
+                        "parameters": {
+                            "profileName": {
+                                "value": "[parameters('profileName')]"
+                            },
+                            "eventHubRuleId": {
+                                "value": "[parameters('eventHubRuleId')]"
+                            },
+                            "eventHubName": {
+                                "value": "[parameters('datafactory_eventHubName')]"
+                            },
+                            "effect": {
+                                "value": "[parameters('datafactory_effect')]"
+                            },
+                            "metricsEnabled": {
+                                "value": "[parameters('datafactory_metricsEnabled')]"
+                            },
+                            "logsEnabled": {
+                                "value": "[parameters('datafactory_logsEnabled')]"
+                            }
+                        }
+                    },
+                    {
+                        "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/cloudnative-mg/providers/Microsoft.Authorization/policyDefinitions/cn-kvt-diagEventhub-pd",
+                        "parameters": {
+                            "profileName": {
+                                "value": "[parameters('profileName')]"
+                            },
+                            "eventHubRuleId": {
+                                "value": "[parameters('eventHubRuleId')]"
+                            },
+                            "effect": {
+                                "value": "[parameters('keyVault_effect')]"
+                            },
+                            "eventHubName": {
+                                "value": "[parameters('keyVault_eventHubName')]"
+                            },
+                            "metricsEnabled": {
+                                "value": "[parameters('keyVault_metricsEnabled')]"
+                            },
+                            "logsEnabled": {
+                                "value": "[parameters('keyVault_logsEnabled')]"
+                            }
+                        }
+                    },
+                    {
+                        "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/cloudnative-mg/providers/Microsoft.Authorization/policyDefinitions/cn-ml-diagEventhub-pd",
+                        "parameters": {
+                            "profileName": {
+                                "value": "[parameters('profileName')]"
+                            },
+                            "eventHubRuleId": {
+                                "value": "[parameters('eventHubRuleId')]"
+                            },
+                            "eventHubName": {
+                                "value": "[parameters('machinelearning_eventHubName')]"
+                            },
+                            "effect": {
+                                "value": "[parameters('machinelearning_effect')]"
+                            },
+                            "metricsEnabled": {
+                                "value": "[parameters('machinelearning_metricsEnabled')]"
+                            },
+                            "logsEnabled": {
+                                "value": "[parameters('machinelearning_logsEnabled')]"
+                            }
+                        }
+                    },
+                    {
+                        "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/cloudnative-mg/providers/Microsoft.Authorization/policyDefinitions/cn-sqldb-diagEventHub-pd",
+                        "parameters": {
+                            "profileName": {
+                                "value": "[parameters('profileName')]"
+                            },
+                            "eventHubRuleId": {
+                                "value": "[parameters('eventHubRuleId')]"
+                            },
+                            "effect": {
+                                "value": "[parameters('sqlDb_effect')]"
+                            },
+                            "eventHubName": {
+                                "value": "[parameters('sqlDb_eventHubName')]"
+                            },
+                            "metricsEnabled": {
+                                "value": "[parameters('sqlDb_metricsEnabled')]"
+                            },
+                            "logsEnabled": {
+                                "value": "[parameters('sqlDb_logsEnabled')]"
+                            }
+                        }
+                    },
+                    {
+                        "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/cloudnative-mg/providers/Microsoft.Authorization/policyDefinitions/cn-sqlserver-diagEventHub-pd",
+                        "parameters": {
+                            "profileName": {
+                                "value": "[parameters('profileName')]"
+                            },
+                            "eventHubRuleId": {
+                                "value": "[parameters('eventHubRuleId')]"
+                            },
+                            "eventHubName": {
+                                "value": "[parameters('sqlServer_eventHubName')]"
+                            },
+                            "effect": {
+                                "value": "[parameters('sqlServer_effect')]"
+                            },
+                            "logsEnabled": {
+                                "value": "[parameters('sqlServer_logsEnabled')]"
+                            }
+                        }
+                    },
+                    {
+                        "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/cloudnative-mg/providers/Microsoft.Authorization/policyDefinitions/cn-sa-diagEventHub-pd",
+                        "parameters": {
+                            "profileName": {
+                                "value": "[parameters('profileName')]"
+                            },
+                            "eventHubRuleId": {
+                                "value": "[parameters('eventHubRuleId')]"
+                            },
+                            "effect": {
+                                "value": "[parameters('storageAccount_effect')]"
+                            },
+                            "eventHubName": {
+                                "value": "[parameters('storageAccount_eventHubName')]"
+                            },
+                            "metricsEnabled": {
+                                "value": "[parameters('storageAccount_metricsEnabled')]"
+                            },
+                            "logsEnabled": {
+                                "value": "[parameters('storageAccount_logsEnabled')]"
+                            }
+                        }
+                    },
+                    {
+                        "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/cloudnative-mg/providers/Microsoft.Authorization/policyDefinitions/cn-sub-diagEventhub-pd",
+                        "parameters": {
+                            "profileName": {
+                                "value": "[parameters('profileName')]"
+                            },
+                            "eventHubRuleId": {
+                                "value": "[parameters('eventHubRuleId')]"
+                            },
+                            "effect": {
+                                "value": "[parameters('activityLog_effect')]"
+                            },
+                            "eventHubName": {
+                                "value": "[parameters('activityLog_eventHubName')]"
+                            },
+                            "logsEnabled": {
+                                "value": "[parameters('activityLog_logsEnabled')]"
+                            }
+                        }
+                    },
+                    {
+                        "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/cloudnative-mg/providers/Microsoft.Authorization/policyDefinitions/cn-synapse-diagEventHub-pd",
+                        "parameters": {
+                            "profileName": {
+                                "value": "[parameters('profileName')]"
+                            },
+                            "eventHubRuleId": {
+                                "value": "[parameters('eventHubRuleId')]"
+                            },
+                            "eventHubName": {
+                                "value": "[parameters('synapse_eventHubName')]"
+                            },
+                            "effect": {
+                                "value": "[parameters('synapse_effect')]"
+                            },
+                            "logsEnabled": {
+                                "value": "[parameters('synapse_logsEnabled')]"
+                            }
+                        }
+                    }
+                ]
+            }
+        }
+    }
+}

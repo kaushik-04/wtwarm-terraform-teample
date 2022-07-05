@@ -1,0 +1,8 @@
+variables:
+- template: ../tenant.variables.yml
+- name: managementGroupID
+  value: 'cloudnative-mg'
+- name: parametersPath
+  value: 'cloudnative-mg/parameters'
+- name: billingAccount
+  value: '/providers/Microsoft.Billing/billingAccounts/60287334'

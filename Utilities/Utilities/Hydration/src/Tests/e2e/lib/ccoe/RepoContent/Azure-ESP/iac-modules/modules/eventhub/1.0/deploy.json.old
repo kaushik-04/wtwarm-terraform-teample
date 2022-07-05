@@ -1,0 +1,175 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "namespaces_pxs_azure_nonprod_ehn_name": {
+            "defaultValue": "pxs-azure-nonprod-ehn",
+            "type": "String"
+        },
+        "namespaces_pxs_azure_prod_ehn_name": {
+            "defaultValue": "pxs-azure-prod-ehn",
+            "type": "String"
+        }
+        
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.EventHub/namespaces",
+            "apiVersion": "2018-01-01-preview",
+            "name": "[parameters('namespaces_pxs_azure_nonprod_ehn_name')]",
+            "location": "West Europe",
+            "tags": {
+                "deployment-id": "test",
+                "environment": "p",
+                "application-id": "azure",
+                "cost-center": "azure"
+            },
+            "sku": {
+                "name": "Basic",
+                "tier": "Basic",
+                "capacity": 1
+            },
+            "properties": {
+                "zoneRedundant": false,
+                "isAutoInflateEnabled": false,
+                "maximumThroughputUnits": 0,
+                "kafkaEnabled": false
+            }
+        },
+        {
+            "type": "Microsoft.EventHub/namespaces/AuthorizationRules",
+            "apiVersion": "2017-04-01",
+            "name": "[concat(parameters('namespaces_pxs_azure_nonprod_ehn_name'), '/RootManageSharedAccessKey')]",
+            "location": "West Europe",
+            "dependsOn": [
+                "[resourceId('Microsoft.EventHub/namespaces', parameters('namespaces_pxs_azure_nonprod_ehn_name'))]"
+            ],
+            "properties": {
+                "rights": [
+                    "Listen",
+                    "Manage",
+                    "Send"
+                ]
+            }
+        },
+        {
+            "type": "Microsoft.EventHub/namespaces/eventhubs",
+            "apiVersion": "2017-04-01",
+            "name": "[concat(parameters('namespaces_pxs_azure_nonprod_ehn_name'), '/pxs-azure-nonprod-vm-ehi')]",
+            "location": "West Europe",
+            "dependsOn": [
+                "[resourceId('Microsoft.EventHub/namespaces', parameters('namespaces_pxs_azure_nonprod_ehn_name'))]"
+            ],
+            "properties": {
+                "messageRetentionInDays": 1,
+                "partitionCount": 2,
+                "status": "Active"
+            }
+        },
+        {
+            "type": "Microsoft.EventHub/namespaces/networkRuleSets",
+            "apiVersion": "2018-01-01-preview",
+            "name": "[concat(parameters('namespaces_pxs_azure_nonprod_ehn_name'), '/default')]",
+            "location": "West Europe",
+            "dependsOn": [
+                "[resourceId('Microsoft.EventHub/namespaces', parameters('namespaces_pxs_azure_nonprod_ehn_name'))]"
+            ],
+            "properties": {
+                "defaultAction": "Deny",
+                "virtualNetworkRules": [],
+                "ipRules": []
+            }
+        },
+        {
+            "type": "Microsoft.EventHub/namespaces/eventhubs/consumergroups",
+            "apiVersion": "2017-04-01",
+            "name": "[concat(parameters('namespaces_pxs_azure_nonprod_ehn_name'), '/pxs-azure-nonprod-vm-ehi/$Default')]",
+            "location": "West Europe",
+            "dependsOn": [
+                "[resourceId('Microsoft.EventHub/namespaces/eventhubs', parameters('namespaces_pxs_azure_nonprod_ehn_name'), 'pxs-azure-nonprod-vm-ehi')]",
+                "[resourceId('Microsoft.EventHub/namespaces', parameters('namespaces_pxs_azure_nonprod_ehn_name'))]"
+            ],
+            "properties": {}
+        },
+        /* namespace prod */
+        {
+            "type": "Microsoft.EventHub/namespaces",
+            "apiVersion": "2018-01-01-preview",
+            "name": "[parameters('namespaces_pxs_azure_prod_ehn_name')]",
+            "location": "West Europe",
+            "tags": {
+                "deployment-id": "test",
+                "environment": "p",
+                "application-id": "azure",
+                "cost-center": "azure"
+            },
+            "sku": {
+                "name": "Basic",
+                "tier": "Basic",
+                "capacity": 1
+            },
+            "properties": {
+                "zoneRedundant": false,
+                "isAutoInflateEnabled": false,
+                "maximumThroughputUnits": 0,
+                "kafkaEnabled": false
+            }
+        },
+        {
+            "type": "Microsoft.EventHub/namespaces/AuthorizationRules",
+            "apiVersion": "2017-04-01",
+            "name": "[concat(parameters('namespaces_pxs_azure_prod_ehn_name'), '/RootManageSharedAccessKey')]",
+            "location": "West Europe",
+            "dependsOn": [
+                "[resourceId('Microsoft.EventHub/namespaces', parameters('namespaces_pxs_azure_prod_ehn_name'))]"
+            ],
+            "properties": {
+                "rights": [
+                    "Listen",
+                    "Manage",
+                    "Send"
+                ]
+            }
+        },
+        {
+            "type": "Microsoft.EventHub/namespaces/eventhubs",
+            "apiVersion": "2017-04-01",
+            "name": "[concat(parameters('namespaces_pxs_azure_prod_ehn_name'), '/pxs-azure-prod-vm-ehi')]",
+            "location": "West Europe",
+            "dependsOn": [
+                "[resourceId('Microsoft.EventHub/namespaces', parameters('namespaces_pxs_azure_prod_ehn_name'))]"
+            ],
+            "properties": {
+                "messageRetentionInDays": 1,
+                "partitionCount": 2,
+                "status": "Active"
+            }
+        },
+        {
+            "type": "Microsoft.EventHub/namespaces/networkRuleSets",
+            "apiVersion": "2018-01-01-preview",
+            "name": "[concat(parameters('namespaces_pxs_azure_prod_ehn_name'), '/default')]",
+            "location": "West Europe",
+            "dependsOn": [
+                "[resourceId('Microsoft.EventHub/namespaces', parameters('namespaces_pxs_azure_prod_ehn_name'))]"
+            ],
+            "properties": {
+                "defaultAction": "Deny",
+                "virtualNetworkRules": [],
+                "ipRules": []
+            }
+        },
+        {
+            "type": "Microsoft.EventHub/namespaces/eventhubs/consumergroups",
+            "apiVersion": "2017-04-01",
+            "name": "[concat(parameters('namespaces_pxs_azure_prod_ehn_name'), '/pxs-azure-prod-vm-ehi/$Default')]",
+            "location": "West Europe",
+            "dependsOn": [
+                "[resourceId('Microsoft.EventHub/namespaces/eventhubs', parameters('namespaces_pxs_azure_prod_ehn_name'), 'pxs-azure-prod-vm-ehi')]",
+                "[resourceId('Microsoft.EventHub/namespaces', parameters('namespaces_pxs_azure_prod_ehn_name'))]"
+            ],
+            "properties": {}
+        }
+    ]
+}

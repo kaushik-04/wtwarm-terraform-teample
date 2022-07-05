@@ -1,0 +1,33 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "scope": {
+            "value": "/providers/Microsoft.Management/managementGroups/pxs-cn-s-mg"
+        },
+        "properties": {
+            "value": {
+                "policyAssignment": {
+                    "managedIdentity": {
+                        "location": "westeurope",
+                        "assignIdentity": true
+                    },
+                    "displayName": "pxs-cn-s-sql-pa",
+                    "definitionDisplayName": "pxs-cn-sql-pi",
+                    "description": "This is the default set of policies monitored by the CCoE. They ensure that the defined security baselines for such component are enforced.",
+                    "name": "pxs-cn-s-sql-pa",
+                    "notScopes": [],
+                    "parameters": {
+                        "minimumTLSPolicyEffect": "Deny",
+                        "aadOnlyAuthPolicyEffect": "Audit",
+                        "adAdminPolicyEffect": "AuditIfNotExists",
+                        "serverAuditingPolicyEffect": "AuditIfNotExists",
+                        "emailForVulnerabilityAssessmentPolicyEffect": "AuditIfNotExists"
+                    },
+                    "enforcementMode": "Default",
+                    "definitionId": "/providers/Microsoft.Management/managementGroups/pxs-cloudnative-mg/providers/Microsoft.Authorization/policySetDefinitions/pxs-cn-sql-pi"
+                }
+            }
+        }
+    }
+}

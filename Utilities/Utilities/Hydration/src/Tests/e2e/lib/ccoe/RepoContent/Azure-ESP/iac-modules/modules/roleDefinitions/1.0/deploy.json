@@ -1,0 +1,90 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-08-01/managementGroupDeploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "roleName": {
+            "type": "string",
+            "metadata": {
+                "description": "Required. Name of the custom RBAC role to be created."
+            }
+        },
+        "roleDescription": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. Description of the custom RBAC role to be created."
+            }
+        },
+        "actions": {
+            "type": "array",
+            "defaultValue": [
+                "*/read"
+            ],
+            "metadata": {
+                "description": "Optional. List of allowed actions."
+            }
+        },
+        "notActions": {
+            "type": "array",
+            "defaultValue": [],
+            "metadata": {
+                "description": "Optional. List of denied actions."
+            }
+        },
+        "dataActions": {
+            "type": "array",
+            "defaultValue": [],
+            "metadata": {
+                "description": "Optional. List of allowed data actions."
+            }
+        },
+        "notDataActions": {
+            "type": "array",
+            "defaultValue": [],
+            "metadata": {
+                "description": "Optional. List of denied data actions."
+            }
+        },
+        "assignableScopes": {
+            "type": "array",
+            "metadata": {
+                "description": "Required. Role definition assignable scopes."
+            }
+        }
+    },
+    "variables": {
+        "roleDefName": "[guid(string(parameters('roleName')))]"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Authorization/roleDefinitions",
+            "apiVersion": "2018-01-01-preview",
+            "name": "[variables('roleDefName')]",
+            "properties": {
+                "roleName": "[parameters('roleName')]",
+                "description": "[parameters('roleDescription')]",
+                "type": "customRole",
+                "isCustom": true,
+                "permissions": [
+                    {
+                        "actions": "[parameters('actions')]",
+                        "notActions": "[parameters('notActions')]",
+                        "dataActions": "[parameters('dataActions')]",
+                        "notDataActions": "[parameters('notDataActions')]"
+                    }
+                ],
+                "assignableScopes": "[parameters('assignableScopes')]"
+            }
+        }
+    ],
+    "functions": [],
+    "outputs": {
+        "definitionObject": {
+            "type": "object",
+            "value": "[reference(variables('roleDefName'))]",
+            "metadata": {
+                "description": "The role definition object."
+            }
+        }
+    }
+}

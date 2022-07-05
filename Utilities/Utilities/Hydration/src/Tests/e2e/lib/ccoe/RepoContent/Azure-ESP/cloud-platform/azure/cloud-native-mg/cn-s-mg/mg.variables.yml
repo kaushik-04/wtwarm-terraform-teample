@@ -1,0 +1,8 @@
+variables:
+- template: ../mg.variables.yml
+- name: managementGroupID
+  value: 'cn-s-mg'
+- name: enrollmentAccount
+  value: '$(billingAccount)/enrollmentAccounts/271887'
+- name: parametersPath
+  value: 'cloudnative-mg/cn-s-mg/parameters'

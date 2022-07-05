@@ -1,0 +1,347 @@
+[
+  {
+    "id": 100,
+    "fields": {
+      "System.WorkItemType": "Epic",
+      "System.Title": "Epic 100"
+    },
+    "relations": [
+      {
+        "attributes": {
+          "isLocked": false,
+          "name": "Child"
+        },
+        "rel": "System.LinkTypes.Hierarchy-Forward",
+        "url": "https://dev.azure.com/ADO-Hydration/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/workItems/110"
+      },
+      {
+        "attributes": {
+          "isLocked": false,
+          "name": "Child"
+        },
+        "rel": "System.LinkTypes.Hierarchy-Forward",
+        "url": "https://dev.azure.com/ADO-Hydration/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/workItems/120"
+      },
+      {
+        "attributes": {
+          "isLocked": false,
+          "name": "Child"
+        },
+        "rel": "System.LinkTypes.Hierarchy-Forward",
+        "url": "https://dev.azure.com/ADO-Hydration/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/workItems/130"
+      },
+      {
+        "attributes": {
+          "isLocked": false,
+          "name": "Child"
+        },
+        "rel": "System.LinkTypes.Hierarchy-Forward",
+        "url": "https://dev.azure.com/ADO-Hydration/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/workItems/140"
+      },
+      {
+        "attributes": {
+          "isLocked": false,
+          "name": "Child"
+        },
+        "rel": "System.LinkTypes.Hierarchy-Forward",
+        "url": "https://dev.azure.com/ADO-Hydration/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/workItems/150"
+      }
+    ],
+    "rev": 1,
+    "url": "https://dev.azure.com/ADO-Hydration/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/workItems/100"
+  },
+  {
+    "id": 110,
+    "fields": {
+      "System.Title": "Feature 110",
+      "System.WorkItemType": "Feature",
+      "System.Parent": 100
+    },
+    "relations": [
+      {
+        "attributes": {
+          "isLocked": false,
+          "name": "Parent"
+        },
+        "rel": "System.LinkTypes.Hierarchy-Reverse",
+        "url": "https://dev.azure.com/ADO-Hydration/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/workItems/100"
+      },
+      {
+        "attributes": {
+          "isLocked": false,
+          "name": "Child"
+        },
+        "rel": "System.LinkTypes.Hierarchy-Forward",
+        "url": "https://dev.azure.com/ADO-Hydration/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/workItems/200"
+      },
+    ],
+    "rev": 2,
+    "url": "https://dev.azure.com/ADO-Hydration/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/workItems/110"
+  },
+  {
+    "id": 120,
+    "fields": {
+      "System.Parent": 100,
+      "System.WorkItemType": "Feature",
+      "System.Title": "Feature 120"
+    },
+    "relations": [
+      {
+        "attributes": {
+          "isLocked": false,
+          "name": "Parent"
+        },
+        "rel": "System.LinkTypes.Hierarchy-Reverse",
+        "url": "https://dev.azure.com/ADO-Hydration/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/workItems/100"
+      }
+    ],
+    "rev": 2,
+    "url": "https://dev.azure.com/ADO-Hydration/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/workItems/120"
+  },
+  {
+    "id": 130,
+    "fields": {
+      "System.WorkItemType": "Feature",
+      "System.Title": "Feature 130",
+      "System.Parent": 100
+    },
+    "relations": [
+      {
+        "attributes": {
+          "isLocked": false,
+          "name": "Parent"
+        },
+        "rel": "System.LinkTypes.Hierarchy-Reverse",
+        "url": "https://dev.azure.com/ADO-Hydration/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/workItems/100"
+      }
+    ],
+    "rev": 1,
+    "url": "https://dev.azure.com/ADO-Hydration/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/workItems/130"
+  },
+  {
+    "id": 140,
+    "fields": {
+      "System.WorkItemType": "Feature",
+      "System.Title": "Feature 140",
+      "System.Parent": 100
+    },
+    "relations": [
+      {
+        "attributes": {
+          "isLocked": false,
+          "name": "Parent"
+        },
+        "rel": "System.LinkTypes.Hierarchy-Reverse",
+        "url": "https://dev.azure.com/ADO-Hydration/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/workItems/100"
+      }
+    ],
+    "rev": 2,
+    "url": "https://dev.azure.com/ADO-Hydration/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/workItems/140"
+  },
+  {
+    "id": 150,
+    "fields": {
+      "System.WorkItemType": "User Story",
+      "System.Title": "User Story 150",
+      "System.Parent": 100
+    },
+    "relations": [
+      {
+        "attributes": {
+          "isLocked": false,
+          "name": "Parent"
+        },
+        "rel": "System.LinkTypes.Hierarchy-Reverse",
+        "url": "https://dev.azure.com/ADO-Hydration/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/workItems/100"
+      }
+    ],
+    "rev": 2,
+    "url": "https://dev.azure.com/ADO-Hydration/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/workItems/300"
+  },
+  {
+    "id": 151,
+    "fields": {      
+      "System.WorkItemType": "User Story",
+      "System.Title": "User Story 999",
+      "System.Parent": 150
+    },
+    "relations": [],
+    "rev": 2,
+    "url": "https://dev.azure.com/ADO-Hydration/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/workItems/151"
+  }, 
+  {
+    "id": 200,
+    "fields": {
+      "System.WorkItemType": "Epic",
+      "System.Title": "Epic 200"
+    },
+    "relations": [
+      {
+        "attributes": {
+          "isLocked": false,
+          "name": "Child"
+        },
+        "rel": "System.LinkTypes.Hierarchy-Forward",
+        "url": "https://dev.azure.com/ADO-Hydration/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/workItems/210"
+      },
+      {
+        "attributes": {
+          "isLocked": false,
+          "name": "Child"
+        },
+        "rel": "System.LinkTypes.Hierarchy-Forward",
+        "url": "https://dev.azure.com/ADO-Hydration/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/workItems/220"
+      },
+      {
+        "attributes": {
+          "isLocked": false,
+          "name": "Child"
+        },
+        "rel": "System.LinkTypes.Hierarchy-Forward",
+        "url": "https://dev.azure.com/ADO-Hydration/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/workItems/240"
+      },
+      {
+        "attributes": {
+          "isLocked": false,
+          "name": "Parent"
+        },
+        "rel": "System.LinkTypes.Hierarchy-Reverse",
+        "url": "https://dev.azure.com/ADO-Hydration/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/workItems/110"
+      }
+    ],
+    "rev": 1,
+    "url": "https://dev.azure.com/ADO-Hydration/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/workItems/200"
+  },
+  {
+    "id": 210,
+    "fields": {
+      "System.WorkItemType": "Feature",
+      "System.Title": "Feature 210",
+      "System.Parent": 200
+    },
+    "relations": [
+      {
+        "attributes": {
+          "isLocked": false,
+          "name": "Parent"
+        },
+        "rel": "System.LinkTypes.Hierarchy-Reverse",
+        "url": "https://dev.azure.com/ADO-Hydration/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/workItems/200"
+      },
+      {
+        "attributes": {
+          "isLocked": false,
+          "name": "Related"
+        },
+        "rel": "System.LinkTypes.Related",
+        "url": "https://dev.azure.com/ADO-Hydration/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/workItems/220"
+      }
+    ],
+    "rev": 2,
+    "url": "https://dev.azure.com/ADO-Hydration/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/workItems/210"
+  },
+  {
+    "id": 220,
+    "fields": {
+      "System.WorkItemType": "Feature",
+      "System.Title": "Feature 220",
+      "System.Parent": 200
+    },
+    "relations": [
+      {
+        "attributes": {
+          "isLocked": false,
+          "name": "Parent"
+        },
+        "rel": "System.LinkTypes.Hierarchy-Reverse",
+        "url": "https://dev.azure.com/ADO-Hydration/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/workItems/200"
+      },
+      {
+        "attributes": {
+          "isLocked": false,
+          "name": "Related"
+        },
+        "rel": "System.LinkTypes.Related",
+        "url": "https://dev.azure.com/ADO-Hydration/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/workItems/230"
+      },
+      {
+        "attributes": {
+          "isLocked": false,
+          "name": "Related"
+        },
+        "rel": "System.LinkTypes.Related",
+        "url": "https://dev.azure.com/ADO-Hydration/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/workItems/210"
+      }
+    ],
+    "rev": 2,
+    "url": "https://dev.azure.com/ADO-Hydration/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/workItems/220"
+  },
+  {
+    "id": 230,
+    "fields": {
+      "System.WorkItemType": "Feature",
+      "System.Title": "Feature 230",
+      "System.Parent": 200
+    },
+    "relations": [
+      {
+        "attributes": {
+          "isLocked": false,
+          "name": "Related"
+        },
+        "rel": "System.LinkTypes.Related",
+        "url": "https://dev.azure.com/ADO-Hydration/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/workItems/220"
+      },
+      {
+        "attributes": {
+          "isLocked": false,
+          "name": "Child"
+        },
+        "rel": "System.LinkTypes.Hierarchy-Forward",
+        "url": "https://dev.azure.com/ADO-Hydration/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/workItems/231"
+      }
+    ],
+    "rev": 2,
+    "url": "https://dev.azure.com/ADO-Hydration/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/workItems/230"
+  },
+  {
+    "id": 231,
+    "fields": {      
+      "System.WorkItemType": "User Story",
+      "System.Title": "User Story 999",
+      "System.Parent": 230
+    },
+    "relations": [
+      {
+        "attributes": {
+          "isLocked": false,
+          "name": "Parent"
+        },
+        "rel": "System.LinkTypes.Hierarchy-Reverse",
+        "url": "https://dev.azure.com/ADO-Hydration/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/workItems/230"
+      }
+    ],
+    "rev": 2,
+    "url": "https://dev.azure.com/ADO-Hydration/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/workItems/231"
+  }, 
+  {
+    "id": 240,
+    "fields": {
+      "System.WorkItemType": "Feature",
+      "System.Title": "Feature 240",
+      "System.Parent": 200
+    },
+    "relations": [
+      {
+        "attributes": {
+          "isLocked": false,
+          "name": "Parent"
+        },
+        "rel": "System.LinkTypes.Hierarchy-Reverse",
+        "url": "https://dev.azure.com/ADO-Hydration/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/workItems/200"
+      }
+    ],
+    "rev": 2,
+    "url": "https://dev.azure.com/ADO-Hydration/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/workItems/240"
+  }
+]

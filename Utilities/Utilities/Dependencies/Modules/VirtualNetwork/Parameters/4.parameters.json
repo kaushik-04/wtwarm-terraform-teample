@@ -1,0 +1,27 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "vnetName": {
+            "value": "sxx-az-vnet-weu-x-005"
+        },
+        "vnetAddressPrefixes": {
+            "value": ["10.0.0.0/16"]
+        },
+        "subnets": {
+            "value": [{
+                    "name": "sxx-az-subnet-weu-x-001",
+                    "addressPrefix": "10.0.0.0/24"
+                },
+                {
+                    "name": "sxx-az-subnet-weu-x-002",
+                    "addressPrefix": "10.0.1.0/24"
+                },
+                {
+                    "name": "sxx-az-subnet-weu-x-003",
+                    "addressPrefix": "10.0.2.0/24"
+                }
+            ]
+        }
+    }
+}

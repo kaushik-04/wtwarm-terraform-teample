@@ -1,0 +1,62 @@
+{
+    "properties": {
+        "name": "pxs-cn-vm-dependency-pd",
+        "displayName": "The Dependency agent should be installed on Virtual Machines",
+        "policyType": "Custom",
+        "mode": "All",
+        "description": "This policy audits any Windows/Linux Virtual Machines if the Dependency agent is not installed.",
+        "metadata": {
+            "version": "1.0.0",
+            "category": "Compute"
+        },
+        "parameters": {
+            "effect": {
+                "type": "String",
+                "metadata": {
+                    "displayName": "Effect",
+                    "description": "Enable or disable the execution of the policy"
+                },
+                "allowedValues": [
+                    "AuditIfNotExists",
+                    "Disabled"
+                ],
+                "defaultValue": "AuditIfNotExists"
+            }
+        },
+        "policyRule": {
+            "if": {
+                "allOf": [
+                    {
+                        "field": "type",
+                        "equals": "Microsoft.Compute/VirtualMachines"
+                    }
+                ]
+            },
+            "then": {
+                "effect": "[parameters('effect')]",
+                "details": {
+                    "type": "Microsoft.Compute/virtualMachines/extensions",
+                    "existenceCondition": {
+                        "allOf": [
+                            {
+                                "field": "Microsoft.Compute/virtualMachines/extensions/publisher",
+                                "equals": "Microsoft.Azure.Monitoring.DependencyAgent"
+                            },
+                            {
+                                "field": "Microsoft.Compute/virtualMachines/extensions/type",
+                                "in": [
+                                    "DependencyAgentWindows",
+                                    "DependencyAgentLinux"
+                                ]
+                            },
+                            {
+                                "field": "Microsoft.Compute/virtualMachines/extensions/provisioningState",
+                                "equals": "Succeeded"
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+    }
+}

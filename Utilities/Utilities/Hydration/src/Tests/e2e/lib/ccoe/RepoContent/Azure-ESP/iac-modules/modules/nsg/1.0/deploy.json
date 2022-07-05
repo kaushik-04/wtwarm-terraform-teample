@@ -1,0 +1,68 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "networkSecurityGroupName": {
+      "type": "string",
+      "metadata": {
+        "description": "Network Security Group Name"
+      }
+    },
+   "securityRules": {
+      "type": "array",
+      "metadata": {
+        "description": "Collection of Security Rules making up the NSG, represented as array of rules."
+      }
+    },
+    "location": {
+      "type": "string",
+      "defaultValue": "West Europe",
+      "allowedValues": [
+          "West Europe"
+        ],
+      "metadata": {
+        "description": "Default and only allowed: West Europe"
+      }
+    }
+  },
+  "variables": {
+  },
+  "resources": [
+    {
+      "apiVersion": "2020-05-01",
+      "type": "Microsoft.Network/networkSecurityGroups",
+      "name": "[parameters('networkSecurityGroupName')]",
+      "location": "[parameters('location')]",
+      "properties": {
+        "copy": [
+          {
+            "name": "securityRules",
+            "count": "[length(parameters('securityRules'))]",
+            "input": {
+              "id": "[parameters('securityRules')[copyIndex('securityRules')].id]",
+              "properties": {
+                "description": "[parameters('securityRules')[copyIndex('securityRules')].description]",
+                "protocol": "[parameters('securityRules')[copyIndex('securityRules')].protocol]",
+                "sourcePortRange": "[parameters('securityRules')[copyIndex('securityRules')].sourcePortRange]",
+                "destinationPortRanges": "[parameters('securityRules')[copyIndex('securityRules')].destinationPortRanges]",
+                "sourceAddressPrefix": "[parameters('securityRules')[copyIndex('securityRules')].sourceAddressPrefix]",
+                "destinationAddressPrefix": "[parameters('securityRules')[copyIndex('securityRules')].destinationAddressPrefix]",
+                "access": "[parameters('securityRules')[copyIndex('securityRules')].access]",
+                "priority": "[parameters('securityRules')[copyIndex('securityRules')].priority]",
+                "direction": "[parameters('securityRules')[copyIndex('securityRules')].direction]"
+              }
+            }
+          }
+      }
+    }
+  ],
+  "outputs": {
+    "networkSecurityGroupId": {
+        "type": "string",
+        "value": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroupName'))]",
+        "metadata": {
+          "description": "The resourceId representing this networkSecurityGroup by Name"
+        }
+    }
+  }
+}

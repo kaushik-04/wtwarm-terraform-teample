@@ -1,0 +1,117 @@
+#########################################################
+## DEPLOYMENT PIPELINE                                 ##
+#########################################################
+##
+#########################################################
+##
+##---------------------------------------------##
+## TEMPLATE PARAMETERS                         ##
+##---------------------------------------------##
+##
+## By default it uses the variables specified in the below [parameters] section. However, you can overwrite these variables in the 
+##    referencing pipeline by providing the parameter explicitly.
+## 
+## NOTE: If you don't need to overwrite a shared value, you can IGNORE this section 
+##
+##   |=================================================================================================================================================================================================================================|
+##   | Parameter                       | Default Value                        | Description                                                                                               | Example                                    |
+##   |---------------------------------|--------------------------------------|-----------------------------------------------------------------------------------------------------------|--------------------------------------------|
+##   |                                 |                                      |                                                                                                           |                                            |
+##   |=================================================================================================================================================================================================================================|
+##
+##---------------------------------------------##
+
+parameters:
+  # Pipeline-related parameters
+  serviceConnection: 'aad-automation'
+  poolName: '$(poolName)'
+  vmImage: '$(vmImage)'
+  moduleName: "serviceconnection"
+  defaultJobTimeoutInMinutes: 120
+  checkoutRepositories: ''
+  dependsOn: []
+  # Logic-related parameters
+  parametersPath: '$(parametersPath)'
+  deploymentBlocks: ''
+  parametersRepository: '$(Build.Repository.Name)'
+  # Azure PowerShell Version parameters
+  azurePowerShellVersion: '$(azurePowerShellVersion)'
+  preferredAzurePowerShellVersion: '$(preferredAzurePowerShellVersion)'
+
+##---------------------------------------------##
+## TEMPLATE LOGIC                              ##
+##---------------------------------------------##
+jobs:
+- ${{ each deploymentBlock in parameters.deploymentBlocks }}:
+  - job: ${{ deploymentBlock.jobName }}
+    ${{ if ne( deploymentBlock.displayName, '') }}:
+      displayName: ${{ deploymentBlock.displayName }}
+    ${{ if eq( deploymentBlock.displayName, '') }}:
+      displayName: Deploy with [${{ replace( deploymentBlock.path, '$(parametersPath)', '') }}]
+    timeoutInMinutes: ${{ parameters.defaultJobTimeoutInMinutes }}
+    ${{ if ne( parameters.dependsOn, '') }}:
+      dependsOn: ${{ parameters.dependsOn }}
+    pool:
+      ${{ if ne(parameters.vmImage, '') }}:
+        vmImage: ${{ parameters.vmImage }}
+      ${{ if ne(parameters.poolName, '') }}:
+        name: ${{ parameters.poolName }}
+    steps:
+
+    # [Checkout Repositories] task(s)
+    #--------------------------------
+    - checkout: self
+    - ${{ if ne(parameters.checkoutRepositories, '') }}:
+      - ${{ each checkoutRepository in parameters.checkoutRepositories }}:
+        - checkout: ${{ checkoutRepository }}
+          fetchDepth: 1  # the depth of commits to ask Git to fetch; if not set defaults to no limit
+          path: 's/${{ checkoutRepository }}'
+
+    # [Deployment] task(s)
+    #--------------------------------
+    - task: AzurePowerShell@5
+      displayName: 'Deploy [${{ parameters.moduleName }}] via connection [${{ parameters.serviceConnection }}]'
+      inputs:
+        azureSubscription:  ${{ parameters.serviceConnection }}
+        azurePowerShellVersion: ${{ parameters.azurePowerShellVersion }}
+        preferredAzurePowerShellVersion: ${{ parameters.preferredAzurePowerShellVersion }}
+        pwsh: true
+        ScriptType: InlineScript
+        inline: |
+          # ---------------------------- #
+          # HANDLE MULTI-REPO INVOCATION #
+          # ---------------------------- #
+          $componentsBasePath = "$(System.DefaultWorkingDirectory)"
+          $parametersBasePath = "$(Build.Repository.LocalPath)"
+
+          if( "${{ join(';',parameters.checkoutRepositories) }}".length -gt 0) {
+            $componentsBasePath = Join-Path $componentsBasePath '$(modulesRepository)'
+            $parametersBasePath = "$(Build.Repository.LocalPath)/${{ parameters.parametersRepository }}"
+          }
+
+          "componentsBasePath: $componentsBasePath"
+          "parametersBasePath: $parametersBasePath"
+
+          # Load used modules
+          $ModulePath = Get-ChildItem -Path $componentsBasePath/modules/serviceconnection -File -Recurse -Include "ADO.psm1", "AAD.psm1", "Utilities.psm1", Set-ADOSvcCon.ps1
+          $ModulePath | ForEach-Object {
+              Write-Output "Loading $($_.FullName)"
+              Get-Module $_.BaseName | Remove-Module -Force
+              Import-Module $_.FullName -Force -DisableNameChecking
+          }
+
+          $ParameterfilePath = Join-Path -Path $parametersBasePath -ChildPath '${{ deploymentBlock.path }}'
+
+          if (!(Test-Path -Path $ParameterfilePath)) {
+            throw "File was not found: $ParameterfilePath"
+          }
+
+          $functionInput = @{
+            ParameterfilePath = $ParameterfilePath
+          }
+          Write-Verbose "Invoke task with" -Verbose
+          $functionInput
+
+          Set-ADOSvcCon @functionInput -Verbose            
+      env: 
+        AZURE_DEVOPS_EXT_PAT : '$(System.AccessToken)'

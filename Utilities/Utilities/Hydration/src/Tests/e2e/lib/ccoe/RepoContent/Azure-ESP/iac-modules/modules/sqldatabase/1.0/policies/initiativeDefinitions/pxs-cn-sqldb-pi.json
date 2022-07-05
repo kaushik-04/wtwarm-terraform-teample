@@ -1,0 +1,84 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "scope": {
+            "value": "/providers/Microsoft.Management/managementGroups/pxs-cloudnative-mg"
+        },
+        "properties": {
+            "value": {
+                "name": "pxs-cn-sqldb-pi",
+                "displayName": "pxs-cn-sqldb-pi",
+                "description": "This initiative restrics the configuration of any deployed SQL database that differs from the compliant.",
+                "metadata": {
+                    "category": "CCoE"
+                },
+                "policyDefinitions": [
+                    {
+                        "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/pxs-cloudnative-mg/providers/Microsoft.Authorization/policyDefinitions/pxs-cn-sqldb-sku-pd",
+                        //"policyDefinitionReferenceId": "enforceSKU",
+                        "parameters": {
+                            "allowedSKUs": {
+                                "value": "[parameters('allowedSKUs')]"
+                            },
+                            "effect": {
+                                "value": "[parameters('skuPolicyEffect')]"
+                            }
+                        }
+                    },
+                    {
+                        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/86a912f6-9a06-4e26-b447-11b16ba8659f",
+                        //"policyDefinitionReferenceId": "enforceTDE",
+                        "parameters": {}
+                    },
+                    {
+                        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/d38fc420-0735-4ef3-ac11-c806f651a570",
+                        //"policyDefinitionReferenceId": "enforceLTGeoRedundantBackup",
+                        "parameters": {
+                            "effect": {
+                                "value": "[parameters('ltBackupPolicyEffect')]"
+                            }
+                        }
+                    }
+                ],
+                "parameters": {
+                    "allowedSKUs": {
+                        "type": "array",
+                        "metadata": {
+                            "displayName": "allowedSKUs",
+                            "description": "List of locations allowed SKUs for the Azure SQL Database resource type."
+                        },
+                        "defaultValue": [
+                            "GP_Gen5"
+                        ]
+                    },
+                    "skuPolicyEffect": {
+                        "type": "String",
+                        "metadata": {
+                          "displayName": "skuPolicyEffect",
+                          "description": "Enable or disable the execution of the policy"
+                        },
+                        "allowedValues": [
+                          "Audit",
+                          "Disabled",
+                          "Deny"
+                        ],
+                        "defaultValue": "Audit"
+                    },
+                    "ltBackupPolicyEffect": {
+                        "type": "String",
+                        "metadata": {
+                          "displayName": "ltBackupPolicyEffect",
+                          "description": "Enable or disable the execution of the policy"
+                        },
+                        "allowedValues": [
+                          "AuditIfNotExists",
+                          "Disabled"
+                        ],
+                        "defaultValue": "AuditIfNotExists"
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,70 @@
+{
+    "root": {
+        "scope": "/providers/Microsoft.Management/managementGroups/pxs-cloudnative-mg",
+        "scopeDisplayName": "pxs-cloudnative-mg",
+        "policyAssignments": [],
+        "policySetAssignments": [],
+        "children": [
+            {
+                "scope": "/providers/Microsoft.Management/managementGroups/pxs-cn-s-mg",
+                "scopeDisplayName": "pxs-cn-s-mg",
+                "policyAssignments": [],
+                "policySetAssignments": [
+                    {
+                        "managedIdentity": {
+                            "location": "",
+                            "assignIdentity": false
+                        },
+                        "displayName": "pxs-cn-s-vm-pa",
+                        "definitionDisplayName": "pxs-cn-s-vm-pi",
+                        "description": "This is the default set of policies monitored by the CCoE. They ensure that the defined security baselines for such component are enforced.",
+                        "name": "pxs-cn-s-vm-pa",
+                        "notScopes": [],
+                        "parameters": {
+                            "antimalwareeffect": "AuditIfNotExists",
+                            "bootdiagnosticseffect": "Audit",
+                            "depencyagenteffect": "AuditIfNotExists",
+                            "vmextensionseffect": "Audit",
+                            "approvedExtensions": [
+                                "AzureDiskEncryption",
+                                "AzureDiskEncryptionForLinux",
+                                "DependencyAgentWindows",
+                                "DependencyAgentLinux",
+                                "IaaSAntimalware",
+                                "IaaSDiagnostics",
+                                "LinuxDiagnostic",
+                                "MicrosoftMonitoringAgent",
+                                "NetworkWatcherAgentLinux",
+                                "NetworkWatcherAgentWindows",
+                                "OmsAgentForLinux",
+                                "VMSnapshot",
+                                "VMSnapshotLinux",
+                                "DSC",
+                                "LinuxAgent.AzureSecurityCenter",
+                                "WindowsAgent.AzureSecurityCenter",
+                                "guesthealthwindowsagent",
+                                "azuremonitorwindowsagent",
+                                "SqlIaaSAgent",
+                                "azurebackupwindowsworkload",
+                                "CustomScript"
+                            ],
+                            
+                            "osrestrictioneffect": "Audit",
+                            "allowedWindowsSKUImages": [
+                                "2012-R2-Datacenter",
+                                "2016-Datacenter-Server-Core",
+                                "2016-Datacenter",
+                                "2019-Datacenter-Core",
+                                "2019-Datacenter"
+                            ],
+                            "guestosupdateeffect": "Audit"
+                        },
+                        "enforcementMode": "Default",
+                        "definitionId": "/providers/Microsoft.Management/managementGroups/pxs-cloudnative-mg/providers/Microsoft.Authorization/policySetDefinitions/pxs-cn-s-vm-pi"
+                    }
+                ],
+                "children": []
+            }
+        ]
+    }
+}

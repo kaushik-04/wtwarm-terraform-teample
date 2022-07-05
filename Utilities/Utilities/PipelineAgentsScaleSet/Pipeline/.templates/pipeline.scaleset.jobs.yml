@@ -1,0 +1,267 @@
+parameters:
+- name:  vmImage
+  default: ''
+- name:  poolName
+  default: ''
+- name:  serviceConnection
+  default:
+- name:  resourcegroupname
+  default:
+- name:  useLatestImage
+  default:
+- name:  jobEnvironment
+  default:
+- name:  jobOs
+  default:
+- name:  jobScope
+  default:
+
+jobs:
+## Resource group
+- job: Deploy_AgentsResourceGroup
+  displayName: Deploy Resource Group
+  dependsOn: ''
+  condition: | 
+    and(
+      succeeded(),
+      in('${{ parameters.jobScope }}', 'All')
+    )
+  timeoutInMinutes: 120
+  pool:
+    ${{ if ne(parameters.vmImage, '') }}:
+      vmImage: ${{ parameters.vmImage }}
+    ${{ if ne(parameters.poolName, '') }}:
+      name: ${{ parameters.poolName }}
+  steps:
+  - checkout: self
+  - template: pipeline.steps.artifact.yml
+    parameters:
+      moduleName: '$(resourceGroupModuleName)'
+      moduleVersion: '$(resourceGroupModuleVersion)'
+  - task: AzurePowerShell@4
+    displayName: 'Deploy module [$(resourceGroupModuleName)] version [$(resourceGroupModuleVersion)] in [${{ parameters.resourcegroupname }}] via [${{ parameters.serviceConnection }}]'
+    name: Deploy_ResourceGroup_Task_01
+    inputs:
+      azureSubscription: ${{ parameters.serviceConnection }}
+      ScriptType: InlineScript
+      inline: |
+        Write-Verbose "Load function" -Verbose
+        . '$(Build.Repository.LocalPath)/$(orchestrationFunctionsPath)/Invoke-GeneralDeployment.ps1'
+
+        $parameterFilePath = Join-Path '$(Build.Repository.LocalPath)' ('$(rgFolderPath)/Parameters/ResourceGroup/{0}.parameters.json' -f '${{ parameters.jobEnvironment }}')
+        $functionInput = @{
+          location          = '$(location)'
+          modulePackagePath = Join-Path '$(downloadDirectory)' '$(resourceGroupModuleName)'
+          parameterFilePath = $parameterFilePath
+        }
+
+        Write-Verbose "Invoke task with" -Verbose
+        $functionInput.Keys | ForEach-Object { Write-Verbose ("PARAMETER: `t'{0}' with value '{1}'" -f $_, $functionInput[$_]) -Verbose }
+
+        Invoke-GeneralDeployment @functionInput -Verbose
+      errorActionPreference: stop
+      azurePowerShellVersion: LatestVersion
+
+## Virtual Network
+- job: Deploy_AgentsVirtualNetwork
+  displayName: Deploy Virtual Network for  VM ScaleSets
+  dependsOn:
+  - ${{ if in( parameters.jobScope, 'All') }}:
+    - Deploy_AgentsResourceGroup
+  condition: |
+    and (
+      succeeded(),
+      in('${{ parameters.jobScope }}', 'All'),
+      in(dependencies.Deploy_AgentsResourceGroup.result, '', 'Succeeded')
+    )
+  timeoutInMinutes: 120
+  pool:
+    ${{ if ne(parameters.vmImage, '') }}:
+      vmImage: ${{ parameters.vmImage }}
+    ${{ if ne(parameters.poolName, '') }}:
+      name: ${{ parameters.poolName }}
+  steps:
+  - checkout: self
+  - template: pipeline.steps.artifact.yml
+    parameters:
+      moduleName: '$(virtualNetworkModuleName)'
+      moduleVersion: '$(virtualNetworkModuleVersion)'
+  - task: AzurePowerShell@4
+    displayName: 'Deploy module [$(virtualNetworkModuleName)] version [$(virtualNetworkModuleVersion)] in [${{ parameters.resourcegroupname }}] via [${{ parameters.serviceConnection }}]'
+    name: Deploy_ResourceGroup_Task_01
+    inputs:
+      azureSubscription: ${{ parameters.serviceConnection }}
+      ScriptType: InlineScript
+      inline: |
+        Write-Verbose "Load function" -Verbose
+        . '$(Build.Repository.LocalPath)/$(orchestrationFunctionsPath)/Invoke-GeneralDeployment.ps1'
+
+        $parameterFilePath = Join-Path '$(Build.Repository.LocalPath)' ('$(rgFolderPath)/Parameters/VirtualNetwork/{0}.parameters.json' -f '${{ parameters.jobEnvironment }}')
+        $functionInput = @{
+          resourcegroupName = '${{ parameters.resourcegroupname }}'
+          modulePackagePath = Join-Path '$(downloadDirectory)' '$(virtualNetworkModuleName)'
+          parameterFilePath = $parameterFilePath
+        }
+
+        Write-Verbose "Invoke task with" -Verbose
+        $functionInput.Keys | ForEach-Object { Write-Verbose ("PARAMETER: `t'{0}' with value '{1}'" -f $_, $functionInput[$_]) -Verbose }
+
+        Invoke-GeneralDeployment @functionInput -Verbose
+      errorActionPreference: stop
+      azurePowerShellVersion: LatestVersion
+
+## Windows Scale Set
+- job: Deploy_WindowsScaleSet
+  displayName: Deploy VM ScaleSet for Windows
+  dependsOn:
+  - ${{ if in( parameters.jobScope, 'All') }}:
+    - Deploy_AgentsResourceGroup
+    - Deploy_AgentsVirtualNetwork
+  condition: |
+    and (
+      succeeded(),
+      in('${{ parameters.jobScope }}', 'All', 'Only Scale Set'),
+      in('${{ parameters.jobOs }}', 'Both', 'Only Windows'),
+      in(dependencies.Deploy_AgentsResourceGroup.result, '', 'Succeeded'),
+      in(dependencies.Deploy_AgentsVirtualNetwork.result, '', 'Succeeded')
+    )
+  timeoutInMinutes: 120
+  pool:
+    ${{ if ne(parameters.vmImage, '') }}:
+      vmImage: ${{ parameters.vmImage }}
+    ${{ if ne(parameters.poolName, '') }}:
+      name: ${{ parameters.poolName }}
+  steps:
+  - checkout: self
+  - template: pipeline.steps.artifact.yml
+    parameters:
+      moduleName: '$(scaleSetModuleName)'
+      moduleVersion: '$(scaleSetModuleVersion)'
+  - task: AzurePowerShell@4
+    displayName: 'Deploy module [$(scaleSetModuleName)] version [$(scaleSetModuleVersion)] in [${{ parameters.resourcegroupname }}] via [${{ parameters.serviceConnection }}]'
+    name: Deploy_WindowsScaleSet_Task
+    inputs:
+      azureSubscription: ${{ parameters.serviceConnection }}
+      ScriptType: InlineScript
+      inline: |
+        Write-Verbose "Load function" -Verbose
+        . '$(Build.Repository.LocalPath)/$(orchestrationFunctionsPath)/Invoke-GeneralDeployment.ps1'
+        . '$(Build.Repository.LocalPath)/$(orchestrationFunctionsPath)/Add-CustomParameters.ps1'
+
+        $parameterFilePath = Join-Path '$(Build.Repository.LocalPath)' ('$(rgFolderPath)/Parameters/ScaleSet/{0}.windows.parameters.json' -f '${{ parameters.jobEnvironment }}')
+        $functionInput = @{
+          resourcegroupName = '${{ parameters.resourcegroupname }}'
+          modulePackagePath = Join-Path '$(downloadDirectory)' '$(scaleSetModuleName)'
+          parameterFilePath = $parameterFilePath
+        }
+
+        $customValueMap = @()
+        if ('${{ parameters.useLatestImage }}' -eq 'true') {
+          Write-Verbose "No specific custom image version provided. Using latest" -Verbose
+
+          $imageParam = (ConvertFrom-Json (Get-Content -Path $parameterFilePath -Raw)).parameters.imageReference.value.id.Split('/')
+          $sigRg = $imageParam[4]
+          $sig = $imageParam[8]
+          $sid = $imageParam[10]
+
+          if (-not ($availableVersions = Get-AzGalleryImageVersion -ResourceGroupName $sigRg -GalleryName $sig -GalleryImageDefinitionName $sid)) {
+              throw "Now image versions found for image definition [$customImageDefinitionName] in gallery [$customImageGalleryName]"
+          }
+          $customLatestImage = (($availableVersions.Name -as [Version[]]) | Measure-Object -Maximum).Maximum.ToString()
+          Write-Verbose "Latest version found is : [$customLatestImage]" -Verbose
+
+          $customValueMap +=   @{ path = 'imageReference.value.id'; value = ("{0}/{1}" -f ($imageParam[0..11] -join '/'), $customLatestImage) }
+        }
+
+        if($customValueMap.Count -gt 0) {
+          $overwriteInputObject = @{
+            parameterFilePath     = $parameterFilePath
+            valueMap              = $customValueMap
+          }
+          Add-CustomParameters @overwriteInputObject
+        }
+
+        Write-Verbose "Invoke task with" -Verbose
+        $functionInput.Keys | ForEach-Object { Write-Verbose ("PARAMETER: `t'{0}' with value '{1}'" -f $_, $functionInput[$_]) -Verbose }
+
+        Invoke-GeneralDeployment @functionInput -Verbose
+      errorActionPreference: stop
+      azurePowerShellVersion: LatestVersion
+
+## Linux Scale Set
+- job: Deploy_LinuxScaleSet
+  displayName: Deploy VM ScaleSet for Linux
+  dependsOn:
+  - ${{ if in( parameters.jobScope, 'All') }}:
+    - Deploy_AgentsResourceGroup
+    - Deploy_AgentsVirtualNetwork
+  condition: |
+    and (
+      succeeded(),
+      in('${{ parameters.jobScope }}', 'All', 'Only Scale Set'),
+      in('${{ parameters.jobOs }}', 'Both', 'Only Linux'),
+      in(dependencies.Deploy_AgentsResourceGroup.result, '', 'Succeeded'),
+      in(dependencies.Deploy_AgentsVirtualNetwork.result, '', 'Succeeded')
+    )
+  timeoutInMinutes: 120
+  pool:
+    ${{ if ne(parameters.vmImage, '') }}:
+      vmImage: ${{ parameters.vmImage }}
+    ${{ if ne(parameters.poolName, '') }}:
+      name: ${{ parameters.poolName }}
+  steps:
+  - checkout: self
+  - template: pipeline.steps.artifact.yml
+    parameters:
+      moduleName: '$(scaleSetModuleName)'
+      moduleVersion: '$(scaleSetModuleVersion)'
+  - task: AzurePowerShell@4
+    displayName: 'Deploy module [$(scaleSetModuleName)] version [$(scaleSetModuleVersion)] in [${{ parameters.resourcegroupname }}] via [${{ parameters.serviceConnection }}]'
+    name: Deploy_LinuxScaleSet_Task
+    inputs:
+      azureSubscription: ${{ parameters.serviceConnection }}
+      ScriptType: InlineScript
+      inline: |
+        Write-Verbose "Load function" -Verbose
+        . '$(Build.Repository.LocalPath)/$(orchestrationFunctionsPath)/Invoke-GeneralDeployment.ps1'
+        . '$(Build.Repository.LocalPath)/$(orchestrationFunctionsPath)/Add-CustomParameters.ps1'
+
+        $parameterFilePath = Join-Path '$(Build.Repository.LocalPath)' ('$(rgFolderPath)/Parameters/ScaleSet/{0}.linux.parameters.json' -f '${{ parameters.jobEnvironment }}')
+        $functionInput = @{
+          resourcegroupName = '${{ parameters.resourcegroupname }}'
+          modulePackagePath = Join-Path '$(downloadDirectory)' '$(scaleSetModuleName)'
+          parameterFilePath = $parameterFilePath
+        }
+
+        $customValueMap = @()
+        if ('${{ parameters.useLatestImage }}' -eq 'true') {
+          Write-Verbose "No specific custom image version provided. Using latest" -Verbose
+
+          $imageParam = (ConvertFrom-Json (Get-Content -Path $parameterFilePath -Raw)).parameters.imageReference.value.id.Split('/')
+          $sigRg = $imageParam[4]
+          $sig = $imageParam[8]
+          $sid = $imageParam[10]
+
+          if (-not ($availableVersions = Get-AzGalleryImageVersion -ResourceGroupName $sigRg -GalleryName $sig -GalleryImageDefinitionName $sid)) {
+              throw "Now image versions found for image definition [$customImageDefinitionName] in gallery [$customImageGalleryName]"
+          }
+          $customLatestImage = (($availableVersions.Name -as [Version[]]) | Measure-Object -Maximum).Maximum.ToString()
+          Write-Verbose "Latest version found is : [$customLatestImage]" -Verbose
+
+          $customValueMap +=   @{ path = 'imageReference.value.id'; value = ("{0}/{1}" -f ($imageParam[0..11] -join '/'), $customLatestImage) }
+        }
+
+        if($customValueMap.Count -gt 0) {
+          $overwriteInputObject = @{
+            parameterFilePath     = $parameterFilePath
+            valueMap              = $customValueMap
+          }
+          Add-CustomParameters @overwriteInputObject
+        }
+
+        Write-Verbose "Invoke task with" -Verbose
+        $functionInput.Keys | ForEach-Object { Write-Verbose ("PARAMETER: `t'{0}' with value '{1}'" -f $_, $functionInput[$_]) -Verbose }
+
+        Invoke-GeneralDeployment @functionInput -Verbose
+      errorActionPreference: stop
+      azurePowerShellVersion: LatestVersion

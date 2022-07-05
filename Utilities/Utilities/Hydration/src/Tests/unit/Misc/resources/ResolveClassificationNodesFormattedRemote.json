@@ -1,0 +1,92 @@
+[
+    {
+        "id": 24,
+        "identifier": "d3761d90-4c40-4699-a11c-a0a16a0ae1bd",
+        "name": "Module Playground",
+        "structureType": "area",
+        "hasChildren": true,
+        "children": [
+            {
+                "id": 52,
+                "identifier": "81252c83-b143-4721-ab6f-904d0010d9bd",
+                "name": "CCoE Cloud Solutions Team",
+                "structureType": "area",
+                "hasChildren": false,
+                "path": "\\Module Playground\\Area\\CCoE Cloud Solutions Team",
+                "url": "https://dev.azure.com/contoso/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/classificationNodes/Areas/CCoE%20Cloud%20Solutions%20Team"
+            },
+            {
+                "id": 53,
+                "identifier": "344ee447-f0d1-4744-b631-b5ddc30790b7",
+                "name": "CCoE Cloud Platform Team",
+                "structureType": "area",
+                "hasChildren": false,
+                "path": "\\Module Playground\\Area\\CCoE Cloud Platform Team",
+                "url": "https://dev.azure.com/contoso/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/classificationNodes/Areas/CCoE%20Cloud%20Platform%20Team"
+            },
+            {
+                "id": 54,
+                "identifier": "aa8dda18-66b8-46d2-88fe-7ff91da6545c",
+                "name": "CCoE Security Champions",
+                "structureType": "area",
+                "hasChildren": false,
+                "path": "\\Module Playground\\Area\\CCoE Security Champions",
+                "url": "https://dev.azure.com/contoso/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/classificationNodes/Areas/CCoE%20Security%20Champions"
+            },
+            {
+                "id": 55,
+                "identifier": "dee4cafa-a984-4d03-8db1-f97c55cee6a6",
+                "name": "CCoE Cloud Operations Champions",
+                "structureType": "area",
+                "hasChildren": false,
+                "path": "\\Module Playground\\Area\\CCoE Cloud Operations Champions",
+                "url": "https://dev.azure.com/contoso/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/classificationNodes/Areas/CCoE%20Cloud%20Operations%20Champions"
+            },
+            {
+                "id": 56,
+                "identifier": "e4507e2c-f764-4e0e-bc91-afdf5bedd73f",
+                "name": "CCoE DevOps Enablement Office",
+                "structureType": "area",
+                "hasChildren": false,
+                "path": "\\Module Playground\\Area\\CCoE DevOps Enablement Office",
+                "url": "https://dev.azure.com/contoso/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/classificationNodes/Areas/CCoE%20DevOps%20Enablement%20Office"
+            },
+            {
+                "id": 57,
+                "identifier": "7b306151-dc69-4c94-9395-785267404957",
+                "name": "Customer Application Teams",
+                "structureType": "area",
+                "hasChildren": true,
+                "children": [
+                    {
+                        "id": 58,
+                        "identifier": "b160bf92-02b2-426b-bd27-2083bb08d5e4",
+                        "name": "Customer Application Team 3",
+                        "structureType": "area",
+                        "hasChildren": false,
+                        "path": "\\Module Playground\\Area\\Customer Application Teams\\Customer Application Team 3",
+                        "url": "https://dev.azure.com/contoso/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/classificationNodes/Areas/Customer%20Application%20Teams/Customer%20Application%20Team%203"
+                    },
+                    {
+                        "id": 59,
+                        "identifier": "d1fce05a-d07e-4bd8-b434-7fd0bf57e23d",
+                        "name": "CCoE Cloud Solutions Team 4",
+                        "structureType": "area",
+                        "hasChildren": false,
+                        "path": "\\Module Playground\\Area\\Customer Application Teams\\CCoE Cloud Solutions Team 4",
+                        "url": "https://dev.azure.com/contoso/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/classificationNodes/Areas/Customer%20Application%20Teams/CCoE%20Cloud%20Solutions%20Team%204"
+                    }
+                ],
+                "path": "\\Module Playground\\Area\\Customer Application Teams",
+                "url": "https://dev.azure.com/contoso/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/classificationNodes/Areas/Customer%20Application%20Teams"
+            }
+        ],
+        "path": "\\Module Playground\\Area",
+        "_links": {
+            "self": {
+                "href": "https://dev.azure.com/contoso/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/classificationNodes/Areas"
+            }
+        },
+        "url": "https://dev.azure.com/contoso/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/classificationNodes/Areas"
+    }
+]

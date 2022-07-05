@@ -1,0 +1,39 @@
+{
+    "properties": {
+        "name": "AuditKeyVaultLogging",
+        "displayName": "Audit Key Vault Logging",
+        "policyType": "Custom",
+        "metadata": {
+            "category": "Key Vault"
+        },
+        "mode": "All",
+        "description": "This policy audits if a Key Vault logging is enabled.",
+        "parameters": {},
+        "policyRule": {
+            "if": {
+                "field": "type",
+                "equals": "Microsoft.KeyVault/vaults"
+            },
+            "then": {
+                "effect": "AuditIfNotExists",
+                "details": {
+                    "type": "Microsoft.Insights/diagnosticSettings",
+                    "existenceCondition": {
+                        "allOf": [
+                            {
+                                "count": {
+                                    "field": "Microsoft.Insights/diagnosticSettings/logs[*]",
+                                    "where": {
+                                        "field": "Microsoft.Insights/diagnosticSettings/logs[*].category",
+                                        "equals": "AuditEvent"
+                                    }
+                                },
+                                "equals": 1
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+    }
+}

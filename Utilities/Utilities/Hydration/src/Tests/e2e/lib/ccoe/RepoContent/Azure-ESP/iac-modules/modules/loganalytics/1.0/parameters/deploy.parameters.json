@@ -1,0 +1,36 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"logAnalyticsWorkspaceName": {
+			"value": "pxs-tst-la001"
+		},
+		"roleAssignments": {
+			"value": [
+				{
+					"roleDefinitionIdOrName": "Log Analytics Reader",
+					"principalIds": [
+						"66c9af9e-a7c0-4bbd-970c-38ff9b2083c0" //User:Michael Tonneau-Midol
+					]
+				}
+			]
+		},
+		"solutions": {
+			"value": [
+				"AzureActivity"
+			]
+		},
+		"enableLogAccessUsingOnlyResourcePermissions": {
+			"value": true
+		},
+		"tags": {
+			"value": {
+				"application-id": "Application-id-tag",
+				"cost-center": "cost-center-tag",
+				"deployment-id": "deployment-id-tag",
+				"environment": "d",
+				"platform-id": "platform-id-tag"
+			}
+		}
+	}
+}

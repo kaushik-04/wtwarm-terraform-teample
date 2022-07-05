@@ -1,0 +1,62 @@
+name: $(moduleName)
+
+variables:
+- template: /Modules/ARM/.global/global.variables.yml
+- template: ../Parameters/parameters.yml
+
+trigger:
+  batch: true
+  branches:
+    include:
+      - notrigger
+  paths:
+    include:
+    - Utilities/PipelineAgentsACI/*
+
+stages:
+- stage: Cleanup
+  jobs:
+  - job:
+    displayName: Stop and remove Pipeline Agents (Container)
+    pool:
+      ${{ if eq(variables['vmImage'], '') }}:
+        name: $(poolName)
+      ${{ if eq(variables['poolName'], '') }}:
+        vmImage: $(vmImage)
+    steps:
+      - task: AzurePowerShell@4
+        displayName: Start Pipeline Agents (Container)
+        enabled: falase
+        inputs:
+          azureSubscription: $(serviceConnection)
+          azurePowerShellVersion: LatestVersion
+          ScriptType: InlineScript
+          Inline: |
+            $containerGroups = Get-AzContainerGroup -ResourceGroupName $(resourceGroupName)
+            foreach ($containerGroup in $containerGroups) {
+              Write-Verbose "Stopping Container Group $containerGroup.Name ..."
+              Invoke-AzResourceAction -ResourceGroupName $(resourceGroupName) -ResourceName $containerGroup.Name -Action Start -ResourceType Microsoft.ContainerInstance/containerGroups -Force
+            }
+            #Get-AzContainerGroup -ResourceGroupName $(resourceGroupName) | Remove-AzContainerGroup
+      - task: AzurePowerShell@4
+        displayName: Stop Pipeline Agents (Container)
+        enabled: false
+        inputs:
+          azureSubscription: $(serviceConnection)
+          azurePowerShellVersion: LatestVersion
+          ScriptType: InlineScript
+          Inline: |
+            $containerGroups = Get-AzContainerGroup -ResourceGroupName $(resourceGroupName)
+            foreach ($containerGroup in $containerGroups) {
+              Write-Verbose "Stopping Container Group $containerGroup.Name ..."
+              Invoke-AzResourceAction -ResourceGroupName $(resourceGroupName) -ResourceName $containerGroup.Name -Action Stop -ResourceType Microsoft.ContainerInstance/containerGroups -Force
+            }
+      - task: AzurePowerShell@4
+        displayName: Remove Pipeline Agents (Container)
+        enabled: true
+        inputs:
+          azureSubscription: $(serviceConnection)
+          azurePowerShellVersion: LatestVersion
+          ScriptType: InlineScript
+          Inline: |
+            Get-AzContainerGroup -ResourceGroupName $(resourceGroupName) | Remove-AzContainerGroup

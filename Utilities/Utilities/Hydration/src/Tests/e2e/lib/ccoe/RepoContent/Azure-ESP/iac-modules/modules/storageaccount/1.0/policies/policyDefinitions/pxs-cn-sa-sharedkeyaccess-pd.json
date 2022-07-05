@@ -1,0 +1,72 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "scope": {
+          "value": "/providers/Microsoft.Management/managementGroups/pxs-cloudnative-mg"
+        },
+        "properties": {
+            "value": {
+                "name": "pxs-cn-sa-sharedkeyaccess-pd",
+                "displayName": "Enable or Disable Shared Key Access on storageAccount",
+                "policyType": "Custom",
+                "mode": "All",
+                "description": "This policy audits/disables the Shared Key Access for storageAccounts",
+                "metadata": {
+                    "category": "CCoE"
+                },
+                "parameters": {
+                    "auditSharedKeyAccessEffect": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Audit Shared Key Access",
+                            "description": "Enable or Disable Audit on whether Shared Key Access for storageAccount is deployed"
+                        },
+                        "allowedValues": [
+                            "Audit",
+                            "Deny"
+                        ],
+                        "defaultValue": "Audit"
+                    }
+                },
+                "policyRule": {
+                    "if": {
+                        "allOf": [
+                            {
+                                "field": "type",
+                                "equals": "Microsoft.Storage/storageAccounts"
+                            },
+                            {
+                                "anyOf": [
+                                    {
+                                        "field": "Microsoft.Storage/storageAccounts/blobServices/allowSharedKeyAccess.enabled",
+                                        "exists": "false"
+                                    },
+                                    {
+                                        "field": "Microsoft.Storage/storageAccounts/blobServices/allowSharedKeyAccess.enabled",
+                                        "notEquals": "false"
+                                    }
+                                ]
+                            },
+                            {
+                                "anyOf": [
+                                    {
+                                        "field": "Microsoft.Storage/storageAccounts/fileServices/allowSharedKeyAccess.enabled",
+                                        "exists": "false"
+                                    },
+                                    {
+                                        "field": "Microsoft.Storage/storageAccounts/fileServices/allowSharedKeyAccess.enabled",
+                                        "notEquals": "false"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    "then": {
+                        "effect": "[parameters('auditSharedKeyAccessEffect')]"
+                    } 
+                }  
+            }
+        }
+    }
+}

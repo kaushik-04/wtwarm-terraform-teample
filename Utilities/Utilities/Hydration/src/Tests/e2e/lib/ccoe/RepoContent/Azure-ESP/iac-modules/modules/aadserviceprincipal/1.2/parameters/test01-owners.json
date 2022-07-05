@@ -1,0 +1,9 @@
+{
+    "name": "pxs-buildingblocks-deploytest01-sp",
+    "owners": [
+        "frederik.de.ryck@contoso.com",
+        "marius.storhaug@contoso.com",
+        "pxs-buildingblocks-buildingblocks-p-aad-automation-sp",
+        "pxs-ccoe-admin"
+    ]
+}

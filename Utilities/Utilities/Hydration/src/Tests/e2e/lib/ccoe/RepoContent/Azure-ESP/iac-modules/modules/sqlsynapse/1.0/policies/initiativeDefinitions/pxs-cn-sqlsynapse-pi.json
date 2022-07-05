@@ -1,0 +1,62 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "scope": {
+            "value": "/providers/Microsoft.Management/managementGroups/pxs-cloudnative-mg"
+        },
+        "properties": {
+            "value": {
+                "name": "pxs-cn-sqlsynapse-pi",
+                "displayName": "pxs-cn-sqlsynapse-pi",
+                "description": "This initiative restrics the configuration of any deployed Synapse dedicated SQL pool that differs from the compliant.",
+                "metadata": {
+                    "category": "CCoE"
+                },
+                "policyDefinitions": [
+                    {
+                        "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/pxs-cloudnative-mg/providers/Microsoft.Authorization/policyDefinitions/pxs-cn-sqlsynapse-sku-pd",
+                        "parameters": {
+                            "allowedSKUs": {
+                                "value": "[parameters('allowedSKUs')]"
+                            },
+                            "effect": {
+                                "value": "[parameters('skuPolicyEffect')]"
+                            }
+                        }
+                    },
+                    {
+                        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/86a912f6-9a06-4e26-b447-11b16ba8659f",
+                        //"policyDefinitionReferenceId": "enforceTDE",
+                        "parameters": {}
+                    }
+                ],
+                "parameters": {
+                    "allowedSKUs": {
+                        "type": "array",
+                        "metadata": {
+                            "displayName": "allowedSKUs",
+                            "description": "List of locations allowed SKUs for the Synapse dedicated SQL pool resource type."
+                        },
+                        "defaultValue": [
+                            "DW100c"
+                        ]
+                    },
+                    "skuPolicyEffect": {
+                        "type": "String",
+                        "metadata": {
+                          "displayName": "skuPolicyEffect",
+                          "description": "Audit, disable or deny the execution of the policy"
+                        },
+                        "allowedValues": [
+                          "Audit",
+                          "Disabled",
+                          "Deny"
+                        ],
+                        "defaultValue": "Audit"
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,56 @@
+{
+    "properties": {
+        "name": "pxs-cn-vmss-managed-disk-pd",
+        "displayName": "Enforce VM scale sets to use managed disks",
+        "description": "This policy enforces VMs scale sets to use managed disks",
+        "policyType": "Custom",
+        "mode": "All",
+        "parameters": {
+            "effect": {
+                "type": "String",
+                "metadata": {
+                "displayName": "Effect",
+                "description": "The effect determines what happens when the policy rule is evaluated to match"
+                },
+                "allowedValues": [
+                    "Audit",
+                    "Deny",
+                    "Disabled"
+                ],
+                "defaultValue": "Audit"
+            }
+        },
+        "policyRule": {
+            "if": {
+                "anyOf": [
+                    {
+                        "allOf": [
+                            {
+                                "field": "type",
+                                "equals": "Microsoft.Compute/VirtualMachineScaleSets"
+                            },
+                            {
+                                "anyOf": [
+                                    {
+                                        "field": "Microsoft.Compute/VirtualMachineScaleSets/osDisk.vhdContainers",
+                                        "exists": true
+                                    },
+                                    {
+                                        "field": "Microsoft.Compute/VirtualMachineScaleSets/osdisk.imageUrl",
+                                        "exists": true
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            "then": {
+                "effect": "[parameters('effect')]"
+            }
+        },
+        "metadata": {
+            "category": "Compute"
+        }
+    }
+}

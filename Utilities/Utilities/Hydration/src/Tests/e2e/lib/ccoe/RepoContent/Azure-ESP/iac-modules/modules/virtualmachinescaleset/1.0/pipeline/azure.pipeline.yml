@@ -1,0 +1,90 @@
+name: $(Build.DefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:r)
+
+parameters:
+  - name: removeDeployment
+    displayName: Remove resources post-deployment
+    type: boolean
+    default: true
+
+variables:
+  - template: /cicd/global.variables.yml
+  - name: moduleName
+    value: virtualmachinescaleset
+  - name: moduleVersion
+    value: "1.0"
+  - name: majorVersion
+    value: 1
+  - name: minorVersion
+    value: 0
+
+trigger:
+  batch: true
+  branches:
+    include:
+      - master
+  paths:
+    include:
+      - cicd/*
+      - common/1.0/scripts/*
+      - modules/virtualmachinescaleset/1.0/*
+    exclude:
+      - modules/virtualmachinescaleset/1.0/readme.md
+
+stages:
+  - stage: Validation
+    jobs:
+      - template: /cicd/templates/pipeline.jobs.validate.yml
+        parameters:
+          deploymentBlocks:
+            - path: $(parametersPath)/deploy.parameters.json
+
+  - stage: PolicyDefinition
+    condition: and(succeeded(), in(variables['Build.SourceBranch'],'refs/heads/master'))
+    dependsOn: Validation
+    jobs:
+      - template: /modules/policyDefinition/1.0/pipeline/azure.pipeline.yml
+        parameters:
+          serviceConnection: $(cloudNativeManagementGroupId)
+          managementGroupId: $(cloudNativeManagementGroupId)
+          policyDefinitionsPath: $(modulePath)/policies/policyDefinitions
+
+  - stage: InitiativeDefinition
+    condition: and(succeeded(), in(variables['Build.SourceBranch'],'refs/heads/master'))
+    dependsOn: PolicyDefinition
+    jobs:
+      - template: /modules/initiativeDefinition/1.0/pipeline/azure.pipeline.yml
+        parameters:
+          serviceConnection: $(cloudNativeManagementGroupId)
+          managementGroupId: $(cloudNativeManagementGroupId)
+          initiativeDefinitionsPath: $(modulePath)/policies/initiativeDefinitions
+
+  # - stage: PolicyAssignment
+  #   condition: and(succeeded(), in(variables['Build.SourceBranch'],'refs/heads/master'))
+  #   dependsOn: InitiativeDefinition
+  #   jobs:
+  #     - template: /modules/policyAssignment/1.0/pipeline/azure.pipeline.yml
+  #       parameters:
+  #         serviceConnection: $(cloudNativeManagementGroupId)
+  #         policyAssignmentsPath: $(modulePath)/policies/policyAssignments
+
+  - stage: Deployment
+    jobs:
+      - template: /cicd/templates/pipeline.jobs.deploy.yml
+        parameters:
+          removeDeployment: "${{ parameters.removeDeployment }}"
+          deploymentBlocks:
+            - path: $(parametersPath)/deploy.parameters.json
+
+  - stage: Publishing
+    # condition: and(succeeded(), in(variables['Build.SourceBranch'],'refs/heads/master'))
+    jobs:
+    - template: /cicd/templates/pipeline.jobs.publish.yml
+      parameters:
+        majorVersion: '$(majorVersion)'
+        minorVersion: '$(minorVersion)'
+
+  - stage: Removal
+    dependsOn: Deployment
+    condition: and(succeededOrFailed(), eq( '${{ parameters.removeDeployment }}', 'true'))
+    jobs:
+    - template: /cicd/templates/pipeline.jobs.remove.yml

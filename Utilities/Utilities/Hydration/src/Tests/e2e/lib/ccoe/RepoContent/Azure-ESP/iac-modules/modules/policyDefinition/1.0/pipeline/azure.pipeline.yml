@@ -1,0 +1,27 @@
+parameters:
+  # Pipeline-related parameters
+  serviceConnection: ''
+  managementGroupId: ''
+  vmImage: '$(vmImage)'
+  # Logic-related parameters
+  policyDefinitionsPath: ''
+  policyDefinitionsScriptPath: 'modules/policyDefinition/1.0'
+
+jobs:
+- job: SetPolicyDefinitions
+  displayName: Set Policy Definitions on Management Group
+  pool:
+    vmImage: $(vmImage)
+  steps:
+    - task: AzurePowerShell@5
+      displayName: Set Policy Definitions
+      inputs:
+        azureSubscription: ${{ parameters.serviceConnection }}
+        ScriptType: FilePath
+        scriptPath: $(Build.Repository.LocalPath)/${{ parameters.policyDefinitionsScriptPath }}/Set-PolicyDefinitions.ps1
+        azurePowerShellVersion: LatestVersion
+        pwsh: true
+        scriptArguments:
+          -ManagementGroupName ${{ parameters.managementGroupId }}
+          -PolicyDefinitionRootFolder $(Build.Repository.LocalPath)/${{ parameters.policyDefinitionsPath }}/
+          -PolicyDefinitionSchemaFilePath $(Build.Repository.LocalPath)/${{ parameters.policyDefinitionsScriptPath }}/policyDefinitionSchema.json

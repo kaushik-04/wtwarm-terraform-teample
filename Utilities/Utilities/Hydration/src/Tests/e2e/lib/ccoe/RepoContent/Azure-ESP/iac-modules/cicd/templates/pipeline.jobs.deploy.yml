@@ -1,0 +1,211 @@
+#########################################################
+## DEPLOYMENT PIPELINE                                 ##
+#########################################################
+##
+## This pipeline template contains the logic to deploy a given module's ARM template using the provided parameter file(s) 
+##
+## Enabled levels of deployment
+## - Resource-Group-Level
+## - Subscription-Level
+## - Management-Group-Level
+## - Tenant-Level
+##
+#########################################################
+##
+##---------------------------------------------##
+## TEMPLATE PARAMETERS                         ##
+##---------------------------------------------##
+##
+## By default it uses the variables specified in the below [parameters] section. However, you can overwrite these variables in the 
+##    referencing pipeline by providing the parameter explicitly.
+## 
+## NOTE: If you don't need to overwrite a shared value, you can IGNORE this section 
+##
+##   |=================================================================================================================================================================================================================================|
+##   | Parameter                       | Default Value                        | Description                                                                                               | Example                                    |
+##   |---------------------------------|--------------------------------------|-----------------------------------------------------------------------------------------------------------|--------------------------------------------|
+##   | serviceConnection               | '$(serviceConnection)'               | The service connection that connects to Azure                                                             | 'demo-internal'                            |
+##   | removeDeployment                | '$(removeDeployment)'                | Set to [true] to flag resource for removal. If not provided, defaults to false.                           | 'true'                                     |
+##   | poolName                        | '$(poolName)'                        | You can provide either a [poolname] or [vmImage] to run the job on                                        | 'Custom Deployment Pool'                   |
+##   | vmImage                         | '$(vmImage)'                         | You can provide either a [poolname] or [vmImage] to run the job on                                        | 'ubuntu20.04'                              |
+##   | defaultJobTimeoutInMinutes      | 120                                  | The timeout for the job in this pipeline                                                                  | 120                                        |
+##   | minimumAzureCLIVersion          | ''                                   | If specified the template will install/update AzureCLI to the required version.                           | '2.13.0'                                   |
+##   | minimumAzureCLIADOVerison       | ''                                   | If specified the template will install/update AzureCLI with the required version of the ADO extension.    | '0.18.0'                                   |
+##   | checkoutRepositories            | ''                                   | An optional list of repositories to check out at the beginning of this job in addition to the source      | 'Components'                               |
+##   | modulesPath                     | '$(modulesPath)'                     | The path to the modules folder root (one level above the folder representing the module)                  | 'Modules/ARM'                              |
+##   | moduleName                      | '$(moduleName)'                      | The name of the module to deploy                                                                          | 'KeyVault'                                 |
+##   | moduleVersion                   | '$(moduleVersion)'                   | The version to of the module, represented as a folder under the folder representing the module            | '1.0'                                      |
+##   | parametersPath                  | '$(parametersPath)'                  | The path to the modules parameter file                                                                    | '$(modulePath)/Parameters'                 |
+##   | deploymentBlocks                |                                      | The parameter file(s) to deploy with. Must be provided                                                    | path: '$(parametersPath)/parameters.json'  |
+##   | parametersRepository            | '$(Build.Repository.Name)'           | The respository with the parameter files. Defaults to the triggering repository                           | 'Solutions'                                |
+##   | location                        | '$(location)'                        | The location to deploy with                                                                               | 'EastUs2'                                  |
+##   | resourceGroupName               | '$(resourceGroupName)'               | The resourcegroup to deploy into. Required only for Resource-Group-Level deployments                      | 'validation-rg'                            |
+##   | subscriptionName                | '$(subscriptionName)'                | The name of the subscription to deploy into. If left blank the current context is used.                   | 'ccoe-test-sub'                            |
+##   |                                 |                                      |    If deploying with a management group level service connection, this allows setting the context.        |                                            |
+##   |                                 |                                      |    Optional for subscription-level deployments                                                            |                                            |
+##   | managementGroupId               | '$(managementGroupId)'               | The id of the management group to deploy into. Required only for Management-Group-Level deployments       | '6ycc9620-cb01-454f-9ebc-fc6b1df48d64'     |
+##   | azurePowerShellVersion          | '$(azurePowerShellVersion)'          | Used for configuring the Azure PowerShellModules Version, one of the example values.                      | 'latestVersion' or 'OtherVersion'          |
+##   | preferredAzurePowerShellVersion | '$(preferredAzurePowerShellVersion)' | Used for configuring the Azure PowerShellModules Version, either an empty string or the specific version. | '4.4.0'                                    |
+##   | retryAttempts                   | 5                                    | Amount of retries that the New-ModuleDeployment.ps1 script will try to execute scripts until succeeded    | 1                                          |
+##   |=================================================================================================================================================================================================================================|
+##
+##---------------------------------------------##
+
+parameters:
+  
+  # Pipeline-related parameters
+  serviceConnection: '$(serviceConnection)'
+  poolName: '$(poolName)'
+  vmImage: '$(vmImage)'
+  defaultJobTimeoutInMinutes: 120
+  minimumAzureCLIVersion: ''
+  minimumAzureCLIADOVerison: ''
+  checkoutRepositories: ''
+  dependsOn: []
+  # Logic-related parameters
+  removeDeployment: false
+  modulesPath: '$(modulesPath)'
+  moduleName: '$(moduleName)'
+  moduleVersion: '$(moduleVersion)'
+  parametersPath: '$(parametersPath)'
+  deploymentBlocks: ''
+  parametersRepository: '$(Build.Repository.Name)'
+  location: '$(location)'
+  resourceGroupName: '$(resourceGroupName)'
+  subscriptionName: '$(subscriptionName)'
+  managementGroupId: '$(managementGroupId)'
+  retryAttempts: 1
+  # Azure PowerShell Version parameters
+  azurePowerShellVersion: '$(azurePowerShellVersion)'
+  preferredAzurePowerShellVersion: '$(preferredAzurePowerShellVersion)'
+
+##---------------------------------------------##
+## TEMPLATE LOGIC                              ##
+##---------------------------------------------##
+jobs:
+- ${{ each deploymentBlock in parameters.deploymentBlocks }}:
+  - job: ${{ deploymentBlock.jobName }}
+    ${{ if ne( deploymentBlock.displayName, '') }}:
+      displayName: ${{ deploymentBlock.displayName }}
+    ${{ if eq( deploymentBlock.displayName, '') }}:
+      displayName: Deploy with [${{ replace( deploymentBlock.path, '$(parametersPath)', '') }}]
+    timeoutInMinutes: ${{ parameters.defaultJobTimeoutInMinutes }}
+    ${{ if ne( deploymentBlock.additionalVariables, '') }}:
+      variables:
+        ${{ insert }}: ${{ deploymentBlock.additionalVariables }}
+    ${{ if ne( parameters.dependsOn, '') }}:
+      dependsOn: ${{ parameters.dependsOn }}
+    pool:
+      ${{ if ne(parameters.vmImage, '') }}:
+        vmImage: ${{ parameters.vmImage }}
+      ${{ if ne(parameters.poolName, '') }}:
+        name: ${{ parameters.poolName }}
+    steps:
+
+    # [Checkout Repositories] task(s)
+    #--------------------------------
+    - checkout: self
+    - ${{ if ne(parameters.checkoutRepositories, '') }}:
+      - ${{ each checkoutRepository in parameters.checkoutRepositories }}:
+        - checkout: ${{ checkoutRepository }}
+          fetchDepth: 1  # the depth of commits to ask Git to fetch; if not set defaults to no limit
+          path: 's/${{ checkoutRepository }}'
+
+    # [Deployment] task(s)
+    #--------------------------------
+    - task: AzurePowerShell@5
+      displayName: 'Deploy [${{ parameters.moduleName }}] via connection [${{ parameters.serviceConnection }}]'
+      ${{ if ne( deploymentBlock.taskName, '') }}:
+        name: ${{ deploymentBlock.taskName }}
+      inputs:
+        azureSubscription:  ${{ parameters.serviceConnection }}
+        azurePowerShellVersion: ${{ parameters.azurePowerShellVersion }}
+        preferredAzurePowerShellVersion: ${{ parameters.preferredAzurePowerShellVersion }}
+        pwsh: true
+        ScriptType: InlineScript
+        inline: |
+          # ---------------------------- #
+          # HANDLE MULTI-REPO INVOCATION #
+          # ---------------------------- #
+          $componentsBasePath = "$(System.DefaultWorkingDirectory)"
+          $parametersBasePath = "$(Build.Repository.LocalPath)"
+
+          if( "${{ join(';',parameters.checkoutRepositories) }}".length -gt 0) {
+            $componentsBasePath = Join-Path $componentsBasePath '$(modulesRepository)'
+            $parametersBasePath = "$(Build.Repository.LocalPath)/${{ parameters.parametersRepository }}"
+          }
+
+          # ---------------------------- #
+          # IMPORT MODULES               #
+          # ---------------------------- #
+          Import-Module "$componentsBasePath/common/1.0/scripts/Import-Common.psm1" -Force -DisableNameChecking
+
+          # ---------------------------- #
+          # INSTALL DEPENDENCIES         #
+          # ---------------------------- #
+
+          if ( "${{ parameters.minimumAzureCLIVersion }}" -ne '') {
+            $MinimumAzureCLIVersion = '${{ parameters.minimumAzureCLIVersion }}'
+
+            Write-Output "Check that Azure CLI is installed"
+            $CLIIsInstalled = Assert-AzureCLI
+            if (-not $CLIIsInstalled) {
+                throw "Azure CLI is not installed."
+            }
+
+            Write-Output "Check that required Azure CLI version is installed ($MinimumAzureCLIVersion)"
+            $MinimumAzureCLIVersionIsInstalled = Assert-AzureCLIVersion -MinimumVersion $MinimumAzureCLIVersion
+            if (-not $MinimumAzureCLIVersionIsInstalled) {
+              Update-AzureCLI
+              Write-Output "Verifying that required Azure CLI version is installed ($MinimumAzureCLIVersion)"
+              $MinimumAzureCLIVersionIsInstalled = Assert-AzureCLIVersion -MinimumVersion $MinimumAzureCLIVersion
+              if (-not $MinimumAzureCLIVersionIsInstalled) {
+                throw "Not running required version of the Azure CLI"
+              }
+            }
+          }
+
+          if ( "${{ parameters.minimumAzureCLIADOVerison }}" -ne '') {
+            $MinimumAzureCLIADOVerison = '${{ parameters.minimumAzureCLIADOVerison }}'
+            Write-Output "Check that Azure CLI DevOps extension is installed"
+            $DevOpsIsInstalled = Assert-ADOExtension
+            if (-not $DevOpsIsInstalled) {
+              Install-ADOExtension
+              Write-Output "Verifying required Azure CLI DevOps extension version is installed ($MinimumAzureCLIVersion)"
+              $MinimumAzureCLIADOVerisonIsInstalled = Assert-ADOExtensionVersion -MinimumVersion $MinimumAzureCLIADOVerison
+              if (-not $MinimumAzureCLIADOVerisonIsInstalled) {
+                Install-ADOExtension
+              }
+            }
+
+            $MinimumAzureCLIADOVerisonIsInstalled = Assert-ADOExtensionVersion -MinimumVersion $MinimumAzureCLIADOVerison
+            if (-not $MinimumAzureCLIADOVerisonIsInstalled) {
+              throw "Not running required version of the Azure CLI DevOps extension"
+            }
+          }
+
+          # ----------------- #
+          # INVOKE DEPLOYMENT #
+          # ----------------- #
+          $functionInput = @{
+            moduleName         = '${{ parameters.moduleName }}'
+            retry              = '${{ parameters.retryAttempts }}'
+            componentsBasePath = $componentsBasePath
+            parametersBasePath = $parametersBasePath
+            modulePath         = '${{ parameters.modulesPath }}/${{ parameters.moduleName }}/${{ parameters.moduleVersion }}' 
+            parameterFilePath  = '${{ deploymentBlock.path }}' 
+            location           = '${{ parameters.location }}' 
+            resourceGroupName  = '${{ parameters.resourceGroupName }}'
+            subscriptionName   = '${{ parameters.subscriptionName }}'
+            managementGroupId  = '${{ parameters.managementGroupId }}'
+            # Note: if parameter is like "`$(removeDeployment*" it was not set as the variable was not resolved
+            removeDeployment   = ('${{ parameters.removeDeployment }}' -like "`$(removeDeployment*") ? $false : [System.Convert]::ToBoolean('${{ parameters.removeDeployment }}')
+          }
+
+          Write-Output "Invoke task with"
+          $functionInput
+
+          New-ModuleDeployment @functionInput -Verbose
+
+      env: 
+        AZURE_DEVOPS_EXT_PAT : '$(System.AccessToken)'

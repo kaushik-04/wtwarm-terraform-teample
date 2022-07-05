@@ -1,0 +1,117 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "storageAccountName": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 24,
+            "metadata": {
+                "description": "The storageAccount name according to standards  pxs<platform-id><application-id><environment-id>sa<number>"
+            }
+        },
+        "location": {
+            "type": "string",
+            "defaultValue": "West Europe",
+            "allowedValues": [
+                "West Europe"
+            ],
+             "metadata": {
+                "description": "Default and only allowed: West Europe"
+            }
+        },
+        "accountType": {
+            "type": "string",
+            "defaultValue": "Standard_LRS",
+            "allowedValues": [
+                "Standard_LRS",
+                "Standard_GRS",
+                "Standard_ZRS",
+                "Premium_LRS"
+            ],
+            "metadata": {
+                "description": "Defines the type of SKU to use for the storage"
+            }
+        },
+        "kind": {
+            "type": "string",
+            "defaultValue": "StorageV2",
+            "allowedValues": [
+                "StorageV2",
+                "Blobstorage"
+            ],
+            "metadata": {
+                "description": "Defines the kind of storage. Allowed StorageV2 or Blobstorage"
+            }
+        },
+       "allowBlobPublicAccess": {
+            "type": "bool",
+            "defaultValue": false,
+            "allowedValues": [
+                true,
+                false
+            ],
+            "metadata": {
+                "description": "Allow Blob public access"
+            }
+        },
+        "enableHnS": {
+            "type": "bool",
+            "defaultValue": false,
+            "allowedValues": [
+                true,
+                false
+            ],
+            "metadata": {
+                "description": "Enable Hierarchical nameSpace"
+            }
+        },
+        "tags": {
+            "type": "object"
+        }
+    },
+    "variables": {
+       "storage_account_sku_name": "[parameters('accountType')]"
+    },
+    "functions": [],
+    "resources": [
+        {
+            "name": "[parameters('storageAccountName')]",
+            "type": "Microsoft.Storage/storageAccounts",
+            "apiVersion": "2019-06-01",
+            "location": "[parameters('location')]",
+            "properties": {
+                "encryption": {
+                    "keySource": "Microsoft.Storage",
+                    "services": {
+                        "blob": {
+                            "enabled": true
+                        },
+                        "file": {
+                            "enabled": true
+                        }
+                    }
+                },
+                "isHnsEnabled": "[parameters('enableHnS')]",
+                "accessTier": "Hot",
+                "minimumTlsVersion": "TLS1_2",
+                "supportsHttpsTrafficOnly": true,
+                "allowBlobPublicAccess": "[parameters('allowBlobPublicAccess')]",
+                "allowSharedKeyAccess": false
+            },
+            "dependsOn": [],
+            "sku": {
+                "name": "[variables('storage_account_sku_name')]"
+            },
+            "kind": "[parameters('kind')]",
+            "tags": "[parameters('tags')]"
+            
+        }
+    ],
+    "outputs": {
+        "storageAccountResourceId": {
+            "type": "string",
+            "value": "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName'))]"
+        }
+    }
+}

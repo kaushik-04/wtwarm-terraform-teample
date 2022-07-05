@@ -1,0 +1,43 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "scope": {
+            "value": "/providers/Microsoft.Management/managementGroups/pxs-cloudnative-mg"
+        },
+        "properties": {
+            "value": {
+                "name": "pxs-cn-validationInitiative-pi",
+                "displayName": "pxs-cn-validationInitiative-pi",
+                "description": "Validation initiative",
+                "metadata": {
+                    "category": "Validation"
+                },
+                "policyDefinitions": [
+                    {
+                        "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/pxs-cloudnative-mg/providers/Microsoft.Authorization/policyDefinitions/pxs-cn-validationPolicy-pd",
+                        "parameters": {
+                            "effect": {
+                                "value": "[parameters('effect')]"
+                            }
+                        }
+                    }
+                ],
+                "parameters": {
+                    "effect": {
+                        "type": "string",
+                        "defaultValue": "Audit",
+                        "allowedValues": [
+                           "Audit",
+                           "Disabled"
+                        ],
+                        "metadata": {
+                           "displayName": "Effect",
+                           "description": "Enable or disable the execution of the policy"
+                        }
+                     }
+                }
+            }
+        }
+    }
+}

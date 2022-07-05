@@ -1,0 +1,26 @@
+{
+    "name": "mgmt-p-log-sub-sp",
+    "appid": "67a9179d-5d01-4846-9a1e-0f1fd5fe15ec",
+    "id": "d2f9943b-7dbb-4247-8b51-3d3cb2cf2a81",
+    "owners": [],
+    "applicationpermissions":[
+        {
+            "resourceAppId":"00000003-0000-0000-c000-000000000000",
+            "resourceAccess":[
+                {
+                    "id":"7ab1d382-f21e-4acd-a863-ba3e13f7da61",
+                    "type":"Role"
+                }
+            ]
+        },
+        {
+            "resourceAppId":"00000002-0000-0000-c000-000000000000",
+            "resourceAccess":[
+                {
+                    "id":"5778995a-e1bf-45b8-affa-663a9f3f4d04",
+                    "type":"Role"
+                }
+            ]
+        }
+    ]
+}

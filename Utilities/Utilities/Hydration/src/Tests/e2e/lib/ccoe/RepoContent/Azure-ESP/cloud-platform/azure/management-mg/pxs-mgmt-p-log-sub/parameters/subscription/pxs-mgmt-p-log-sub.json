@@ -1,0 +1,30 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "subscriptionAliasName": {
+            "value": "mgmt-p-log-sub"
+        },
+        "displayName": {
+            "value": "mgmt-p-log-sub"
+        },
+        "targetManagementGroupId": {
+            "value": "management-mg"
+        },
+        "billingScope": {
+            "value": "/providers/Microsoft.Billing/billingAccounts/60287334/enrollmentAccounts/275943"
+        },
+        "roleAssignments": {
+            "value": [
+                {
+                    "roleDefinitionIdOrName": "Owner",
+                    "principalIds": [
+                        "d2f9943b-7dbb-4247-8b51-3d3cb2cf2a81", //mgmt-p-log-sub-sp
+                        "3bd3b9d5-2577-41d0-a8a3-cd6851d2b16a", //buildingblocks-buildingblocks-d-mg-sp
+                        "12522564-c546-4b31-b88e-4f87512b051b"  //grp-ccoe-devops-admin
+                    ]
+                }
+            ]
+        }
+    }
+}

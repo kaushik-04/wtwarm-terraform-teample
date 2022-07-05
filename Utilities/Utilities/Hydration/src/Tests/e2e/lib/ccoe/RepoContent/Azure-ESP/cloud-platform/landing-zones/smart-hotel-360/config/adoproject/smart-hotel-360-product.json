@@ -1,0 +1,157 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "adoOrganizationName": {
+            "value": "contoso-azure"
+        },
+        "adoProjectName": {
+            "value": "bdp-platform"
+        },
+        "adoProjectDescription": {
+            "value": "This project hosts the templates, deployment pipelines and configuration scripts of all common big data platform resources required by the applications running on the bdp platform. This includes resources like Azure Data Lake, Databricks or Data Factory."
+        },
+        "adoProjectSourceControl": {
+            "value": "git"
+        },
+        "adoProjectVisibility": {
+            "value": "private"
+        },
+        "adoProjectTeams": {
+            "value": [
+                {
+                    "name": "bdp-platform Team",
+                    "description": "Team containing all DevOps Contributor identities",
+                    "members": [
+                        "[TEAM FOUNDATION]\\grp-bdp-devops-contributor"
+                    ]
+                },
+                {
+                    "name": "microsoft-mcs",
+                    "description": "Microsoft Consultancy Services team will assist CCoE and bdp-platform team to create and deploy certified components",
+                    "members": [
+                        "[TEAM FOUNDATION]\\grp-ccoe-devops-contributor"
+                    ]
+                }
+            ]
+        },
+        "adoProjectGroups": {
+            "value": [
+                {
+                    "name": "Contributors",
+                    "members": [
+                        "[bdp-platform]\\bdp-platform Team",
+                        "[bdp-platform]\\microsoft-mcs"
+                    ]
+                },
+                {
+                    "name": "Project Administrators",
+                    "members": [
+                        "[TEAM FOUNDATION]\\grp-bdp-devops-admin"
+                    ]
+                },
+                {
+                    "name": "Readers",
+                    "members": [
+                        "[TEAM FOUNDATION]\\grp-bdp-devops-reader"
+                    ]
+                }
+            ]
+        },
+        "adoAzureRMServiceConnections": {
+            "value": [
+                {
+                    "Name": "cn-s-bdp-sub",
+                    "Description": "Service connection with permissions to deploy in subscription 'cn-s-bdp-sub'",
+                    "AzureSubscriptionName": "cn-s-bdp-sub",
+                    "AzureSubscriptionId": "e443f3cb-683d-4e36-a7e4-aee6c26dfaba",
+                    "AzureADTenantId": "e7ab81b2-1e84-4bf7-9dcb-b6fec01ed138",
+                    "varName_ApplicationId": "cn-s-bdp-sub-sp_ApplicationId",
+                    "varNameEncrypted_ServicePrincipalPassword": "cn-s-bdp-sub-sp_ServicePrincipalPassword",
+                    "Users": [
+                        "[bdp-platform]\\bdp-platform Team",
+                        "[bdp-platform]\\microsoft-mcs"
+                    ]
+                },
+                {
+                    "Name": "cn-n-bdp-sub",
+                    "Description": "Service connection with permissions to deploy in subscription 'cn-n-bdp-sub'",
+                    "AzureSubscriptionName": "cn-n-bdp-sub",
+                    "AzureSubscriptionId": "2051c4cc-5a18-4f6e-bd84-d3b4d76bc99c",
+                    "AzureADTenantId": "e7ab81b2-1e84-4bf7-9dcb-b6fec01ed138",
+                    "varName_ApplicationId": "cn-n-bdp-sub-sp_ApplicationId",
+                    "varNameEncrypted_ServicePrincipalPassword": "cn-n-bdp-sub-sp_ServicePrincipalPassword",
+                    "Users": [
+                        "[bdp-platform]\\bdp-platform Team",
+                        "[bdp-platform]\\microsoft-mcs"
+                    ]
+                },
+                {
+                    "Name": "cn-d-bdp-sub",
+                    "Description": "Service connection with permissions to deploy in subscription 'cn-d-bdp-sub'",
+                    "AzureSubscriptionName": "cn-d-bdp-sub",
+                    "AzureSubscriptionId": "29763ddb-5ed5-475a-9eac-4a5ae13c7152",
+                    "AzureADTenantId": "e7ab81b2-1e84-4bf7-9dcb-b6fec01ed138",
+                    "varName_ApplicationId": "cn-d-bdp-sub-sp_ApplicationId",
+                    "varNameEncrypted_ServicePrincipalPassword": "cn-d-bdp-sub-sp_ServicePrincipalPassword",
+                    "Users": [
+                        "[bdp-platform]\\bdp-platform Team",
+                        "[bdp-platform]\\microsoft-mcs"
+                    ]
+                },
+                {
+                    "Name": "cn-t-bdp-sub",
+                    "Description": "Service connection with permissions to deploy in subscription 'cn-t-bdp-sub'",
+                    "AzureSubscriptionName": "cn-t-bdp-sub",
+                    "AzureSubscriptionId": "14dcff93-0f45-4666-b0e8-4ccc566558be",
+                    "AzureADTenantId": "e7ab81b2-1e84-4bf7-9dcb-b6fec01ed138",
+                    "varName_ApplicationId": "cn-t-bdp-sub-sp_ApplicationId",
+                    "varNameEncrypted_ServicePrincipalPassword": "cn-t-bdp-sub-sp_ServicePrincipalPassword",
+                    "Users": [
+                        "[bdp-platform]\\bdp-platform Team",
+                        "[bdp-platform]\\microsoft-mcs"
+                    ]
+                },
+                {
+                    "Name": "cn-i-bdp-sub",
+                    "Description": "Service connection with permissions to deploy in subscription 'cn-i-bdp-sub'",
+                    "AzureSubscriptionName": "cn-i-bdp-sub",
+                    "AzureSubscriptionId": "6b0ec436-42c9-44d7-834e-087fe53ea67a",
+                    "AzureADTenantId": "e7ab81b2-1e84-4bf7-9dcb-b6fec01ed138",
+                    "varName_ApplicationId": "cn-i-bdp-sub-sp_ApplicationId",
+                    "varNameEncrypted_ServicePrincipalPassword": "cn-i-bdp-sub-sp_ServicePrincipalPassword",
+                    "Users": [
+                        "[bdp-platform]\\bdp-platform Team",
+                        "[bdp-platform]\\microsoft-mcs"
+                    ]
+                },
+                {
+                    "Name": "cn-u-bdp-sub",
+                    "Description": "Service connection with permissions to deploy in subscription 'cn-u-bdp-sub'",
+                    "AzureSubscriptionName": "cn-u-bdp-sub",
+                    "AzureSubscriptionId": "4b2c6f24-5ac7-43b4-98cf-5a6179dfad20",
+                    "AzureADTenantId": "e7ab81b2-1e84-4bf7-9dcb-b6fec01ed138",
+                    "varName_ApplicationId": "cn-u-bdp-sub-sp_ApplicationId",
+                    "varNameEncrypted_ServicePrincipalPassword": "cn-u-bdp-sub-sp_ServicePrincipalPassword",
+                    "Users": [
+                        "[bdp-platform]\\bdp-platform Team",
+                        "[bdp-platform]\\microsoft-mcs"
+                    ]
+                },
+                {
+                    "Name": "cn-p-bdp-sub",
+                    "Description": "Service connection with permissions to deploy in subscription 'cn-p-bdp-sub'",
+                    "AzureSubscriptionName": "cn-p-bdp-sub",
+                    "AzureSubscriptionId": "c3f9f97c-d682-4217-9050-a99ac7efa8b7",
+                    "AzureADTenantId": "e7ab81b2-1e84-4bf7-9dcb-b6fec01ed138",
+                    "varName_ApplicationId": "cn-p-bdp-sub-sp_ApplicationId",
+                    "varNameEncrypted_ServicePrincipalPassword": "cn-p-bdp-sub-sp_ServicePrincipalPassword",
+                    "Users": [
+                        "[bdp-platform]\\bdp-platform Team",
+                        "[bdp-platform]\\microsoft-mcs"
+                    ]
+                }
+            ]
+        }
+    }
+}

@@ -1,0 +1,20 @@
+trigger:
+  - master
+
+variables:
+- group: components.utilities.gitsync
+
+jobs:
+- job: SyncGitRepos
+  displayName: 'SyncGitRepos'
+  timeoutInMinutes: 600
+  pool:
+    vmImage: 'Windows-latest' 
+  steps:
+  - task: PowerShell@2
+    displayName: 'Sync: Azure DevOps <---> GitHub'
+    inputs:
+      targetType: filePath
+      filePath: Utilities/gitSync/Sync-GitRepo.ps1
+      arguments: -DestinationPat $(ghe.mcs.iacs.pat) -DestinationRepoURL $(ghe.mcs.iacs.url) -DestinationAlias $(ghe.mcs.iacs.githubusername) -GitUsername '$(ghe.mcs.iacs.gitusername)' -GitEmail $(ghe.mcs.iacs.gitemail) -FilterFilePath $(ghe.mcs.iacs.filterfilepath) -Verbose
+      pwsh: true

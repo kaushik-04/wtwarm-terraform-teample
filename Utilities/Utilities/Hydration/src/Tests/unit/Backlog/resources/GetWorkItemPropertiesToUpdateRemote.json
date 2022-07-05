@@ -1,0 +1,556 @@
+[
+    {
+        "id": 1,
+        "rev": 3,
+        "fields": {
+            "System.AreaPath": "Module Playground\\CCoE Cloud Platform Team",
+            "System.TeamProject": "Module Playground",
+            "System.IterationPath": "Module Playground\\Iteration 1",
+            "System.WorkItemType": "Epic",
+            "System.State": "Closed",
+            "System.Reason": "Acceptance tests pass",
+            "System.AssignedTo": {
+                "displayName": "Alexander Sehr",
+                "url": "https://spsprodweu4.vssps.visualstudio.com/Acad5bc05-58bd-46d8-9fb1-37095ea84fbd/_apis/Identities/e63791d6-b74c-6150-886a-4588aca748c8",
+                "_links": {
+                    "avatar": {
+                        "href": "https://dev.azure.com/contoso/_apis/GraphProfile/MemberAvatars/aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4"
+                    }
+                },
+                "id": "e63791d6-b74c-6150-886a-4588aca748c8",
+                "uniqueName": "contoso@microsoft.com",
+                "imageUrl": "https://dev.azure.com/contoso/_apis/GraphProfile/MemberAvatars/aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4",
+                "descriptor": "aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4"
+            },
+            "System.CreatedDate": "2021-03-05T07:11:39.693Z",
+            "System.CreatedBy": {
+                "displayName": "Alexander Sehr",
+                "url": "https://spsprodweu4.vssps.visualstudio.com/Acad5bc05-58bd-46d8-9fb1-37095ea84fbd/_apis/Identities/e63791d6-b74c-6150-886a-4588aca748c8",
+                "_links": {
+                    "avatar": {
+                        "href": "https://dev.azure.com/contoso/_apis/GraphProfile/MemberAvatars/aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4"
+                    }
+                },
+                "id": "e63791d6-b74c-6150-886a-4588aca748c8",
+                "uniqueName": "contoso@microsoft.com",
+                "imageUrl": "https://dev.azure.com/contoso/_apis/GraphProfile/MemberAvatars/aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4",
+                "descriptor": "aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4"
+            },
+            "System.ChangedDate": "2021-03-05T12:42:05.797Z",
+            "System.ChangedBy": {
+                "displayName": "Alexander Sehr",
+                "url": "https://spsprodweu4.vssps.visualstudio.com/Acad5bc05-58bd-46d8-9fb1-37095ea84fbd/_apis/Identities/e63791d6-b74c-6150-886a-4588aca748c8",
+                "_links": {
+                    "avatar": {
+                        "href": "https://dev.azure.com/contoso/_apis/GraphProfile/MemberAvatars/aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4"
+                    }
+                },
+                "id": "e63791d6-b74c-6150-886a-4588aca748c8",
+                "uniqueName": "contoso@microsoft.com",
+                "imageUrl": "https://dev.azure.com/contoso/_apis/GraphProfile/MemberAvatars/aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4",
+                "descriptor": "aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4"
+            },
+            "System.CommentCount": 0,
+            "System.Title": "Epic 1",
+            "Microsoft.VSTS.Common.StateChangeDate": "2021-03-05T12:42:05.797Z",
+            "Microsoft.VSTS.Common.ActivatedDate": "2021-03-05T07:12:02.623Z",
+            "Microsoft.VSTS.Common.ActivatedBy": {
+                "displayName": "Alexander Sehr",
+                "url": "https://spsprodweu4.vssps.visualstudio.com/Acad5bc05-58bd-46d8-9fb1-37095ea84fbd/_apis/Identities/e63791d6-b74c-6150-886a-4588aca748c8",
+                "_links": {
+                    "avatar": {
+                        "href": "https://dev.azure.com/contoso/_apis/GraphProfile/MemberAvatars/aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4"
+                    }
+                },
+                "id": "e63791d6-b74c-6150-886a-4588aca748c8",
+                "uniqueName": "contoso@microsoft.com",
+                "imageUrl": "https://dev.azure.com/contoso/_apis/GraphProfile/MemberAvatars/aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4",
+                "descriptor": "aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4"
+            },
+            "Microsoft.VSTS.Common.ResolvedDate": "2021-03-05T07:12:02.623Z",
+            "Microsoft.VSTS.Common.ResolvedBy": {
+                "displayName": "Alexander Sehr",
+                "url": "https://spsprodweu4.vssps.visualstudio.com/Acad5bc05-58bd-46d8-9fb1-37095ea84fbd/_apis/Identities/e63791d6-b74c-6150-886a-4588aca748c8",
+                "_links": {
+                    "avatar": {
+                        "href": "https://dev.azure.com/contoso/_apis/GraphProfile/MemberAvatars/aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4"
+                    }
+                },
+                "id": "e63791d6-b74c-6150-886a-4588aca748c8",
+                "uniqueName": "contoso@microsoft.com",
+                "imageUrl": "https://dev.azure.com/contoso/_apis/GraphProfile/MemberAvatars/aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4",
+                "descriptor": "aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4"
+            },
+            "Microsoft.VSTS.Common.ClosedDate": "2021-03-05T12:42:05.797Z",
+            "Microsoft.VSTS.Common.ClosedBy": {
+                "displayName": "Alexander Sehr",
+                "url": "https://spsprodweu4.vssps.visualstudio.com/Acad5bc05-58bd-46d8-9fb1-37095ea84fbd/_apis/Identities/e63791d6-b74c-6150-886a-4588aca748c8",
+                "_links": {
+                    "avatar": {
+                        "href": "https://dev.azure.com/contoso/_apis/GraphProfile/MemberAvatars/aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4"
+                    }
+                },
+                "id": "e63791d6-b74c-6150-886a-4588aca748c8",
+                "uniqueName": "contoso@microsoft.com",
+                "imageUrl": "https://dev.azure.com/contoso/_apis/GraphProfile/MemberAvatars/aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4",
+                "descriptor": "aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4"
+            },
+            "Microsoft.VSTS.Common.Priority": 2,
+            "Microsoft.VSTS.Common.ValueArea": "Business",
+            "Microsoft.VSTS.Common.Risk": "1 - High",
+            "Microsoft.VSTS.Scheduling.TargetDate": "2021-03-12T00:00:00Z",
+            "Microsoft.VSTS.Common.BusinessValue": 2,
+            "Microsoft.VSTS.Common.TimeCriticality": 1.0,
+            "Microsoft.VSTS.Scheduling.Effort": 3.0,
+            "Microsoft.VSTS.Scheduling.StartDate": "2021-03-06T00:00:00Z",
+            "System.Description": "<div>Description Epic</div>"
+        },
+        "url": "https://dev.azure.com/contoso/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/workItems/1"
+    },
+    {
+        "id": 2,
+        "rev": 3,
+        "fields": {
+            "System.AreaPath": "Module Playground\\CCoE Cloud Platform Team",
+            "System.TeamProject": "Module Playground",
+            "System.IterationPath": "Module Playground\\Iteration 1",
+            "System.WorkItemType": "Feature",
+            "System.State": "Active",
+            "System.Reason": "Implementation started",
+            "System.AssignedTo": {
+                "displayName": "Alexander Sehr",
+                "url": "https://spsprodweu4.vssps.visualstudio.com/Acad5bc05-58bd-46d8-9fb1-37095ea84fbd/_apis/Identities/e63791d6-b74c-6150-886a-4588aca748c8",
+                "_links": {
+                    "avatar": {
+                        "href": "https://dev.azure.com/contoso/_apis/GraphProfile/MemberAvatars/aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4"
+                    }
+                },
+                "id": "e63791d6-b74c-6150-886a-4588aca748c8",
+                "uniqueName": "contoso@microsoft.com",
+                "imageUrl": "https://dev.azure.com/contoso/_apis/GraphProfile/MemberAvatars/aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4",
+                "descriptor": "aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4"
+            },
+            "System.CreatedDate": "2021-03-05T07:07:12.797Z",
+            "System.CreatedBy": {
+                "displayName": "Alexander Sehr",
+                "url": "https://spsprodweu4.vssps.visualstudio.com/Acad5bc05-58bd-46d8-9fb1-37095ea84fbd/_apis/Identities/e63791d6-b74c-6150-886a-4588aca748c8",
+                "_links": {
+                    "avatar": {
+                        "href": "https://dev.azure.com/contoso/_apis/GraphProfile/MemberAvatars/aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4"
+                    }
+                },
+                "id": "e63791d6-b74c-6150-886a-4588aca748c8",
+                "uniqueName": "contoso@microsoft.com",
+                "imageUrl": "https://dev.azure.com/contoso/_apis/GraphProfile/MemberAvatars/aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4",
+                "descriptor": "aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4"
+            },
+            "System.ChangedDate": "2021-03-05T07:11:05.61Z",
+            "System.ChangedBy": {
+                "displayName": "Alexander Sehr",
+                "url": "https://spsprodweu4.vssps.visualstudio.com/Acad5bc05-58bd-46d8-9fb1-37095ea84fbd/_apis/Identities/e63791d6-b74c-6150-886a-4588aca748c8",
+                "_links": {
+                    "avatar": {
+                        "href": "https://dev.azure.com/contoso/_apis/GraphProfile/MemberAvatars/aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4"
+                    }
+                },
+                "id": "e63791d6-b74c-6150-886a-4588aca748c8",
+                "uniqueName": "contoso@microsoft.com",
+                "imageUrl": "https://dev.azure.com/contoso/_apis/GraphProfile/MemberAvatars/aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4",
+                "descriptor": "aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4"
+            },
+            "System.CommentCount": 1,
+            "System.Title": "Feature 1",
+            "Microsoft.VSTS.Common.StateChangeDate": "2021-03-05T07:07:42.98Z",
+            "Microsoft.VSTS.Common.ActivatedDate": "2021-03-05T07:07:42.98Z",
+            "Microsoft.VSTS.Common.ActivatedBy": {
+                "displayName": "Alexander Sehr",
+                "url": "https://spsprodweu4.vssps.visualstudio.com/Acad5bc05-58bd-46d8-9fb1-37095ea84fbd/_apis/Identities/e63791d6-b74c-6150-886a-4588aca748c8",
+                "_links": {
+                    "avatar": {
+                        "href": "https://dev.azure.com/contoso/_apis/GraphProfile/MemberAvatars/aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4"
+                    }
+                },
+                "id": "e63791d6-b74c-6150-886a-4588aca748c8",
+                "uniqueName": "contoso@microsoft.com",
+                "imageUrl": "https://dev.azure.com/contoso/_apis/GraphProfile/MemberAvatars/aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4",
+                "descriptor": "aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4"
+            },
+            "Microsoft.VSTS.Common.Priority": 2,
+            "Microsoft.VSTS.Common.ValueArea": "Business",
+            "Microsoft.VSTS.Common.Risk": "1 - High",
+            "Microsoft.VSTS.Scheduling.TargetDate": "2021-03-19T00:00:00Z",
+            "Microsoft.VSTS.Common.BusinessValue": 3,
+            "Microsoft.VSTS.Common.TimeCriticality": 3.0,
+            "Microsoft.VSTS.Scheduling.Effort": 2.0,
+            "Microsoft.VSTS.Scheduling.StartDate": "2021-03-17T00:00:00Z",
+            "System.Description": "<div>I'm a desc</div>"
+        },
+        "relations": [
+            {
+                "rel": "ArtifactLink",
+                "url": "vstfs:///Git/Ref/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a%2F527e5f7a-ca6b-4d1e-9bcc-81a01aa42e6e%2FGBdummyBranch",
+                "attributes": {
+                    "authorizedDate": "2021-03-05T07:11:05.61Z",
+                    "id": 7219260,
+                    "resourceCreatedDate": "2021-03-05T07:11:05.61Z",
+                    "resourceModifiedDate": "2021-03-05T07:11:05.61Z",
+                    "revisedDate": "9999-01-01T00:00:00Z",
+                    "name": "Branch"
+                }
+            }
+        ],
+        "url": "https://dev.azure.com/contoso/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/workItems/2"
+    },
+    {
+        "id": 3,
+        "rev": 3,
+        "fields": {
+            "System.AreaPath": "Module Playground\\CCoE Cloud Platform Team",
+            "System.TeamProject": "Module Playground",
+            "System.IterationPath": "Module Playground\\Iteration 1",
+            "System.WorkItemType": "Task",
+            "System.State": "Closed",
+            "System.Reason": "Obsolete",
+            "System.AssignedTo": {
+                "displayName": "Alexander Sehr",
+                "url": "https://spsprodweu4.vssps.visualstudio.com/Acad5bc05-58bd-46d8-9fb1-37095ea84fbd/_apis/Identities/e63791d6-b74c-6150-886a-4588aca748c8",
+                "_links": {
+                    "avatar": {
+                        "href": "https://dev.azure.com/contoso/_apis/GraphProfile/MemberAvatars/aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4"
+                    }
+                },
+                "id": "e63791d6-b74c-6150-886a-4588aca748c8",
+                "uniqueName": "contoso@microsoft.com",
+                "imageUrl": "https://dev.azure.com/contoso/_apis/GraphProfile/MemberAvatars/aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4",
+                "descriptor": "aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4"
+            },
+            "System.CreatedDate": "2021-03-05T07:12:33.943Z",
+            "System.CreatedBy": {
+                "displayName": "Alexander Sehr",
+                "url": "https://spsprodweu4.vssps.visualstudio.com/Acad5bc05-58bd-46d8-9fb1-37095ea84fbd/_apis/Identities/e63791d6-b74c-6150-886a-4588aca748c8",
+                "_links": {
+                    "avatar": {
+                        "href": "https://dev.azure.com/contoso/_apis/GraphProfile/MemberAvatars/aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4"
+                    }
+                },
+                "id": "e63791d6-b74c-6150-886a-4588aca748c8",
+                "uniqueName": "contoso@microsoft.com",
+                "imageUrl": "https://dev.azure.com/contoso/_apis/GraphProfile/MemberAvatars/aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4",
+                "descriptor": "aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4"
+            },
+            "System.ChangedDate": "2021-03-05T12:40:55.523Z",
+            "System.ChangedBy": {
+                "displayName": "Alexander Sehr",
+                "url": "https://spsprodweu4.vssps.visualstudio.com/Acad5bc05-58bd-46d8-9fb1-37095ea84fbd/_apis/Identities/e63791d6-b74c-6150-886a-4588aca748c8",
+                "_links": {
+                    "avatar": {
+                        "href": "https://dev.azure.com/contoso/_apis/GraphProfile/MemberAvatars/aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4"
+                    }
+                },
+                "id": "e63791d6-b74c-6150-886a-4588aca748c8",
+                "uniqueName": "contoso@microsoft.com",
+                "imageUrl": "https://dev.azure.com/contoso/_apis/GraphProfile/MemberAvatars/aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4",
+                "descriptor": "aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4"
+            },
+            "System.CommentCount": 0,
+            "System.Title": "Task 1",
+            "Microsoft.VSTS.Scheduling.OriginalEstimate": 4.0,
+            "Microsoft.VSTS.Scheduling.CompletedWork": 1.0,
+            "Microsoft.VSTS.Common.Activity": "Development",
+            "Microsoft.VSTS.Common.StateChangeDate": "2021-03-05T12:40:55.523Z",
+            "Microsoft.VSTS.Common.ActivatedDate": "2021-03-05T07:12:46.727Z",
+            "Microsoft.VSTS.Common.ActivatedBy": {
+                "displayName": "Alexander Sehr",
+                "url": "https://spsprodweu4.vssps.visualstudio.com/Acad5bc05-58bd-46d8-9fb1-37095ea84fbd/_apis/Identities/e63791d6-b74c-6150-886a-4588aca748c8",
+                "_links": {
+                    "avatar": {
+                        "href": "https://dev.azure.com/contoso/_apis/GraphProfile/MemberAvatars/aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4"
+                    }
+                },
+                "id": "e63791d6-b74c-6150-886a-4588aca748c8",
+                "uniqueName": "contoso@microsoft.com",
+                "imageUrl": "https://dev.azure.com/contoso/_apis/GraphProfile/MemberAvatars/aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4",
+                "descriptor": "aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4"
+            },
+            "Microsoft.VSTS.Common.ClosedDate": "2021-03-05T12:40:55.523Z",
+            "Microsoft.VSTS.Common.ClosedBy": {
+                "displayName": "Alexander Sehr",
+                "url": "https://spsprodweu4.vssps.visualstudio.com/Acad5bc05-58bd-46d8-9fb1-37095ea84fbd/_apis/Identities/e63791d6-b74c-6150-886a-4588aca748c8",
+                "_links": {
+                    "avatar": {
+                        "href": "https://dev.azure.com/contoso/_apis/GraphProfile/MemberAvatars/aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4"
+                    }
+                },
+                "id": "e63791d6-b74c-6150-886a-4588aca748c8",
+                "uniqueName": "contoso@microsoft.com",
+                "imageUrl": "https://dev.azure.com/contoso/_apis/GraphProfile/MemberAvatars/aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4",
+                "descriptor": "aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4"
+            },
+            "Microsoft.VSTS.Common.Priority": 2,
+            "System.Description": "<div>Task Desc</div>"
+        },
+        "url": "https://dev.azure.com/contoso/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/workItems/3"
+    },
+    {
+        "id": 4,
+        "rev": 3,
+        "fields": {
+            "System.AreaPath": "Module Playground\\CCoE Cloud Platform Team",
+            "System.TeamProject": "Module Playground",
+            "System.IterationPath": "Module Playground\\Iteration 1",
+            "System.WorkItemType": "User Story",
+            "System.State": "Closed",
+            "System.Reason": "Acceptance tests pass",
+            "System.AssignedTo": {
+                "displayName": "Alexander Sehr",
+                "url": "https://spsprodweu4.vssps.visualstudio.com/Acad5bc05-58bd-46d8-9fb1-37095ea84fbd/_apis/Identities/e63791d6-b74c-6150-886a-4588aca748c8",
+                "_links": {
+                    "avatar": {
+                        "href": "https://dev.azure.com/contoso/_apis/GraphProfile/MemberAvatars/aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4"
+                    }
+                },
+                "id": "e63791d6-b74c-6150-886a-4588aca748c8",
+                "uniqueName": "contoso@microsoft.com",
+                "imageUrl": "https://dev.azure.com/contoso/_apis/GraphProfile/MemberAvatars/aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4",
+                "descriptor": "aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4"
+            },
+            "System.CreatedDate": "2021-03-05T07:13:14.027Z",
+            "System.CreatedBy": {
+                "displayName": "Alexander Sehr",
+                "url": "https://spsprodweu4.vssps.visualstudio.com/Acad5bc05-58bd-46d8-9fb1-37095ea84fbd/_apis/Identities/e63791d6-b74c-6150-886a-4588aca748c8",
+                "_links": {
+                    "avatar": {
+                        "href": "https://dev.azure.com/contoso/_apis/GraphProfile/MemberAvatars/aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4"
+                    }
+                },
+                "id": "e63791d6-b74c-6150-886a-4588aca748c8",
+                "uniqueName": "contoso@microsoft.com",
+                "imageUrl": "https://dev.azure.com/contoso/_apis/GraphProfile/MemberAvatars/aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4",
+                "descriptor": "aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4"
+            },
+            "System.ChangedDate": "2021-03-05T12:37:47.653Z",
+            "System.ChangedBy": {
+                "displayName": "Alexander Sehr",
+                "url": "https://spsprodweu4.vssps.visualstudio.com/Acad5bc05-58bd-46d8-9fb1-37095ea84fbd/_apis/Identities/e63791d6-b74c-6150-886a-4588aca748c8",
+                "_links": {
+                    "avatar": {
+                        "href": "https://dev.azure.com/contoso/_apis/GraphProfile/MemberAvatars/aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4"
+                    }
+                },
+                "id": "e63791d6-b74c-6150-886a-4588aca748c8",
+                "uniqueName": "contoso@microsoft.com",
+                "imageUrl": "https://dev.azure.com/contoso/_apis/GraphProfile/MemberAvatars/aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4",
+                "descriptor": "aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4"
+            },
+            "System.CommentCount": 0,
+            "System.Title": "User Story 5",
+            "Microsoft.VSTS.Scheduling.StoryPoints": 4.0,
+            "Microsoft.VSTS.Common.StateChangeDate": "2021-03-05T12:37:47.653Z",
+            "Microsoft.VSTS.Common.ActivatedDate": "2021-03-05T07:13:24.25Z",
+            "Microsoft.VSTS.Common.ActivatedBy": {
+                "displayName": "Alexander Sehr",
+                "url": "https://spsprodweu4.vssps.visualstudio.com/Acad5bc05-58bd-46d8-9fb1-37095ea84fbd/_apis/Identities/e63791d6-b74c-6150-886a-4588aca748c8",
+                "_links": {
+                    "avatar": {
+                        "href": "https://dev.azure.com/contoso/_apis/GraphProfile/MemberAvatars/aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4"
+                    }
+                },
+                "id": "e63791d6-b74c-6150-886a-4588aca748c8",
+                "uniqueName": "contoso@microsoft.com",
+                "imageUrl": "https://dev.azure.com/contoso/_apis/GraphProfile/MemberAvatars/aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4",
+                "descriptor": "aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4"
+            },
+            "Microsoft.VSTS.Common.ResolvedDate": "2021-03-05T07:13:24.25Z",
+            "Microsoft.VSTS.Common.ResolvedBy": {
+                "displayName": "Alexander Sehr",
+                "url": "https://spsprodweu4.vssps.visualstudio.com/Acad5bc05-58bd-46d8-9fb1-37095ea84fbd/_apis/Identities/e63791d6-b74c-6150-886a-4588aca748c8",
+                "_links": {
+                    "avatar": {
+                        "href": "https://dev.azure.com/contoso/_apis/GraphProfile/MemberAvatars/aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4"
+                    }
+                },
+                "id": "e63791d6-b74c-6150-886a-4588aca748c8",
+                "uniqueName": "contoso@microsoft.com",
+                "imageUrl": "https://dev.azure.com/contoso/_apis/GraphProfile/MemberAvatars/aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4",
+                "descriptor": "aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4"
+            },
+            "Microsoft.VSTS.Common.ClosedDate": "2021-03-05T12:37:47.653Z",
+            "Microsoft.VSTS.Common.ClosedBy": {
+                "displayName": "Alexander Sehr",
+                "url": "https://spsprodweu4.vssps.visualstudio.com/Acad5bc05-58bd-46d8-9fb1-37095ea84fbd/_apis/Identities/e63791d6-b74c-6150-886a-4588aca748c8",
+                "_links": {
+                    "avatar": {
+                        "href": "https://dev.azure.com/contoso/_apis/GraphProfile/MemberAvatars/aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4"
+                    }
+                },
+                "id": "e63791d6-b74c-6150-886a-4588aca748c8",
+                "uniqueName": "contoso@microsoft.com",
+                "imageUrl": "https://dev.azure.com/contoso/_apis/GraphProfile/MemberAvatars/aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4",
+                "descriptor": "aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4"
+            },
+            "Microsoft.VSTS.Common.Priority": 2,
+            "Microsoft.VSTS.Common.ValueArea": "Business",
+            "Microsoft.VSTS.Common.Risk": "2 - Medium",
+            "System.Description": "<div>Description User Story</div>",
+            "Microsoft.VSTS.Common.AcceptanceCriteria": "<div>Description User Story</div>"
+        },
+        "url": "https://dev.azure.com/contoso/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/workItems/4"
+    },
+    {
+        "id": 5,
+        "rev": 3,
+        "fields": {
+            "System.AreaPath": "Module Playground\\CCoE Cloud Platform Team",
+            "System.TeamProject": "Module Playground",
+            "System.IterationPath": "Module Playground\\Iteration 1",
+            "System.WorkItemType": "Bug",
+            "System.State": "Resolved",
+            "System.Reason": "As Designed",
+            "System.CreatedDate": "2021-03-05T12:47:34.253Z",
+            "System.CreatedBy": {
+                "displayName": "Alexander Sehr",
+                "url": "https://spsprodweu4.vssps.visualstudio.com/Acad5bc05-58bd-46d8-9fb1-37095ea84fbd/_apis/Identities/e63791d6-b74c-6150-886a-4588aca748c8",
+                "_links": {
+                    "avatar": {
+                        "href": "https://dev.azure.com/contoso/_apis/GraphProfile/MemberAvatars/aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4"
+                    }
+                },
+                "id": "e63791d6-b74c-6150-886a-4588aca748c8",
+                "uniqueName": "contoso@microsoft.com",
+                "imageUrl": "https://dev.azure.com/contoso/_apis/GraphProfile/MemberAvatars/aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4",
+                "descriptor": "aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4"
+            },
+            "System.ChangedDate": "2021-03-05T12:49:15.7Z",
+            "System.ChangedBy": {
+                "displayName": "Alexander Sehr",
+                "url": "https://spsprodweu4.vssps.visualstudio.com/Acad5bc05-58bd-46d8-9fb1-37095ea84fbd/_apis/Identities/e63791d6-b74c-6150-886a-4588aca748c8",
+                "_links": {
+                    "avatar": {
+                        "href": "https://dev.azure.com/contoso/_apis/GraphProfile/MemberAvatars/aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4"
+                    }
+                },
+                "id": "e63791d6-b74c-6150-886a-4588aca748c8",
+                "uniqueName": "contoso@microsoft.com",
+                "imageUrl": "https://dev.azure.com/contoso/_apis/GraphProfile/MemberAvatars/aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4",
+                "descriptor": "aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4"
+            },
+            "System.CommentCount": 0,
+            "System.Title": "Bug 1",
+            "Microsoft.VSTS.Scheduling.StoryPoints": 4.0,
+            "Microsoft.VSTS.Scheduling.RemainingWork": 3.0,
+            "Microsoft.VSTS.Scheduling.OriginalEstimate": 5.0,
+            "Microsoft.VSTS.Scheduling.CompletedWork": 1.0,
+            "Microsoft.VSTS.Common.Activity": "Requirements",
+            "Microsoft.VSTS.Common.StateChangeDate": "2021-03-05T12:47:52.263Z",
+            "Microsoft.VSTS.Common.ActivatedDate": "2021-03-05T12:47:52.263Z",
+            "Microsoft.VSTS.Common.ActivatedBy": {
+                "displayName": "Alexander Sehr",
+                "url": "https://spsprodweu4.vssps.visualstudio.com/Acad5bc05-58bd-46d8-9fb1-37095ea84fbd/_apis/Identities/e63791d6-b74c-6150-886a-4588aca748c8",
+                "_links": {
+                    "avatar": {
+                        "href": "https://dev.azure.com/contoso/_apis/GraphProfile/MemberAvatars/aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4"
+                    }
+                },
+                "id": "e63791d6-b74c-6150-886a-4588aca748c8",
+                "uniqueName": "contoso@microsoft.com",
+                "imageUrl": "https://dev.azure.com/contoso/_apis/GraphProfile/MemberAvatars/aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4",
+                "descriptor": "aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4"
+            },
+            "Microsoft.VSTS.Common.ResolvedDate": "2021-03-05T12:47:52.263Z",
+            "Microsoft.VSTS.Common.ResolvedBy": {
+                "displayName": "Alexander Sehr",
+                "url": "https://spsprodweu4.vssps.visualstudio.com/Acad5bc05-58bd-46d8-9fb1-37095ea84fbd/_apis/Identities/e63791d6-b74c-6150-886a-4588aca748c8",
+                "_links": {
+                    "avatar": {
+                        "href": "https://dev.azure.com/contoso/_apis/GraphProfile/MemberAvatars/aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4"
+                    }
+                },
+                "id": "e63791d6-b74c-6150-886a-4588aca748c8",
+                "uniqueName": "contoso@microsoft.com",
+                "imageUrl": "https://dev.azure.com/contoso/_apis/GraphProfile/MemberAvatars/aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4",
+                "descriptor": "aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4"
+            },
+            "Microsoft.VSTS.Common.ResolvedReason": "As Designed",
+            "Microsoft.VSTS.Common.Priority": 2,
+            "Microsoft.VSTS.Common.Severity": "3 - Medium",
+            "Microsoft.VSTS.Common.ValueArea": "Business",
+            "Microsoft.VSTS.TCM.SystemInfo": "<div><div>Step 1: hello</div><div>Step 2: Hello2</div></div>",
+            "Microsoft.VSTS.TCM.ReproSteps": "<div>Step 1: hello</div><div>Step 2: Hello2</div>"
+        },
+        "url": "https://dev.azure.com/contoso/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/workItems/5"
+    },
+    {
+        "id": 6,
+        "rev": 2,
+        "fields": {
+            "System.AreaPath": "Module Playground\\CCoE Cloud Platform Team",
+            "System.TeamProject": "Module Playground",
+            "System.IterationPath": "Module Playground\\Iteration 1",
+            "System.WorkItemType": "Issue",
+            "System.State": "Active",
+            "System.Reason": "New",
+            "System.AssignedTo": {
+                "displayName": "Alexander Sehr",
+                "url": "https://spsprodweu4.vssps.visualstudio.com/Acad5bc05-58bd-46d8-9fb1-37095ea84fbd/_apis/Identities/e63791d6-b74c-6150-886a-4588aca748c8",
+                "_links": {
+                    "avatar": {
+                        "href": "https://dev.azure.com/contoso/_apis/GraphProfile/MemberAvatars/aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4"
+                    }
+                },
+                "id": "e63791d6-b74c-6150-886a-4588aca748c8",
+                "uniqueName": "contoso@microsoft.com",
+                "imageUrl": "https://dev.azure.com/contoso/_apis/GraphProfile/MemberAvatars/aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4",
+                "descriptor": "aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4"
+            },
+            "System.CreatedDate": "2021-03-05T12:51:43.63Z",
+            "System.CreatedBy": {
+                "displayName": "Alexander Sehr",
+                "url": "https://spsprodweu4.vssps.visualstudio.com/Acad5bc05-58bd-46d8-9fb1-37095ea84fbd/_apis/Identities/e63791d6-b74c-6150-886a-4588aca748c8",
+                "_links": {
+                    "avatar": {
+                        "href": "https://dev.azure.com/contoso/_apis/GraphProfile/MemberAvatars/aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4"
+                    }
+                },
+                "id": "e63791d6-b74c-6150-886a-4588aca748c8",
+                "uniqueName": "contoso@microsoft.com",
+                "imageUrl": "https://dev.azure.com/contoso/_apis/GraphProfile/MemberAvatars/aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4",
+                "descriptor": "aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4"
+            },
+            "System.ChangedDate": "2021-03-05T12:51:50.18Z",
+            "System.ChangedBy": {
+                "displayName": "Alexander Sehr",
+                "url": "https://spsprodweu4.vssps.visualstudio.com/Acad5bc05-58bd-46d8-9fb1-37095ea84fbd/_apis/Identities/e63791d6-b74c-6150-886a-4588aca748c8",
+                "_links": {
+                    "avatar": {
+                        "href": "https://dev.azure.com/contoso/_apis/GraphProfile/MemberAvatars/aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4"
+                    }
+                },
+                "id": "e63791d6-b74c-6150-886a-4588aca748c8",
+                "uniqueName": "contoso@microsoft.com",
+                "imageUrl": "https://dev.azure.com/contoso/_apis/GraphProfile/MemberAvatars/aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4",
+                "descriptor": "aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4"
+            },
+            "System.CommentCount": 0,
+            "System.Title": "Issue 1",
+            "Microsoft.VSTS.Common.StateChangeDate": "2021-03-05T12:51:43.63Z",
+            "Microsoft.VSTS.Common.ActivatedDate": "2021-03-05T12:51:43.63Z",
+            "Microsoft.VSTS.Common.ActivatedBy": {
+                "displayName": "Alexander Sehr",
+                "url": "https://spsprodweu4.vssps.visualstudio.com/Acad5bc05-58bd-46d8-9fb1-37095ea84fbd/_apis/Identities/e63791d6-b74c-6150-886a-4588aca748c8",
+                "_links": {
+                    "avatar": {
+                        "href": "https://dev.azure.com/contoso/_apis/GraphProfile/MemberAvatars/aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4"
+                    }
+                },
+                "id": "e63791d6-b74c-6150-886a-4588aca748c8",
+                "uniqueName": "contoso@microsoft.com",
+                "imageUrl": "https://dev.azure.com/contoso/_apis/GraphProfile/MemberAvatars/aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4",
+                "descriptor": "aad.ZTYzNzkxZDYtYjc0Yy03MTUwLTg4NmEtNDU4OGFjYTc0OGM4"
+            },
+            "Microsoft.VSTS.Common.Priority": 2,
+            "Microsoft.VSTS.Common.StackRank": 5.0,
+            "Microsoft.VSTS.Scheduling.DueDate": "2021-03-09T00:00:00Z"
+        },
+        "url": "https://dev.azure.com/contoso/a0e8d9f6-0191-4f37-81ce-4f4e7ba1411a/_apis/wit/workItems/6"
+    }
+]

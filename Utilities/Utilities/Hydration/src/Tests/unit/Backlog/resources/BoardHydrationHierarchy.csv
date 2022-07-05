@@ -1,0 +1,19 @@
+ID;Work Item Type;Title 1;Title 2;Title 3;Title 4;State;Area Path;Iteration Path
+;Epic;Epic 100;;;;New;Module Playground;Module Playground\Iteration 1
+;Feature;;Feature 110;;;New;Module Playground;Module Playground\Iteration 1
+;Feature;;Feature 120;;;New;Module Playground;Module Playground\Iteration 1
+;Feature;;Feature 130;;;New;Module Playground;Module Playground\Iteration 1
+;User Story;;;User Story 131;;Active;Module Playground;Module Playground\Iteration 1
+;Task;;;;Task 1;New;Module Playground;Module Playground\Iteration 1
+;Task;;;;Task 2;New;Module Playground;Module Playground\Iteration 1
+;Feature;;Feature 140;;;New;Module Playground;Module Playground\Iteration 1
+;Feature;;Feature 150;;;New;Module Playground;Module Playground\Iteration 1
+;User Story;;;User Story 151;;Active;Module Playground;Module Playground\Iteration 1
+;Task;;;;Task 1;New;Module Playground;Module Playground\Iteration 1
+;Task;;;;Task 2;New;Module Playground;Module Playground\Iteration 1
+;Epic;Epic 200;;;;New;Module Playground;Module Playground\Iteration 1
+;Feature;;Feature 210;;;New;Module Playground;Module Playground\Iteration 1
+;Feature;;Feature 220;;;New;Module Playground;Module Playground\Iteration 1
+;Feature;;Feature 230;;;New;Module Playground;Module Playground\Iteration 1
+;User Story;;;User Story 231;;Active;Module Playground;Module Playground\Iteration 1
+;Feature;;Feature 240;;;New;Module Playground;Module Playground\Iteration 1

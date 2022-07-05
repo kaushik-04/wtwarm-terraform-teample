@@ -1,0 +1,37 @@
+{
+    "properties": {
+        "name": "AuditStorageLocation",
+        "displayName": "Audit Storage Account Location",
+        "policyType": "Custom",
+        "metadata": {
+            "category": "Storage"
+        },
+        "mode": "All",
+        "description": "This policy audits if a storage account is built in a not allowed location",
+        "parameters": {},
+        "policyRule": {
+            "if": {
+                "allOf": [
+                    {
+                        "field": "type",
+                        "equals": "Microsoft.Storage/storageAccounts"
+                    },
+                    {
+                        "field": "location",
+                        "notIn": [
+                            "europewest",
+                            "europenorth",
+                            "australiaeast",
+                            "australiasoutheast",
+                            "australiacentral",
+                            "australiacentral2"
+                        ]
+                    }
+                ]
+            },
+            "then": {
+                "effect": "audit"
+            }
+        }
+    }
+}

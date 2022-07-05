@@ -1,0 +1,74 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "storageAccountName": {
+      "value": "sxxazsaweux003"
+    },
+    "storageAccountKind": {
+      "value": "StorageV2"
+    },
+    "storageAccountSku": {
+      "value": "Standard_LRS"
+    },
+    "storageAccountAccessTier": {
+      "value": "Hot"
+    },
+    "blobContainers": {
+      "value": [
+        {
+          "name": "wvdscripts",
+          "publicAccess": "Container", //Container, Blob, None
+          "roleAssignments": [
+            // {
+            //   "roleDefinitionIdOrName": "Reader",
+            //   "principalIds": [
+            //     "cb9df0b6-cc86-4982-9266-a38f68e68200" // object1
+            //   ]
+            // }
+          ]
+        },
+        {
+          "name": "wvdsoftware",
+          "publicAccess": "Container", //Container, Blob, None
+          "roleAssignments": [
+            // {
+            //   "roleDefinitionIdOrName": "Reader",
+            //   "principalIds": [
+            //     "cb9df0b6-cc86-4982-9266-a38f68e68200" // object1
+            //   ]
+            // }
+          ]
+        }
+      ]
+    },
+    "fileShares": {
+      "value": [
+        {
+          "name": "wvdprofiles",
+          "shareQuota": "5120",
+          "roleAssignments": [
+            // {
+            //   "roleDefinitionIdOrName": "Reader",
+            //   "principalIds": [
+            //     "cb9df0b6-cc86-4982-9266-a38f68e68200" // object1
+            //   ]
+            // }
+          ]
+        },
+        {
+          "name": "wvdprofiles2",
+          "shareQuota": "5120",
+          "roleAssignments": [
+            // {
+            //   "roleDefinitionIdOrName": "Reader",
+            //   "principalIds": [
+            //     "cb9df0b6-cc86-4982-9266-a38f68e68200" // object1
+            //   ]
+            // }
+          ]
+        }
+      ]
+    }
+  }
+}

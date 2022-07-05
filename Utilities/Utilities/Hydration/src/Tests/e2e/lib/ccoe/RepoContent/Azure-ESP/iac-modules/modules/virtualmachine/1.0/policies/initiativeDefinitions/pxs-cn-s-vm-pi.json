@@ -1,0 +1,187 @@
+{
+    "name": "pxs-cn-s-vm-pi",
+    "displayName": "pxs-cn-s-vm-pi",
+    "description": "Initiative definition for Virtual Machines",
+    "metadata": {
+        "category": "CCoE"
+    },
+    "policyDefinitions": [
+        {
+            "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/pxs-cloudnative-mg/providers/Microsoft.Authorization/policyDefinitions/pxs-cn-vm-antimalware-pd",
+            "parameters": {
+                "effect": {
+                    "value": "[parameters('antimalwareeffect')]"
+                }
+            }
+        },
+        {
+            "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/pxs-cloudnative-mg/providers/Microsoft.Authorization/policyDefinitions/pxs-cn-vm-bootdiagnostics-pd",
+            "parameters": {
+                "effect": {
+                    "value": "[parameters('bootdiagnosticseffect')]"
+                }
+            }
+        },
+        {
+            "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/pxs-cloudnative-mg/providers/Microsoft.Authorization/policyDefinitions/pxs-cn-vm-dependency-pd",
+            "parameters": {
+                "effect": {
+                    "value": "[parameters('depencyagenteffect')]"
+                }
+            }
+        },
+        {
+            "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/pxs-cloudnative-mg/providers/Microsoft.Authorization/policyDefinitions/pxs-cn-vm-extensions-pd",
+            "parameters": {
+                "effect": {
+                    "value": "[parameters('vmextensionseffect')]"
+                },
+                "approvedExtensions": {
+                    "value": "[parameters('approvedExtensions')]"
+                }
+            }
+        },
+        {
+            "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/pxs-cloudnative-mg/providers/Microsoft.Authorization/policyDefinitions/pxs-cn-vm-os-restriction-pd",
+            "parameters": {
+                "effect": {
+                    "value": "[parameters('osrestrictioneffect')]"
+                },
+                "allowedWindowsSKUImages": {
+                    "value": "[parameters('allowedWindowsSKUImages')]"
+                }
+            }
+        },
+        {
+            "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/pxs-cloudnative-mg/providers/Microsoft.Authorization/policyDefinitions/pxs-cn-vm-os-update-pd",
+            "parameters": {
+                "effect": {
+                    "value": "[parameters('guestosupdateeffect')]"
+                }
+            }
+        }
+    ],
+    "parameters": {
+        "approvedExtensions": {
+            "type": "Array",
+            "metadata": {
+                "displayName": "allowed VM extensions",
+                "description": "Only approved VM extensions should be installed."
+            },
+            "defaultValue": [
+                "AzureDiskEncryption",
+                "AzureDiskEncryptionForLinux",
+                "DependencyAgentWindows",
+                "DependencyAgentLinux",
+                "IaaSAntimalware",
+                "IaaSDiagnostics",
+                "LinuxDiagnostic",
+                "MicrosoftMonitoringAgent",
+                "NetworkWatcherAgentLinux",
+                "NetworkWatcherAgentWindows",
+                "OmsAgentForLinux",
+                "VMSnapshot",
+                "VMSnapshotLinux",
+                "DSC",
+                "LinuxAgent.AzureSecurityCenter",
+                "WindowsAgent.AzureSecurityCenter",
+                "guesthealthwindowsagent",
+                "azuremonitorwindowsagent",
+                "SqlIaaSAgent",
+                "azurebackupwindowsworkload",
+                "CustomScript"
+            ]
+        },
+        "vmextensionseffect": {
+            "type": "string",
+            "metadata": {
+                "displayName": "allowed Virutal Machine  extensions effect",
+                "description": "allowed Virutal Machine  extensions Effect."
+            },
+            "defaultValue": "Audit",
+            "allowedValues": [
+                "Audit",
+                "Deny",
+                "Disabled"
+            ]
+        },
+        "antimalwareeffect": {
+            "type": "String",
+            "metadata": {
+                "displayName": "Antimaleware effect ",
+                "description": "Enable or disable the execution of the policy"
+            },
+            "allowedValues": [
+                "AuditIfNotExists",
+                "Disabled"
+            ],
+            "defaultValue": "AuditIfNotExists"
+        },
+        "bootdiagnosticseffect": {
+            "type": "String",
+            "metadata": {
+                "displayName": "Boot Diagnostics effect ",
+                "description": "Enable or disable the execution of the policy"
+            },
+            "allowedValues": [
+                "Audit",
+                "Deny",
+                "Disabled"
+            ],
+            "defaultValue": "Audit"
+        },
+        "depencyagenteffect": {
+            "type": "String",
+            "metadata": {
+                "displayName": "Dependency Agent effect",
+                "description": "Enable or disable the execution of the policy"
+            },
+            "allowedValues": [
+                "AuditIfNotExists",
+                "Disabled"
+            ],
+            "defaultValue": "AuditIfNotExists"
+        },
+        "osrestrictioneffect": {
+            "type": "String",
+            "metadata": {
+                "displayName": "Operating System restriction effect",
+                "description": "The effect determines what happens when the policy rule is evaluated to match"
+            },
+            "allowedValues": [
+                "Audit",
+                "Deny",
+                "Disabled"
+            ],
+            "defaultValue": "Audit"
+        },
+        "allowedwindowsskuimages": {
+            "type": "array",
+            "metadata": {
+                "displayName": "allowed SKU image effect",
+                "description": "allowed SKU Image for VMs"
+            },
+            "allowedValues": [],
+            "DefaultValue": [
+                "2012-R2-Datacenter",
+                "2016-Datacenter-Server-Core",
+                "2016-Datacenter",
+                "2019-Datacenter-Core",
+                "2019-Datacenter"
+            ]
+        },
+        "guestosupdateeffect": {
+            "type": "String",
+            "metadata": {
+                "displayName": "Guest OS Update Effect",
+                "description": "The effect determines what happens when the policy rule is evaluated to match"
+            },
+            "allowedValues": [
+                "Audit",
+                "Deny",
+                "Disabled"
+            ],
+            "defaultValue": "Audit"
+        }
+    }
+}

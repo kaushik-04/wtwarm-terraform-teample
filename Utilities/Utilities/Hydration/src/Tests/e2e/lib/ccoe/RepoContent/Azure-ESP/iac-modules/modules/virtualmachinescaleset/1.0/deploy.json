@@ -1,0 +1,327 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "vmssName": {
+            "type": "string",
+            "metadata": {
+                "description": "String used as a base for naming resources. Must be 3-61 characters in length and globally unique across Azure. A hash is prepended to this string for some resources, and resource-specific information is appended."
+            },
+            "maxLength": 61
+        },
+        "location": {
+            "type": "string",
+            "defaultValue": "[resourceGroup().location]",
+            "allowedValues": [
+                "westeurope",
+                "northeurope"
+            ]
+        },
+        "instanceCount": {
+            "type": "int",
+            "metadata": {
+                "description": "Number of VM instances (100 or less)."
+            },
+            "minValue": 2,
+            "maxValue": 100
+        },
+        "vmSku": {
+            "type": "string",
+            "defaultValue": "Standard_DS1_v2",
+            "metadata": {
+                "description": "Size of VMs in the VM Scale Set."
+            }
+        },
+        "windowsOSVersion": {
+            "type": "string",
+            "defaultValue": "2019-Datacenter",
+            "allowedValues": [
+                "2019-Datacenter-Core",
+                "2019-Datacenter",
+                "2016-Datacenter-Server-Core",
+                "2016-Datacenter-Server",
+                "2012-R2-Datacenter"
+            ],
+            "metadata": {
+                "description": "The Windows version for the VM. This will pick a fully patched image of this given Windows version. Allowed values: 2008-R2-SP1, 2012-Datacenter, 2012-R2-Datacenter."
+            }
+        },
+        "osDiskType": {
+            "type": "string",
+            "defaultValue": "StandardSSD_LRS",
+            "allowedValues": [
+                "StandardSSD_LRS"
+            ],
+            "metadata": {
+                "description": "Type of Disk"
+            }
+        },
+        "OSInGuestUpdate": {
+            "type": "bool",
+            "defaultValue": true
+        },
+        "resourcegroupvirtualnetwork": {
+            "type": "string",
+            "metadata": {
+                "description": "Name of the resource group containing the virtual network"
+            }
+        },
+        "virtualnetwork": {
+            "type": "string",
+            "metadata": {
+                "description": "Name of the virtual network"
+            }
+        },
+        "subnet": {
+            "type": "string",
+            "defaultValue": "Default",
+            "metadata": {
+                "description": "Name of the virtual network subnet"
+            }
+        },
+        "adminUsername": {
+            "type": "string",
+            "metadata": {
+                "description": "Admin username on all VMs."
+            }
+        },
+        "adminPassword": {
+            "type": "securestring",
+            "metadata": {
+                "description": "Admin password on all VMs."
+            }
+        },
+        "workspaceid": {
+            "type": "string",
+            "defaultValue": "/subscriptions/28f0dade-b402-41df-b95f-d0d785721d24/resourcegroups/pxs-cn-mtonneau-d-shared-rg/providers/microsoft.operationalinsights/workspaces/pxs-cn-mtonneau-d-shared-la"
+        },
+        "storageAccountName": {
+            "type": "string",
+            "metadata": {
+                "description": "The name of an existing storage account to which diagnostics data is transfered."
+            }
+        },
+        "storageAccountId": {
+            "type": "string",
+            "metadata": {
+                "description": "The resource group for the storage account specified in existingdiagnosticsStorageAccountName"
+            }
+        },
+        "tags": {
+            "type": "object",
+            "metadata": {
+                "description": "Required. Resource tags."
+            },
+            "defaultValue": {}
+        }
+    },
+    "variables": {
+        "nicName": "[concat(parameters('vmssName'), '-nic')]",
+        "ipConfigName": "[concat(parameters('vmssName'), '-ipconfig')]",
+        "osType": {
+            "publisher": "MicrosoftWindowsServer",
+            "offer": "WindowsServer",
+            "sku": "[parameters('windowsOSVersion')]",
+            "version": "latest"
+        },
+        "imageReference": "[variables('osType')]"
+    },
+    "functions": [],
+    "resources": [
+        {
+            "type": "Microsoft.Compute/virtualMachineScaleSets",
+            "name": "[parameters('vmssName')]",
+            "location": "[parameters('location')]",
+            "apiVersion": "2020-06-01",
+            "tags": "[parameters('tags')]",
+            "dependsOn": [],
+            "sku": {
+                "name": "[parameters('vmSku')]",
+                "tier": "Standard",
+                "capacity": "[parameters('instanceCount')]"
+            },
+            "properties": {
+                "overprovision": "true",
+                "upgradePolicy": {
+                    "mode": "Manual",
+                    "automaticOSUpgradePolicy": {
+                        "enableAutomaticOSUpgrade": false
+                    }
+                },
+                "virtualMachineProfile": {
+                    "storageProfile": {
+                        "osDisk": {
+                            "createOption": "FromImage",
+                            "caching": "ReadWrite",
+                            "managedDisk": {
+                                "storageAccountType": "[parameters('osDiskType')]"
+                            }
+                        },
+                        "imageReference": "[variables('imageReference')]"
+                    },
+                    "osProfile": {
+                        "computerNamePrefix": "[parameters('vmssName')]",
+                        "adminUsername": "[parameters('adminUsername')]",
+                        "adminPassword": "[parameters('adminPassword')]",
+                        "windowsConfiguration": {
+                            "provisionVMAgent": true,
+                            "timezone": "Central European Standard Time",
+                            "enableAutomaticUpdates": "[parameters('OSInGuestUpdate')]"
+                        }
+                    },
+                    "diagnosticsProfile": {
+                        "bootDiagnostics": {
+                            "enabled": true
+                        }
+                    },
+                    "networkProfile": {
+                        "networkInterfaceConfigurations": [
+                            {
+                                "name": "[variables('nicName')]",
+                                "properties": {
+                                    "primary": true,
+                                    "ipConfigurations": [
+                                        {
+                                            "name": "[variables('ipConfigName')]",
+                                            "properties": {
+                                                "subnet": {
+                                                    "id": "[concat('/subscriptions/', subscription().subscriptionId,'/resourceGroups/', parameters('resourcegroupvirtualnetwork'), '/providers/Microsoft.Network/virtualNetworks/', parameters('virtualNetwork'), '/subnets/', parameters('subnet'))]"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    },
+                    "extensionProfile": {
+                        "extensions": [
+                            {
+                                "name": "IaaSAntimalware",
+                                "properties": {
+                                    "publisher": "Microsoft.Azure.Security",
+                                    "type": "IaaSAntimalware",
+                                    "typeHandlerVersion": "1.3",
+                                    "autoUpgradeMinorVersion": "true",
+                                    "settings": {
+                                        "AntimalwareEnabled": true,
+                                        "RealtimeProtectionEnabled": "true",
+                                        "ScheduledScanSettings": {
+                                            "isEnabled": "false",
+                                            "day": "7",
+                                            "time": "120",
+                                            "scanType": "Quick"
+                                        },
+                                        "Exclusions": {
+                                            "Extensions": "",
+                                            "Paths": "",
+                                            "Processes": ""
+                                        }
+                                    },
+                                    "protectedSettings": {},
+                                    "provisionAfterExtensions": []
+                                }
+                            },
+                            {
+                                "name": "MicrosoftMonitoringAgent",
+                                "properties": {
+                                    "publisher": "Microsoft.EnterpriseCloud.Monitoring",
+                                    "type": "MicrosoftMonitoringAgent",
+                                    "typeHandlerVersion": "1.0",
+                                    "autoUpgradeMinorVersion": "true",
+                                    "settings": {
+                                        "workspaceId": "[reference(parameters('workspaceid'), '2015-03-20').customerId]",
+                                        "stopOnMultipleConnections": "true"
+                                    },
+                                    "protectedSettings": {
+                                        "workspaceKey": "[listKeys(parameters('workspaceid'), '2015-03-20').primarySharedKey]"
+                                    },
+                                    "provisionAfterExtensions": []
+                                }
+                            },
+                            {
+                                "name": "DependencyAgentWindows",
+                                "properties": {
+                                    "publisher": "Microsoft.Azure.Monitoring.DependencyAgent",
+                                    "type": "DependencyAgentWindows",
+                                    "typeHandlerVersion": "9.7",
+                                    "autoUpgradeMinorVersion": "true",
+                                    "settings": {},
+                                    "protectedSettings": {},
+                                    "provisionAfterExtensions": [
+                                        "MicrosoftMonitoringAgent"
+                                    ]
+                                }
+                            },
+                            {
+                                "name": "Microsoft.Insights.VMDiagnosticsSettings",
+                                 "properties": {
+                                    "publisher": "Microsoft.Azure.Diagnostics",
+                                    "type": "IaaSDiagnostics",
+                                    "typeHandlerVersion": "1.5",
+                                    "autoUpgradeMinorVersion": true,
+                                    "settings": {
+                                        "WadCfg": {
+                                            "DiagnosticMonitorConfiguration": {
+                                                "overallQuotaInMB": 10000,
+                                                "DiagnosticInfrastructureLogs": {
+                                                    "scheduledTransferLogLevelFilter": "Error"
+                                                },
+                                                "PerformanceCounters": {
+                                                    "scheduledTransferPeriod": "PT1M",
+                                                    "sinks": "AzureMonitorSink",
+                                                    "PerformanceCounterConfiguration": [
+                                                        {
+                                                            "counterSpecifier": "\\Processor(_Total)\\% Processor Time",
+                                                            "sampleRate": "PT1M",
+                                                            "unit": "percent"
+                                                        }
+                                                    ]
+                                                },
+                                                "WindowsEventLog": {
+                                                    "scheduledTransferPeriod": "PT5M",
+                                                    "DataSource": [
+                                                        {
+                                                            "name": "System!*[System[Provider[@Name='Microsoft Antimalware']]]"
+                                                        },
+                                                        {
+                                                            "name": "System!*[System[Provider[@Name='NTFS'] and (EventID=55)]]"
+                                                        },
+                                                        {
+                                                            "name": "System!*[System[Provider[@Name='disk'] and (EventID=7 or EventID=52 or EventID=55)]]"
+                                                        }
+                                                    ]
+                                                }
+                                            },
+                                            "SinksConfig": {
+                                                "Sink": [
+                                                    {
+                                                        "name": "AzureMonitorSink",
+                                                        "AzureMonitor": {
+                                                            "ResourceId": "[parameters('workspaceid')]"
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        },
+                                        "storageAccount": "[parameters('storageAccountName')]"
+                                    },
+                                    "protectedSettings": {
+                                        "storageAccountName": "[parameters('storageAccountName')]",
+                                        "storageAccountKey": "[listkeys(parameters('storageAccountId'), '2019-06-01').keys[0].value]",
+                                        "storageAccountEndPoint": "https://core.windows.net"
+                                    },
+                                    "provisionAfterExtensions": [
+                                        "MicrosoftMonitoringAgent",
+                                        "DependencyAgentWindows"
+                                    ]
+                                }
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+    ],
+    "outputs": {}
+}

@@ -1,0 +1,10 @@
+variables:
+- template: ../mg.variables.yml
+- name: subscriptionID
+  value: '94a25935-980f-4ffd-b710-7fb3bf986ae0'
+- name: subscriptionName
+  value: 'mgmt-p-log-sub'
+- name: serviceConnection
+  value : 'mgmt-p-log-sub'
+- name: parametersPath
+  value: 'management-mg/mgmt-p-log-sub/parameters'

@@ -1,0 +1,32 @@
+name: $(Build.DefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:r)
+
+variables:
+  - template: /cicd/global.variables.yml
+  - name: moduleName
+    value: initiativeDefinition
+  - name: moduleVersion
+    value: "2.0"
+  - name: serviceConnection
+    value: "pxs-cloudnative-mg"
+
+trigger:
+  batch: true
+  branches:
+    include:
+    - master
+  paths:
+    include:
+      - cicd/*
+      - common/*
+      - modules/initiativeDefinition/2.0/*
+    exclude:
+      - modules/initiativeDefinition/2.0/readme.md
+
+stages:
+- stage: Deploy
+  jobs:
+  - template: /cicd/templates/pipeline.jobs.deploy.yml
+    parameters:
+      serviceConnection: $(serviceConnection)
+      deploymentBlocks:
+      - path: "$(parametersPath)/pxs-cn-validationInitiative-pi.json"

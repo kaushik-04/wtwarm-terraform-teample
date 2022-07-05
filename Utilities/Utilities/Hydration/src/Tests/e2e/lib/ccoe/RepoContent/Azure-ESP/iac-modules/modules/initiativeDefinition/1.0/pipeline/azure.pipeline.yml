@@ -1,0 +1,27 @@
+parameters:
+  # Pipeline-related parameters
+  serviceConnection: ''
+  managementGroupId: ''
+  vmImage: '$(vmImage)'
+  # Logic-related parameters
+  initiativeDefinitionsPath: ''
+  initiativeDefinitionsScriptPath: 'modules/initiativeDefinition/1.0'
+
+jobs:
+- job: SetInitiativeDefinitions
+  displayName: Set Initiative Definitions
+  pool:
+    vmImage: $(vmImage)
+  steps:
+    - task: AzurePowerShell@5
+      displayName: Set Initiative Definitions
+      inputs:
+        azureSubscription: ${{ parameters.serviceConnection }}
+        ScriptType: FilePath
+        scriptPath: $(Build.Repository.LocalPath)/${{ parameters.initiativeDefinitionsScriptPath }}/Set-InitiativeDefinitions.ps1
+        azurePowerShellVersion: LatestVersion
+        pwsh: true
+        scriptArguments:
+          -ManagementGroupName ${{ parameters.managementGroupId }}
+          -InitiativeDefinitionRootFolder $(Build.Repository.LocalPath)/${{ parameters.initiativeDefinitionsPath }}/
+          -InitiativeDefinitionSchemaFilePath $(Build.Repository.LocalPath)/${{ parameters.initiativeDefinitionsScriptPath }}/initiativeDefinitionSchema.json

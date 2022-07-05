@@ -1,0 +1,7 @@
+Work Item Type,Title 1,Title 2,Title 3,Tags,Board Column
+Epic,Epic 100,,,"Blocked; Hybrid; Product","Scale-out"
+Feature,,Feature 110,,"Enablement",
+Feature,,Feature 120,,"Platform",
+Feature,,Feature 130,,"Cloud-Native; Product",
+Feature,,,Feature 900,,
+Feature,,Feature 999,,,

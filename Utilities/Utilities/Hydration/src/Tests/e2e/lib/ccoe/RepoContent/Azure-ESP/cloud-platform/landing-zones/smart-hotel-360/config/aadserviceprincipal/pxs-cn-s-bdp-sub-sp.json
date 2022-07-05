@@ -1,0 +1,35 @@
+{
+    "name": "cn-s-bdp-sub-sp",
+    "owners": [],
+    "applicationpermissions":[
+        {
+            "resourceAppId":"00000003-0000-0000-c000-000000000000",
+            "resourceAccess":[
+                {
+                    "id":"7ab1d382-f21e-4acd-a863-ba3e13f7da61",
+                    "type":"Role"
+                },
+                {
+                    "id":"18a4783c-866b-4cc7-a460-3d5e5662c884",
+                    "type":"Role"
+                }
+            ]
+        },
+        {
+            "resourceAppId":"00000002-0000-0000-c000-000000000000",
+            "resourceAccess":[
+                {
+                    "id":"5778995a-e1bf-45b8-affa-663a9f3f4d04",
+                    "type":"Role"
+                },
+                {
+                    "id":"824c81eb-e3f8-4ee6-8f6d-de7f50d565b7",
+                    "type":"Role"
+                }
+            ]
+        }
+    ],
+    "rotatePassword": true,
+    "outputVarName_ApplicationId": "cn-s-bdp-sub-sp_ApplicationId",
+    "outputVarNameEncrypted_ServicePrincipalPassword": "cn-s-bdp-sub-sp_ServicePrincipalPassword"
+}

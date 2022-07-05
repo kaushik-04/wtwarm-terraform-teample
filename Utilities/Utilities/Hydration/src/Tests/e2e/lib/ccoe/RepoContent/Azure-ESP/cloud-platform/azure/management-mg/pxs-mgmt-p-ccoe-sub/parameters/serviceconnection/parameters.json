@@ -1,0 +1,42 @@
+{
+  "administratorsGroup": [],
+  "readersGroup": [],
+  "usersGroup": [],
+  "authorization": {
+    "parameters": {
+      "authenticationType": "spnKey",
+      "serviceprincipalid": "23013205-5032-47cf-9481-c4dafb24fb15",
+      "serviceprincipalkey": null,
+      "tenantid": "e7ab81b2-1e84-4bf7-9dcb-b6fec01ed138"
+    },
+    "scheme": "ServicePrincipal"
+  },
+  "authorized": true,
+  "data": {
+    "creationMode": "Manual",
+    "environment": "AzureCloud",
+    "scopeLevel": "Subscription",
+    "subscriptionId": "9648a831-ed1f-4d1d-ad0f-5751979d7bec",
+    "subscriptionName": "mgmt-p-ccoe-sub"
+  },
+  "description": "Owner on 'mgmt-p-ccoe-sub'",
+  "groupScopeId": null,
+  "id": null,
+  "isReady": true,
+  "isShared": false,
+  "name": "mgmt-p-ccoe-sub",
+  "operationStatus": null,
+  "owner": "Library",
+  "serviceEndpointProjectReferences": [
+    {
+      "description": "Owner on 'mgmt-p-ccoe-sub'",
+      "name": "mgmt-p-ccoe-sub",
+      "projectReference": {
+        "id": null,
+        "name": "building-blocks"
+      }
+    }
+  ],
+  "type": "azurerm",
+  "url": "https://management.azure.com/"
+}

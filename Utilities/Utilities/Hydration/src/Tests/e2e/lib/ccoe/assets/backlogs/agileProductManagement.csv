@@ -1,0 +1,456 @@
+﻿ID;Work Item Type;Title 1;Title 2;Title 3;Title 4;State;Tags;Area Path;Iteration Path
+;Epic;Azure Enterprise Portal;;;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Feature;;Enterprise Portal configuration;;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;Enterprise Portal is configured as in the design document;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create tasks required to complete this User Story with Jonas;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create 2 break glass accounts;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Clean up unnecessary accounts from EA -portal;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Configure departments and accounts to EA-portal;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Update wiki on the configured EA-structure;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Review current EA Admin accounts;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;PLAYGROUND: create EA Account;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;PLAYGROUND: create Department;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Explain Department & Account structure to FGS;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Preparation of the move of subscriptions to the good accounts;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Document Break glass account;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Epic;Azure Active Directory;;;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Feature;;[AAD] Access Management;;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Feature;;[AAD] Privileged Access Management;;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;Access for personal dev/admin accounts;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create cloud only accounts for project teams privileged users;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Delegate access to the projects dev teams personal users;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;PIM for Foundations Team;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;PIM for Platform (Malta) team;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Feature;;[AAD] Entitlement Management;;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;[EM] Catalog for Foundations Team;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;[EM] Access Package - Foundations Team - Product Owner;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;[EM] Access Package - Foundations Team - Team Member;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;[EM] Catalog for Platform Team;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;[EM] Access Package - Platform Team - Product Owner;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;[EM] Access Package - Platform Team - Team member;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Feature;;[AAD] Password Management;;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;Password Writeback;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;Self-Service Password Reset;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;Password Protection;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;Integrate Password Protection to AD;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;Converged registration MFA/SSPR;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;Password rotation strategy for Service Principals;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Feature;;[AAD] Authentication Method;;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;ADFS and AAD Connect;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Feature;;[AAD] Collaboration and guest accounts;;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;Block users and guests from inviting guests;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Epic;Azure Governance;;;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Feature;;[MG] Cloud Native;;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;Cloud Native MG custom RBAC for Landing Zone Owner via IaC;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Document component RoleDefinition;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create tasks for this User Story with Marius and Dante;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Document component RoleAssignment;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Assign reader access to building-blocks AAD Group on Cloud-Native MG;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Research for Azure Custom roles;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create reusable component for RoleDefinition;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Detailed design on LZ Owner RoleDefinition for MVP;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Develop and deploy the RoleDefinition on temp MG;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Develop and deploy RoleAssignement to sub/LZ;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Prepare a demo for Sprint Review;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Align with Gregor;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create a PR for Custom Role components;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Review Custom Role PR feedback;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Align with lead/architect to ensure deployment is on existing MG structure;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Deploy the custom role (RoleDefinition) to MG in production;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Document configuration in Wiki;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Assign permissions on Platform MGMT SPN according to design;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Assign permission on Platform management SPN on EA according to design;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Document the configuration to wiki;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;Cloud Native Management Group deployment;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create tasks for this US with Mikko;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;Cloud Native MG policies;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;Cloud Native MG RBAC definition;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Feature;;[MG] Sandbox;;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;Sandbox MG deployed via IaC according to Design in Wiki;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create tasks for this User Story with Gregory;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;ARM template creation;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create service principle to create MG;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create MG component in IaC;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;JSON Config file creation on Platform repo;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Deploy MG Configuration using MG component and JSON file;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create service connection to environment;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Document the configuration to wiki;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Redeploy Sandbox MG following new naming convention;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Redeploy foundational componentes to new MG;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;Sandbox MG RBAC definition;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;Policies for Sandbox;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Feature;;[MG] Management;;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;Management MG deployed via IaC according to Design in Wiki;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Deploy Management MG manually;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Document the configuration to wiki;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create service connection to environment;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Review align with Peter and Alvaro on foundation design;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Review/update the foundation design;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;Management MG RBAC definition;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;MG Policies for Management;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Feature;;[MG] Non-Prod;;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;Non Prod MG deployed via IaC according to Design in Wiki;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Agree on name for non-prod management group;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Document Non-prod MG;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Deploy non-prod MG with IaC;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;MG Policies for Non-Prod;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Feature;;[MG] Prod;;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;Prod MG deployed via IaC according to Design in Wiki;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Agree on name for prod management group;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Document Prod MG;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Deploy prod MG with IaC;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;MG Policies for Prod;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Epic;Azure DevOps;;;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Feature;;ADO Organization RBAC;;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;Implementation of RBAC in Azure DevOps Organization;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Configure CCoE Admins AAD Group as org owners;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Configure CCoE Admins AAD Group as only member of Project Collection Administrators;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Restrict job authorization scope to only current projects for non-release and reslease pipellines;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Document configuration in Wiki;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;Implementation of RBAC in building-blocks project;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Configure building-blocks ADO projects as in design;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create Config file for builing-blocks ADO configuration;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create module for ADO Project Create + RBAC configuration;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Deploy RBAC via pipelines;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Feature;;ADO Private Agents;;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Component;Key Vault;;;;New;;azure-enterprise-scale-platform\iac-components;azure-enterprise-scale-platform
+;Component;Virtual Network;;;;New;;azure-enterprise-scale-platform\iac-components;azure-enterprise-scale-platform
+;Component;Storage Account;;;;New;;azure-enterprise-scale-platform\iac-components;azure-enterprise-scale-platform
+;Component;SQL Database;;;;New;;azure-enterprise-scale-platform\iac-components;azure-enterprise-scale-platform
+;Component;Databricks;;;;New;;azure-enterprise-scale-platform\iac-components;azure-enterprise-scale-platform
+;Component;Machine Learning;;;;New;;azure-enterprise-scale-platform\iac-components;azure-enterprise-scale-platform
+;Component;Virtual Machine;;;;New;;azure-enterprise-scale-platform\iac-components;azure-enterprise-scale-platform
+;Component;Azure Synapse;;;;New;;azure-enterprise-scale-platform\iac-components;azure-enterprise-scale-platform
+;Component;Data Factory;;;;New;;azure-enterprise-scale-platform\iac-components;azure-enterprise-scale-platform
+;Component;Container Registry;;;;New;;azure-enterprise-scale-platform\iac-components;azure-enterprise-scale-platform
+;Component;Container Instance;;;;New;;azure-enterprise-scale-platform\iac-components;azure-enterprise-scale-platform
+;Component;VM Scale Set;;;;New;;azure-enterprise-scale-platform\iac-components;azure-enterprise-scale-platform
+;Component;Resource Group;;;;New;;azure-enterprise-scale-platform\iac-components;azure-enterprise-scale-platform
+;Epic;Management Environment;;;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Feature;;[Subscription] Management Subscription;;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;Management subscription deployed according to Design in Wiki;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Document the configuration to wiki;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;deploy subscription using JSON file + component in Platfrom repo;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Feature;;[RG] RG For Management;;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;Resource Group for Management according to Design in Wiki;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Document the configuration to wiki;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Deployment pipeline for RG configuration using RG component;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Resource Group component in IaC repo;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;JSON Config file creation in Platfrom repo;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create service connection;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create service principle;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create tasks for this User Story with Gregory;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Update the Readme file in repo;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;Role assignments for Management environment;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create tasks for this User Story with Dante, Rinat;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Add CSIRT Team members to AAD group for read access;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Documentation of the deployment in the wiki;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Assigning Role to service principal;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Epic;Logging Environment;;;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Feature;;[Subscription] Logging Subscription;;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;Logging subscription deployed according to Design in Wiki;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;deploy logging subscription to Cloud-native Management MG;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Document the configuration to wiki;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Feature;;[RG] RG For Logging;;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;Resource Group for dataplatform logging according to design in Wiki;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Update design in Wiki with logging requirements;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create rg group config parameters;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Deploy rg via pipeline;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Document rg configuration in wiki;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Feature;;Event Hub;;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;Event Hub for Data Platform LZ according to design in Wiki;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create product description page in Product catalog according to template;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create Event Hub module according to requirements in Wiki (Foundation Design > Management and Monitoring);New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create Event Hub config files;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Deploy Event Hub via pipelines;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Document event hub config in wiki;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create policy at cloud-native mg level to send logs to event hub according to design in Wiki;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create PBIs for development;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Publish policies for Event Hub logs via pipelines;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Update Event Hub documentation in IaC repo;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Document policy config in wiki;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Update design to be in line with the latest discussions;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create event hub instance module according to the wiki;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Feature;;Log Analytics Workspace for central logs;;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;Log Analytics workspace for central management according to design in Wiki;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create Log Analytics workspace module according to requirements in Wiki;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Update log analytics doc in IaC Repo;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create configuration file;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Deploy via pipeline;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Document log analytics configuration in wiki;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create policy at cloud-native mg level to automatically send logs;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Publish policies via pipeline;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Document policies in wiki;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Landing Zone;Smart Hotel 360 Cloud-native Landing Zone;;;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Feature;;[ADO Project] Data Platform;;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;RBAC configuration for Data Platform project according to Design in Wiki;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create tasks for this US;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create config file for ADO Project;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Update ADO Project via pipeline;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;Service Connection for dataplatform Sandbox subscription;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create tasks for this User Story with Margarita;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Configure Service Connection in ADO;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create JSON config file for service connection;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create CD pipeline for Service Connection deployment;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Document Service Connection configuration;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Provide Azure AD Reader permissions for Service Connection's principal;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Update design with permissions required for LZ Service Principals;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;Service Connection for Dataplatform Non Production subscription;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Configure Service Connection in ADO;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create JSON config file for service connection;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create CD pipeline for Service Connection deployment;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Document Service Connection configuration;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;Service Connection for Dataplatform Production subscription;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Configure Service Connection in ADO;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create JSON config file for service connection;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create CD pipeline for Service Connection deployment;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Document Service Connection configuration;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Feature;;[Subscription] Sandbox for Data Platform;;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;Sandbox subscription for Data Platform deployed;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create tasks for this User Story with Gregory;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create JSON config file;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Redeploy subscription using IaC component in Platform pipeline;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Document the configuration to wiki;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;[SB DP] RBAC assignments for building-blocks;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Feature;;[Subscription] Production for Data Platform;;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;Production subscription for Data Platform deployed according to Design in Wiki;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;JSON Config file creation;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Redeploy subscription using JSON file + component in Platfrom repo;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Document the configuration to wiki;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create service connection to environment;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create service principle to create subscription;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;[Prod DP] RBAC assignments for building-blocks;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Feature;;[Subscription] Non Production for Data Platform;;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;Non Production subscription for Data Platform deployed according to Design in Wiki;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;deploy subscription using JSON file + component in Platfrom repo;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Migrate Non-prod subscriptions from Data platform team to cloud-native non-prod MGs;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Document the configuration to wiki;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create service connection to environment;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create service principle to create subscription;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Redeploy subscriptions via IaC;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;[Non Prod - DP] RBAC assignments for building-blocks;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Feature;;[RG] Sandbox RG for Data Platform;;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;Sandbox RG for Data Platform;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create tasks for this User Story with Gregory;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Feature;;[RG] Production RG for Data Platform;;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;Production RG for Data Platform;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Feature;;[RG] Non Production RG for Data Platform;;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;Non Production RG for Data Platform;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Feature;;[AAD] AD Groups;;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;AAD Group for data platform team;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create tasks for this US with Marius;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Evaluate bringing in automation for creating AAD groups;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Bring in preexisting automation for creating;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create group for read access to subscription;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create deployment pipeline and JSON config file for AAD Group deployment in Platfrom repo;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create parameter files for AAD group for lz owner on bdp sandbox sub;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Deploy group with pipeline and parameterfile;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create Group for Data Platform Administratos;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create Group for Data Platform Readers;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Feature;;[AAD] Service Principals;;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;Service Principals for Data Platform Landing Zone according to Design in Wiki;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Clarify the SP topic in the wiki;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Follow up with #10172;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create AD Application module with AD API permissions grating;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create SP according to the design;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Document Service Principals in wiki;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Feature;;[RBAC] Role assignments;;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Feature;;[MGMT] Management Services;;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;Security Center enabled for Dataplatform Landingzone according to design in Wiki;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create Policy Definition type of component in IaC;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create Initiative Definition type of component in IaC;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create Policy Assignment type of component in IaC;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Test policy deinifition, initiative definition and policy assignment on keyvault pipeline;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Define Security Center policy in Platform repo;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Apply Security Center policy to Cloud Native MG (According to Design);New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;The creation of the template for the SC policies;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;Network Watcher enabled for Dataplatform Landingzone according to design in Wiki;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;Threat protection enabled for Dataplatform Landingzone according to design in Wiki;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Feature;;[LOGGING] LZ Log Analytics Workspace;;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;Log Analytics workspace for Data Platform LZ according to design in Wiki;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create Log Analytics workspace configuration file;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Deploy Log Analytics workspace for Data Platform via pipeline;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Document configuration of Log Analytics workspace in Wiki;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create policy at cloud-native mg group level to send logs to Data Platform Log Analytics Workspace;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Publish policies for Data Platform law via pipeline;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Document configuration of policies in Wiki;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Design decision: Central log analytics from Mgmt to Logging subscriptions;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Landing Zone;Azure Enterprise Scale Platform Cloud-native Landing Zone;;;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Feature;;[ADO Project] Building-Blocks;;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;Repository for Wiki;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Document Conventions for Backlog;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Prepare structure for documentation of deployed Platform;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Agree and document on Certified Components definition (versioning on policies, arm templates, custom role, artifacts);New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Glossary;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Knowledge session recordings + Sprint reviews;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Design document + diagrams;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Update user story with tasks;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Update WIKI with Component creation and publishing;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;Repository for IaC templates;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Overview session of what has been done for general audience;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Dante/Gregory/Youri to present what scripts/arm templates have been developed;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create tasks for User Story with Dante/Gregory/Youri;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create repo;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Define and document branching strategy;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Define, document and set branching policy on master;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Define and document repo structure;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Include Unit tests + ARM template per artifact;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;Repository for Platform management;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create tasks for User Story with Dante/Gregory/Youri;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Define and document the repo structure;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Define and document the repo branching strategy;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create the Platform Management repo;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Set branch policy on master branch;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Alignment with Alvaro/Margarita on contents of the Platform repo;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Review platform repo structure and branching strategy;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;Service Connections for Platform deployment environments;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create tasks for this User Stories with Youri and Margarita & Wim;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Design secret management strategy for Azure DevOps;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Document Service Connection configuration;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;IaC scripts for Service Connection creation;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Configure Service Connection in ADO;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create JSON config file for Service Connection (re)deployment;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create CD pipeline for Service Connection deployment;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Add permission to the org to manage service connecitons;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;Service Connections for building-blocks sandbox environment;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create tasks for User Stories with Youri and Margarita;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Configure Service Connection in ADO;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Document Service Connection configuration;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create JSON config file for Service Connection (re)deployment;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create CD pipeline for Service Connection deployment;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;YAML pipeline for CD of Platform Management;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create tasks for User Stories with Gregory, Youri and Margarita;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Configure Service Connection to the Building-Blocks environment;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Define parent YAML pipeline;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Inherit parent template in YAML pipelines;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Document YAML pipelines configuration in the repo README;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Creation of tasks;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Update documentation for YAML pipeline;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;YAML pipeline for CD of IaC templates;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create tasks for User Stories with Gregory, Youri and Margarita;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Document YAML pipelines configuration in the repo README;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Inherit/Reference parent template in YAML pipelines;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Define parent YAML pipeline;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Configure ADO Artifacts for components publishing;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Design properly - input listed - What are the constraints/questions we need to answer?;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Readout on how to use the parent template and create pipelines;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;Add PR Review Process for Design of Components in Wiki;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Configure PR for Component Design in Wiki;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;Repository for Certified Components;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;Service Connections for Certified Components publishing;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;YAML pipeline for CD of Certified Components publishing;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;Dashboard for Project Overview;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;YAML pipeline decorator for CredScan;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;Implement ADO RBAC;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Feature;;[Subscription] Sandbox for building-blocks;;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;Sandbox subscription for building-blocks deployed according to Design in Wiki;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create tasks for this User Story with Gregory;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create subscription component in IaC repository;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;JSON Config file creation on Platform repo;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create pipeline to deploy subscription in Platform repo;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Redeploy subscription using JSON file + component in Platfrom repo;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create service principle to create subscription;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create service connection to environment;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Document the configuration to wiki;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Assign permission to the building blocks SPN;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Gather requirements for Service Principals and request the permissions;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Troubleshoot permission issue for deploying sub with IaC;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Update sub component to enable resource providers;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Feature;;[RG] Sandbox RG for building-blocks;;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;Sandbox RG for building-blocks team;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create tasks for this User Story with Gregory;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Resource Group component in IaC repo;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;JSON Config file creation in Platfrom repo;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Deployment pipeline for RG configuration using RG component;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create service principle;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create service connection;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;Role assignments for Data Platform sandbox environment;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create tasks for this User Story with Dante, Rinat;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Assign LZ Owner access to subscription for bdp group;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Assigning Role to service principal;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Add Platform Team members to AAD group for read access;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Documentation of the deployment in the wiki;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Assign LZ owner access to subscription for SPN;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Feature;;[AAD] AD Groups;;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;AAD Group for bulding-blocks team;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Document aadgroup component;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create tasks for this US with Marius;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create Group for CCoE Admins via pipeline;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create component for aadgroup in IaC repo;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Prepare session to agree on the landing zone deployment;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Configure PIM for CCoE Admins AD Group;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create group for read access to subscription;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create Group for CCoE Readers;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create deployment pipeline and JSON config file for AAD Group deployment in Platfrom repo;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Assign rights to the SP in AAD to create groups and add people;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Assign LZ Owner access to the ccoe-sandbox group subscription;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create parameter files for AAD group for lz owner on buildingblocks sandbox sub;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Deploy group with pipeline and parameterfile;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Agree PIM strategy with Peter;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Clean up AAD groups grp-pxs-cn-s*;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Feature;;[AAD] Service Principals;;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;Service Principals for Platform management;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create tasks for this US with Marious;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Design Credentials strategy for Service Principals and update backlog and design;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Get a Service Principal with permission to automate creation of Service Principals;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Get Azure AD read permissions;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;IaC scripts for Service Principal creation;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create CD pipeline for Service Principal deployment;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Document Service Principal configuration;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create service principal for platform management;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create parameter files for spn creation;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Document aadserviceprincipal component;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Update serviceconnection to be idempotent;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Feature;;[RBAC] Role assignments;;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Feature;;[MGMT] Management Services;;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;Network Watcher enabled for Building Blocks Landingzone;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;Threat protection enabled for Building Blocks Landingzone;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;Security Center enabled for Building Blocks Landingzone;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Landing Zone;product_name_2 Landing Zone;;;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Feature;;[ADO Project] CSIRT Project;;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;ADO Project for CSIRT;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create/use a pipeline to deploy ADO projects;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create SP to deploy ADO projects;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;Service Connection for CSIRT Sandbox subscription;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Feature;;[Subscription] Sandbox for CSIRT;;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;Sandbox subscription for CSIRT deployed;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;JSON Config file creation on Platform repo;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create pipeline to deploy subscription in Platform repo;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Redeploy subscription using JSON file + component in Platfrom repo;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Document the configuration to wiki;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create service connection to environment;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Feature;;[AAD] Service Principals;;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;Service Principals for CSIRT Landing Zone;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Define required SP's;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create new deployment of SP using the existing SP creation pipeline;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Assign correct roles to the SP;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Feature;;[AAD] AD Groups;;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;AAD Group for CSIRT team;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Define required AAD groups + roles;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create Group for CSIRT Administrators via pipeline;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create AAD groups for CSIRT Readers via pipeline;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create AAD groups for CSIRT Contributors via pipeline;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Feature;;[RBAC] Role assignments;;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Feature;;[MGMT] Management Services;;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;Security Center enabled for CSIRT Landingzone;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;Network Watcher enabled for CSIRT Landingzone;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;Threat protection enabled for CSIRT Landingzone;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Feature;;[RG] Sandbox RG For CSIRT;;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;Sandbox RG for CSIRT team;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create service connection;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;JSON Config file creation in Platfrom repo;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Resource Group component in IaC repo;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Document the configuration to wiki;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Deployment pipeline for RG configuration using RG component;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create tasks for this User Story with Gregory;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create service principle;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;Role assignments for CSIRT sandbox environment - Copy;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Create tasks for this User Story with Dante, Rinat;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Add CSIRT Team members to AAD group for read access;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Task;;;;Assigning Role to service principal;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Epic;Azure Monitor;;;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Feature;;[Monitor] RBAC Auditing;;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;User Story;;;RBAC Auditing;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Epic;Azure Defender ATP;;;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform
+;Epic;Component Development Lifecycle;;;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform\Sprint 1
+;Feature;;Product Catalogue;;;New;;azure-enterprise-scale-platform\foundation;azure-enterprise-scale-platform\Sprint 1

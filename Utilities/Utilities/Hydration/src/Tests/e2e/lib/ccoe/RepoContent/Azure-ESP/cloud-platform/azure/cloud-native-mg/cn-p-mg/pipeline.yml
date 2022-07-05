@@ -1,0 +1,49 @@
+name: $(managementGroupID) - $(tenantName)
+
+variables:
+- template: mg.variables.yml
+
+trigger:
+  batch: true
+  branches:
+    include:
+    - master
+  paths:
+    include:
+    - .global/*
+    - tenant.variables.yml
+    - cloudnative-mg/mg.variables.yml
+    - cloudnative-mg/cn-p-mg/mg.variables.yml
+    - cloudnative-mg/cn-p-mg/pipeline.yml
+    - cloudnative-mg/cn-p-mg/parameters/*
+
+resources:
+  repositories:
+  - repository: IaC
+    type: git
+    ref: 'refs/heads/master'
+    name: IaC
+
+stages:
+- stage: Deploy_ManagementGroup
+  jobs:
+  - template: /cicd/templates/pipeline.jobs.deploy.yml@IaC
+    parameters:
+      moduleName: managementgroup
+      moduleVersion: '1.0'
+      deploymentBlocks:
+      - path: $(parametersPath)/managementgroup/cn-p-mg.json
+      checkoutRepositories:
+      - IaC
+
+- stage: Deploy_PolicyAssignment
+  jobs:
+  - template: /cicd/templates/pipeline.jobs.deploy.yml@IaC
+    parameters:
+      moduleName: policyAssignment
+      moduleVersion: "2.1"
+      serviceConnection: $(serviceConnection)
+      deploymentBlocks:
+      - path: $(parametersPath)/policyAssignments/cn-mg-security-pa.json
+      checkoutRepositories:
+      - IaC

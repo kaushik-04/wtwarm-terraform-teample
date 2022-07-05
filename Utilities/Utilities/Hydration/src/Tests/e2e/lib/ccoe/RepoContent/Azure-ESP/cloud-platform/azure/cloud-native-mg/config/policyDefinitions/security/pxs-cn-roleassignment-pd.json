@@ -1,0 +1,68 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "scope": {
+            "value": "/providers/Microsoft.Management/managementGroups/cloudnative-mg"
+        },
+        "properties": {
+            "value": {
+                "name": "cn-roleassignment-pd",
+                "displayName": "cn-roleassignment-pd",
+                "description": "Checks that only allowed Azure RBAC roles are assigned",
+                "policyType": "Custom",
+                "mode": "All",
+                "metadata": {
+                    "version": "1.0.0",
+                    "category": "RBAC"
+                },
+                "parameters": {
+                    "allowedRoleDefinitionIds": {
+                        "type": "array",
+                        "metadata": {
+                            "displayName": "Allowed Role Definition IDs",
+                            "description": "List of Role Definition IDs allowed for assignment"
+                        }
+                    },
+                    "excludedPrincipalIds": {
+                        "type": "array",
+                        "metadata": {
+                            "displayName": "Excluded Active Directory Principal IDs",
+                            "description": "List of Active Directory Principal IDs that will not be checked"
+                        }
+                    },
+                    "effect": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Effect",
+                            "description": "Determine the effect for the execution of the policy"
+                        },
+                        "allowedValues": [
+                            "Audit",
+                            "Deny",
+                            "Disabled"
+                        ],
+                        "defaultValue": "Audit"
+                    }
+                },
+                "policyRule": {
+                    "if": {
+                        "allOf": [
+                            {
+                                "field": "Microsoft.Authorization/roleAssignments/principalId",
+                                "notIn": "[parameters('excludedPrincipalIds')]"
+                            },
+                            {
+                                "value": "[last(split(field('Microsoft.Authorization/roleAssignments/roleDefinitionId'),'/'))]",
+                                "notIn": "[parameters('allowedRoleDefinitionIds')]"
+                            }
+                        ]
+                    },
+                    "then": {
+                        "effect": "[parameters('effect')]"
+                    }
+                }
+            }
+        }
+    }
+}

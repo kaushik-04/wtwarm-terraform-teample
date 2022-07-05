@@ -1,0 +1,817 @@
+﻿{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "scope": {
+            "value": "/providers/Microsoft.Management/managementGroups/cloudnative-mg"
+        },
+        "properties": {
+            "value": {
+                "name": "cn-sub-security-pi",
+                "displayName": "cn-sub-security-pi",
+                "description": "Deploys security baseline on subscription scope.",
+                "metadata": {
+                    "version": "1.0.0",
+                    "category": "Security"
+                },
+                "parameters": {
+                    "profileName": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Profile name",
+                            "description": "The diagnostic settings profile name"
+                        },
+                        "defaultValue": "LZ-Logging"
+                    },
+                    "logAnalytics": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Log Analytics workspace",
+                            "description": "Select Log Analytics workspace from dropdown list. If this workspace is outside of the scope of the assignment you must manually grant 'Log Analytics Contributor' permissions (or similar) to the policy assignment's principal ID.",
+                            "strongType": "omsWorkspace"
+                        },
+                        "defaultValue": ""
+                    },
+                    "activityLog_effect": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Effect",
+                            "description": "Enable or disable the execution of the policy"
+                        },
+                        "allowedValues": [
+                            "DeployIfNotExists",
+                            "Disabled"
+                        ],
+                        "defaultValue": "Disabled"
+                    },
+                    "activityLog_logsEnabled": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Enable logs",
+                            "description": "Whether to enable logs stream to the Log Analytics workspace - True or False"
+                        },
+                        "allowedValues": [
+                            "True",
+                            "False"
+                        ],
+                        "defaultValue": "False"
+                    },
+                    "keyVault_effect": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Effect",
+                            "description": "Enable or disable the execution of the policy"
+                        },
+                        "allowedValues": [
+                            "DeployIfNotExists",
+                            "Disabled"
+                        ],
+                        "defaultValue": "Disabled"
+                    },
+                    "keyVault_metricsEnabled": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Enable metrics",
+                            "description": "Whether to enable metrics stream to the Log Analytics workspace - True or False"
+                        },
+                        "allowedValues": [
+                            "True",
+                            "False"
+                        ],
+                        "defaultValue": "False"
+                    },
+                    "keyVault_logsEnabled": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Enable logs",
+                            "description": "Whether to enable logs stream to the Log Analytics workspace - True or False"
+                        },
+                        "allowedValues": [
+                            "True",
+                            "False"
+                        ],
+                        "defaultValue": "False"
+                    },
+                    "storageAccount_effect": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Effect",
+                            "description": "Enable or disable the execution of the policy"
+                        },
+                        "allowedValues": [
+                            "DeployIfNotExists",
+                            "Disabled"
+                        ],
+                        "defaultValue": "Disabled"
+                    },
+                    "storageAccount_metricsEnabled": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Enable metrics",
+                            "description": "Whether to enable metrics stream to the Log Analytics workspace - True or False"
+                        },
+                        "allowedValues": [
+                            "True",
+                            "False"
+                        ],
+                        "defaultValue": "False"
+                    },
+                    "storageAccount_logsEnabled": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Enable logs",
+                            "description": "Whether to enable logs stream to the Log Analytics workspace - True or False"
+                        },
+                        "allowedValues": [
+                            "True",
+                            "False"
+                        ],
+                        "defaultValue": "False"
+                    },
+                    "sqlDb_effect": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Effect",
+                            "description": "Enable or disable the execution of the policy"
+                        },
+                        "allowedValues": [
+                            "DeployIfNotExists",
+                            "Disabled"
+                        ],
+                        "defaultValue": "Disabled"
+                    },
+                    "sqlDb_metricsEnabled": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Enable metrics",
+                            "description": "Whether to enable metrics stream to the Log Analytics workspace - True or False"
+                        },
+                        "allowedValues": [
+                            "True",
+                            "False"
+                        ],
+                        "defaultValue": "False"
+                    },
+                    "sqlDb_logsEnabled": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Enable logs",
+                            "description": "Whether to enable logs stream to the Log Analytics workspace - True or False"
+                        },
+                        "allowedValues": [
+                            "True",
+                            "False"
+                        ],
+                        "defaultValue": "False"
+                    },
+                    "sqlServer_effect": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Effect",
+                            "description": "Enable or disable the execution of the policy"
+                        },
+                        "allowedValues": [
+                            "DeployIfNotExists",
+                            "Disabled"
+                        ],
+                        "defaultValue": "Disabled"
+                    },
+                    "sqlServer_logsEnabled": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Enable logs",
+                            "description": "Whether to enable logs stream to the Log Analytics workspace  - True or False"
+                        },
+                        "allowedValues": [
+                            "True",
+                            "False"
+                        ],
+                        "defaultValue": "False"
+                    },
+                    "containerInstance_effect": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Effect",
+                            "description": "Enable or disable the execution of the policy"
+                        },
+                        "allowedValues": [
+                            "DeployIfNotExists",
+                            "Disabled"
+                        ],
+                        "defaultValue": "Disabled"
+                    },
+                    "containerInstance_metricsEnabled": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Enable metrics",
+                            "description": "Whether to enable metrics stream to the Log Analytics workspace - True or False"
+                        },
+                        "allowedValues": [
+                            "True",
+                            "False"
+                        ],
+                        "defaultValue": "False"
+                    },
+                    "containerRegistry_effect": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Effect",
+                            "description": "Enable or disable the execution of the policy"
+                        },
+                        "allowedValues": [
+                            "DeployIfNotExists",
+                            "Disabled"
+                        ],
+                        "defaultValue": "Disabled"
+                    },
+                    "containerRegistry_metricsEnabled": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Enable metrics",
+                            "description": "Whether to enable metrics stream to the Log Analytics workspace - True or False"
+                        },
+                        "allowedValues": [
+                            "True",
+                            "False"
+                        ],
+                        "defaultValue": "False"
+                    },
+                    "containerRegistry_logsEnabled": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Enable logs",
+                            "description": "Whether to enable logs stream to the Log Analytics workspace  - True or False"
+                        },
+                        "allowedValues": [
+                            "True",
+                            "False"
+                        ],
+                        "defaultValue": "False"
+                    },
+                    "databricks_effect": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Effect",
+                            "description": "Enable or disable the execution of the policy"
+                        },
+                        "allowedValues": [
+                            "DeployIfNotExists",
+                            "Disabled"
+                        ],
+                        "defaultValue": "Disabled"
+                    },
+                    "databricks_logsEnabled": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Enable logs",
+                            "description": "Whether to enable logs stream to the Log Analytics workspace  - True or False"
+                        },
+                        "allowedValues": [
+                            "True",
+                            "False"
+                        ],
+                        "defaultValue": "False"
+                    },
+                    "datafactory_effect": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Effect",
+                            "description": "Enable or disable the execution of the policy"
+                        },
+                        "allowedValues": [
+                            "DeployIfNotExists",
+                            "Disabled"
+                        ],
+                        "defaultValue": "Disabled"
+                    },
+                    "datafactory_metricsEnabled": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Enable metrics",
+                            "description": "Whether to enable metrics stream to the Log Analytics workspace - True or False"
+                        },
+                        "allowedValues": [
+                            "True",
+                            "False"
+                        ],
+                        "defaultValue": "False"
+                    },
+                    "datafactory_logsEnabled": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Enable logs",
+                            "description": "Whether to enable logs stream to the Log Analytics workspace  - True or False"
+                        },
+                        "allowedValues": [
+                            "True",
+                            "False"
+                        ],
+                        "defaultValue": "False"
+                    },
+                    "machinelearning_effect": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Effect",
+                            "description": "Enable or disable the execution of the policy"
+                        },
+                        "allowedValues": [
+                            "DeployIfNotExists",
+                            "Disabled"
+                        ],
+                        "defaultValue": "Disabled"
+                    },
+                    "machinelearning_metricsEnabled": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Enable metrics",
+                            "description": "Whether to enable metrics stream to the Log Analytics workspace - True or False"
+                        },
+                        "allowedValues": [
+                            "True",
+                            "False"
+                        ],
+                        "defaultValue": "False"
+                    },
+                    "machinelearning_logsEnabled": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Enable logs",
+                            "description": "Whether to enable logs stream to the Log Analytics workspace  - True or False"
+                        },
+                        "allowedValues": [
+                            "True",
+                            "False"
+                        ],
+                        "defaultValue": "False"
+                    },
+                    "synapse_effect": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Effect",
+                            "description": "Enable or disable the execution of the policy"
+                        },
+                        "allowedValues": [
+                            "DeployIfNotExists",
+                            "Disabled"
+                        ],
+                        "defaultValue": "Disabled"
+                    },
+                    "synapse_logsEnabled": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Enable logs",
+                            "description": "Whether to enable logs stream to the Log Analytics workspace - True or False"
+                        },
+                        "allowedValues": [
+                            "True",
+                            "False"
+                        ],
+                        "defaultValue": "False"
+                    },
+                    "vm_effect": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Effect",
+                            "description": "Enable or disable the execution of the policy"
+                        },
+                        "allowedValues": [
+                            "DeployIfNotExists",
+                            "Disabled"
+                        ],
+                        "defaultValue": "Disabled"
+                    },
+                    "vm_metricsEnabled": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Enable metrics",
+                            "description": "Whether to enable metrics stream to the Log Analytics workspace - True or False"
+                        },
+                        "allowedValues": [
+                            "True",
+                            "False"
+                        ],
+                        "defaultValue": "False"
+                    },
+                    "vmss_effect": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Effect",
+                            "description": "Enable or disable the execution of the policy"
+                        },
+                        "allowedValues": [
+                            "DeployIfNotExists",
+                            "Disabled"
+                        ],
+                        "defaultValue": "Disabled"
+                    },
+                    "vmss_metricsEnabled": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Enable metrics",
+                            "description": "Whether to enable metrics stream to the Log Analytics workspace - True or False"
+                        },
+                        "allowedValues": [
+                            "True",
+                            "False"
+                        ],
+                        "defaultValue": "False"
+                    },
+                    "eh_effect": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Effect",
+                            "description": "Enable or disable the execution of the policy"
+                        },
+                        "allowedValues": [
+                            "DeployIfNotExists",
+                            "Disabled"
+                        ],
+                        "defaultValue": "Disabled"
+                    },
+                    "eh_metricsEnabled": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Enable metrics",
+                            "description": "Whether to enable metrics stream to the Log Analytics workspace - True or False"
+                        },
+                        "allowedValues": [
+                            "True",
+                            "False"
+                        ],
+                        "defaultValue": "False"
+                    },
+                    "eh_logsEnabled": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Enable logs",
+                            "description": "Whether to enable logs stream to the Log Analytics workspace  - True or False"
+                        },
+                        "allowedValues": [
+                            "True",
+                            "False"
+                        ],
+                        "defaultValue": "False"
+                    },
+                    "la_effect": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Effect",
+                            "description": "Enable or disable the execution of the policy"
+                        },
+                        "allowedValues": [
+                            "DeployIfNotExists",
+                            "Disabled"
+                        ],
+                        "defaultValue": "Disabled"
+                    },
+                    "la_metricsEnabled": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Enable metrics",
+                            "description": "Whether to enable metrics stream to the Log Analytics workspace - True or False"
+                        },
+                        "allowedValues": [
+                            "True",
+                            "False"
+                        ],
+                        "defaultValue": "False"
+                    },
+                    "la_logsEnabled": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Enable logs",
+                            "description": "Whether to enable logs stream to the Log Analytics workspace  - True or False"
+                        },
+                        "allowedValues": [
+                            "True",
+                            "False"
+                        ],
+                        "defaultValue": "False"
+                    },
+                    "rv_effect": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Effect",
+                            "description": "Enable or disable the execution of the policy"
+                        },
+                        "allowedValues": [
+                            "DeployIfNotExists",
+                            "Disabled"
+                        ],
+                        "defaultValue": "Disabled"
+                    },
+                    "rv_logsEnabled": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Enable logs",
+                            "description": "Whether to enable logs stream to the Log Analytics workspace  - True or False"
+                        },
+                        "allowedValues": [
+                            "True",
+                            "False"
+                        ],
+                        "defaultValue": "False"
+                    }
+                },
+                "policyDefinitions": [
+                    {
+                        "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/cloudnative-mg/providers/Microsoft.Authorization/policyDefinitions/cn-ci-diagLogAnalytics-pd",
+                        "parameters": {
+                            "profileName": {
+                                "value": "[parameters('profileName')]"
+                            },
+                            "logAnalytics": {
+                                "value": "[parameters('logAnalytics')]"
+                            },
+                            "effect": {
+                                "value": "[parameters('containerInstance_effect')]"
+                            },
+                            "metricsEnabled": {
+                                "value": "[parameters('containerInstance_metricsEnabled')]"
+                            }
+                        }
+                    },
+                    {
+                        "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/cloudnative-mg/providers/Microsoft.Authorization/policyDefinitions/cn-cr-diagLogAnalytics-pd",
+                        "parameters": {
+                            "profileName": {
+                                "value": "[parameters('profileName')]"
+                            },
+                            "logAnalytics": {
+                                "value": "[parameters('logAnalytics')]"
+                            },
+                            "effect": {
+                                "value": "[parameters('containerRegistry_effect')]"
+                            },
+                            "logsEnabled": {
+                                "value": "[parameters('containerRegistry_logsEnabled')]"
+                            },
+                            "metricsEnabled": {
+                                "value": "[parameters('containerRegistry_metricsEnabled')]"
+                            }
+                        }
+                    },
+                    {
+                        "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/cloudnative-mg/providers/Microsoft.Authorization/policyDefinitions/cn-databricks-diagLogAnalytics-pd",
+                        "parameters": {
+                            "profileName": {
+                                "value": "[parameters('profileName')]"
+                            },
+                            "logAnalytics": {
+                                "value": "[parameters('logAnalytics')]"
+                            },
+                            "effect": {
+                                "value": "[parameters('databricks_effect')]"
+                            },
+                            "logsEnabled": {
+                                "value": "[parameters('databricks_logsEnabled')]"
+                            }
+                        }
+                    },
+                    {
+                        "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/cloudnative-mg/providers/Microsoft.Authorization/policyDefinitions/cn-df-diagLogAnalytics-pd",
+                        "parameters": {
+                            "profileName": {
+                                "value": "[parameters('profileName')]"
+                            },
+                            "logAnalytics": {
+                                "value": "[parameters('logAnalytics')]"
+                            },
+                            "effect": {
+                                "value": "[parameters('datafactory_effect')]"
+                            },
+                            "metricsEnabled": {
+                                "value": "[parameters('datafactory_metricsEnabled')]"
+                            },
+                            "logsEnabled": {
+                                "value": "[parameters('datafactory_logsEnabled')]"
+                            }
+                        }
+                    },
+                    {
+                        "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/cloudnative-mg/providers/Microsoft.Authorization/policyDefinitions/cn-eh-diagLogAnalytics-pd",
+                        "parameters": {
+                            "profileName": {
+                                "value": "[parameters('profileName')]"
+                            },
+                            "logAnalytics": {
+                                "value": "[parameters('logAnalytics')]"
+                            },
+                            "effect": {
+                                "value": "[parameters('eh_effect')]"
+                            },
+                            "metricsEnabled": {
+                                "value": "[parameters('eh_metricsEnabled')]"
+                            },
+                            "logsEnabled": {
+                                "value": "[parameters('eh_logsEnabled')]"
+                            }
+                        }
+                    },
+                    {
+                        "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/cloudnative-mg/providers/Microsoft.Authorization/policyDefinitions/cn-kvt-diagLogAnalytics-pd",
+                        "parameters": {
+                            "profileName": {
+                                "value": "[parameters('profileName')]"
+                            },
+                            "logAnalytics": {
+                                "value": "[parameters('logAnalytics')]"
+                            },
+                            "effect": {
+                                "value": "[parameters('keyVault_effect')]"
+                            },
+                            "metricsEnabled": {
+                                "value": "[parameters('keyVault_metricsEnabled')]"
+                            },
+                            "logsEnabled": {
+                                "value": "[parameters('keyVault_logsEnabled')]"
+                            }
+                        }
+                    },
+                    {
+                        "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/cloudnative-mg/providers/Microsoft.Authorization/policyDefinitions/cn-la-diagLogAnalytics-pd",
+                        "parameters": {
+                            "profileName": {
+                                "value": "[parameters('profileName')]"
+                            },
+                            "logAnalytics": {
+                                "value": "[parameters('logAnalytics')]"
+                            },
+                            "effect": {
+                                "value": "[parameters('la_effect')]"
+                            },
+                            "metricsEnabled": {
+                                "value": "[parameters('la_metricsEnabled')]"
+                            },
+                            "logsEnabled": {
+                                "value": "[parameters('la_logsEnabled')]"
+                            }
+                        }
+                    },
+                    {
+                        "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/cloudnative-mg/providers/Microsoft.Authorization/policyDefinitions/cn-ml-diagLogAnalytics-pd",
+                        "parameters": {
+                            "profileName": {
+                                "value": "[parameters('profileName')]"
+                            },
+                            "logAnalytics": {
+                                "value": "[parameters('logAnalytics')]"
+                            },
+                            "effect": {
+                                "value": "[parameters('machinelearning_effect')]"
+                            },
+                            "metricsEnabled": {
+                                "value": "[parameters('machinelearning_metricsEnabled')]"
+                            },
+                            "logsEnabled": {
+                                "value": "[parameters('machinelearning_logsEnabled')]"
+                            }
+                        }
+                    },
+                    {
+                        "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/cloudnative-mg/providers/Microsoft.Authorization/policyDefinitions/cn-rv-diagLogAnalytics-pd",
+                        "parameters": {
+                            "profileName": {
+                                "value": "[parameters('profileName')]"
+                            },
+                            "logAnalytics": {
+                                "value": "[parameters('logAnalytics')]"
+                            },
+                            "effect": {
+                                "value": "[parameters('rv_effect')]"
+                            },
+                            "logsEnabled": {
+                                "value": "[parameters('rv_logsEnabled')]"
+                            }
+                        }
+                    },
+                    {
+                        "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/cloudnative-mg/providers/Microsoft.Authorization/policyDefinitions/cn-sa-diagLogAnalytics-pd",
+                        "parameters": {
+                            "profileName": {
+                                "value": "[parameters('profileName')]"
+                            },
+                            "logAnalytics": {
+                                "value": "[parameters('logAnalytics')]"
+                            },
+                            "effect": {
+                                "value": "[parameters('storageAccount_effect')]"
+                            },
+                            "metricsEnabled": {
+                                "value": "[parameters('storageAccount_metricsEnabled')]"
+                            },
+                            "logsEnabled": {
+                                "value": "[parameters('storageAccount_logsEnabled')]"
+                            }
+                        }
+                    },
+                    {
+                        "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/cloudnative-mg/providers/Microsoft.Authorization/policyDefinitions/cn-sqldb-diagLogAnalytics-pd",
+                        "parameters": {
+                            "profileName": {
+                                "value": "[parameters('profileName')]"
+                            },
+                            "logAnalytics": {
+                                "value": "[parameters('logAnalytics')]"
+                            },
+                            "effect": {
+                                "value": "[parameters('sqlDb_effect')]"
+                            },
+                            "metricsEnabled": {
+                                "value": "[parameters('sqlDb_metricsEnabled')]"
+                            },
+                            "logsEnabled": {
+                                "value": "[parameters('sqlDb_logsEnabled')]"
+                            }
+                        }
+                    },
+                    {
+                        "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/cloudnative-mg/providers/Microsoft.Authorization/policyDefinitions/cn-sqlserver-diagLogAnalytics-pd",
+                        "parameters": {
+                            "profileName": {
+                                "value": "[parameters('profileName')]"
+                            },
+                            "logAnalytics": {
+                                "value": "[parameters('logAnalytics')]"
+                            },
+                            "effect": {
+                                "value": "[parameters('sqlServer_effect')]"
+                            },
+                            "logsEnabled": {
+                                "value": "[parameters('sqlServer_logsEnabled')]"
+                            }
+                        }
+                    },
+                    {
+                        "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/cloudnative-mg/providers/Microsoft.Authorization/policyDefinitions/cn-sub-diaglogAnalytics-pd",
+                        "parameters": {
+                            "profileName": {
+                                "value": "[parameters('profileName')]"
+                            },
+                            "logAnalytics": {
+                                "value": "[parameters('logAnalytics')]"
+                            },
+                            "effect": {
+                                "value": "[parameters('activityLog_effect')]"
+                            },
+                            "logsEnabled": {
+                                "value": "[parameters('activityLog_logsEnabled')]"
+                            }
+                        }
+                    },
+                    {
+                        "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/cloudnative-mg/providers/Microsoft.Authorization/policyDefinitions/cn-synapse-diagLogAnalytics-pd",
+                        "parameters": {
+                            "profileName": {
+                                "value": "[parameters('profileName')]"
+                            },
+                            "logAnalytics": {
+                                "value": "[parameters('logAnalytics')]"
+                            },
+                            "effect": {
+                                "value": "[parameters('synapse_effect')]"
+                            },
+                            "logsEnabled": {
+                                "value": "[parameters('synapse_logsEnabled')]"
+                            }
+                        }
+                    },
+                    {
+                        "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/cloudnative-mg/providers/Microsoft.Authorization/policyDefinitions/cn-vm-diagLogAnalytics-pd",
+                        "parameters": {
+                            "profileName": {
+                                "value": "[parameters('profileName')]"
+                            },
+                            "logAnalytics": {
+                                "value": "[parameters('logAnalytics')]"
+                            },
+                            "effect": {
+                                "value": "[parameters('vm_effect')]"
+                            },
+                            "metricsEnabled": {
+                                "value": "[parameters('vm_metricsEnabled')]"
+                            }
+                        }
+                    },
+                    {
+                        "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/cloudnative-mg/providers/Microsoft.Authorization/policyDefinitions/cn-vmss-diagLogAnalytics-pd",
+                        "parameters": {
+                            "profileName": {
+                                "value": "[parameters('profileName')]"
+                            },
+                            "logAnalytics": {
+                                "value": "[parameters('logAnalytics')]"
+                            },
+                            "effect": {
+                                "value": "[parameters('vmss_effect')]"
+                            },
+                            "metricsEnabled": {
+                                "value": "[parameters('vmss_metricsEnabled')]"
+                            }
+                        }
+                    }                    
+                ]
+            }
+        }
+    }
+}

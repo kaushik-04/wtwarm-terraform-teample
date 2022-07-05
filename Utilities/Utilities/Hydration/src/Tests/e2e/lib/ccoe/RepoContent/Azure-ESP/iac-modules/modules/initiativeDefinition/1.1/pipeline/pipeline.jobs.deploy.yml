@@ -1,0 +1,115 @@
+#########################################################
+##
+##---------------------------------------------##
+## TEMPLATE PARAMETERS                         ##
+##---------------------------------------------##
+##
+## By default it uses the variables specified in the below [parameters] section. However, you can overwrite these variables in the 
+##    referencing pipeline by providing the parameter explicitly.
+## 
+## NOTE: If you don't need to overwrite a shared value, you can IGNORE this section 
+##
+##   |===========================================================================================================================================================================================================================================================================================|
+##   | Parameter                       | datatype      | allowed values                                                                                                               | default value                        | Description                                                       |
+##   | ------------------------------- | ------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | ----------------------------------------------------------------- |
+##   | serviceConnection               | string        | *                                                                                                                            | '$(serviceConnection)'               | Name of the ARM service connection that the deployment will use   |
+##   | managementGroupId               | string        | *                                                                                                                            | '$(managementGroupId)'               | Name of management group to target for the deployment             |
+##   | poolName                        | string        | *                                                                                                                            | '$(poolName)'                        | Name of the self hosted pool to run this job in                   |
+##   | vmImage                         | string        | [Microsoft-hosted agents](https://docs.microsoft.com/en-us/azure/devops/pipelines/agents/hosted?view=azure-devops&tabs=yaml) | '$(vmImage)'                         | Name of the VM image in the Microsoft-hosted pool you want to use |
+##   | moduleName                      | string        | *                                                                                                                            | 'initiativeDefinition'               | Name of the component                                             |
+##   | moduleVersion                   | string        | *                                                                                                                            | '1.1'                                | Version of the component                                          |
+##   | initiativeDefinitionsPath       | string        | *                                                                                                                            | ''                                   | Path to the folder containing initiative definitions              |
+##   | defaultJobTimeoutInMinutes      | number        | *                                                                                                                            | 120                                  | How long to run the job before automatically cancelling           |
+##   | checkoutRepositories            | list(strings) | *                                                                                                                            | ''                                   | Name of additional repos to checkout/download in the pipeline     |
+##   | dependsOn                       | list(strings) | *                                                                                                                            | []                                   | A list of stages/jobs to run before this                          |
+##   | parametersRepository            | string        | *                                                                                                                            | '$(Build.Repository.Name)'           | The repository that holds parameters for the deployment           |
+##   | azurePowerShellVersion          | string        | 'latestVersion', 'otherVersion'                                                                                              | '$(azurePowerShellVersion)'          | Powershell version to run this tasks on                           |
+##   | preferredAzurePowerShellVersion | string        | * [more info](https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/deploy/azure-powershell?view=azure-devops)       | '$(preferredAzurePowerShellVersion)' | Specify if azurePowerShellVersion is 'otherVersion'               |
+##   |===========================================================================================================================================================================================================================================================================================|
+##
+##---------------------------------------------##
+
+parameters:
+  # Pipeline-related parameters
+  serviceConnection: '$(serviceConnection)'
+  managementGroupId: '$(managementGroupId)'
+  poolName: '$(poolName)'
+  vmImage: '$(vmImage)'
+  moduleName: 'initiativeDefinition'
+  moduleVersion: '1.1'
+  initiativeDefinitionsPath: ''
+  defaultJobTimeoutInMinutes: 120
+  checkoutRepositories: ''
+  dependsOn: []
+  parametersRepository: '$(Build.Repository.Name)'
+  # Azure PowerShell Version parameters
+  azurePowerShellVersion: '$(azurePowerShellVersion)'
+  preferredAzurePowerShellVersion: '$(preferredAzurePowerShellVersion)'
+
+##---------------------------------------------##
+## TEMPLATE LOGIC                              ##
+##---------------------------------------------##
+jobs:
+- job:
+  displayName: Deploy_${{ parameters.moduleName }}-${{ parameters.moduleVersion }}
+  timeoutInMinutes: ${{ parameters.defaultJobTimeoutInMinutes }}
+  ${{ if ne( parameters.dependsOn, '') }}:
+    dependsOn: ${{ parameters.dependsOn }}
+  pool:
+    ${{ if ne(parameters.vmImage, '') }}:
+      vmImage: ${{ parameters.vmImage }}
+    ${{ if ne(parameters.poolName, '') }}:
+      name: ${{ parameters.poolName }}
+  steps:
+
+    # [Checkout Repositories] task(s)
+    #--------------------------------
+    - checkout: self
+    - ${{ if ne(parameters.checkoutRepositories, '') }}:
+      - ${{ each checkoutRepository in parameters.checkoutRepositories }}:
+        - checkout: ${{ checkoutRepository }}
+          fetchDepth: 1  # the depth of commits to ask Git to fetch; if not set defaults to no limit
+          path: 's/${{ checkoutRepository }}'
+
+    # [Deployment] task(s)
+    #--------------------------------
+    - task: AzurePowerShell@5
+      displayName: 'Deploy [${{ parameters.moduleName }}-${{ parameters.moduleVersion }}] via connection [${{ parameters.serviceConnection }}]'
+      inputs:
+        azureSubscription:  ${{ parameters.serviceConnection }}
+        azurePowerShellVersion: ${{ parameters.azurePowerShellVersion }}
+        preferredAzurePowerShellVersion: ${{ parameters.preferredAzurePowerShellVersion }}
+        pwsh: true
+        ScriptType: InlineScript
+        inline: |
+          # ---------------------------- #
+          # HANDLE MULTI-REPO INVOCATION #
+          # ---------------------------- #
+          $componentsBasePath = "$(System.DefaultWorkingDirectory)"
+          $parametersBasePath = "$(Build.Repository.LocalPath)"
+
+          if( "${{ join(';',parameters.checkoutRepositories) }}".length -gt 0) {
+            $componentsBasePath = Join-Path $componentsBasePath '$(modulesRepository)'
+            $parametersBasePath = "$(Build.Repository.LocalPath)/${{ parameters.parametersRepository }}"
+          }
+
+          #Checking if required files and folders exist before running script/function
+          $initiativeDefinitionRootFolder = Join-Path -Path $parametersBasePath -ChildPath "${{ parameters.initiativeDefinitionsPath }}"
+          if (!(Test-Path -Path $initiativeDefinitionRootFolder)) {
+            throw "Folder was not found: $initiativeDefinitionRootFolder"
+          }
+
+          $ScriptFilePath = Join-Path -Path $componentsBasePath -ChildPath /modules/${{ parameters.moduleName }}/${{ parameters.moduleVersion }}/scripts/Set-InitiativeDefinitions.ps1
+          if (!(Test-Path -Path $ScriptFilePath)) {
+            throw  "File was not found: $ScriptFilePath"
+          }
+
+          #Running script/function with input parameters
+          $functionInput = @{
+            ManagementGroupName = "${{ parameters.managementGroupId }}"
+            initiativeDefinitionRootFolder = "$initiativeDefinitionRootFolder"
+          }
+          Write-Verbose "Invoke task with parameters:" -Verbose
+          $functionInput
+
+          Invoke-Expression -Command "$ScriptFilePath @functionInput" -Verbose

@@ -1,0 +1,221 @@
+name: $(Build.DefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:r)
+
+variables:
+  - template: bdp.variables.yml
+  - name: System.Debug
+    value: false
+
+trigger:
+  batch: true
+  branches:
+    include:
+      - main
+  paths:
+    include:
+      - cn-landing-zones/bdp/*
+
+resources:
+  repositories:
+  - repository: IaC
+    type: git
+    ref: 'refs/heads/master'
+    name: IaC
+
+stages:
+- stage: 'Azure_Active_Directory'
+  displayName: 'Azure Active Directory'
+  jobs:
+  - job: aadgroup_grp_bdp_devops_reader
+    displayName: 'aadgroup 1.0: grp-bdp-devops-reader.json'
+    steps:
+    - checkout: self
+    - checkout: IaC
+    - task: AzurePowerShell@5
+      inputs:
+        azureSubscription: 'aad-automation'
+        ScriptType: 'FilePath'
+        ScriptPath: 'IaC/modules/aadgroup/1.0/Set-AADGroup.ps1'
+        ScriptArguments: '-Directory Platform/$(parametersPath)/aadgroup/grp-bdp-devops-reader.json'
+        azurePowerShellVersion: 'LatestVersion'
+  - job: aadgroup_grp_bdp_devops_contributor
+    displayName: 'aadgroup 1.0: grp-bdp-devops-contributor'
+    steps:
+    - checkout: self
+    - checkout: IaC
+    - task: AzurePowerShell@5
+      inputs:
+        azureSubscription: 'aad-automation'
+        ScriptType: 'FilePath'
+        ScriptPath: 'IaC/modules/aadgroup/1.0/Set-AADGroup.ps1'
+        ScriptArguments: '-Directory Platform/$(parametersPath)/aadgroup/grp-bdp-devops-contributor.json'
+        azurePowerShellVersion: 'LatestVersion'
+  - job: aadgroup_grp_bdp_devops_admin
+    displayName: 'aadgroup 1.0: grp-bdp-devops-admin.json'
+    steps:
+    - checkout: self
+    - checkout: IaC
+    - task: AzurePowerShell@5
+      inputs:
+        azureSubscription: 'aad-automation'
+        ScriptType: 'FilePath'
+        ScriptPath: 'IaC/modules/aadgroup/1.0/Set-AADGroup.ps1'
+        ScriptArguments: '-Directory Platform/$(parametersPath)/aadgroup/grp-bdp-devops-admin.json'
+        azurePowerShellVersion: 'LatestVersion'
+  - template: /cicd/templates/pipeline.jobs.deploy.yml@IaC
+    parameters:
+      checkoutRepositories:
+      - IaC
+      serviceConnection: aad-automation
+      moduleName: aadserviceprincipal
+      moduleVersion: '1.2'
+      deploymentBlocks:
+      - path: $(parametersPath)/aadserviceprincipal/cn-s-bdp-sub-sp.json
+        jobName: aadserviceprincipal_cn_s_bdp_sub_sp
+        displayName: 'aadserviceprincipal 1.2: cn-s-bdp-sub-sp.json'
+        taskName: deploy_module
+      - path: $(parametersPath)/aadserviceprincipal/cn-n-bdp-sub-sp.json
+        jobName: aadserviceprincipal_cn_n_bdp_sub_sp
+        displayName: 'aadserviceprincipal 1.2: cn-n-bdp-sub-sp.json'
+        taskName: deploy_module
+      - path: $(parametersPath)/aadserviceprincipal/cn-d-bdp-sub-sp.json
+        jobName: aadserviceprincipal_cn_d_bdp_sub_sp
+        displayName: 'aadserviceprincipal 1.2: cn-d-bdp-sub-sp.json'
+        taskName: deploy_module
+      - path: $(parametersPath)/aadserviceprincipal/cn-t-bdp-sub-sp.json
+        jobName: aadserviceprincipal_cn_t_bdp_sub_sp
+        displayName: 'aadserviceprincipal 1.2: cn-t-bdp-sub-sp.json'
+        taskName: deploy_module
+      - path: $(parametersPath)/aadserviceprincipal/cn-i-bdp-sub-sp.json
+        jobName: aadserviceprincipal_cn_i_bdp_sub_sp
+        displayName: 'aadserviceprincipal 1.2: cn-i-bdp-sub-sp.json'
+        taskName: deploy_module
+      - path: $(parametersPath)/aadserviceprincipal/cn-u-bdp-sub-sp.json
+        jobName: aadserviceprincipal_cn_u_bdp_sub_sp
+        displayName: 'aadserviceprincipal 1.2: cn-u-bdp-sub-sp.json'
+        taskName: deploy_module
+      - path: $(parametersPath)/aadserviceprincipal/cn-p-bdp-sub-sp.json
+        jobName: aadserviceprincipal_cn_p_bdp_sub_sp
+        displayName: 'aadserviceprincipal 1.2: cn-p-bdp-sub-sp.json'
+        taskName: deploy_module
+
+- stage: 'Azure_Subscriptions'
+  displayName: 'Cloud-native Subscriptions'
+  dependsOn: 'Azure_Active_Directory'
+  jobs:
+  - template: /cicd/templates/pipeline.jobs.deploy.yml@IaC
+    parameters:
+      serviceConnection: $(serviceConnection)
+      moduleName: subscription
+      moduleVersion: '1.0'
+      deploymentBlocks:
+      - path: $(parametersPath)/subscription/cn-s-bdp-sub.json
+        jobName: subscription_cn_s_bdp_sub
+        displayName: 'subscription 1.0: cn-s-bdp-sub.json'
+      - path: $(parametersPath)/subscription/cn-n-bdp-sub.json
+        jobName: subscription_cn_n_bdp_sub
+        displayName: 'subscription 1.0: cn-n-bdp-sub.json'
+      - path: $(parametersPath)/subscription/cn-d-bdp-sub.json
+        jobName: subscription_cn_d_bdp_sub
+        displayName: 'subscription 1.0: cn-d-bdp-sub.json'
+      - path: $(parametersPath)/subscription/cn-t-bdp-sub.json
+        jobName: subscription_cn_t_bdp_sub
+        displayName: 'subscription 1.0: cn-t-bdp-sub.json'
+      - path: $(parametersPath)/subscription/cn-i-bdp-sub.json
+        jobName: subscription_cn_i_bdp_sub
+        displayName: 'subscription 1.0: cn-i-bdp-sub.json'
+      - path: $(parametersPath)/subscription/cn-u-bdp-sub.json
+        jobName: subscription_cn_u_bdp_sub
+        displayName: 'subscription 1.0: cn-u-bdp-sub.json'
+      - path: $(parametersPath)/subscription/cn-p-bdp-sub.json
+        jobName: subscription_cn_p_bdp_sub
+        displayName: 'subscription 1.0: cn-p-bdp-sub.json'
+      checkoutRepositories:
+      - IaC
+
+- stage: 'LogAnalytics'
+  displayName: 'Log Analytics workspace'
+  dependsOn: Azure_Active_Directory
+  jobs:
+  - template: /cicd/templates/pipeline.jobs.deploy.yml@IaC
+    parameters:
+      moduleName: loganalytics
+      moduleVersion: '1.0'
+      resourceGroupName: $(LogsResourceGroupName)
+      subscriptionName: $(LogsSubscriptionName)
+      serviceConnection: $(LogsServiceConnection)
+      deploymentBlocks:
+      - path: $(parametersPath)/loganalytics/mgmt-p-log-bdp-law.json
+        jobName: loganalytics_mgmt_p_log_bdp_law
+        displayName: 'loganalytics 1.0: mgmt-p-log-bdp-law.json'
+      additionalVariables:
+      checkoutRepositories:
+      - IaC
+
+- stage: 'Policy_Assignment'
+  dependsOn:
+  - 'LogAnalytics'
+  - 'Azure_Subscriptions'
+  jobs:
+  - template: /cicd/templates/pipeline.jobs.deploy.yml@IaC
+    parameters:
+      moduleName: policyAssignment
+      moduleVersion: '2.1'
+      serviceConnection: $(serviceConnection)
+      deploymentBlocks:
+      - path: $(parametersPath)/policyAssignments/cn-sub-s-security-pa.json
+        jobName: policyAssignment_cn_sub_s_security_pa
+        displayName: 'policyAssignment 2.1: cn-sub-s-security-pa.json'
+      - path: $(parametersPath)/policyAssignments/cn-sub-n-security-pa.json
+        jobName: policyAssignment_cn_sub_n_security_pa
+        displayName: 'policyAssignment 2.1: cn-sub-n-security-pa.json'
+      - path: $(parametersPath)/policyAssignments/cn-sub-d-security-pa.json
+        jobName: policyAssignment_cn_sub_d_security_pa
+        displayName: 'policyAssignment 2.1: cn-sub-d-security-pa.json'
+      - path: $(parametersPath)/policyAssignments/cn-sub-t-security-pa.json
+        jobName: policyAssignment_cn_sub_t_security_pa
+        displayName: 'policyAssignment 2.1: cn-sub-t-security-pa.json'
+      - path: $(parametersPath)/policyAssignments/cn-sub-i-security-pa.json
+        jobName: policyAssignment_cn_sub_i_security_pa
+        displayName: 'policyAssignment 2.1: cn-sub-i-security-pa.json'
+      - path: $(parametersPath)/policyAssignments/cn-sub-u-security-pa.json
+        jobName: policyAssignment_cn_sub_u_security_pa
+        displayName: 'policyAssignment 2.1: cn-sub-u-security-pa.json'
+      - path: $(parametersPath)/policyAssignments/cn-sub-p-security-pa.json
+        jobName: policyAssignment_cn_sub_p_security_pa
+        displayName: 'policyAssignment 2.1: cn-sub-p-security-pa.json'
+      checkoutRepositories:
+      - IaC
+
+- stage: 'Azure_DevOps_Project'
+  displayName: 'Azure DevOps Project'
+  dependsOn:
+  - 'Azure_Active_Directory'
+  - 'Azure_Subscriptions'
+  jobs:
+  - template: /cicd/templates/pipeline.jobs.deploy.yml@IaC
+    parameters:
+      moduleName: adoproject
+      moduleVersion: '1.0'
+      minimumAzureCLIVersion: '2.18.0'
+      minimumAzureCLIADOVerison: '0.18.0'
+      deploymentBlocks:
+      - path: $(parametersPath)/adoproject/bdp-platform.json
+        jobName: adoproject_bdp_platform
+        displayName: 'adoproject 1.0: bdp-platform.json'
+        additionalVariables:
+          cn-s-bdp-sub-sp_ApplicationId: $[ stageDependencies.Azure_Active_Directory.aadserviceprincipal_cn_s_bdp_sub_sp.outputs['deploy_module.cn-s-bdp-sub-sp_ApplicationId'] ]
+          cn-s-bdp-sub-sp_ServicePrincipalPassword: $[ stageDependencies.Azure_Active_Directory.aadserviceprincipal_cn_s_bdp_sub_sp.outputs['deploy_module.cn-s-bdp-sub-sp_ServicePrincipalPassword'] ]
+          cn-n-bdp-sub-sp_ApplicationId: $[ stageDependencies.Azure_Active_Directory.aadserviceprincipal_cn_n_bdp_sub_sp.outputs['deploy_module.cn-n-bdp-sub-sp_ApplicationId'] ]
+          cn-n-bdp-sub-sp_ServicePrincipalPassword: $[ stageDependencies.Azure_Active_Directory.aadserviceprincipal_cn_n_bdp_sub_sp.outputs['deploy_module.cn-n-bdp-sub-sp_ServicePrincipalPassword'] ]
+          cn-d-bdp-sub-sp_ApplicationId: $[ stageDependencies.Azure_Active_Directory.aadserviceprincipal_cn_d_bdp_sub_sp.outputs['deploy_module.cn-d-bdp-sub-sp_ApplicationId'] ]
+          cn-d-bdp-sub-sp_ServicePrincipalPassword: $[ stageDependencies.Azure_Active_Directory.aadserviceprincipal_cn_d_bdp_sub_sp.outputs['deploy_module.cn-d-bdp-sub-sp_ServicePrincipalPassword'] ]
+          cn-t-bdp-sub-sp_ApplicationId: $[ stageDependencies.Azure_Active_Directory.aadserviceprincipal_cn_t_bdp_sub_sp.outputs['deploy_module.cn-t-bdp-sub-sp_ApplicationId'] ]
+          cn-t-bdp-sub-sp_ServicePrincipalPassword: $[ stageDependencies.Azure_Active_Directory.aadserviceprincipal_cn_t_bdp_sub_sp.outputs['deploy_module.cn-t-bdp-sub-sp_ServicePrincipalPassword'] ]
+          cn-i-bdp-sub-sp_ApplicationId: $[ stageDependencies.Azure_Active_Directory.aadserviceprincipal_cn_i_bdp_sub_sp.outputs['deploy_module.cn-i-bdp-sub-sp_ApplicationId'] ]
+          cn-i-bdp-sub-sp_ServicePrincipalPassword: $[ stageDependencies.Azure_Active_Directory.aadserviceprincipal_cn_i_bdp_sub_sp.outputs['deploy_module.cn-i-bdp-sub-sp_ServicePrincipalPassword'] ]
+          cn-u-bdp-sub-sp_ApplicationId: $[ stageDependencies.Azure_Active_Directory.aadserviceprincipal_cn_u_bdp_sub_sp.outputs['deploy_module.cn-u-bdp-sub-sp_ApplicationId'] ]
+          cn-u-bdp-sub-sp_ServicePrincipalPassword: $[ stageDependencies.Azure_Active_Directory.aadserviceprincipal_cn_u_bdp_sub_sp.outputs['deploy_module.cn-u-bdp-sub-sp_ServicePrincipalPassword'] ]
+          cn-p-bdp-sub-sp_ApplicationId: $[ stageDependencies.Azure_Active_Directory.aadserviceprincipal_cn_p_bdp_sub_sp.outputs['deploy_module.cn-p-bdp-sub-sp_ApplicationId'] ]
+          cn-p-bdp-sub-sp_ServicePrincipalPassword: $[ stageDependencies.Azure_Active_Directory.aadserviceprincipal_cn_p_bdp_sub_sp.outputs['deploy_module.cn-p-bdp-sub-sp_ServicePrincipalPassword'] ]
+      checkoutRepositories:
+      - IaC

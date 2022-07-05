@@ -1,0 +1,44 @@
+{
+  "administratorsGroup": [],
+  "readersGroup": [
+    ""
+  ],
+  "usersGroup": [],
+  "authorization": {
+    "parameters": {
+      "authenticationType": "spnKey",
+      "serviceprincipalid": "ae2e9ad9-6ef1-4fe8-80fe-050942995aa2", //backfill
+      "serviceprincipalkey": null,
+      "tenantid": "e7ab81b2-1e84-4bf7-9dcb-b6fec01ed138"
+    },
+    "scheme": "ServicePrincipal"
+  },
+  "authorized": true,
+  "data": {
+    "creationMode": "Manual",
+    "environment": "AzureCloud",
+    "scopeLevel": "Subscription",
+    "subscriptionId": "fcba4077-56f0-4945-9ef3-3c30b0433943", //backfill
+    "subscriptionName": "cn-s-bdpabac-sub"
+  },
+  "description": "LZ Owner on 'cn-s-bdpabac-sub'",
+  "groupScopeId": null,
+  "id": null,
+  "isReady": true,
+  "isShared": false,
+  "name": "cn-s-bdpabac-sub",
+  "operationStatus": null,
+  "owner": "Library",
+  "serviceEndpointProjectReferences": [
+    {
+      "description": "LZ Owner on 'cn-s-bdpabac-sub'",
+      "name": "cn-s-bdpabac-sub",
+      "projectReference": {
+        "id": null,
+        "name": "BDPsdbx-abac"
+      }
+    }
+  ],
+  "type": "azurerm",
+  "url": "https://management.azure.com/"
+}

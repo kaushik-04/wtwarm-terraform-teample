@@ -1,0 +1,36 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "roleName": {
+            "value": "Cloud Native Governance Administrator"
+        },
+        "roleDescription": {
+            "value": "Can govern the environment, managing all aspects of policy, roles and management groups."
+        },
+        "actions": {
+            "value": [
+                "*/read",
+                "Microsoft.Authorization/*",
+                "Microsoft.Management/*",
+                "Microsoft.PolicyInsights/*",
+                "Microsoft.Subscription/*",
+                "*/register/action"
+            ]
+        },
+        "notActions": {
+            "value": []
+        },
+        "dataActions": {
+            "value": []
+        },
+        "notDataActions": {
+            "value": []
+        },
+        "assignableScopes": {
+            "value": [
+                "/providers/Microsoft.Management/managementGroups/cloudnative-mg"
+            ]
+        }
+    }
+}

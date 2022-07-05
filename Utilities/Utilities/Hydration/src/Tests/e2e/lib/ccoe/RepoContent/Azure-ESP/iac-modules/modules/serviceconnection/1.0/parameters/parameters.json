@@ -1,0 +1,48 @@
+{
+  "administratorsGroup": [
+    "AdministratorsGroupTest"
+  ],
+  "readersGroup": [
+    "ReadersGroupTest"
+  ],
+  "usersGroup": [
+    "UsersGroupTest"
+  ],
+  "authorization": {
+    "parameters": {
+      "authenticationType": "spnKey",
+      "serviceprincipalid": "2286b753-e150-4e1d-a509-7269005b8a32",
+      "serviceprincipalkey": null,
+      "tenantid": "e7ab81b2-1e84-4bf7-9dcb-b6fec01ed138"
+    },
+    "scheme": "ServicePrincipal"
+  },
+  "authorized": true,
+  "data": {
+    "creationMode": "Manual",
+    "environment": "AzureCloud",
+    "scopeLevel": "Subscription",
+    "subscriptionId": "429b35d2-b4af-4102-a48f-faebe887e7b2",
+    "subscriptionName": "pxs-cn-ccoe-validation-subscription"
+  },
+  "description": "Owner on Subscription",
+  "groupScopeId": null,
+  "id": null,
+  "isReady": true,
+  "isShared": false,
+  "name": "pxs-cn-ccoe-validation-subscription",
+  "operationStatus": null,
+  "owner": "Library",
+  "serviceEndpointProjectReferences": [
+    {
+      "description": "Owner on Subscription",
+      "name": "pxs-cn-ccoe-validation-subscription",
+      "projectReference": {
+        "id": "8c71d833-fcd8-42b9-a81d-d3092c875f91",
+        "name": "building-blocks"
+      }
+    }
+  ],
+  "type": "azurerm",
+  "url": "https://management.azure.com/"
+}

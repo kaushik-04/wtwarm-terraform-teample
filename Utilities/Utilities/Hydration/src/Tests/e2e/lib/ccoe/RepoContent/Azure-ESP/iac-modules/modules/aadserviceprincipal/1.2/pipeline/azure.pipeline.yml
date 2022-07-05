@@ -1,0 +1,72 @@
+name: $(Build.DefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:r)
+
+variables:
+  - template: /cicd/global.variables.yml
+  - name: moduleName
+    value: aadserviceprincipal
+  - name: moduleVersion
+    value: '1.2'
+  - name: System.Debug
+    value: false
+
+trigger:
+  batch: true
+  branches:
+    include:
+      - '*'
+  paths:
+    include:
+      - cicd/*
+      - modules/aadserviceprincipal/1.2/*
+      - modules/adoproject/1.0/*
+    exclude:
+      - modules/aadserviceprincipal/1.2/readme.md
+      - modules/adoproject/1.0/readme.md
+
+stages:
+
+- stage: 'Test_01_Service_Principal_Create'
+  jobs:
+  - template: /cicd/templates/pipeline.jobs.deploy.yml
+    parameters:
+      serviceConnection: 'aad-automation'
+      retryAttempts: 1
+      deploymentBlocks:
+      - path: "$(modulePath)/parameters/test01-owners.json"
+        jobName: deploytest01
+        displayName: 'test 01 - deploy ${{ variables.moduleName }} ${{ variables.moduleVersion}}'
+
+- stage: 'Test_02_AD_Read_Consents'
+  jobs:
+  - template: /cicd/templates/pipeline.jobs.deploy.yml
+    parameters:
+      serviceConnection: 'aad-automation'
+      retryAttempts: 1
+      deploymentBlocks:
+      - path: "$(modulePath)/parameters/test02-aadread.json"
+        jobName: deploytest02
+        displayName: 'test 02 - deploy ${{ variables.moduleName }} ${{ variables.moduleVersion}}'
+
+- stage: 'Test_03_Key_Rotation_with_ADO_Project'
+  jobs:
+  - template: /cicd/templates/pipeline.jobs.deploy.yml
+    parameters:
+      serviceConnection: 'aad-automation'
+      deploymentBlocks:
+      - path: "$(modulePath)/parameters/test03.a-key_rotation_sp.json"
+        jobName: deploytest03a
+        displayName: 'test 03.a - deploy ${{ variables.moduleName }} ${{ variables.moduleVersion}}'
+        taskName: deploy_module
+  - template: /cicd/templates/pipeline.jobs.deploy.yml
+    parameters:
+      modulename: adoproject
+      moduleversion: "1.0"
+      minimumAzureCLIVersion: '2.18.0'
+      minimumAzureCLIADOVerison: '0.18.0'
+      dependsOn: deploytest03a
+      deploymentBlocks:
+      - path: "$(modulePath)/parameters/test03.b-key_rotation_adoproject.json"
+        displayName: 'test 03.b - deploy adoproject 1.0'
+        additionalVariables:
+          pxs-cn-s-ccoe-sub_ApplicationId: $[ dependencies.deploytest03a.outputs['deploy_module.pxs-buildingblocks-deploytest03-sp_ApplicationId'] ]
+          pxs-cn-s-ccoe-sub_ServicePrincipalPassword: $[ dependencies.deploytest03a.outputs['deploy_module.pxs-buildingblocks-deploytest03-sp_ServicePrincipalPassword'] ]

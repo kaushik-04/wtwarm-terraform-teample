@@ -1,0 +1,21 @@
+variables:
+- name: resourceGroupName
+  value: CRB-MG05175P-RGRP
+- name: parametersPath
+  value: Demo/Parameters
+- name: location
+  value: 'East Us 2'
+- name: vmImage
+  value: 'ubuntu-latest'
+- name: poolName
+  value: ''
+- name: serviceConnection
+  value: WTW-CRBPORTALNA-PROD
+- name: modulesPath
+  value: Modules/ARM 
+- name: modulePath
+  value: $(modulesPath)/$(moduleName)
+- name: modulesRepository
+  value: Components
+- name: templateFunctionsPath
+  value: $(modulesPath)/.global/PipelineTemplates/Scripts

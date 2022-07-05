@@ -1,0 +1,56 @@
+name: $(moduleName)
+
+parameters:
+  - name: removeDeployment
+    displayName: Remove resources post-deployment
+    type: boolean
+    default: false
+
+variables:
+- template: /cicd/global.variables.yml
+- name: moduleName
+  value: roleAssignments
+- name: moduleVersion
+  value: "1.0"
+- name: serviceConnection
+  value: "pxs-cloudnative-mg"
+- name: subscriptionName
+  value: "pxs-cn-s-ccoe-sub"
+  
+
+trigger:
+  batch: true
+  branches:
+    include:
+    - master
+  paths:
+    include:
+    - cicd/*
+    - common/1.0/scripts/*
+    - modules/roleAssignments/1.0/*
+    exclude:
+    - modules/roleAssignments/1.0/readme.md
+    
+stages:
+- stage: Validation
+  jobs:
+  - template: /cicd/templates/pipeline.jobs.validate.yml
+    parameters:
+      subscriptionName: $(subscriptionName)
+      deploymentBlocks: 
+      - path: $(parametersPath)/parameters.json
+      
+- stage: Deployment
+  jobs:
+  - template: /cicd/templates/pipeline.jobs.deploy.yml
+    parameters:
+      subscriptionName: $(subscriptionName)
+      removeDeployment: '${{ parameters.removeDeployment }}'
+      deploymentBlocks:
+      - path: $(parametersPath)/parameters.json
+
+- stage: Removal
+  dependsOn: Deployment
+  condition: and(succeededOrFailed(), eq( '${{ parameters.removeDeployment }}', 'true'))
+  jobs:
+    - template: /cicd/templates/pipeline.jobs.remove.yml

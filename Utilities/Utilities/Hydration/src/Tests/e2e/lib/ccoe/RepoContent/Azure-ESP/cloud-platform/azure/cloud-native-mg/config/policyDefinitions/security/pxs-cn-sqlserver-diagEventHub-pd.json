@@ -1,0 +1,169 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "scope": {
+            "value": "/providers/Microsoft.Management/managementGroups/cloudnative-mg"
+        },
+        "properties": {
+            "value": {
+                "name": "cn-sqlserver-diagEventHub-pd",
+                "displayName": "cn-sqlserver-diagEventHub-pd",
+                "policyType": "Custom",
+                "mode": "Indexed",
+                "description": "Deploys the diagnostic settings for SQL Servers to stream to an Event Hub.",
+                "metadata": {
+                    "version": "1.0.0",
+                    "category": "Security"
+                },
+                "parameters": {
+                    "profileName": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Profile name",
+                            "description": "The diagnostic settings profile name"
+                        },
+                        "defaultValue": "setbypolicy_to_eventhub"
+                    },
+                    "eventHubRuleId": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Event Hub Authorization Rule Id",
+                            "description": "The Event Hub authorization rule Id for Azure Diagnostics. The authorization rule needs to be at Event Hub namespace level. e.g. /subscriptions/{subscription Id}/resourceGroups/{resource group}/providers/Microsoft.EventHub/namespaces/{Event Hub namespace}/authorizationrules/{authorization rule}",
+                            "strongType": "Microsoft.EventHub/Namespaces/AuthorizationRules"
+                        },
+                        "defaultValue": ""
+                    },
+                    "eventHubName": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Event hub name",
+                            "description": "Optional. Choose an event hub name to send telemetry to."
+                        },
+                        "defaultValue": ""
+                    },
+                    "effect": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Effect",
+                            "description": "Enable or disable the execution of the policy"
+                        },
+                        "allowedValues": [
+                            "DeployIfNotExists",
+                            "Disabled"
+                        ],
+                        "defaultValue": "Disabled"
+                    },
+                    "logsEnabled": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Enable logs",
+                            "description": "Whether to enable logs stream to the Event Hub - True or False"
+                        },
+                        "allowedValues": [
+                            "True",
+                            "False"
+                        ],
+                        "defaultValue": "False"
+                    }
+                },
+                "policyRule": {
+                    "if": {
+                        "field": "type",
+                        "equals": "Microsoft.Sql/servers"
+                    },
+                    "then": {
+                        "effect": "[parameters('effect')]",
+                        "details": {
+                            "type": "Microsoft.Sql/servers/extendedAuditingSettings",
+                            "name": "Default",
+                            "existenceCondition": {
+                                "field": "Microsoft.Sql/servers/extendedAuditingSettings/isAzureMonitorTargetEnabled",
+                                "equals": "[parameters('logsEnabled')]"
+                            },
+                            "roleDefinitionIds": [
+                                "/providers/Microsoft.Authorization/roleDefinitions/056cd41c-7e88-42e1-933e-88ba6a50c9c3",
+                                "/providers/Microsoft.Authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+                            ],
+                            "deployment": {
+                                "properties": {
+                                    "mode": "incremental",
+                                    "template": {
+                                        "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+                                        "contentVersion": "1.0.0.0",
+                                        "parameters": {
+                                            "serverName": {
+                                                "type": "string"
+                                            },
+                                            "eventHubRuleId": {
+                                                "type": "string"
+                                            },
+                                            "eventHubName": {
+                                                "type": "string"
+                                            },
+                                            "logsEnabled": {
+                                                "type": "string"
+                                            },
+                                            "profileName": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "variables": {
+                                            "auditingState": "[if(equals(parameters('logsEnabled'), 'True'),'Enabled','Disabled')]"
+                                        },
+                                        "resources": [
+                                            {
+                                                "type": "Microsoft.Sql/servers/databases/providers/diagnosticSettings",
+                                                "name": "[concat(parameters('serverName'),'/master/microsoft.insights/',parameters('profileName'))]",
+                                                "apiVersion": "2017-05-01-preview",
+                                                "properties": {
+                                                    "eventHubAuthorizationRuleId": "[parameters('eventHubRuleId')]",
+                                                    "eventHubName": "[parameters('eventHubName')]",
+                                                    "logs": [
+                                                        {
+                                                            "category": "SQLSecurityAuditEvents",
+                                                            "enabled": "[parameters('logsEnabled')]"
+                                                        }
+                                                    ]
+                                                }
+                                            },
+                                            {
+                                                "name": "[concat(parameters('serverName'), '/Default')]",
+                                                "type": "Microsoft.Sql/servers/auditingSettings",
+                                                "apiVersion": "2017-03-01-preview",
+                                                "dependsOn": [
+                                                    "[concat('Microsoft.Sql/servers/', parameters('serverName'),'/databases/master/providers/microsoft.insights/diagnosticSettings/', parameters('profileName'))]"
+                                                ],
+                                                "properties": {
+                                                    "state": "[variables('auditingState')]",
+                                                    "isAzureMonitorTargetEnabled": "[parameters('logsEnabled')]"
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    "parameters": {
+                                        "serverName": {
+                                            "value": "[field('name')]"
+                                        },
+                                        "logsEnabled": {
+                                            "value": "[parameters('logsEnabled')]"
+                                        },
+                                        "eventHubRuleId": {
+                                            "value": "[parameters('eventHubRuleId')]"
+                                        },
+                                        "eventHubName": {
+                                            "value": "[parameters('eventHubName')]"
+                                        },
+                                        "profileName": {
+                                            "value": "[parameters('profileName')]"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

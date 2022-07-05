@@ -1,0 +1,13 @@
+{
+    "Extensions": [],
+    "Files": [
+        "*/README.md"
+    ],
+    "Folders": [
+        "*/.github",
+        "*/Docs",
+        "*/Scripts",
+        "*/.azuredevops",
+        "*/.StaticCodeAnalysis"     
+    ] 
+}

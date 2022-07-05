@@ -1,0 +1,76 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "scope": {
+            "value": "/providers/Microsoft.Management/managementGroups/cn-s-mg"
+        },
+        "properties": {
+            "value": {
+                "policyAssignment": {
+                    "displayName": "cn-mg-security-pa",
+                    "description": "Deploys security baseline on management group scope.",
+                    "definitionDisplayName": "cn-mg-security-pi",
+                    "definitionId": "/providers/Microsoft.Management/managementGroups/cloudnative-mg/providers/Microsoft.Authorization/policySetDefinitions/cn-mg-security-pi",
+                    "notScopes": [],
+                    "enforcementMode": "Default",
+                    "parameters": {
+                        "profileName": "NonProd-Logging",
+                        "eventHubRuleId": "/subscriptions/94a25935-980f-4ffd-b710-7fb3bf986ae0/resourcegroups/mgmt-p-log-logging-rg/providers/microsoft.eventhub/namespaces/mgmt-p-log-nonprod-ehn/authorizationrules/rootmanagesharedaccesskey",
+                        "asc_resourceTags": {
+                            "application-id": "ccoe",
+                            "cost-center": "ccoe",
+                            "deployment-id": "ccoe",
+                            "environment": "s"
+                        },
+                        "asc_resourceGroupName": "asc-export-rg",
+                        "activityLog_effect": "DeployIfNotExists",
+                        "activityLog_eventHubName": "mgmt-p-log-nonprod-subscriptionactivitylog-ehi",
+                        "activityLog_logsEnabled": "True",
+                        "keyVault_effect": "DeployIfNotExists",
+                        "keyVault_eventHubName": "mgmt-p-log-nonprod-keyvault-ehi",
+                        "keyVault_metricsEnabled": "True",
+                        "keyVault_logsEnabled": "True",
+                        "storageAccount_effect": "DeployIfNotExists",
+                        "storageAccount_eventHubName": "mgmt-p-log-nonprod-storageaccount-ehi",
+                        "storageAccount_metricsEnabled": "True",
+                        "storageAccount_logsEnabled": "True",
+                        "sqlDb_effect": "DeployIfNotExists",
+                        "sqlDb_eventHubName": "mgmt-p-log-nonprod-sql-ehi",
+                        "sqlDb_metricsEnabled": "True",
+                        "sqlDb_logsEnabled": "True",
+                        "sqlServer_effect": "DeployIfNotExists",
+                        "sqlServer_eventHubName": "mgmt-p-log-nonprod-sql-ehi",
+                        "sqlServer_logsEnabled": "True",
+                        "containerInstance_effect": "DeployIfNotExists",
+                        "containerInstance_eventHubName": "mgmt-p-log-nonprod-containerinstance-ehi",
+                        "containerInstance_metricsEnabled": "True",
+                        "containerRegistry_effect": "DeployIfNotExists",
+                        "containerRegistry_eventHubName": "mgmt-p-log-nonprod-containerregistry-ehi",
+                        "containerRegistry_metricsEnabled": "True",
+                        "containerRegistry_logsEnabled": "True",
+                        "databricks_effect": "DeployIfNotExists",
+                        "databricks_eventHubName": "mgmt-p-log-nonprod-databricks-ehi",
+                        "databricks_logsEnabled": "True",
+                        "datafactory_effect": "DeployIfNotExists",
+                        "datafactory_eventHubName": "mgmt-p-log-nonprod-datafactory-ehi",
+                        "datafactory_metricsEnabled": "True",
+                        "datafactory_logsEnabled": "True",
+                        "machinelearning_effect": "DeployIfNotExists",
+                        "machinelearning_eventHubName": "mgmt-p-log-nonprod-machinelearning-ehi",
+                        "machinelearning_metricsEnabled": "True",
+                        "machinelearning_logsEnabled": "True",
+                        "synapse_effect": "DeployIfNotExists",
+                        "synapse_eventHubName": "mgmt-p-log-nonprod-synapse-ehi",
+                        "synapse_logsEnabled": "True"
+                    },
+                    "managedIdentity": {
+                        "assignIdentity": true,
+                        "location": "westeurope",
+                        "outofscope": true
+                    }
+                }
+            }
+        }
+    }
+}

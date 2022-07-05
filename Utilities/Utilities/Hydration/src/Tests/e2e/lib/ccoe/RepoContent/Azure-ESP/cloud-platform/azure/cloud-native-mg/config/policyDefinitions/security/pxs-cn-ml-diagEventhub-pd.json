@@ -1,0 +1,222 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "scope": {
+            "value": "/providers/Microsoft.Management/managementGroups/cloudnative-mg"
+        },
+        "properties": {
+            "value": {
+                "name": "cn-ml-diagEventhub-pd",
+                "displayName": "cn-ml-diagEventhub-pd",
+                "policyType": "Custom",
+                "mode": "Indexed",
+                "description": "Deploys the diagnostic settings for Machine Learning to stream to an Event Hub.",
+                "metadata": {
+                    "version": "1.0.0",
+                    "category": "Security"
+                },
+                "parameters": {
+                    "effect": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Effect",
+                            "description": "Enable or disable the execution of the policy"
+                        },
+                        "allowedValues": [
+                            "DeployIfNotExists",
+                            "Disabled"
+                        ],
+                        "defaultValue": "Disabled"
+                    },
+                    "profileName": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Profile name",
+                            "description": "The diagnostic settings profile name"
+                        },
+                        "defaultValue": "setbypolicy_to_eventhub"
+                    },
+                    "eventHubRuleId": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Event Hub Authorization Rule Id",
+                            "description": "The Event Hub authorization rule Id for Azure Diagnostics. The authorization rule needs to be at Event Hub namespace level. e.g. /subscriptions/{subscription Id}/resourceGroups/{resource group}/providers/Microsoft.EventHub/namespaces/{Event Hub namespace}/authorizationrules/{authorization rule}",
+                            "strongType": "Microsoft.EventHub/Namespaces/AuthorizationRules"
+                        },
+                        "defaultValue": ""
+                    },
+                    "eventHubName": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Event hub name",
+                            "description": "Optional. Choose an event hub name to send telemetry to."
+                        },
+                        "defaultValue": ""
+                    },
+                    "metricsEnabled": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Enable metrics",
+                            "description": "Whether to enable metrics stream to the Event Hub - True or False"
+                        },
+                        "allowedValues": [
+                            "True",
+                            "False"
+                        ],
+                        "defaultValue": "False"
+                    },
+                    "logsEnabled": {
+                        "type": "String",
+                        "metadata": {
+                            "displayName": "Enable logs",
+                            "description": "Whether to enable logs stream to the Event Hub  - True or False"
+                        },
+                        "allowedValues": [
+                            "True",
+                            "False"
+                        ],
+                        "defaultValue": "False"
+                    }
+                },
+                "policyRule": {
+                    "if": {
+                        "allOf": [
+                            {
+                                "field": "type",
+                                "equals": "Microsoft.MachineLearningServices/workspaces"
+                            }
+                        ]
+                    },
+                    "then": {
+                        "effect": "[parameters('effect')]",
+                        "details": {
+                            "type": "Microsoft.Insights/diagnosticSettings",
+                            "name": "[parameters('profileName')]",
+                            "existenceCondition": {
+                                "allOf": [
+                                    {
+                                        "field": "Microsoft.Insights/diagnosticSettings/metrics.enabled",
+                                        "equals": "[parameters('metricsEnabled')]"
+                                    },
+                                    {
+                                        "field": "Microsoft.Insights/diagnosticSettings/logs.enabled",
+                                        "equals": "[parameters('logsEnabled')]"
+                                    },
+                                    {
+                                        "field": "Microsoft.Insights/diagnosticSettings/eventHubAuthorizationRuleId",
+                                        "equals": "[parameters('eventHubRuleId')]"
+                                    }
+                                ]
+                            },
+                            "roleDefinitionIds": [
+                                "/providers/microsoft.authorization/roleDefinitions/749f88d5-cbae-40b8-bcfc-e573ddc772fa",
+                                "/providers/microsoft.authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+                            ],
+                            "deployment": {
+                                "properties": {
+                                    "mode": "incremental",
+                                    "parameters": {
+                                        "location": {
+                                            "value": "[field('location')]"
+                                        },
+                                        "resourceName": {
+                                            "value": "[field('name')]"
+                                        },
+                                        "profileName": {
+                                            "value": "[parameters('profileName')]"
+                                        },
+                                        "eventHubRuleId": {
+                                            "value": "[parameters('eventHubRuleId')]"
+                                        },
+                                        "eventHubName": {
+                                            "value": "[parameters('eventHubName')]"
+                                        },
+                                        "metricsEnabled": {
+                                            "value": "[parameters('metricsEnabled')]"
+                                        },
+                                        "logsEnabled": {
+                                            "value": "[parameters('logsEnabled')]"
+                                        }
+                                    },
+                                    "template": {
+                                        "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+                                        "contentVersion": "1.0.0.0",
+                                        "parameters": {
+                                            "resourceName": {
+                                                "type": "string"
+                                            },
+                                            "location": {
+                                                "type": "string"
+                                            },
+                                            "eventHubRuleId": {
+                                                "type": "string"
+                                            },
+                                            "eventHubName": {
+                                                "type": "string"
+                                            },
+                                            "metricsEnabled": {
+                                                "type": "string"
+                                            },
+                                            "logsEnabled": {
+                                                "type": "string"
+                                            },
+                                            "profileName": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "resources": [
+                                            {
+                                                "type": "Microsoft.MachineLearningServices/workspaces/providers/diagnosticSettings",
+                                                "apiVersion": "2017-05-01-preview",
+                                                "name": "[concat(parameters('resourceName'), '/Microsoft.Insights/', parameters('profileName'))]",
+                                                "properties": {
+                                                    "eventHubAuthorizationRuleId": "[parameters('eventHubRuleId')]",
+                                                    "eventHubName": "[parameters('eventHubName')]",
+                                                    "metrics": [
+                                                        {
+                                                            "category": "AllMetrics",
+                                                            "enabled": "[parameters('metricsEnabled')]",
+                                                            "retentionPolicy": {
+                                                                "days": 0,
+                                                                "enabled": false
+                                                            },
+                                                            "timeGrain": null
+                                                        }
+                                                    ],
+                                                    "logs": [
+                                                        {
+                                                            "category": "AmlComputeClusterEvent",
+                                                            "enabled": "[parameters('logsEnabled')]"
+                                                        },
+                                                        {
+                                                            "category": "AmlComputeClusterNodeEvent",
+                                                            "enabled": "[parameters('logsEnabled')]"
+                                                        },
+                                                        {
+                                                            "category": "AmlComputeJobEvent",
+                                                            "enabled": "[parameters('logsEnabled')]"
+                                                        },
+                                                        {
+                                                            "category": "AmlComputeCpuGpuUtilization",
+                                                            "enabled": "[parameters('logsEnabled')]"
+                                                        },
+                                                        {
+                                                            "category": "AmlRunStatusChangedEvent",
+                                                            "enabled": "[parameters('logsEnabled')]"
+                                                        }
+                                                    ]
+                                                }
+                                            }
+                                        ],
+                                        "outputs": {}
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

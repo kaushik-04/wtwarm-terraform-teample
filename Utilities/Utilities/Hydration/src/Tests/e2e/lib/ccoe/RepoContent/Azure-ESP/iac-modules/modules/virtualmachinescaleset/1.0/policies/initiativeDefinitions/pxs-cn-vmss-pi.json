@@ -1,0 +1,313 @@
+{
+        "name": "pxs-cn-vmss-pi",
+        "displayName": "pxs-cn-vmss-pi",
+        "description": "Initiative definition for Virtual Machine Scale Sets",
+        "metadata": {
+            "category": "CCoE"
+        },
+        "policyDefinitions": [
+            {
+                "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/7c1b1214-f927-48bf-8882-84f0af6588b1",
+                // "policyDefinitionReferenceId": "7c1b1214-f927-48bf-8882-84f0af6588b1",
+                "parameters": {
+                    "effect": {
+                        "value": "[parameters('diagnosticLogsEffect')]"
+                    }
+                }
+            },
+            {
+                "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/efbde977-ba53-4479-b8e9-10b957924fbf",
+                // "policyDefinitionReferenceId": "efbde977-ba53-4479-b8e9-10b957924fbf",
+                "parameters": {
+                    "effect": {
+                        "value": "[parameters('logAnalyticsEffect')]"
+                    }
+                }
+            },
+            {
+                "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/2c89a2e5-7285-40fe-afe0-ae8654b92fb2",
+                // "policyDefinitionReferenceId": "2c89a2e5-7285-40fe-afe0-ae8654b92fb2",
+                "parameters":{
+                    "effect":{
+                        "value": "[parameters('diskEncryptionEffect')]"
+                    }
+                }
+            },
+            {
+                "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/4da35fc9-c9e7-4960-aec9-797fe7d9051d",
+                // "policyDefinitionReferenceId": "4da35fc9-c9e7-4960-aec9-797fe7d9051d",
+                "parameters":{
+                    "effect":{
+                        "value": "[parameters('DefenderEffect')]"
+                    }
+                }
+            },
+            {
+                "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/c3f317a7-a95c-4547-b7e7-11017ebdf2fe",
+                // "policyDefinitionReferenceId": "c3f317a7-a95c-4547-b7e7-11017ebdf2fe",
+                "parameters":{
+                    "effect":{
+                        "value": "[parameters('systemUpdatesEffect')]"
+                    }
+                }
+            },
+            {
+                "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/3c735d8a-a4ba-4a3a-b7cf-db7754cf57f4",
+                // "policyDefinitionReferenceId": "3c735d8a-a4ba-4a3a-b7cf-db7754cf57f4",
+                "parameters":{
+                    "effect":{
+                        "value": "[parameters('osVulnerabilityEffect')]"
+                    }
+                }
+            },
+            {
+                "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/pxs-cloudnative-mg/providers/Microsoft.Authorization/policyDefinitions/pxs-cn-vmss-antimalware-pd",
+                // "policyDefinitionReferenceId": "pxs-cn-vmss-antimalware-pd",
+                "parameters": {
+                    "effect": {
+                        "value": "[parameters('antimalwareeffect')]"
+                    }
+                }
+            },
+            {
+                "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/pxs-cloudnative-mg/providers/Microsoft.Authorization/policyDefinitions/pxs-cn-vmss-bootdiagnostics-pd",
+               //  "policyDefinitionReferenceId": "policy-vmss-bootdiagnostics-enabled",
+                "parameters": {
+                    "effect": {
+                        "value": "[parameters('bootdiagnosticseffect')]"
+                    }
+                }
+            },
+            {
+                "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/pxs-cloudnative-mg/providers/Microsoft.Authorization/policyDefinitions/pxs-cn-vmss-dependcy-pd",
+                // "policyDefinitionReferenceId": "policy-vmss-dependency-agent",
+                "parameters": {
+                    "effect": {
+                        "value": "[parameters('depencyagenteffect')]"
+                    }
+                }
+            },
+            {
+                "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/pxs-cloudnative-mg/providers/Microsoft.Authorization/policyDefinitions/pxs-cn-vmss-extensions-pd",
+                // "policyDefinitionReferenceId": "policy-vmss-approved-extensions",
+                "parameters":{
+                    "effect": {
+                        "value": "[parameters('vmssextensionseffect')]"
+                    },
+                    "approvedExtensions":{
+                        "value":"[parameters('approvedExtensions')]"
+                    }
+                }
+            },
+            {
+                "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/pxs-cloudnative-mg/providers/Microsoft.Authorization/policyDefinitions/pxs-cn-vmss-managed-disk-pd",
+                // "policyDefinitionReferenceId": "policy-vm-enforce-managed-disk",
+                "parameters": {
+                    "effect": {
+                        "value": "[parameters('enforcemanageddiskeffect')]"
+                    }
+                }
+            },
+            {
+                "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/pxs-cloudnative-mg/providers/Microsoft.Authorization/policyDefinitions/pxs-cn-vmss-os-restriction-pd",
+                // "policyDefinitionReferenceId": "policy-vmss-os-restriction",
+                "parameters":{
+                    "effect": {
+                        "value": "[parameters('osrestrictioneffect')]"
+                    },
+                    "allowedWindowsSKUImages":{
+                        "value":"[parameters('allowedWindowsSKUImages')]"
+                    }
+                }
+            },
+            {
+                "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/pxs-cloudnative-mg/providers/Microsoft.Authorization/policyDefinitions/pxs-cn-vmss-os-update-pd",
+                // "policyDefinitionReferenceId": "policy-vmss-guest-os-updates",
+                "parameters":{
+                    "effect": {
+                        "value": "[parameters('guestosupdateeffect')]"
+                    }
+                }
+            }
+        ],
+        "parameters": {
+            "diagnosticLogsEffect":{
+                "type":"string",
+                "defaultvalue": "AuditIfNotExists",
+                "allowedvalues":[
+                    "AuditIfNotExists",
+                    "Disabled"
+                ]
+            },
+            "logAnalyticsEffect":{
+                "type":"string",
+                "defaultvalue": "AuditIfNotExists",
+                "allowedvalues":[
+                    "AuditIfNotExists",
+                    "Disabled"
+                ]
+            },
+            "diskEncryptionEffect":{
+                "type":"string",
+                "defaultvalue": "Audit",
+                "allowedvalues":[
+                    "Audit",
+                    "Disabled"
+                ]
+            },
+            "DefenderEffect":{
+                "type":"string",
+                "defaultvalue": "AuditIfNotExists",
+                "allowedvalues":[
+                    "AuditIfNotExists",
+                    "Disabled"
+                ]
+            },
+            "systemUpdatesEffect":{
+                "type":"string",
+                "defaultvalue": "AuditIfNotExists",
+                "allowedvalues":[
+                    "AuditIfNotExists",
+                    "Disabled"
+                ]
+            },
+            "osVulnerabilityEffect":{
+                "type":"string",
+                "defaultvalue": "AuditIfNotExists",
+                "allowedvalues":[
+                    "AuditIfNotExists",
+                    "Disabled"
+                ]
+            },
+            "approvedExtensions":{
+                "type": "Array",
+                "metadata": {
+                    "displayName": "allowed VM extensions",
+                    "description": "Only approved VM extensions should be installed."
+                },
+                "defaultvalue": [
+                    "AzureDiskEncryption",
+                    "AzureDiskEncryptionForLinux",
+                    "DependencyAgentWindows",
+                    "DependencyAgentLinux",
+                    "IaaSAntimalware",
+                    "IaaSDiagnostics",
+                    "LinuxDiagnostic",
+                    "MicrosoftMonitoringAgent",
+                    "NetworkWatcherAgentLinux",
+                    "NetworkWatcherAgentWindows",
+                    "OmsAgentForLinux",
+                    "VMSnapshot",
+                    "VMSnapshotLinux",
+                    "DSC",
+                    "LinuxAgent.AzureSecurityCenter",
+                    "WindowsAgent.AzureSecurityCenter",
+                    "guesthealthwindowsagent",
+                    "azuremonitorwindowsagent",
+                    "SqlIaaSAgent",
+                    "azurebackupwindowsworkload",
+                    "CustomScript"
+                ]
+            },
+            "vmssextensionseffect":{
+                "type":"string",
+                "metadata": {
+                    "displayName": "allowed Virutal Machine Scale Set extensions effect",
+                    "description": "allowed Virutal Machine Scale Set extensions Effect."
+                },
+                "defaultvalue": "Audit",
+                "allowedvalues":[
+                    "Audit",
+                    "Deny",
+                    "Disabled"
+                ]
+            },
+            "antimalwareeffect": {
+                "type": "String",
+                "metadata": {
+                "displayName": "Antimaleware effect ",
+                "description": "Enable or disable the execution of the policy"
+                },
+                "allowedValues": [
+                    "AuditIfNotExists",
+                    "Disabled"
+                ],
+                "defaultValue": "AuditIfNotExists"
+            },
+            "bootdiagnosticseffect": {
+                "type": "String",
+                "metadata": {
+                    "displayName": "Boot Diagnostics effect ",
+                    "description": "Enable or disable the execution of the policy"
+                },
+                "allowedValues": [
+                    "Audit",
+                    "Deny",
+                    "Disabled"
+                ],
+                "defaultValue": "Audit"
+            },
+            "depencyagenteffect": {
+                "type": "String",
+                "metadata": {
+                "displayName": "Dependency Agent effect",
+                "description": "Enable or disable the execution of the policy"
+                },
+                "allowedValues": [
+                    "AuditIfNotExists",
+                    "Disabled"
+                ],
+                "defaultValue": "AuditIfNotExists"
+            },
+            "osrestrictioneffect": {
+                "type": "String",
+                "metadata": {
+                    "displayName": "Operating System restriction effect",
+                    "description": "The effect determines what happens when the policy rule is evaluated to match"
+                },
+                "allowedValues": [
+                    "Audit",
+                    "Deny",
+                    "Disabled"
+                ],
+                "defaultValue": "Audit"
+            },
+            "allowedwindowsskuimages": {
+                "type": "array",
+                "metadata": {
+                    "displayName": "allowed SKU image effect",
+                    "description": "allowed SKU Image for Scale Set"
+                },
+                "allowedvalues":[],
+                "DefaultValue": [
+                    "2012-R2-Datacenter",
+                    "2016-Datacenter-Server-Core",
+                    "2016-Datacenter",
+                    "2019-Datacenter-Core",
+                    "2019-Datacenter"
+                ]
+            },
+            "enforcemanageddiskeffect":{
+                "type":"string",
+                "defaultvalue": "Audit",
+                "allowedvalues":[
+                    "Audit",
+                    "Deny",
+                    "Disabled"
+                ]
+            },
+            "guestosupdateeffect": {
+                "type": "String",
+                "metadata": {
+                "displayName": "Guest OS Update Effect",
+                "description": "The effect determines what happens when the policy rule is evaluated to match"
+                },
+                "allowedValues": [
+                    "Audit",
+                    "Deny",
+                    "Disabled"
+                ],
+                "defaultValue": "Audit"
+            }
+        }
+    }

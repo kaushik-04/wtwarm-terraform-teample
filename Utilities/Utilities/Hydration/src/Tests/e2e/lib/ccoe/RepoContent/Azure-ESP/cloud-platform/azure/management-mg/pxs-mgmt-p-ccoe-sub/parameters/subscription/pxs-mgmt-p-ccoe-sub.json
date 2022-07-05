@@ -1,0 +1,36 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "subscriptionAliasName": {
+            "value": "mgmt-p-ccoe-sub"
+        },
+        "displayName": {
+            "value": "mgmt-p-ccoe-sub"
+        },
+        "targetManagementGroupId": {
+            "value": "management-mg"
+        },
+        "billingScope": {
+            "value": "/providers/Microsoft.Billing/billingAccounts/60287334/enrollmentAccounts/275943"
+        },
+        "roleAssignments": {
+            "value": [
+                {
+                    "roleDefinitionIdOrName": "Owner",
+                    "principalIds": [
+                        "6f11dd1a-96eb-4b7b-b89c-eabdc0a5a406", //mgmt-p-ccoe-sub-sp
+                        "3bd3b9d5-2577-41d0-a8a3-cd6851d2b16a", //buildingblocks-buildingblocks-d-mg-sp
+                        "12522564-c546-4b31-b88e-4f87512b051b"  //grp-ccoe-devops-admin
+                    ]
+                },
+                {
+                    "roleDefinitionIdOrName": "Reader",
+                    "principalIds": [
+                        "a2e85d19-0d42-4beb-a52a-28724dcb493c" //buildingblocks-buildingblocks-p-aad-automation-sp, so it can work as a service connection for Azure Powershell tasks
+                    ]
+                }
+            ]
+        }
+    }
+}

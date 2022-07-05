@@ -1,0 +1,48 @@
+name: "$(TeamName) - Team configuration"
+
+variables:
+- template: /.global/global.variables.yml
+- name: TeamName
+  value: "ccoe"
+- name: parametersPath
+  value: "teams/$(TeamName)/parameters"
+
+trigger:
+  batch: true
+  branches:
+    include:
+    - master
+  paths:
+    include:
+    - teams/ccoe/pipeline.yml
+    - teams/ccoe/parameters/*
+
+resources:
+  repositories:
+  - repository: IaC
+    type: git
+    ref: 'refs/heads/master'
+    name: IaC
+
+stages:
+- stage: Deploy_Principals
+  jobs:
+  - template: /cicd/templates/pipeline.jobs.deploy.yml@IaC
+    parameters:
+      serviceConnection: 'aad-automation'
+      moduleName: aadserviceprincipal
+      moduleVersion: '1.1'
+      deploymentBlocks:
+      - path: "$(parametersPath)/aadserviceprincipal/buildingblocks-buildingblocks-d-mg-sp.json"
+      - path: "$(parametersPath)/aadserviceprincipal/buildingblocks-buildingblocks-p-aad-automation-sp.json"
+      checkoutRepositories:
+      - IaC
+
+- stage: Deploy_ServiceConnection
+  jobs:
+  - template: /modules/serviceconnection/1.0/Pipeline/pipeline.jobs.deploy.yml@IaC
+    parameters:
+      deploymentBlocks:
+      - path: "$(parametersPath)/serviceconnection/aad-automation.json"
+      checkoutRepositories:
+        - IaC

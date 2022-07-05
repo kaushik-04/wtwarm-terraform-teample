@@ -1,0 +1,30 @@
+name: $(Build.DefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:r)
+
+variables:
+  - template: /cicd/global.variables.yml
+  - name: moduleName
+    value: aadserviceprincipal
+  - name: moduleVersion
+    value: '1.1'
+
+trigger:
+  batch: true
+  branches:
+    include:
+      - master
+  paths:
+    include:
+      - cicd/*
+      - modules/aadserviceprincipal/1.1/*
+    exclude:
+      - modules/aadserviceprincipal/1.1/readme.md
+
+stages:
+- stage: Deploy
+  jobs:
+  - template: /cicd/templates/pipeline.jobs.deploy.yml
+    parameters:
+      serviceConnection: 'aad-automation'
+      deploymentBlocks:
+      - path: "$(parametersPath)/pxs-buildingblocks-testspn3-sp_noperm.json"
+      - path: "$(parametersPath)/pxs-buildingblocks-testspn3-sp_read.json"

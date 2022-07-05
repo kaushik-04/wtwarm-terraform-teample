@@ -1,0 +1,197 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "serverName": {
+            "type": "string",
+            "minLength": 1,
+            "metadata": {
+                "description": "Required. Name of the server."
+            }
+        },
+        "resourceGroupName" : {
+            "type": "string",
+            "minLength": 1,
+            "metadata": {
+                "description": "Required. Specifies the name of the resource group to deploy."
+            }
+        },
+        "tags": {
+            "type": "object",
+            "metadata": {
+                "description": "Required. Resource tags."
+            }
+        },
+        "location": {
+            "type": "string",
+            "defaultValue": "West Europe",
+            "allowedValues": [
+                "West Europe",
+                "North Europe"
+            ],
+            "metadata": {
+                "description": "Optional. Location of the server."
+            }
+        },
+        "administratorLogin": {
+            "type": "string",
+            "defaultValue": "sqlAdmin",
+            "minLength": 1,
+            "metadata": {
+                "description": "Optional. Administrator username for the server. Once created it cannot be changed."
+            }
+        },
+        "administratorLoginPassword": {
+            "type": "securestring",
+            "minLength": 1,
+            "metadata": {
+                "description": "Required. The administrator login password (required for server creation). Should be provided as a Key Vault reference."
+            }
+        },
+        "aadAdministratorLogin": {
+            "type": "string",
+            "minLength": 1,
+            "metadata": {
+                "description": "Required. AAD login name of the server administrator. Supports user / service principal or AAD group."
+            }
+        },
+        "aadAdministratorSid" : {
+            "type": "string",
+            "minLength": 1,
+            "metadata": {
+                "description": "Required. SID (object ID) of the server administrator."
+            }
+        },
+        "enableIdentity" : {
+            "type": "bool",
+            "defaultValue": true,
+            "metadata": {
+                "description": "Optional. Set this to false in order to NOT automatically create and assign an Azure Active Directory principal for the resource."
+            }
+        },
+        "firewallRules" : {
+            "type": "array",
+            "defaultValue": [],
+            "metadata": {
+                "description": "Optional. Accepts an array of objects (one object per firewall rule)."
+            }
+        },
+        "removeUndocumentedFirewallRules" : {
+            "type": "bool",
+            "defaultValue": true,
+            "metadata": {
+                "description": "Optional. Set this to false in order to NOT remove undocumented firewall rules."
+            }
+        },
+        "storageAccountName" : {
+            "type": "string",
+            "minLength": 1,
+            "metadata": {
+                "description": "Required. The storage account name for audit logs."
+            }
+        },
+        "notificationRecipientsEmails" : {
+            "type": "array",
+            "metadata": {
+                "description": "Required. Email address(es) to receive Vulnerability Assessment scan reports."
+            }
+        },
+        "azureADOnlyAuth" : {
+            "type": "bool",
+            "metadata": {
+                "description": "Required. Set to true if you want to restrict authentication mechanism for SQL Server to Azure Active Directory only."
+            }
+        }
+    },
+    "variables": {
+        "firewallRulesArray": "[if(empty(parameters('firewallRules')), array(createObject('ruleName', 'dummy')), parameters('firewallRules'))]"       
+    },
+    "resources": [
+        {
+            "name": "[parameters('serverName')]",
+            "type": "Microsoft.Sql/servers",
+            "location": "[parameters('location')]",
+            "tags": "[parameters('tags')]",
+            "identity": "[if(parameters('enableIdentity'), json('{\"type\":\"SystemAssigned\"}'), json('null'))]",
+            "apiVersion": "2019-06-01-preview",
+            "properties": {
+                "administratorLogin": "[parameters('administratorLogin')]",
+                "administratorLoginPassword": "[parameters('administratorLoginPassword')]",
+                "version": "12.0",
+                "minimalTlsVersion": "1.2"
+            },
+            "resources": [
+                {
+                    "comments": "Creating a rule with 0.0.0.0 allows access from Azure services.",
+                    "type": "firewallRules",
+                    "location": "[parameters('location')]",
+                    "name": "AllowAllWindowsAzureIps",
+                    "apiVersion": "2015-05-01-preview",
+                    "properties": {
+                        "endIpAddress": "0.0.0.0",
+                        "startIpAddress": "0.0.0.0"
+                    },
+                    "dependsOn": [
+                        "[resourceId('Microsoft.Sql/servers', parameters('serverName'))]"
+                    ]
+                },          
+                {
+                    "type": "administrators",
+                    "name": "activeDirectory",
+                    "apiVersion": "2019-06-01-preview",
+                    "properties": {
+                        "administratorType": "ActiveDirectory",
+                        "login": "[parameters('aadAdministratorLogin')]", 
+                        "sid": "[parameters('aadAdministratorSid')]",
+                        "tenantId": "[subscription().tenantId]"
+                    },
+                    "dependsOn": [
+                        "[resourceId('Microsoft.Sql/servers', parameters('serverName'))]"
+                    ]
+                }
+            ]
+        },
+        {
+            "comments": "This part creates firewall rules (if provided).",
+            "condition": "[not(empty(parameters('firewallRules')))]",
+            "type": "Microsoft.Sql/servers/firewallRules",
+            "name": "[concat(parameters('serverName'), '/', variables('firewallRulesArray')[copyIndex()].ruleName)]",
+            "apiVersion": "2015-05-01-preview",
+            "properties": {
+                "endIpAddress": "[variables('firewallRulesArray')[copyIndex()].endIpAddress]",
+                "startIpAddress": "[variables('firewallRulesArray')[copyIndex()].startIpAddress]"
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers', parameters('serverName'))]"
+            ],
+            "copy": {
+                "name": "firewallRule",
+                "count": "[length(variables('firewallRulesArray'))]"
+            }
+        }
+    ],
+    "functions": [],
+    "outputs": {
+        "sqlServerResourceId": {
+            "type": "string",
+            "value": "[resourceId('Microsoft.Sql/servers', parameters('serverName'))]",
+            "metadata": {
+                "description": "The Resource Id of the SQL Server."
+            }
+        },
+        "sqlServerResourceGroup": {
+            "type": "string",
+            "value": "[resourceGroup().name]",
+            "metadata": {
+                "description": "The name of the Resource Group the SQL Server was created in."
+            }
+        },
+        "sqlServerName": {
+            "type": "string",
+            "value": "[parameters('serverName')]",
+            "metadata": {
+                "description": "The Name of the SQL Server."
+            }
+        }
+    }
+}

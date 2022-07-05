@@ -1,0 +1,53 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "serverName": {
+            "value": "pxs-bdp-demo-s-sql-2"
+        },
+        "resourceGroupName": {
+            "value": "validation-rg"
+        },
+        "tags": {
+            "value": {
+                "application-id": "demo",
+                "cost-center": "demo",
+                "deployment-id": "manual",
+                "environment": "s",
+                "platform-id": "bdp"
+            }
+        },        
+        "administratorLogin": {
+            "value": "sqlAdmin"
+        },
+        "administratorLoginPassword": {
+            "reference": {
+                "keyVault": {
+                "id": "/subscriptions/b9bc4b81-2c1d-46bb-a1d6-6e0970f05f3c/resourceGroups/pxs-bdp-demo-rg-s-sql/providers/Microsoft.KeyVault/vaults/pxs-ccoe-demo-s-kv-sqlsa"
+                },
+                "secretName": "pxs-bdp-demo-s-sql-2-sa-pwd"
+              }
+        },
+        "aadAdministratorLogin": {
+            "value": "pxs-bdp-n-sp"
+        },
+        "aadAdministratorSid": {
+            "value": "40dc163b-e2c9-49d0-bf51-b795188eb5cb"
+        },
+        "firewallRules": {
+            "value": [
+                { "ruleName": "firewallRule1", "startIpAddress": "85.26.47.19", "endIpAddress": "85.26.47.19"},
+                { "ruleName": "firewallRule2", "startIpAddress": "85.26.47.20", "endIpAddress": "85.26.47.20"}                
+            ]
+        },
+        "storageAccountName": {
+            "value": "pxssqlstordemo03"
+        },
+        "notificationRecipientsEmails": {
+            "value": [ "cedric.casoli@contoso.com" ]
+        },
+        "azureADOnlyAuth": {
+            "value": true
+        }   
+    }    
+}

@@ -1,0 +1,35 @@
+[
+    {
+        "name": "CCoE Cloud Solutions Team"
+    },
+    {
+        "name": "CCoE Cloud Platform Team"
+    },
+    {
+        "name": "CCoE Security Champions"
+    },
+    {
+        "name": "CCoE Cloud Operations Champions"
+    },
+    {
+        "name": "CCoE DevOps Enablement Office"
+    },
+    {
+        "name": "Customer Application Teams",
+        "children": [
+            {
+                "name": "Customer Application Team 3",
+                "children": [
+                    {
+                        "name": "Subchild2",
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "name": "CCoE Cloud Solutions Team 4",
+                "children": []
+            }
+        ]
+    }
+]

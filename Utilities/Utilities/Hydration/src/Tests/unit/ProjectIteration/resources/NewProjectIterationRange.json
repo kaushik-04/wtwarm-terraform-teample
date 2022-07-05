@@ -1,0 +1,40 @@
+[
+    {
+        "name": "Iteration 1",
+        "attributes": {
+            "startDate": "2021-01-01",
+            "finishDate": "2021-06-01"
+        }
+    },
+    {
+        "name": "Iteration 2"
+    },
+    {
+        "name": "Iteration 3",
+        "children": [
+            {
+                "name": "Iteration 3.1",
+                "attributes": {
+                    "startDate": "2021-01-04",
+                    "finishDate": "2021-01-11"
+                }
+            },
+            {
+                "name": "Iteration 3.2",
+                "attributes": {
+                    "startDate": "2021-01-12",
+                    "finishDate": "2021-01-18"
+                },
+                "children": [
+                    {
+                        "name": "Iteration 3.2.1",
+                        "attributes": {
+                            "startDate": "2021-01-04",
+                            "finishDate": "2021-01-11"
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+]

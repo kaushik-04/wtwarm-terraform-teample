@@ -1,0 +1,28 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "adoOrganizationName": {
+            "value": "contoso-azure"
+        },
+        "adoProjectName": {
+            "value": "LZ-Team-project-test"
+        },
+        "adoAzureRMServiceConnections": {
+            "value": [
+                {
+                    "Name": "pxs-cn-s-ccoe-sub",
+                    "Description": "Service connection with permissions to deploy in subscription 'pxs-cn-s-ccoe-sub'",
+                    "AzureSubscriptionName": "pxs-cn-s-ccoe-sub",
+                    "AzureSubscriptionId": "b9bc4b81-2c1d-46bb-a1d6-6e0970f05f3c",
+                    "AzureADTenantId": "e7ab81b2-1e84-4bf7-9dcb-b6fec01ed138",
+                    "varName_ApplicationId": "pxs-cn-s-ccoe-sub_ApplicationId",
+                    "varNameEncrypted_ServicePrincipalPassword": "pxs-cn-s-ccoe-sub_ServicePrincipalPassword",
+                    "Users": [
+                        "[LZ-Team-project-test]\\Landing Zone Team"
+                    ]
+                }
+            ]
+        }
+    }
+}

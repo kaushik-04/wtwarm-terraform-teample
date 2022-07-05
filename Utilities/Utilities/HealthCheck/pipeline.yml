@@ -1,0 +1,51 @@
+name: HealthCheck
+
+variables:
+- template: /Modules/ARM/.global/global.variables.yml
+- template: parameters.yml
+
+trigger:
+  batch: true
+  branches:
+    include:
+    - notrigger
+  paths:
+    include:
+    - Utilities/HealthCheck/*
+
+stages:
+- stage: HealthCheck
+  displayName: Pipeline Health Check
+  jobs:
+  - job:
+    displayName: Modules
+    pool:
+      ${{ if eq(variables['vmImage'], '') }}:
+        name: $(poolName)
+      ${{ if eq(variables['poolName'], '') }}:
+        vmImage: $(vmImage)
+    steps:
+    - task: AzurePowerShell@5
+      enabled: true
+      displayName: Run Azure Pipelines
+      env:
+        AZURE_DEVOPS_EXT_PAT: $(accessToken)
+      inputs:
+        azureSubscription: $(serviceConnection)
+        azurePowerShellVersion: LatestVersion
+        preferredAzurePowerShellVersion: $(preferredAzurePowerShellVersion)
+        pwsh: true
+        ScriptType: InlineScript
+        inline: |
+          . "$(System.DefaultWorkingDirectory)/Utilities/HealthCheck/Scripts/Run-AzurePipelines.ps1"
+
+          $functionInput = @{
+            folderPath              = '$(folderPathModules)'
+            AzureDevOpsOrganization = '$(System.TeamFoundationCollectionUri)'
+            AzureDevOpsProject      = '$(System.TeamProject)'
+          }
+
+          Write-Verbose "Invoke task with" -Verbose
+          $functionInput
+
+          Run-AzurePipelines @functionInput -Verbose

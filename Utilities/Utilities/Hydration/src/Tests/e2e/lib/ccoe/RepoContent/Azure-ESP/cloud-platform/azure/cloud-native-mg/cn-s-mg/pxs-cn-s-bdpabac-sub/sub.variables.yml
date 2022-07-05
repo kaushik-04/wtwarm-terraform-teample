@@ -1,0 +1,8 @@
+variables:
+- template: ../mg.variables.yml
+- name: subscriptionID
+  value: 'fcba4077-56f0-4945-9ef3-3c30b0433943'
+- name: subscriptionName
+  value: 'cn-s-bdpabac-sub'
+- name: parametersPath
+  value: 'cloudnative-mg/cn-s-mg/cn-s-bdpabac-sub/parameters'

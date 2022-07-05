@@ -1,0 +1,498 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "http://example.com/example.json",
+    "type": "object",
+    "title": "The Root Schema",
+    "description": "The root schema comprises the entire JSON document.",
+    "required": [
+        "scope",
+        "scopeDisplayName",
+        "policyAssignments",
+        "policySetAssignments",
+        "children"
+    ],
+    "properties": {
+        "scope": {
+            "$id": "#/properties/scope",
+            "type": "string",
+            "title": "The Scope Schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "oneOf": [
+                { "pattern": "^/providers/Microsoft.Management/managementGroups/[^/]+[^/]$" },
+                { "pattern": "^/subscriptions/([a-f]|[0-9]){8}-([a-f]|[0-9]){4}-([a-f]|[0-9]){4}-([a-f]|[0-9]){4}-([a-f]|[0-9]){12}($|/resourceGroups/[^/]+[^/]$)" }
+            ],
+            "examples": [
+                "/subscriptions/04bc18d0-07c0-4ba9-ad72-4cf8a795d335"
+            ]
+        },
+        "scopeDisplayName": {
+            "$id": "#/properties/scopeDisplayName",
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 128,
+            "title": "The Scopedisplayname Schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "contoso-subscription-name"
+            ]
+        },
+        "policyAssignments": {
+            "$id": "#/properties/policyAssignments",
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 50,
+            "uniqueItems": true,
+            "title": "The Policyassignments Schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": [],
+            "items": {
+                "$id": "#/properties/policyAssignments/items",
+                "type": "object",
+                "title": "The Items Schema",
+                "description": "An explanation about the purpose of this instance.",
+                "default": {},
+                "examples": [
+                    {
+                        "managedIdentity": {
+                            "location": "westeurope",
+                            "assignIdentity": true
+                        },
+                        "displayName": "Inherit a tag from the resource group",
+                        "description": "",
+                        "definitionDisplayName": "Inherit a tag from the resource group",
+                        "name": "6d79bfa3775c49509e5b5c26",
+                        "notScopes": [],
+                        "parameters": {
+                            "tagName": "PO"
+                        },
+                        "enforcementMode": "Default",
+                        "definitionId": "/providers/Microsoft.Authorization/policyDefinitions/cd3aa116-8754-49c9-a813-ad46512ece54"
+                    }
+                ],
+                "required": [
+                    "name",
+                    "displayName",
+                    "description",
+                    "definitionId",
+                    "definitionDisplayName",
+                    "notScopes",
+                    "enforcementMode",
+                    "parameters",
+                    "managedIdentity"
+                ],
+                "properties": {
+                    "name": {
+                        "$id": "#/properties/policyAssignments/items/properties/name",
+                        "type": "string",
+                        "minLength": 1,
+                        "title": "The Name Schema",
+                        "description": "An explanation about the purpose of this instance.",
+                        "default": "",
+                        "examples": [
+                            "6d79bfa3775c49509e5b5c26"
+                        ]
+                    },
+                    "displayName": {
+                        "$id": "#/properties/policyAssignments/items/properties/displayName",
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 128,
+                        "title": "The Displayname Schema",
+                        "description": "An explanation about the purpose of this instance.",
+                        "default": "",
+                        "examples": [
+                            "Inherit a tag from the resource group"
+                        ]
+                    },
+                    "description": {
+                        "$id": "#/properties/policyAssignments/items/properties/description",
+                        "type": "string",
+                        "minLength": 0,
+                        "maxLength": 512,
+                        "title": "The Description Schema",
+                        "description": "An explanation about the purpose of this instance.",
+                        "default": "",
+                        "examples": [
+                            ""
+                        ]
+                    },
+                    "definitionId": {
+                        "$id": "#/properties/policyAssignments/items/properties/definitionId",
+                        "type": "string",
+                        "title": "The Definitionid Schema",
+                        "description": "An explanation about the purpose of this instance.",
+                        "default": "",
+                        "oneOf": [
+                            { "pattern": "^/providers/Microsoft.Authorization/policyDefinitions/([a-f]|[0-9]){8}-([a-f]|[0-9]){4}-([a-f]|[0-9]){4}-([a-f]|[0-9]){4}-([a-f]|[0-9]){12}$" },
+                            { "pattern": "^/subscriptions/([a-f]|[0-9]){8}-([a-f]|[0-9]){4}-([a-f]|[0-9]){4}-([a-f]|[0-9]){4}-([a-f]|[0-9]){12}/providers/Microsoft.Authorization/policyDefinitions/.+[^/]$" },
+                            { "pattern": "^/providers/Microsoft.Management/managementGroups/[^/]+/providers/Microsoft.Authorization/policyDefinitions/.+[^/]$" }
+                        ],
+                        "examples": [
+                            "/providers/Microsoft.Authorization/policyDefinitions/cd3aa116-8754-49c9-a813-ad46512ece54"
+                        ]
+                    },
+                    "definitionDisplayName": {
+                        "$id": "#/properties/policyAssignments/items/properties/definitionDisplayName",
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 128,
+                        "title": "The Definitiondisplayname Schema",
+                        "description": "An explanation about the purpose of this instance.",
+                        "default": "",
+                        "examples": [
+                            "Inherit a tag from the resource group"
+                        ]
+                    },
+                    "notScopes": {
+                        "$id": "#/properties/policyAssignments/items/properties/notScopes",
+                        "type": "array",
+                        "minItems": 0,
+                        "maxItems": 400,
+                        "uniqueItems": true,
+                        "title": "The Notscopes Schema",
+                        "description": "An explanation about the purpose of this instance.",
+                        "default": [],
+                        "items": {
+                            "$id": "#/properties/policyAssignments/items/properties/notScopes/items",
+                            "type": "string",
+                            "title": "The Items Schema",
+                            "description": "An explanation about the purpose of this instance.",
+                            "default": "",
+                            "oneOf": [
+                                { "pattern": "^/providers/Microsoft.Management/managementGroups/[^/]+[^/]$" },
+                                { "pattern": "^/subscriptions/([a-f]|[0-9]){8}-([a-f]|[0-9]){4}-([a-f]|[0-9]){4}-([a-f]|[0-9]){4}-([a-f]|[0-9]){12}($|/.+[^/]$)" }
+                            ],
+                            "examples": [
+                                "/subscriptions/12345678-1234-1234-1234-123456789abc/resourceGroups/resourceGroups/ResourceGroupName01",
+                                "/subscriptions/12345678-1234-1234-1234-123456789abc/resourceGroups/resourceGroups/ResourceGroupName01/providers/Microsoft.Network/publicIPAddresses/ResourceName01"
+                            ]
+                        }
+                    },
+                    "enforcementMode": {
+                        "$id": "#/properties/policyAssignments/items/properties/enforcementMode",
+                        "type": "string",
+                        "enum": ["Default", "default", "DoNotEnforce", "doNotEnforce"],
+                        "title": "The Enforcementmode Schema",
+                        "description": "An explanation about the purpose of this instance.",
+                        "default": "",
+                        "examples": [
+                            "Default"
+                        ]
+                    },
+                    "parameters": {
+                        "$id": "#/properties/policyAssignments/items/properties/parameters",
+                        "type": "object",
+                        "minProperties": 0,
+                        "maxProperties": 20,
+                        "title": "The Parameters Schema",
+                        "description": "An explanation about the purpose of this instance.",
+                        "default": {},
+                        "examples": [
+                            {
+                                "allowedLocation": [
+                                    "westeurope",
+                                    "northeurope"
+                                ]
+                            }
+                        ]
+                    },
+                    "managedIdentity": {
+                        "$id": "#/properties/policyAssignments/items/properties/managedIdentity",
+                        "type": "object",
+                        "title": "The Managedidentity Schema",
+                        "description": "An explanation about the purpose of this instance.",
+                        "default": {},
+                        "examples": [
+                            {
+                                "assignIdentity": true,
+                                "location": "westeurope"
+                            }
+                        ],
+                        "required": [
+                            "assignIdentity",
+                            "location"
+                        ],
+                        "properties": {
+                            "assignIdentity": {
+                                "$id": "#/properties/policyAssignments/items/properties/managedIdentity/properties/assignIdentity",
+                                "type": "boolean",
+                                "title": "The Assignidentity Schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": false,
+                                "examples": [
+                                    false
+                                ]
+                            },
+                            "location": {
+                                "$id": "#/properties/policyAssignments/items/properties/managedIdentity/properties/location",
+                                "type": "string",
+                                "title": "The Location Schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": "",
+                                "examples": [
+                                    "westeurope"
+                                ]
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "policySetAssignments": {
+            "$id": "#/properties/policySetAssignments",
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 50,
+            "uniqueItems": true,
+            "title": "The Policysetassignments Schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": [],
+            "items": {
+                "$id": "#/properties/policySetAssignments/items",
+                "type": "object",
+                "title": "The Items Schema",
+                "description": "An explanation about the purpose of this instance.",
+                "default": {},
+                "examples": [
+                    {
+                        "managedIdentity": {
+                            "location": "",
+                            "assignIdentity": false
+                        },
+                        "displayName": "ASC Default (subscription: 04bc18d0-07c0-4ba9-ad72-4cf8a795d335)",
+                        "definitionDisplayName": "Enable Monitoring in Azure Security Center",
+                        "description": "This is the default set of policies monitored by Azure Security Center. It was automatically assigned as part of onboarding to Security Center. The default assignment contains only audit policies. For more information please visit https://aka.ms/ascpolicies",
+                        "name": "SecurityCenterBuiltIn",
+                        "notScopes": [],
+                        "parameters": {},
+                        "enforcementMode": "Default",
+                        "definitionId": "/providers/Microsoft.Authorization/policySetDefinitions/1f3afdf9-d0c9-4c3d-847f-89da613e70a8"
+                    }
+                ],
+                "required": [
+                    "name",
+                    "displayName",
+                    "description",
+                    "definitionId",
+                    "definitionDisplayName",
+                    "notScopes",
+                    "enforcementMode",
+                    "parameters",
+                    "managedIdentity"
+                ],
+                "properties": {
+                    "name": {
+                        "$id": "#/properties/policySetAssignments/items/properties/name",
+                        "type": "string",
+                        "minLength": 1,
+                        "title": "The Name Schema",
+                        "description": "An explanation about the purpose of this instance.",
+                        "default": "",
+                        "examples": [
+                            "SecurityCenterBuiltIn"
+                        ]
+                    },
+                    "displayName": {
+                        "$id": "#/properties/policySetAssignments/items/properties/displayName",
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 128,
+                        "title": "The Displayname Schema",
+                        "description": "An explanation about the purpose of this instance.",
+                        "default": "",
+                        "examples": [
+                            "ASC Default (subscription: 04bc18d0-07c0-4ba9-ad72-4cf8a795d335)"
+                        ]
+                    },
+                    "description": {
+                        "$id": "#/properties/policySetAssignments/items/properties/description",
+                        "type": "string",
+                        "minLength": 0,
+                        "maxLength": 512,
+                        "title": "The Description Schema",
+                        "description": "An explanation about the purpose of this instance.",
+                        "default": "",
+                        "examples": [
+                            "This is the default set of policies monitored by Azure Security Center. It was automatically assigned as part of onboarding to Security Center. The default assignment contains only audit policies. For more information please visit https://aka.ms/ascpolicies"
+                        ]
+                    },
+                    "definitionId": {
+                        "$id": "#/properties/policySetAssignments/items/properties/definitionId",
+                        "type": "string",
+                        "title": "The Definitionid Schema",
+                        "description": "An explanation about the purpose of this instance.",
+                        "default": "",
+                        "oneOf": [
+                            { "pattern": "^/providers/Microsoft.Authorization/policySetDefinitions/([a-f]|[0-9]){8}-([a-f]|[0-9]){4}-([a-f]|[0-9]){4}-([a-f]|[0-9]){4}-([a-f]|[0-9]){12}$" },
+                            { "pattern": "^/subscriptions/([a-f]|[0-9]){8}-([a-f]|[0-9]){4}-([a-f]|[0-9]){4}-([a-f]|[0-9]){4}-([a-f]|[0-9]){12}/providers/Microsoft.Authorization/policySetDefinitions/.+[^/]$" },
+                            { "pattern": "^/providers/Microsoft.Management/managementGroups/[^/]+/providers/Microsoft.Authorization/policySetDefinitions/.+[^/]$" }
+                        ],
+                        "examples": [
+                            "/providers/Microsoft.Authorization/policySetDefinitions/1f3afdf9-d0c9-4c3d-847f-89da613e70a8"
+                        ]
+                    },
+                    "definitionDisplayName": {
+                        "$id": "#/properties/policySetAssignments/items/properties/definitionDisplayName",
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 128,
+                        "title": "The Definitiondisplayname Schema",
+                        "description": "An explanation about the purpose of this instance.",
+                        "default": "",
+                        "examples": [
+                            "Enable Monitoring in Azure Security Center"
+                        ]
+                    },
+                    "notScopes": {
+                        "$id": "#/properties/policySetAssignments/items/properties/notScopes",
+                        "type": "array",
+                        "minItems": 0,
+                        "maxItems": 400,
+                        "uniqueItems": true,
+                        "title": "The Notscopes Schema",
+                        "description": "An explanation about the purpose of this instance.",
+                        "default": [],
+                        "items": {
+                            "$id": "#/properties/policySetAssignments/items/properties/notScopes/items",
+                            "type": "string",
+                            "title": "The Items Schema",
+                            "description": "An explanation about the purpose of this instance.",
+                            "default": "",
+                            "oneOf": [
+                                { "pattern": "^/providers/Microsoft.Management/managementGroups/[^/]+[^/]$" },
+                                { "pattern": "^/subscriptions/([a-f]|[0-9]){8}-([a-f]|[0-9]){4}-([a-f]|[0-9]){4}-([a-f]|[0-9]){4}-([a-f]|[0-9]){12}($|/.+[^/]$)" }
+                            ],
+                            "examples": [
+                                "/subscriptions/12345678-1234-1234-1234-123456789abc/resourceGroups/resourceGroups/ResourceGroupName01",
+                                "/subscriptions/12345678-1234-1234-1234-123456789abc/resourceGroups/resourceGroups/ResourceGroupName01/providers/Microsoft.Network/publicIPAddresses/ResourceName01"
+                            ]
+                        }
+                    },
+                    "enforcementMode": {
+                        "$id": "#/properties/policySetAssignments/items/properties/enforcementMode",
+                        "type": "string",
+                        "enum": ["Default", "default", "DoNotEnforce", "doNotEnforce"],
+                        "title": "The Enforcementmode Schema",
+                        "description": "An explanation about the purpose of this instance.",
+                        "default": "",
+                        "examples": [
+                            "Default"
+                        ]
+                    },
+                    "parameters": {
+                        "$id": "#/properties/policySetAssignments/items/properties/parameters",
+                        "type": "object",
+                        "minProperties": 0,
+                        "maxProperties": 100,
+                        "title": "The Parameters Schema",
+                        "description": "An explanation about the purpose of this instance.",
+                        "default": {},
+                        "examples": [
+                            {}
+                        ]
+                    },
+                    "managedIdentity": {
+                        "$id": "#/properties/policySetAssignments/items/properties/managedIdentity",
+                        "type": "object",
+                        "title": "The Managedidentity Schema",
+                        "description": "An explanation about the purpose of this instance.",
+                        "default": {},
+                        "examples": [
+                            {
+                                "location": "",
+                                "assignIdentity": false
+                            }
+                        ],
+                        "required": [
+                            "assignIdentity",
+                            "location"
+                        ],
+                        "properties": {
+                            "assignIdentity": {
+                                "$id": "#/properties/policySetAssignments/items/properties/managedIdentity/properties/assignIdentity",
+                                "type": "boolean",
+                                "title": "The Assignidentity Schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": false,
+                                "examples": [
+                                    false
+                                ]
+                            },
+                            "location": {
+                                "$id": "#/properties/policySetAssignments/items/properties/managedIdentity/properties/location",
+                                "type": "string",
+                                "title": "The Location Schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": "",
+                                "examples": [
+                                    ""
+                                ]
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "children": {
+            "$id": "#/properties/children",
+            "type": "array",
+            "uniqueItems": true,
+            "title": "The Children Schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": []
+        }
+    },
+    "if": {
+        "properties": {
+            "scope": { 
+                "pattern": "^/providers/Microsoft.Management/managementGroups/[^/]+[^/]$"
+            } 
+        }
+    },
+    "then": {
+        "properties": {
+            "policyAssignments": {
+                "items": {
+                    "properties": {
+                        "name": {
+                            "maxLength": 24
+                        }
+                    }
+                }
+            },
+            "policySetAssignments": {
+                "items": {
+                    "properties": {
+                        "name": {
+                            "maxLength": 24
+                        }
+                    }
+                }
+            }
+        } 
+    },
+    "else": {
+        "properties": {
+            "policyAssignments": {
+                "items": {
+                    "properties": {
+                        "name": {
+                            "maxLength": 64
+                        }
+                    }
+                }
+            },
+            "policySetAssignments": {
+                "items": {
+                    "properties": {
+                        "name": {
+                            "maxLength": 64
+                        }
+                    }
+                }
+            }
+        } 
+    }
+}

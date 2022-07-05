@@ -1,0 +1,24 @@
+{
+    "organizationName": "ADO-Hydration",
+    "projects": [
+        {
+            "projectName": "Hydrate Repo Integration Test",
+            "description": "Hydration",
+            "process": "Agile",
+            "sourceControl": "git",
+            "visibility": "private",
+            "repositories": [
+                {
+                    "name": "enterprise-scale-platform",
+                    "relativePath": "enterprise-scale-platform",
+                    "targetBranch": "main"
+                },
+                {
+                    "name": "Wiki",
+                    "relativePath": "Wiki",
+                    "targetBranch": "main"
+                }
+            ]
+        }
+    ]
+}

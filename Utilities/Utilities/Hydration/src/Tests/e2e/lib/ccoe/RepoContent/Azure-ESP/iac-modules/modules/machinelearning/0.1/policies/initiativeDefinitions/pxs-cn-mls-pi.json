@@ -1,0 +1,42 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "scope": {
+            "value": "/providers/Microsoft.Management/managementGroups/pxs-cloudnative-mg"
+        },
+        "properties": {
+            "value": {
+                "name": "pxs-cn-mls-pi",
+                "displayName": "pxs-cn-mls-pi",
+                "description": "This initiative restrics the configuration of any deployed Machine Learning Services that differs from the compliant.",
+                "metadata": {
+                    "category": "CCoE"
+                },
+                "policyDefinitions": [
+                    {
+                        "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/pxs-cloudnative-mg/providers/Microsoft.Authorization/policyDefinitions/pxs-cn-mls-sku-pd",
+                        //"policyDefinitionReferenceId": "Allowed SKUs",
+                        "parameters": {
+                            "allowedSKUs": {
+                                "value": "[parameters('allowedSKUs')]"
+                            }
+                        }
+                    }
+                ],
+                "parameters": {
+                    "allowedSKUs": {
+                        "type": "array",
+                        "metadata": {
+                            "displayName": "allowedSKUs",
+                            "description": "List of allowed SKUs for the Machine Learning Services resource type."
+                        },
+                        "defaultValue": [
+                            "basic"
+                        ]
+                    }
+                }
+            }
+        }
+    }
+}

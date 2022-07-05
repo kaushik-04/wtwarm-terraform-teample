@@ -1,0 +1,106 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "adoOrganizationName": {
+            "value": "contoso-azure"
+        },
+        "adoProjectName": {
+            "value": "building-blocks"
+        },
+        "adoProjectDescription": {
+            "value": "Building blocks contains the templates and template management of all Azure Building blocks that are cleared for usage in Azure DevOps.\n\nThe templates itself can be found in the building-blocks repo."
+        },
+        "adoProjectSourceControl": {
+            "value": "git"
+        },
+        "adoProjectVisibility": {
+            "value": "private"
+        },
+        "adoProjectTeams": {
+            "value": [
+                {
+                    "name": "building-blocks Team",
+                    "description": "Team containing all CCoE Contributor identities",
+                    "members": [
+                        "[TEAM FOUNDATION]\\grp-ccoe-devops-contributor"
+                    ]
+                }
+            ]
+        },
+        "adoProjectGroups": {
+            "value": [
+                {
+                    "name": "Contributors",
+                    "members": [
+                        "[building-blocks]\\building-blocks Team"
+                    ]
+                },
+                {
+                    "name": "Project Administrators",
+                    "members": [
+                        "[TEAM FOUNDATION]\\grp-ccoe-devops-admin"
+                    ]
+                },
+                {
+                    "name": "Readers",
+                    "members": [
+                        "[TEAM FOUNDATION]\\grp-ccoe-devops-reader"
+                    ]
+                }
+            ]
+        },
+        "adoAzureRMServiceConnections": {
+            "value": [
+                {
+                    "Name": "cn-s-ccoe-sub",
+                    "Description": "Service connection with permissions to deploy in subscription 'cn-s-ccoe-sub'",
+                    "AzureSubscriptionName": "cn-s-ccoe-sub",
+                    "AzureSubscriptionId": "b9bc4b81-2c1d-46bb-a1d6-6e0970f05f3c",
+                    "AzureADTenantId": "e7ab81b2-1e84-4bf7-9dcb-b6fec01ed138",
+                    "varName_ApplicationId": "cn-s-ccoe-sub-sp_ApplicationId",
+                    "varNameEncrypted_ServicePrincipalPassword": "cn-s-ccoe-sub-sp_ServicePrincipalPassword",
+                    "Users": [
+                        "[building-blocks]\\building-blocks Team"
+                    ]
+                },
+                {
+                    "Name": "cn-n-ccoe-sub",
+                    "Description": "Service connection with permissions to deploy in subscription 'cn-n-ccoe-sub'",
+                    "AzureSubscriptionName": "cn-n-ccoe-sub",
+                    "AzureSubscriptionId": "0d0dfa90-39d5-4935-ba36-c3084a41cacb",
+                    "AzureADTenantId": "e7ab81b2-1e84-4bf7-9dcb-b6fec01ed138",
+                    "varName_ApplicationId": "cn-n-ccoe-sub-sp_ApplicationId",
+                    "varNameEncrypted_ServicePrincipalPassword": "cn-n-ccoe-sub-sp_ServicePrincipalPassword",
+                    "Users": [
+                        "[building-blocks]\\building-blocks Team"
+                    ]
+                },
+                {
+                    "Name": "cn-u-ccoe-sub",
+                    "Description": "Service connection with permissions to deploy in subscription 'cn-u-ccoe-sub'",
+                    "AzureSubscriptionName": "cn-u-ccoe-sub",
+                    "AzureSubscriptionId": "b18efe0a-4f02-4ee5-ad6a-6d1df547b81f",
+                    "AzureADTenantId": "e7ab81b2-1e84-4bf7-9dcb-b6fec01ed138",
+                    "varName_ApplicationId": "cn-u-ccoe-sub-sp_ApplicationId",
+                    "varNameEncrypted_ServicePrincipalPassword": "cn-u-ccoe-sub-sp_ServicePrincipalPassword",
+                    "Users": [
+                        "[building-blocks]\\building-blocks Team"
+                    ]
+                },
+                {
+                    "Name": "cn-p-ccoe-sub",
+                    "Description": "Service connection with permissions to deploy in subscription 'cn-p-ccoe-sub'",
+                    "AzureSubscriptionName": "cn-p-ccoe-sub",
+                    "AzureSubscriptionId": "9648a831-ed1f-4d1d-ad0f-5751979d7bec",
+                    "AzureADTenantId": "e7ab81b2-1e84-4bf7-9dcb-b6fec01ed138",
+                    "varName_ApplicationId": "cn-p-ccoe-sub-sp_ApplicationId",
+                    "varNameEncrypted_ServicePrincipalPassword": "cn-p-ccoe-sub-sp_ServicePrincipalPassword",
+                    "Users": [
+                        "[building-blocks]\\building-blocks Team"
+                    ]
+                }
+            ]
+        }
+    }
+}

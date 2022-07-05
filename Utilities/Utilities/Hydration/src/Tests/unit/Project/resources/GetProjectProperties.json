@@ -1,0 +1,49 @@
+{
+  "count": 11,
+  "value": [
+    {
+      "name": "System.CurrentProcessTemplateId",
+      "value": "08e8a007-d513-4bfc-a74f-d8f857287b74"
+    },
+    {
+      "name": "System.OriginalProcessTemplateId",
+      "value": "08e8a007-d513-4bfc-a74f-d8f857287b74"
+    },
+    {
+      "name": "System.ProcessTemplateType",
+      "value": "6b724908-ef14-45cf-84f8-768b5384da45"
+    },
+    {
+      "name": "System.MSPROJ",
+      "value": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<MSProject>\r\n  <Mappings>\r\n    <Mapping WorkItemTrackingFieldReferenceName=\"System.AreaPath\" ProjectField=\"pjTaskOutlineCode9\" />\r\n    <Mapping WorkItemTrackingFieldReferenceName=\"System.AssignedTo\" ProjectField=\"pjTaskResourceNames\" />\r\n    <Mapping WorkItemTrackingFieldReferenceName=\"System.Id\" ProjectField=\"pjTaskText10\" ProjectName=\"Work Item ID\" />\r\n    <Mapping WorkItemTrackingFieldReferenceName=\"System.IterationPath\" ProjectField=\"pjTaskOutlineCode10\" ProjectName=\"Sprint\" />\r\n    <Mapping WorkItemTrackingFieldReferenceName=\"System.Reason\" ProjectField=\"pjTaskText14\" />\r\n    <Mapping WorkItemTrackingFieldReferenceName=\"System.Rev\" ProjectField=\"pjTaskText23\" />\r\n    <Mapping WorkItemTrackingFieldReferenceName=\"System.State\" ProjectField=\"pjTaskText13\" ProjectName=\"State\" />\r\n    <Mapping WorkItemTrackingFieldReferenceName=\"System.Title\" ProjectField=\"pjTaskName\" />\r\n    <Mapping WorkItemTrackingFieldReferenceName=\"System.WorkItemType\" ProjectField=\"pjTaskText24\" />\r\n    <Mapping WorkItemTrackingFieldReferenceName=\"Microsoft.VSTS.Common.BacklogPriority\" ProjectField=\"pjTaskNumber1\" ProjectName=\"Backlog Priority\" />\r\n    <Mapping WorkItemTrackingFieldReferenceName=\"Microsoft.VSTS.Scheduling.RemainingWork\" ProjectField=\"pjTaskRemainingWork\" ProjectUnits=\"pjHour\" IfSummaryRefreshOnly=\"true\" />\r\n    <LinksField ProjectField=\"pjTaskText26\" />\r\n    <SyncField ProjectField=\"pjTaskText25\" />\r\n  </Mappings>\r\n</MSProject>"
+    },
+    {
+      "name": "System.Process Template",
+      "value": "Scrum"
+    },
+    {
+      "name": "System.Microsoft.TeamFoundation.Team.Count",
+      "value": 1
+    },
+    {
+      "name": "System.Microsoft.TeamFoundation.Team.Default",
+      "value": "62da07f5-c79e-43a0-bd55-e3b33cee5cef"
+    },
+    {
+      "name": "System.SourceControlCapabilityFlags",
+      "value": "1"
+    },
+    {
+      "name": "System.SourceControlTfvcEnabled",
+      "value": "True"
+    },
+    {
+      "name": "System.SourceControlGitEnabled",
+      "value": "True"
+    },
+    {
+      "name": "System.SourceControlGitPermissionsInitialized",
+      "value": "True"
+    }
+  ]
+}

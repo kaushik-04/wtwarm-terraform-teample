@@ -1,0 +1,960 @@
+{
+	"title": "Root",
+	"type": "object",
+	"required": [
+		"$schema",
+		"organizationName",
+		"projects"
+	],
+	"properties": {
+		"$schema": {
+			"title": "$schema",
+			"type": "string",
+			"default": "",
+			"examples": [
+				"hydrationSchema.json"
+			],
+			"pattern": "^.*$"
+		},
+		"organizationName": {
+			"title": "Organizationname",
+			"type": "string",
+			"default": "",
+			"examples": [
+				"Contoso"
+			],
+			"pattern": "^.*$"
+		},
+		"processes": {
+			"title": "processes",
+			"type": "array",
+			"default": [],
+			"items": {
+				"title": "Items",
+				"type": "object",
+				"required": [
+					"name",
+					"parentProcess"
+				],
+				"properties": {
+					"name": {
+						"title": "name",
+						"type": "string",
+						"default": "",
+						"examples": [
+							"Custom-Agile"
+						],
+						"pattern": "^.*$"
+					},
+					"parentProcess": {
+						"title": "name",
+						"type": "string",
+						"default": "",
+						"examples": [
+							"Agile",
+							"93e6f517-0d70-4285-8410-5d4225afdf28"
+						],
+						"pattern": "^.*$"
+					},
+					"description": {
+						"title": "description",
+						"type": "string",
+						"default": "",
+						"examples": [
+							"This is a custom process description"
+						],
+						"pattern": "^.*$"
+					},
+					"backlogLevels": {
+						"title": "backlogLevels",
+						"type": "array",
+						"default": [],
+						"items": {
+							"title": "Items",
+							"type": "object",
+							"required": [
+								"name",
+								"color"
+							],
+							"properties": {
+								"name": {
+									"title": "name",
+									"type": "string",
+									"default": "",
+									"examples": [
+										"Change Request"
+									],
+									"pattern": "^.*$"
+								},
+								"color": {
+									"title": "color",
+									"type": "string",
+									"default": "",
+									"examples": [
+										"f6546a",
+										"b2b2b2"
+									],
+									"pattern": "^([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$"
+								}
+							}
+						}
+					},
+					"workitemtypes": {
+						"title": "workitemtypes",
+						"type": "array",
+						"default": [],
+						"items": {
+							"title": "Items",
+							"type": "object",
+							"required": [
+								"name",
+								"color",
+								"icon"
+							],
+							"properties": {
+								"name": {
+									"title": "name",
+									"type": "string",
+									"default": "",
+									"examples": [
+										"Change Request"
+									],
+									"pattern": "^.*$"
+								},
+								"color": {
+									"title": "color",
+									"type": "string",
+									"default": "",
+									"examples": [
+										"f6546a",
+										"b2b2b2"
+									],
+									"pattern": "^([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$"
+								},
+								"icon": {
+									"title": "icon",
+									"type": "string",
+									"default": "",
+									"examples": [
+										"icon_crown",
+										"icon_trophy",
+										"icon_list",
+										"icon_book",
+										"icon_sticky_note",
+										"icon_clipboard",
+										"icon_insect",
+										"icon_traffic_cone",
+										"icon_chat_bubble",
+										"icon_flame",
+										"icon_megaphone",
+										"icon_test_plan",
+										"icon_test_suite",
+										"icon_test_case",
+										"icon_test_step",
+										"icon_test_parameter",
+										"icon_code_review",
+										"icon_code_response",
+										"icon_review",
+										"icon_response",
+										"icon_ribbon",
+										"icon_chart",
+										"icon_headphone",
+										"icon_key",
+										"icon_airplane",
+										"icon_car",
+										"icon_diamond",
+										"icon_asterisk",
+										"icon_database_storage",
+										"icon_government",
+										"icon_gavel",
+										"icon_parachute",
+										"icon_paint_brush",
+										"icon_palette",
+										"icon_gear",
+										"icon_check_box",
+										"icon_gift",
+										"icon_test_beaker",
+										"icon_broken_lightbulb",
+										"icon_clipboard_issue",
+										"icon_github",
+										"icon_pull_request",
+										"icon_github_issue"
+									],
+									"pattern": "^.*$"
+								},
+								"description": {
+									"title": "description",
+									"type": "string",
+									"default": "",
+									"examples": [
+										"This is a change request work item type description"
+									],
+									"pattern": "^.*$"
+								},
+								"behavior": {
+									"title": "behavior",
+									"type": "object",
+									"required": [
+										"assignedBacklogLevel"
+									],
+									"properties": {
+										"assignedBacklogLevel": {
+											"title": "assignedBacklogLevel",
+											"type": "string",
+											"default": "",
+											"examples": [
+												"MyCustomBehavior",
+												"System.TaskBacklogBehavior"
+											],
+											"pattern": "^.*$"
+										},
+										"isDefault": {
+											"title": "isDefault",
+											"type": "boolean",
+											"default": "",
+											"examples": [
+												true,
+												false
+											],
+											"pattern": "^true|false$"
+										}
+									}
+								},
+								"states": {
+									"title": "states",
+									"type": "array",
+									"default": [],
+									"items": {
+										"title": "Items",
+										"type": "object",
+										"required": [
+											"name",
+											"color",
+											"StateCategory"
+										],
+										"properties": {
+											"name": {
+												"title": "name",
+												"type": "string",
+												"default": "",
+												"examples": [
+													"New Stage"
+												],
+												"pattern": "^.*$"
+											},
+											"color": {
+												"title": "color",
+												"type": "string",
+												"default": "",
+												"examples": [
+													"f6546a",
+													"b2b2b2"
+												],
+												"pattern": "^([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$"
+											},
+											"StateCategory": {
+												"title": "StateCategory",
+												"type": "string",
+												"default": "",
+												"examples": [
+													"Proposed",
+													"InProgress",
+													"Completed"
+												],
+												"pattern": "^[a-zA-Z]+$"
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"projects": {
+			"title": "projects",
+			"type": "array",
+			"default": [],
+			"items": {
+				"title": "Items",
+				"type": "object",
+				"required": [
+					"projectName",
+					"description",
+					"process",
+					"sourceControl",
+					"visibility"
+				],
+				"properties": {
+					"projectName": {
+						"title": "Projectname",
+						"type": "string",
+						"default": "",
+						"examples": [
+							"ADO-project"
+						],
+						"pattern": "^.*$"
+					},
+					"description": {
+						"title": "Description",
+						"type": "string",
+						"default": "",
+						"examples": [
+							"Contoso project description"
+						],
+						"pattern": "^.*$"
+					},
+					"process": {
+						"title": "Process",
+						"type": "string",
+						"default": "",
+						"examples": [
+							"Agile"
+						],
+						"pattern": "^.*$"
+					},
+					"templateTypeId": {
+						"title": "TemplateTypeId",
+						"type": "string",
+						"default": "",
+						"examples": [
+							"(?im)^[{(]?[0-9A-F]{8}[-]?(?:[0-9A-F]{4}[-]?){3}[0-9A-F]{12}[)}]?$"
+						],
+						"pattern": "^.*$"
+					},
+					"sourceControl": {
+						"title": "Sourcecontrol",
+						"type": "string",
+						"default": "",
+						"enum": [
+							"git",
+							"tfvc"
+						],
+						"examples": [
+							"git"
+						],
+						"pattern": "^.*$"
+					},
+					"visibility": {
+						"title": "Visibility",
+						"type": "string",
+						"default": "",
+						"enum": [
+							"public",
+							"private",
+							"enterprise"
+						],
+						"examples": [
+							"public"
+						],
+						"pattern": "^.*$"
+					},
+					"repositories": {
+						"title": "repository",
+						"type": "array",
+						"default": [],
+						"items": {
+							"title": "Items",
+							"type": "object",
+							"required": [
+								"name"
+							],
+							"properties": {
+								"name": {
+									"title": "Name",
+									"type": "string",
+									"default": "",
+									"examples": [
+										"Modules Repo"
+									],
+									"pattern": "^.*$"
+								},
+								"relativeContentPath": {
+									"title": "relativeContentPath",
+									"type": "string",
+									"default": "",
+									"examples": [
+										"/repos/wiki/"
+									],
+									"pattern": "^.*$"
+								},
+								"targetBranch": {
+									"title": "targetBranch",
+									"type": "string",
+									"default": "",
+									"examples": [
+										"main"
+									],
+									"pattern": "^.*$"
+								}
+						}
+					},
+					"areaPaths": {
+						"title": "Areapaths",
+						"type": "array",
+						"default": [],
+						"items": {
+							"title": "Items",
+							"type": "object",
+							"required": [
+								"name"
+							],
+							"properties": {
+								"name": {
+									"title": "Name",
+									"type": "string",
+									"default": "",
+									"examples": [
+										"Area path 1"
+									],
+									"pattern": "^.*$"
+								},
+								"children": {
+									"title": "Children",
+									"type": "array",
+									"default": [],
+									"items": {
+										"title": "Items",
+										"type": "object",
+										"required": [
+											"name"
+										],
+										"properties": {
+											"name": {
+												"title": "Name",
+												"type": "string",
+												"default": "",
+												"examples": [
+													"Area path 1 sub 1"
+												],
+												"pattern": "^.*$"
+											},
+											"children": {
+												"title": "Children",
+												"type": "array",
+												"default": []
+											}
+										}
+									}
+								}
+							}
+						}
+					},
+					"iterationPaths": {
+						"title": "Iterationpaths",
+						"type": "array",
+						"default": [],
+						"items": {
+							"title": "Items",
+							"type": "object",
+							"required": [
+								"name"
+							],
+							"properties": {
+								"name": {
+									"title": "Name",
+									"type": "string",
+									"default": "",
+									"examples": [
+										"Sprint 0"
+									],
+									"pattern": "^.*$"
+								},
+								"attributes": {
+									"title": "Attributes",
+									"type": "object",
+									"required": [
+										"startDate",
+										"finishDate"
+									],
+									"properties": {
+										"startDate": {
+											"title": "Startdate",
+											"type": "string",
+											"default": "",
+											"examples": [
+												"2020-12-14"
+											],
+											"pattern": "^.*$"
+										},
+										"finishDate": {
+											"title": "Finishdate",
+											"type": "string",
+											"default": "",
+											"examples": [
+												"2020-12-28"
+											],
+											"pattern": "^.*$"
+										}
+									}
+								}
+							}
+						}
+					},
+					"teams": {
+						"title": "Teams",
+						"type": "array",
+						"default": [],
+						"items": {
+							"title": "Items",
+							"type": "object",
+							"required": [
+								"name"
+							],
+							"properties": {
+								"id": {
+									"title": "Id",
+									"type": "string",
+									"default": "",
+									"examples": [
+										"Database Team",
+										"1234-5678-9101-1121"
+									],
+									"pattern": "^.*$"
+								},
+								"name": {
+									"title": "Name",
+									"type": "string",
+									"default": "",
+									"examples": [
+										"Database Team"
+									],
+									"pattern": "^.*$"
+								},
+								"description": {
+									"title": "Description",
+									"type": "string",
+									"default": "",
+									"examples": [
+										"Database Team description."
+									],
+									"pattern": "^.*$"
+								},
+								"isProjectDefault": {
+									"title": "isProjectDefault",
+									"type": "boolean",
+									"default": "",
+									"examples": [
+										true,
+										false
+									],
+									"pattern": "^true|false$"
+								},
+								"boardSettings": {
+									"title": "boardSettings",
+									"type": "object",
+									"required": [],
+									"properties": {
+										"workingDays": {
+											"title": "workingDays",
+											"type": "array",
+											"examples": [
+												"tuesday",
+												"thursday"
+											],
+											"pattern": "^(?i)(monday|tuesday|wednesday|thursday|friday|saturday|sunday)+$"
+										},
+										"backlogVisibilities": {
+											"title": "backlogVisibilities",
+											"type": "object",
+											"examples": [
+												{
+													"Microsoft.EpicCategory": false,
+													"Microsoft.FeatureCategory": true
+												}
+											]
+										},
+										"bugsBehavior": {
+											"title": "bugsBehavior",
+											"type": "string",
+											"enum": [
+												"off",
+												"asTasks",
+												"asRequirements"
+											],
+											"examples": [
+												"off"
+											],
+											"pattern": "^(?i)(off|asTasks|asRequirements)+$"
+										},
+										"areaConfig": {
+											"title": "areaConfig",
+											"type": "object",
+											"required": [
+												"defaultValue"
+											],
+											"properties": {
+												"defaultValue": {
+													"title": "defaultValue",
+													"type": "string",
+													"default": "",
+													"examples": [
+														"foundation"
+													],
+													"pattern": "^.*$"
+												},
+												"values": {
+													"title": "values",
+													"type": "array",
+													"default": [],
+													"items": {
+														"title": "Items",
+														"type": "object",
+														"required": [
+															"value"
+														],
+														"properties": {
+															"value": {
+																"title": "value",
+																"type": "string",
+																"default": "",
+																"examples": [
+																	"foundation"
+																],
+																"pattern": "^.*$"
+															},
+															"includeChildren": {
+																"title": "includeChildren",
+																"type": "boolean",
+																"default": "",
+																"examples": [
+																	true,
+																	false
+																],
+																"pattern": "^true|false$"
+															}
+														}
+													}
+												}
+											}
+										},
+										"iterationConfig": {
+											"title": "iterationConfig",
+											"type": "object",
+											"required": [
+												"defaultValue",
+												"backlog"
+											],
+											"properties": {
+												"defaultValue": {
+													"title": "defaultValue",
+													"type": "string",
+													"default": "",
+													"examples": [
+														"Sprint 1"
+													],
+													"pattern": "^.*$"
+												},
+												"backlog": {
+													"title": "backlog",
+													"type": "string",
+													"default": "",
+													"examples": [
+														"Sprint 1"
+													],
+													"pattern": "^.*$"
+												},
+												"values": {
+													"title": "values",
+													"type": "array",
+													"default": [],
+													"items": {
+														"title": "Items",
+														"type": "string",
+														"examples": [
+															"Sprint 1"
+														],
+														"pattern": "^.*$"
+													}
+												}
+											}
+										},
+										"design": {
+											"title": "design",
+											"type": "array",
+											"default": [],
+											"items": {
+												"title": "Items",
+												"type": "object",
+												"required": [
+													"backlogLevel"
+												],
+												"properties": {
+													"backlogLevel": {
+														"title": "backlogLevel",
+														"type": "string",
+														"examples": [
+															"Stories",
+															"Product council"
+														],
+														"pattern": "^.*$"
+													},
+													"cardConfig:": {
+														"title": "cardConfig",
+														"type": "object",
+														"required": [],
+														"properties": {
+															"cardStyles": {
+																"title": "cardStyles",
+																"type": "array",
+																"default": [],
+																"items": {
+																	"title": "Items",
+																	"type": "object",
+																	"required": [
+																		"name",
+																		"filter"
+																	],
+																	"properties": {
+																		"name": {
+																			"title": "Name",
+																			"type": "string",
+																			"default": "",
+																			"examples": [
+																				"Blocked"
+																			],
+																			"pattern": "^.*$"
+																		},
+																		"isEnabled": {
+																			"title": "isEnabled",
+																			"type": "boolean",
+																			"default": true,
+																			"examples": [
+																				true,
+																				false
+																			],
+																			"pattern": "^true|false$"
+																		},
+																		"filter": {
+																			"title": "filter",
+																			"type": "string",
+																			"default": "",
+																			"examples": [
+																				"[Tags] contains 'Blocked'"
+																			],
+																			"pattern": "^.*$"
+																		},
+																		"backgroundColor": {
+																			"title": "backgroundColor",
+																			"type": "string",
+																			"default": "#000000",
+																			"examples": [
+																				"#111111"
+																			],
+																			"pattern": "^#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$"
+																		},
+																		"foregroundColor": {
+																			"title": "foregroundColor",
+																			"type": "string",
+																			"default": "#000000",
+																			"examples": [
+																				"#111111"
+																			],
+																			"pattern": "^#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$"
+																		},
+																		"isItalic": {
+																			"title": "isItalic",
+																			"type": "boolean",
+																			"default": true,
+																			"examples": [
+																				true,
+																				false
+																			],
+																			"pattern": "^true|false$"
+																		},
+																		"isBold": {
+																			"title": "isBold",
+																			"type": "boolean",
+																			"default": true,
+																			"examples": [
+																				true,
+																				false
+																			],
+																			"pattern": "^true|false$"
+																		},
+																		"isUnderlined": {
+																			"title": "isUnderlined",
+																			"type": "boolean",
+																			"default": true,
+																			"examples": [
+																				true,
+																				false
+																			],
+																			"pattern": "^true|false$"
+																		}
+																	}
+																}
+															},
+															"tagStyles": {
+																"title": "tagStyles",
+																"type": "array",
+																"default": [],
+																"items": {
+																	"title": "Items",
+																	"type": "object",
+																	"required": [
+																		"name"
+																	],
+																	"properties": {
+																		"name": {
+																			"title": "Name",
+																			"type": "string",
+																			"default": "",
+																			"examples": [
+																				"Blocked"
+																			],
+																			"pattern": "^.*$"
+																		},
+																		"isEnabled": {
+																			"title": "isEnabled",
+																			"type": "boolean",
+																			"default": true,
+																			"examples": [
+																				true,
+																				false
+																			],
+																			"pattern": "^true|false$"
+																		},
+																		"color": {
+																			"title": "color",
+																			"type": "string",
+																			"default": "#000000",
+																			"examples": [
+																				"#111111"
+																			],
+																			"pattern": "^#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$"
+																		}
+																	}
+																}
+															}
+														}
+													},
+													"boardConfig": {
+														"title": "cardConfig",
+														"type": "object",
+														"required": [],
+														"properties": {
+															"columns": {
+																"title": "columns",
+																"type": "array",
+																"default": [],
+																"items": {
+																	"title": "Items",
+																	"type": "object",
+																	"required": [
+																		"name",
+																		"stateMappings"
+																	],
+																	"properties": {
+																		"name": {
+																			"title": "name",
+																			"type": "string",
+																			"examples": [
+																				"Custom Column 1",
+																				"MVP"
+																			],
+																			"pattern": "^.*$"
+																		},
+																		"itemsInProgressLimit": {
+																			"title": "itemsInProgressLimit",
+																			"type": "int",
+																			"examples": [
+																				1,
+																				2
+																			],
+																			"pattern": "^[0-9]*$"
+																		},
+																		"isSplit": {
+																			"title": "isSplit",
+																			"type": "boolean",
+																			"default": "",
+																			"examples": [
+																				true,
+																				false
+																			],
+																			"pattern": "^true|false$"
+																		},
+																		"stateMappings": {
+																			"title": "stateMappings",
+																			"type": "object",
+																			"examples": [
+																				{
+																					"User Story": "Active"
+																				}
+																			]
+																		},
+																		"definitionOfDone": {
+																			"title": "definitionOfDone",
+																			"type": "string",
+																			"examples": [
+																				"I'm super done"
+																			],
+																			"pattern": "^.*$"
+																		},
+																		"columnType": {
+																			"title": "columnType",
+																			"type": "string",
+																			"examples": [
+																				"incoming",
+																				"inProgress",
+																				"outgoing"
+																			],
+																			"pattern": "^incoming|inProgress|outgoing$"
+																		}
+																	}
+																}
+															},
+															"rows": {
+																"title": "rows",
+																"type": "array",
+																"default": [],
+																"items": {
+																	"title": "Items",
+																	"type": "string",
+																	"examples": [
+																		"Custom Row 1",
+																		"Custom Row 2"
+																	],
+																	"pattern": "^.*$"
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					},
+					"backlogs": {
+						"title": "Backlogs",
+						"type": "array",
+						"default": [],
+						"items": {
+							"title": "Items",
+							"type": "object",
+							"required": [
+								"relativeBacklogFilePath"
+							],
+							"properties": {
+								"relativeBacklogFilePath": {
+									"title": "relativeBacklogFilePath",
+									"type": "string",
+									"default": "",
+									"examples": [
+										"HydrationBoard.csv"
+									],
+									"pattern": "^.*\\.[a-zA-Z]+$"
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+}

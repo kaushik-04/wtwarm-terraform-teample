@@ -1,0 +1,8 @@
+variables:
+- template: ../tenant.variables.yml
+- name: managementGroupId
+  value: 'management-mg'
+- name: parametersPath
+  value: 'management-mg/parameters'
+- name: enrollmentAccount
+  value: '/providers/Microsoft.Billing/billingAccounts/60287334/enrollmentAccounts/275943'

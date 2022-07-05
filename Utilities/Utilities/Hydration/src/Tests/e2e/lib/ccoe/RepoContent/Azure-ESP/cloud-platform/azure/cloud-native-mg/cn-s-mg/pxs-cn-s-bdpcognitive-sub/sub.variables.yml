@@ -1,0 +1,8 @@
+variables:
+- template: ../mg.variables.yml
+- name: subscriptionID
+  value: '013ead45-fcae-42f4-b18e-e9bb477ab04f'
+- name: subscriptionName
+  value: 'cn-s-bdpcognitive-sub'
+- name: parametersPath
+  value: 'cloudnative-mg/cn-s-mg/cn-s-bdpcognitive-sub/parameters'

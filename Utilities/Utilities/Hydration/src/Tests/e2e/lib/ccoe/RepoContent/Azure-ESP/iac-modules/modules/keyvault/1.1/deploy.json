@@ -1,0 +1,316 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "keyVaultName": {
+            "type": "string",
+            "minLength": 1,
+            "metadata": {
+                "description": "Required. Name of the Azure Key Vault"
+            },
+        },
+        "location": {
+            "type": "string",
+            "defaultValue": "West Europe",
+            "allowedValues": [
+                "West Europe",
+                "North Europe"
+            ],
+            "metadata": {
+                "description": "Required. Location for the Azure Key Vault"
+            }
+        },
+        "vaultSku": {
+            "type": "string",
+            "defaultValue": "Standard",
+            "allowedValues": [
+                "Standard"
+            ],
+            "metadata": {
+                "description": "Required. Specifies the SKU for the vault"
+            }
+        },
+        "accessPolicies": {
+            "type": "array",
+            "defaultValue": [],
+            "metadata": {
+                "description": "Optional. Array of access policies object"
+            }
+        },
+        "enableVaultForDeployment": {
+            "type": "bool",
+            "defaultValue": false,
+            "allowedValues": [
+                true,
+                false
+            ],
+            "metadata": {
+                "description": "Optional. Enable advanced policy for Virtual Machines Certificates deployment"
+            }
+        },
+        "enableVaultForTemplateDeployment": {
+            "type": "bool",
+            "defaultValue": false,
+            "allowedValues": [
+                true,
+                false
+            ],
+            "metadata": {
+                "description": "Optional. Enable advanced policy for ARM Template deployments"
+            }
+        },
+        "enablePurgeProtection": {
+            "type": "bool",
+            "defaultValue": false,
+            "allowedValues": [
+                true,
+                false
+            ],
+            "metadata": {
+                "description": "Optional. Provide 'true' to enable Key Vault's purge protection feature."
+            }
+        },
+        "keyVaultAdministratorAssignments": {
+            "type": "array",
+            "defaultValue": [],
+            "metadata": {
+                "description": "Optional. List of Object Ids to be given the Key Vault Administrator Role."
+            }
+        },
+        "keyVaultReaderAssignments": {
+            "type": "array",
+            "defaultValue": [],
+            "metadata": {
+                "description": "Optional. List of Object Ids to be given the Key Vault Reader Role."
+            }
+        },
+        "tags": {
+            "type": "object",
+            "metadata": {
+                "description": "Required. Resource tags."
+            },
+            "defaultValue": {}
+        },
+        "diagnosticSettingsName": {
+            "type": "string",
+            "metadata": {
+                "description": "Required. The name for the Diagnostic Setting to be configured in the Key Vault."
+            },
+            "defaultValue": ""
+        },
+        "workspaceId": {
+            "type": "string",
+            "defaultValue": "",
+            "allowedValues": [],
+            "metadata": {
+                "description": "Required. Log Analytics workspace ID to be configured as part of the diagnostic settings."
+            }
+        },
+        "eventHubAuthorizationRuleId": {
+            "type": "string",
+            "defaultValue": "",
+            "allowedValues": [],
+            "metadata": {
+                "description": "Required. EventHub Authorization Rule ID to be configured as part of the diagnostic settings."
+            }
+        },
+        "eventHubName": {
+            "type": "string",
+            "defaultValue": "",
+            "allowedValues": [],
+            "metadata": {
+                "description": "Required. EventHub ID to be configured as part of the diagnostic settings."
+            }
+        },
+        "softDeleteRetentionInDays": {
+            "type": "int",
+            "defaultValue": 90,
+            "minValue": 7,
+            "maxValue": 90,
+            "metadata": {
+                "description": "Required. The amount of days that the KeyVault will remain recoverable after deletion"
+            }
+        },
+        "enableRbacAuthorization": {
+            "type": "bool",
+            "defaultValue": false,
+            "allowedValues": [
+                false
+            ],
+            "metadata": {
+                "description": "Required. The data plane management model which uses Access Policies or RBAC to manage the Keys, Secrets and Certificates"
+            }
+        }
+    },
+    "variables": {
+        "builtInRoleNames": {
+            "KeyVaultAdministratorRole": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Authorization/roleDefinitions/', '00482a5a-887f-4fb3-b363-3b7fe8e74483')]",
+            "KeyVaultReaderRole": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Authorization/roleDefinitions/', '21090545-7ca7-4776-b22c-e363652d74d2')]"
+        },
+        "roleAssignments": [
+            {
+                "roleDefinitionIdOrName": "KeyVaultAdministratorRole",
+                "principalIds": "[parameters('keyVaultAdministratorAssignments')]"
+            },
+            {
+                "roleDefinitionIdOrName": "KeyVaultReaderRole",
+                "principalIds": "[parameters('keyVaultReaderAssignments')]"
+            }
+        ],
+        "enablePurgeProtection": "[if(parameters('enablePurgeProtection'), parameters('enablePurgeProtection'), '')]",
+        "deployDiagnosticSettings": "[if(and(empty(parameters('workspaceId')),empty(parameters('eventHubAuthorizationRuleId')),empty(parameters('eventHubName'))), bool('false'), bool('true'))]",
+        "dummyDiagnosticSettings": "[concat(parameters('keyVaultName'), '/Microsoft.Insights/dummy')]",
+        "diagnosticSettingsName": "[if(empty(parameters('diagnosticSettingsName')), variables('dummyDiagnosticSettings'),concat(parameters('keyVaultName'), '/Microsoft.Insights/', parameters('diagnosticSettingsName')))]"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.KeyVault/vaults",
+            "apiVersion": "2019-09-01",
+            "name": "[parameters('keyVaultName')]",
+            "location": "[parameters('location')]",
+            "tags": "[parameters('tags')]",
+            "properties": {
+                "enabledForDeployment": "[parameters('enableVaultForDeployment')]",
+                "enabledForTemplateDeployment": "[parameters('enableVaultForTemplateDeployment')]",
+                "enableSoftDelete": true,
+                "enableRbacAuthorization": "[parameters('enableRbacAuthorization')]",
+                "softDeleteRetentionInDays": "[parameters('softDeleteRetentionInDays')]",
+                "enablePurgeProtection": "[variables('enablePurgeProtection')]",
+                "tenantId": "[subscription().tenantId]",
+                "accessPolicies": "[parameters('accessPolicies')]",
+                "sku": {
+                    "name": "[parameters('vaultSku')]",
+                    "family": "A"
+                }
+            },
+            "resources": [],
+            "dependsOn": []
+        },
+        {
+            "name": "[concat('rbac-',deployment().name, copyIndex())]",
+            "apiVersion": "2020-06-01",
+            "type": "Microsoft.Resources/deployments",
+            "tags": "[parameters('tags')]",
+            "condition": "[not(empty(variables('roleAssignments')[copyIndex()].principalIds))]",
+            "dependsOn": [
+                "[parameters('keyVaultName')]"
+            ],
+            "copy": {
+                "name": "rbacDeplCopy",
+                "count": "[length(variables('roleAssignments'))]"
+            },
+            "properties": {
+                "mode": "Incremental",
+                "expressionEvaluationOptions": {
+                    "scope": "inner"
+                },
+                "parameters": {
+                    "roleAssignment": {
+                        "value": "[variables('roleAssignments')[copyIndex()]]"
+                    },
+                    "builtInRoleNames": {
+                        "value": "[variables('builtInRoleNames')]"
+                    },
+                    "keyVaultName": {
+                        "value": "[parameters('keyVaultName')]"
+                    },
+                    "tags": {
+                        "value": "[parameters('tags')]"
+                    }
+                },
+                "template": {
+                    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+                    "contentVersion": "1.0.0.0",
+                    "parameters": {
+                        "roleAssignment": {
+                            "type": "object"
+                        },
+                        "builtInRoleNames": {
+                            "type": "object"
+                        },
+                        "keyVaultName": {
+                            "type": "string"
+                        },
+                        "tags": {
+                            "type": "object"
+                        }
+                    },
+                    "resources": [
+                        {
+                            "type": "Microsoft.KeyVault/vaults/providers/roleAssignments",
+                            "apiVersion": "2018-09-01-preview",
+                            "tags": "[parameters('tags')]",
+                            "name": "[concat(parameters('keyVaultName'), '/Microsoft.Authorization/', guid(uniqueString(concat(parameters('keyVaultName'), array(parameters('roleAssignment').principalIds)[copyIndex('innerRbacCopy')], parameters('roleAssignment').roleDefinitionIdOrName ) )))]",
+                            "dependsOn": [],
+                            "copy": {
+                                "name": "innerRbacCopy",
+                                "count": "[length(parameters('roleAssignment').principalIds)]"
+                            },
+                            "properties": {
+                                "roleDefinitionId": "[if(contains(parameters('builtInRoleNames'), parameters('roleAssignment').roleDefinitionIdOrName ), parameters('builtInRoleNames')[parameters('roleAssignment').roleDefinitionIdOrName] , parameters('roleAssignment').roleDefinitionIdOrName )]",
+                                "principalId": "[array(parameters('roleAssignment').principalIds)[copyIndex()]]"
+                            }
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "condition": "[variables('deployDiagnosticSettings')]",
+            "type": "Microsoft.KeyVault/vaults/providers/diagnosticSettings",
+            "apiVersion": "2017-05-01-preview",
+            "name": "[variables('diagnosticSettingsName')]",
+            "dependsOn": [
+                "[parameters('keyVaultName')]"
+            ],
+            "properties": {
+                "workspaceId": "[parameters('workspaceId')]",
+                "eventHubAuthorizationRuleId": "[parameters('eventHubAuthorizationRuleId')]",
+                "eventHubName": "[parameters('eventHubName')]",
+                "logs": [
+                    {
+                        "category": "AuditEvent",
+                        "enabled": true
+                    }
+                ],
+                "metrics": [
+                    {
+                        "category": "AllMetrics",
+                        "enabled": true
+                    }
+                ]
+            }
+        }
+    ],
+    "functions": [],
+    "outputs": {
+        "keyVaultResourceId": {
+            "type": "string",
+            "value": "[resourceId('Microsoft.KeyVault/vaults', parameters('keyVaultName'))]",
+            "metadata": {
+                "description": "The Resource Id of the Key Vault."
+            }
+        },
+        "keyVaultResourceGroup": {
+            "type": "string",
+            "value": "[resourceGroup().name]",
+            "metadata": {
+                "description": "The name of the Resource Group the Key Vault was created in."
+            }
+        },
+        "keyVaultName": {
+            "type": "string",
+            "value": "[parameters('keyVaultName')]",
+            "metadata": {
+                "description": "The Name of the Key Vault."
+            }
+        },
+        "keyVaultUrl": {
+            "type": "string",
+            "value": "[reference(resourceId('Microsoft.KeyVault/vaults', parameters('keyVaultName')),'2016-10-01').vaultUri]",
+            "metadata": {
+                "description": "The URL of the Key Vault."
+            }
+        }
+    }
+}

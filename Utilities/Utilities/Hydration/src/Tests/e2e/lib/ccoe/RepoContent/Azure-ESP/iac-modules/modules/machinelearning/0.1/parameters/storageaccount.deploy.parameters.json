@@ -1,0 +1,33 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "value": "West Europe"
+        },
+        "storageAccountName": {
+            "value": "pxsmlsstordemo05"
+        },
+        "accountType": {
+            "value": "Standard_LRS"
+        },
+        "kind": {
+            "value": "StorageV2"
+        },
+        "tags": {
+            "value": {
+                "platform-id": "bdp",
+                "application-id": "plt",
+                "cost-center": "508107",
+                "deployment-id": "mls@1",
+                "environment": "s"
+            }
+        },
+        "allowBlobPublicAccess": {
+            "value": false
+        },
+        "allowSharedKeyAccess": {
+            "value": false
+        }
+    }
+}

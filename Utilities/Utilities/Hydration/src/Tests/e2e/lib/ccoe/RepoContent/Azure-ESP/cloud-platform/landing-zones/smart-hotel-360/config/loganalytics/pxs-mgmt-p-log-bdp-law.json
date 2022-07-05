@@ -1,0 +1,46 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"logAnalyticsWorkspaceName": {
+			"value": "mgmt-p-log-bdp-law"
+		},
+		"solutions": {
+			"value": []
+		},
+		"enableLogAccessUsingOnlyResourcePermissions": {
+			"value": false
+		},
+		"roleAssignments": {
+			"value": [
+				{
+					"roleDefinitionIdOrName": "Log Analytics Reader",
+					"principalIds": [
+						"4a3da6b2-f9e1-41be-9594-579675fafc79" //grp-bdp-devops-contributor
+					]
+				},
+				{
+					"roleDefinitionIdOrName": "Log Analytics Contributor",
+					"principalIds": [
+						"00b8dc51-d5ab-485e-bfd2-c56f03b11e0c", //cn-s-bdp-sub-sp
+						"14190dab-d763-4667-8311-c29ee9ff654a", //cn-n-bdp-sub-sp
+						"eeaecd67-5983-4d24-adbc-036b1d23744c", //cn-d-bdp-sub-sp
+						"964f3b4d-b091-4998-bd49-4ef3db331c84", //cn-i-bdp-sub-sp
+						"52f5ef7b-1244-4973-b548-edc36f076791", //cn-t-bdp-sub-sp
+						"2818416d-8418-47e6-b3af-739b6292a6df", //cn-u-bdp-sub-sp
+						"1c065777-5306-4dff-95c7-7b547893cfd4"  //cn-p-bdp-sub-sp
+					]
+				}
+			]
+		},
+		"tags": {
+			"value": {
+				"application-id": "bdp",
+				"cost-center": "bdp",
+				"deployment-id": "AzureDevOps",
+				"environment": "p",
+				"platform-id": "bdp"
+			}
+		}
+	}
+}

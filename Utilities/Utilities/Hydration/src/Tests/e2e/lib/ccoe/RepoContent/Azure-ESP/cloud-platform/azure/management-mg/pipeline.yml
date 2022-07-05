@@ -1,0 +1,86 @@
+name: $(managementGroupId) - $(tenantName)
+
+variables:
+- template: mg.variables.yml
+
+trigger:
+  batch: true
+  branches:
+    include:
+    - master
+  paths:
+    include:
+    - .global/*
+    - tenant.variables.yml
+    - management-mg/mg.variables.yml
+    - management-mg/pipeline.yml
+    - management-mg/parameters/*
+
+resources:
+  repositories:
+  - repository: IaC
+    type: git
+    ref: 'refs/heads/master'
+    name: IaC
+
+stages:
+- stage: Deploy_RoleDefinitions
+  jobs:
+    - template: /cicd/templates/pipeline.jobs.deploy.yml@IaC
+      parameters:
+        moduleName: roleDefinitions
+        moduleVersion: '1.0'
+        deploymentBlocks:
+        - path: $(parametersPath)/roleDefinitions/Management-Governance-Administrator.json
+        checkoutRepositories:
+        - IaC
+
+- stage: Deploy_ManagementGroup
+  jobs:
+  - template: /cicd/templates/pipeline.jobs.deploy.yml@IaC
+    parameters:
+      moduleName: managementgroup
+      moduleVersion: '1.0'
+      deploymentBlocks:
+      - path: $(parametersPath)/managementgroup/management-mg.json
+      checkoutRepositories:
+      - IaC
+
+- stage: Deploy_PolicyDefinition
+  dependsOn: Deploy_ManagementGroup
+  jobs:
+  - template: /cicd/templates/pipeline.jobs.deploy.yml@IaC
+    parameters:
+      moduleName: policyDefinition
+      moduleVersion: "2.0"
+      serviceConnection: $(serviceConnection)
+      deploymentBlocks:
+      - path: $(parametersPath)/policyDefinitions/mgmt-deployasc-pd.json
+      checkoutRepositories:
+      - IaC
+
+- stage: Deploy_InitiativeDefinition
+  dependsOn: Deploy_PolicyDefinition
+  jobs:
+  - template: /cicd/templates/pipeline.jobs.deploy.yml@IaC
+    parameters:
+      moduleName: initiativeDefinition
+      moduleVersion: "2.0"
+      serviceConnection: $(serviceConnection)
+      deploymentBlocks:
+      - path: $(parametersPath)/initiativeDefinitions/mgmt-security-pi.json
+      checkoutRepositories:
+      - IaC
+
+- stage: Deploy_PolicyAssignment
+  dependsOn: Deploy_InitiativeDefinition
+  jobs:
+  - template: /cicd/templates/pipeline.jobs.deploy.yml@IaC
+    parameters:
+      moduleName: policyAssignment
+      moduleVersion: "2.0"
+      serviceConnection: $(serviceConnection)
+      deploymentBlocks:
+      - path: $(parametersPath)/policyAssignments/mgmt-security-pa.json
+      checkoutRepositories:
+      - IaC
